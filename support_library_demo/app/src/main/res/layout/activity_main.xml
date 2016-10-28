@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:id="@+id/drawer_layout"
+	android:orientation="vertical">
+
+	<android.support.design.widget.CoordinatorLayout
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		android:id="@+id/main_content"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<android.support.design.widget.AppBarLayout
+			android:id="@+id/app_bar_layout"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+			<android.support.v7.widget.Toolbar
+				android:id="@+id/tool_bar"
+				android:layout_width="match_parent"
+				android:layout_height="?attr/actionBarSize"
+				android:background="?attr/colorPrimary"
+				app:layout_scrollFlags="scroll|enterAlways">
+
+				<RelativeLayout
+					android:layout_height="match_parent"
+					android:layout_width="match_parent">
+
+					<TextView
+						android:layout_height="wrap_content"
+						android:layout_width="wrap_content"
+						android:text="resetDemo"
+						android:layout_alignParentLeft="true"/>
+
+					<RelativeLayout
+						android:layout_height="wrap_content"
+						android:layout_width="wrap_content"
+						android:layout_alignParentRight="true">
+
+						<TextView
+							android:layout_height="wrap_content"
+							android:id="@+id/tTextView"
+							android:background="@drawable/button_normal"
+							android:layout_width="wrap_content"
+							android:layout_alignParentRight="true"
+							android:minWidth="10dp"
+							android:gravity="center_vertical|center_horizontal"
+							android:minHeight="10dp"/>
+
+						<TextView
+							android:layout_height="40dp"
+							android:text="image"
+							android:textAppearance="?android:attr/textAppearanceSmall"
+							android:layout_width="wrap_content"
+							android:id="@+id/activitymainTextView1"
+							android:textSize="30sp"
+							android:layout_toLeftOf="@id/tTextView"/>
+
+					</RelativeLayout>
+
+				</RelativeLayout>
+
+			</android.support.v7.widget.Toolbar>
+
+			<android.support.design.widget.TabLayout
+				android:id="@+id/tab_layout"
+				android:layout_width="match_parent"
+				android:layout_height="35dp"
+				android:background="#03BCD4"/>
+
+		</android.support.design.widget.AppBarLayout>
+
+		<android.support.v4.view.ViewPager
+			android:id="@+id/view_pager"
+			app:layout_behavior="@string/appbar_scrolling_view_behavior"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"/>
+
+	</android.support.design.widget.CoordinatorLayout>
+
+	<android.support.design.widget.NavigationView
+		android:id="@+id/navigation_view"
+		android:layout_width="wrap_content"
+		android:layout_height="match_parent"
+		android:layout_gravity="left"
+		app:headerLayout="@layout/drawer_header"
+		app:menu="@menu/menu_drawer"/>
+
+</android.support.v4.widget.DrawerLayout>
+
