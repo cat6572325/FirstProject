@@ -56,6 +56,7 @@ public class InfoDetailsFragment extends Fragment {
 			//addTextToList("广东",1,android.R.drawable.ic_lock_lock,"ps","data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊");
 			
 		}
+		addTextToList("uuu",1,"android.R.drawable.ic_lock_lock",0,"name");
 		
 		adapter=new FirstAdapter(getActivity(),lists);
 		

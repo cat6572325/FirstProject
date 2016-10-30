@@ -1,5 +1,7 @@
 package com.yanbober.support_library_demo;
 
+import android.animation.*;
+import android.content.*;
 import android.graphics.*;
 import android.os.*;
 import android.support.design.widget.*;
@@ -10,6 +12,7 @@ import android.support.v7.app.*;
 import android.support.v7.widget.*;
 import android.util.*;
 import android.view.*;
+import android.view.View.*;
 import android.widget.*;
 import java.io.*;
 import java.net.*;
@@ -60,7 +63,14 @@ public class MainActivity extends ActionBarActivity {
     private TabLayout mTabLayout;
     //v4中的ViewPager控件
     private ViewPager mViewPager;
-
+	ListView rl;
+	MyChatAdapter ladapter;
+	int[] layout={R.layout.left_list_item,R.layout.line_item};
+	
+	
+	public ArrayList<HashMap<String,Object>> lists=new ArrayList<HashMap<String,Object>>();
+	
+LinearLayout ll;
 	public ImageView heard;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +78,133 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         //初始化控件及布局
         initView();
+		
+		
+		final ImageView fabIconNew = new ImageView(this);
+        fabIconNew.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_new_light));
+        final Popup_Button rightLowerButton = new Popup_Button.Builder(this)
+			.setContentView(fabIconNew)
+			.build();
+		
+		SubActionButton.Builder rLSubBuilder = new SubActionButton.Builder(this);
+        ImageView rlIcon1 = new ImageView(this);
+        ImageView rlIcon2 = new ImageView(this);
+        ImageView rlIcon3 = new ImageView(this);
+        ImageView rlIcon4 = new ImageView(this);
+
+        rlIcon1.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_chat_light));
+        rlIcon2.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_camera_light));
+        rlIcon3.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_video_light));
+        rlIcon4.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_place_light));
+
+        // Build the menu with default options: light theme, 90 degrees, 72dp radius.
+        // Set 4 default SubActionButtons
+        final FloatingActionMenu rightLowerMenu = new FloatingActionMenu.Builder(this)
+			.addSubActionView(rLSubBuilder.setContentView(rlIcon1).build())
+			.addSubActionView(rLSubBuilder.setContentView(rlIcon2).build())
+			.addSubActionView(rLSubBuilder.setContentView(rlIcon3).build())
+			.addSubActionView(rLSubBuilder.setContentView(rlIcon4).build())
+			.attachTo(rightLowerButton)
+			.build();
+
+        // Listen menu open and close events to animate the button content view
+        rightLowerMenu.setStateChangeListener(new FloatingActionMenu.MenuStateChangeListener() {
+				@Override
+				public void onMenuOpened(FloatingActionMenu menu) {
+					// Rotate the icon of rightLowerButton 45 degrees clockwise
+					fabIconNew.setRotation(0);
+					PropertyValuesHolder pvhR = PropertyValuesHolder.ofFloat(View.ROTATION, 45);
+					ObjectAnimator animation = ObjectAnimator.ofPropertyValuesHolder(fabIconNew, pvhR);
+					animation.start();
+				}
+
+				@Override
+				public void onMenuClosed(FloatingActionMenu menu) {
+					// Rotate the icon of rightLowerButton 45 degrees counter-clockwise
+					fabIconNew.setRotation(45);
+					PropertyValuesHolder pvhR = PropertyValuesHolder.ofFloat(View.ROTATION, 0);
+					ObjectAnimator animation = ObjectAnimator.ofPropertyValuesHolder(fabIconNew, pvhR);
+					animation.start();
+				}
+			});
+
+        // Set up the large red button on the center right side
+        // With custom button and content sizes and margins
+    /*    int redActionButtonSize = getResources().getDimensionPixelSize(R.dimen.red_action_button_size);
+        int redActionButtonMargin = getResources().getDimensionPixelOffset(R.dimen.action_button_margin);
+        int redActionButtonContentSize = getResources().getDimensionPixelSize(R.dimen.red_action_button_content_size);
+        int redActionButtonContentMargin = getResources().getDimensionPixelSize(R.dimen.red_action_button_content_margin);
+        int redActionMenuRadius = getResources().getDimensionPixelSize(R.dimen.red_action_menu_radius);
+        int blueSubActionButtonSize = getResources().getDimensionPixelSize(R.dimen.blue_sub_action_button_size);
+        int blueSubActionButtonContentMargin = getResources().getDimensionPixelSize(R.dimen.blue_sub_action_button_content_margin);
+
+        ImageView fabIconStar = new ImageView(this);
+        fabIconStar.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_important));
+
+        Popup_Button.LayoutParams starParams = new Popup_Button.LayoutParams(redActionButtonSize, redActionButtonSize);
+        starParams.setMargins(redActionButtonMargin,
+                              redActionButtonMargin,
+                              redActionButtonMargin,
+                              redActionButtonMargin);
+        fabIconStar.setLayoutParams(starParams);
+
+        Popup_Button.LayoutParams fabIconStarParams = new Popup_Button.LayoutParams(redActionButtonContentSize, redActionButtonContentSize);
+        fabIconStarParams.setMargins(redActionButtonContentMargin,
+									 redActionButtonContentMargin,
+									 redActionButtonContentMargin,
+									 redActionButtonContentMargin);
+
+        final Popup_Button leftCenterButton = new Popup_Button.Builder(this)
+			.setContentView(fabIconStar, fabIconStarParams)
+			.setBackgroundDrawable(R.drawable.button_action_red_selector)
+			.setPosition(Popup_Button.POSITION_LEFT_CENTER)
+			.setLayoutParams(starParams)
+			.build();
+
+        // Set up customized SubActionButtons for the right center menu
+        SubActionButton.Builder lCSubBuilder = new SubActionButton.Builder(this);
+        lCSubBuilder.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_action_blue_selector));
+
+        FrameLayout.LayoutParams blueContentParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+        blueContentParams.setMargins(blueSubActionButtonContentMargin,
+									 blueSubActionButtonContentMargin,
+									 blueSubActionButtonContentMargin,
+									 blueSubActionButtonContentMargin);
+        lCSubBuilder.setLayoutParams(blueContentParams);
+        // Set custom layout params
+        FrameLayout.LayoutParams blueParams = new FrameLayout.LayoutParams(blueSubActionButtonSize, blueSubActionButtonSize);
+        lCSubBuilder.setLayoutParams(blueParams);
+
+        ImageView lcIcon1 = new ImageView(this);
+        ImageView lcIcon2 = new ImageView(this);
+        ImageView lcIcon3 = new ImageView(this);
+        ImageView lcIcon4 = new ImageView(this);
+        ImageView lcIcon5 = new ImageView(this);
+
+        lcIcon1.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_camera));
+        lcIcon2.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_picture));
+        lcIcon3.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_video));
+        lcIcon4.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_location_found));
+        lcIcon5.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_headphones));
+
+        // Build another menu with custom options
+   /*     final FloatingActionMenu leftCenterMenu = new FloatingActionMenu.Builder(this)
+			.addSubActionView(lCSubBuilder.setContentView(lcIcon1, blueContentParams).build())
+			.addSubActionView(lCSubBuilder.setContentView(lcIcon2, blueContentParams).build())
+			.addSubActionView(lCSubBuilder.setContentView(lcIcon3, blueContentParams).build())
+			.addSubActionView(lCSubBuilder.setContentView(lcIcon4, blueContentParams).build())
+			.addSubActionView(lCSubBuilder.setContentView(lcIcon5, blueContentParams).build())
+			.setRadius(redActionMenuRadius)
+			.setStartAngle(70)
+			.setEndAngle(-70)
+			.attachTo(leftCenterButton)
+			.build();
+*/
+		
+		
+		
+		
+		
     }
 public void setdate()
 {
@@ -89,27 +226,51 @@ public void setgroup(String[] group,String[] phones)
         //MainActivity的布局文件中的主要控件初始化
         mToolbar = (Toolbar) this.findViewById(R.id.tool_bar);
         mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
-        mNavigationView = (NavigationView) this.findViewById(R.id.navigation_view);
+     //   mNavigationView = (NavigationView) this.findViewById(R.id.navigation_view);
         mTabLayout = (TabLayout) this.findViewById(R.id.tab_layout);
         mViewPager = (ViewPager) this.findViewById(R.id.view_pager);
+		rl=(ListView)this.findViewById(R.id.tRecyclerView1);
+		ll=(LinearLayout)this.findViewById(R.id.activitymainLinearLayout1);
 		ThreadEx c1=new ThreadEx(MainActivity.this,"loginAndPass");
 		Thread x1=new Thread(c1);
 		//x1.start();
+		//rl.setItemAnimator(new DefaultItemAnimator());
+		 //mRecyclerView.addItemDecoration(new div
+       
+       // LinearLayoutManager manager = new LinearLayoutManager(mRecyclerView.getContext());
+       // manager.setOrientation(2,LinearLayoutManager.HORIZONTAL);
+      //  rl.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
+		//设置RecyclerView布局管理器为2列垂直排布
+	
 		
+		addTextToList("首页",0,R.drawable.home);
+		addTextToList("已付",1,R.drawable.paid);
+		
+		addTextToList("我的",0,R.drawable.fab_bg_normal);
+		addTextToList("收藏",0,R.drawable.collect);
+		addTextToList("余额",0,R.drawable.balance);
+		addTextToList("分割贱",1,R.drawable.fab_bg_normal);
+		
+		addTextToList("设置",0,R.drawable.fab_bg_normal);
+		addTextToList("反馈",0,R.drawable.feedback);
+		
+		
+		ladapter=new MyChatAdapter(MainActivity.this,lists,layout);
+		rl.setAdapter(ladapter);
 		
         //初始化ToolBar
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeAsUpIndicator(android.R.drawable.ic_dialog_alert);
+        actionBar.setHomeAsUpIndicator(R.drawable.menu);//android.R.drawable.ic_dialog_alert);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         //对NavigationView添加item的监听事件
-        mNavigationView.setNavigationItemSelectedListener(naviListener);
+       // mNavigationView.setNavigationItemSelectedListener(naviListener);
         //开启应用默认打开DrawerLayout
-        mDrawerLayout.openDrawer(mNavigationView);
-		View v=mNavigationView.getHeaderView(0);
+      //  mDrawerLayout.openDrawer(ll);
+	/*	View v=mNavigationView.getHeaderView(0);
 		heard=(ImageView)v.findViewById(R.id.drawer_headerImageView);
-		heard.setBackgroundResource(android.R.drawable.dark_header);
+		heard.setBackgroundResource(android.R.drawable.dark_header);*/
         //初始化TabLayout的title数据集
         List<String> titles = new ArrayList<>();
         titles.add("联系人与组");
@@ -133,6 +294,17 @@ public void setgroup(String[] group,String[] phones)
         //同时也要覆写PagerAdapter的getPageTitle方法，否则Tab没有title
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabsFromPagerAdapter(adapter);
+    }
+	public void addTextToList(String text, int who,int id)
+	{
+		HashMap<String,Object> map=new HashMap<String,Object>();
+		map.put("person", who);
+		map.put("image", id);
+		map.put("text", text);
+	
+		map.put("layout",who);
+	
+		lists.add(map);
     }
 
     private NavigationView.OnNavigationItemSelectedListener naviListener = new NavigationView.OnNavigationItemSelectedListener() {
@@ -260,4 +432,103 @@ public void setgroup(String[] group,String[] phones)
 	public void setButtonClickedListener(OnButtonClickedListener buttonClickedListener){
 		this.buttonClickedListener=buttonClickedListener;
 	}
+	
+	private class MyChatAdapter extends BaseAdapter
+	{
+
+        Context context=null;
+        ArrayList<HashMap<String,Object>> chatList=null;
+        int[] layout;
+        String[] from;
+        int[] to;
+
+
+
+        public MyChatAdapter(Context context,
+                             ArrayList<HashMap<String, Object>> chatList, int[] layout
+                             )
+		{
+			super();
+			this.context = context;
+			this.chatList = chatList;
+			this.layout = layout;
+			
+        }
+
+
+        public int getCount()
+		{
+			// TODO Auto-generated method stub
+			return chatList.size();
+        }
+
+
+        public Object getItem(int arg0)
+		{
+			// TODO Auto-generated method stub
+			return null;
+        }
+
+
+        public long getItemId(int position)
+		{
+			// TODO Auto-generated method stub
+			return position;
+        }
+
+
+        ////////////
+        class ViewHolder
+		{
+            public ImageView imageView=null;
+            public TextView textView=null;
+			public String title;
+			private ImageView i_icon,i_icon2;
+			public TextView T_title,T_red;
+        }
+        ////////////
+
+        public View getView(int position, View convertView, ViewGroup parent)
+		{
+			// TODO Auto-generated method stub
+			ViewHolder holder=null;
+			final TextView tt;
+			LinearLayout re;
+			int who=(Integer)chatList.get(position).get("person");
+
+			
+			switch(who)
+			{
+				case 0:
+					convertView = LayoutInflater.from(context).inflate(
+						layout[who], null);
+						ImageView img=(ImageView)convertView.findViewById(R.id.left_list_itemImageView);
+						TextView tv=(TextView)convertView.findViewById(R.id.leftlistitemTextView1);
+						img.setImageResource((Integer)chatList.get(position).get("image"));
+						tv.setText((String)chatList.get(position).get("text"));
+						
+						
+					break;
+				case 1:
+					isEnabled(position);
+					convertView = LayoutInflater.from(context).inflate(
+						layout[who], null);
+						View v=(View)convertView.findViewById(R.id.lineitemView1);
+						v.setOnClickListener(new OnClickListener()
+						{
+							public void onClick(View view)
+							{
+								
+							}
+						});
+
+					break;
+					
+					
+			}
+			return convertView;
+
+		}
+	}
+	
 }

@@ -1,8 +1,6 @@
 package com.yanbober.support_library_demo;
 
 import android.content.*;
-import android.graphics.*;
-import android.net.*;
 import android.os.*;
 import android.support.design.widget.*;
 import android.support.v7.app.*;
@@ -10,11 +8,20 @@ import android.support.v7.widget.*;
 import android.view.*;
 import android.view.View.*;
 import android.widget.*;
-import com.yanbober.support_library_demo.*;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
+import android.app.Activity;
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import android.support.v7.widget.Toolbar;
 
-public class Home extends AppCompatActivity
+public class Home extends ActionBarActivity
 {
 	CollapsingToolbarLayout collapsingToolbar;
 	
@@ -57,6 +64,14 @@ public Handler mHandler = new Handler()
 		p.create().show();
 		card1=(Button)findViewById(R.id.home_pagecard1);
 		fab=(FloatingActionButton)findViewById(R.id.home_pageFloatingActionButt);
+		final ImageView fabIconNew = new ImageView(this);
+        fabIconNew.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_new_light));
+        final Popup_Button rightLowerButton = new Popup_Button.Builder(this)
+			.setContentView(fabIconNew)
+			.build();
+		
+		
+		
 		fab.setOnClickListener(new OnClickListener() {
 				/////////login
 				public void onClick(View v) {

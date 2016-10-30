@@ -1,51 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:orientation="vertical">
-	
-	
-	<RelativeLayout
-		android:layout_height="match_parent"
-		android:layout_width="match_parent"
-		android:background="@drawable/qq"
-		android:layout_margin="10dp">
 
-		<ImageView
-			android:layout_width="50dp"
-			android:layout_height="50dp"
-			android:id="@+id/recy_card_itemImageView"
-			android:scaleType="fitStart"
-			android:layout_centerVertical="true"
-			android:src="@drawable/icon_people"/>
+	<LinearLayout
+		android:clickable="false"
+		android:layout_height="match_parent"
+		android:layout_width="260dp"
+		android:layout_gravity="left"
+		android:background="#ffffff"
+		android:orientation="vertical"
+		android:id="@+id/activitymainLinearLayout1">
+
+		<RelativeLayout
+			android:layout_height="200dp"
+			android:layout_width="match_parent">
+
+			<ImageView
+				android:layout_width="100dp"
+				android:id="@+id/drawer_headerImageView"
+				android:layout_height="100dp"
+				android:background="@drawable/image"
+				android:layout_marginLeft="10dp"
+				android:layout_centerHorizontal="true"
+				android:layout_centerInParent="true"/>
+
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:orientation="vertical"
+				android:layout_below="@id/drawer_headerImageView"
+				android:layout_centerHorizontal="true">
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textSize="15sp"
+					android:text="UserName"/>
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:text="Medium Text"
+					android:textAppearance="?android:attr/textAppearanceMedium"
+					android:layout_width="wrap_content"
+					android:textColor="#D8D4D3"
+					android:maxHeight="25dp"/>
+
+			</LinearLayout>
+
+		</RelativeLayout>
+
+		<View
+			android:layout_height="1dp"
+			android:background="?android:attr/dividerVertical"
+			android:layout_width="match_parent"
+			android:layout_margin="10dp"/>
 
 		<RelativeLayout
 			android:layout_height="wrap_content"
 			android:layout_width="match_parent"
-			android:layout_alignParentBottom="true"
-			android:background="#817271">
+			android:layout_marginLeft="15dp"
+			android:layout_marginTop="30dp">
 
-			<TextView
+			<ListView
 				android:layout_height="wrap_content"
-				android:text="Small Text"
-				android:id="@+id/recy_card_itemTextView"
-				android:textAppearance="?android:attr/textAppearanceSmall"
-				android:layout_width="wrap_content"/>
+				android:layout_width="wrap_content"
+				android:divider="@null"
+				android:dividerHeight="0dp"
+				android:id="@+id/tRecyclerView1"/>
 
 		</RelativeLayout>
 
-	</RelativeLayout>
-	<TextView
-		android:layout_height="wrap_content"
-		android:text="1"
-	android:id="@+id/tTextView"
-		android:background="@drawable/button_normal"
-		android:layout_width="wrap_content"
-		android:layout_alignParentRight="true"
-		android:minWidth="10dp"
-		android:gravity="center_vertical|center_horizontal"
-		android:minHeight="10dp"/>
-	
-</RelativeLayout>
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content">
+
+			<ImageView
+				android:layout_height="23dp"
+				android:layout_width="23dp"
+				android:minHeight="23dp"
+				android:id="@+id/left_list_itemImageView"
+				android:layout_marginRight="35dp"
+				android:layout_marginTop="9dp"/>
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:text="Large Text"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:layout_width="wrap_content"
+				android:id="@+id/leftlistitemTextView1"
+				android:layout_marginTop="9dp"
+				android:textSize="17sp"
+				android:textColor="#757575"/>
+
+		</LinearLayout>
+
+	</LinearLayout>
+
+</LinearLayout>
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.yanbober.support_library_demo"
     android:versionCode="1"
     android:versionName="1.0" >
@@ -15,6 +16,7 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:allowBackup="true"
@@ -34,6 +36,20 @@
             android:name="com.yanbober.support_library_demo.SubActivity"
             android:label="工匠若水详情" />
         <activity android:name="com.yanbober.support_library_demo.Home" />
+        <activity
+            android:name="com.yanbober.support_library_demo.MenuWithFABActivity"
+            android:label="null"
+            android:parentActivityName="com.yanbober.support_library_demo.DemoActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.oguzdev.circularfloatingactionmenu.samples.DemoActivity" />
+        </activity>
+
+        <service
+            android:name="com.yanbober.support_library_demo.SystemOverlayMenuService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>

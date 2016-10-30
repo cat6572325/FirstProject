@@ -20,7 +20,7 @@ public class ShareFragment extends Fragment {
 	private List<Integer> counttype=new ArrayList<>();
 	private List<String> data=new ArrayList<>();
 	
-	public MyreclerAdapter adapter;
+	public FirstAdapter adapter;
 	RelativeLayout rv;
     private RecyclerView mRecyclerView;
 
@@ -44,8 +44,8 @@ public class ShareFragment extends Fragment {
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
 		//设置RecyclerView布局管理器为2列垂直排布
 	//	addTextToList2("广东",2,android.R.drawable.ic_lock_lock,"ps","data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊");
-		addTextToList2("广东",1,android.R.drawable.ic_lock_lock,"ps","data",0,"这点略大，颜色不一样，标题栏缺少图标和点击效果，");
-		addTextToList2("广东",2,android.R.drawable.ic_lock_lock,"ps","data",0,"这点略大，颜色不一样，标题栏缺少图标和点击效果，");
+		//addTextToList2("广东",1,android.R.drawable.ic_lock_lock,"ps","data",0,"这点略大，颜色不一样，标题栏缺少图标和点击效果，",0);
+		addTextToList2("广东",0,android.R.drawable.ic_lock_lock,"ps","data",0,"这点略大，颜色不一样，标题栏缺少图标和点击效果，",1);
 		
 		
 		for(int i=0;i<android.R.drawable.class.getDeclaredFields().length;i++)
@@ -55,13 +55,14 @@ public class ShareFragment extends Fragment {
 			,android.R.drawable.ic_lock_lock,"ps"
 			,"data",0
 			,"这点略大，颜色不一样，标题栏缺少图标和点击效果，"
+			,0
 			);
 			counttype.add(R.drawable.icon_people);
 			data.add("uuu");
 		}
 		String str;
 		
-		adapter = new MyreclerAdapter(getActivity(),lists,data,counttype);
+		adapter = new FirstAdapter(getActivity(),lists);
 		
         mRecyclerView.setAdapter(adapter);
 		ThreadEx ex=new ThreadEx((MainActivity)getActivity(),"getshare");
@@ -82,12 +83,13 @@ public class ShareFragment extends Fragment {
 		map.put("name",name);
 		lists.add(map);
     }
-	public void addTextToList2(String text, int who, int id,String ps,String data,int person,String name)
+	public void addTextToList2(String text, int who, int id,String ps,String data,int person,String name,int is)
 	{
 		HashMap<String,Object> map=new HashMap<String,Object>();
 		map.put("person", person);
 		map.put("image", id);
 		map.put("text", text);
+		map.put("is",is);
 		map.put("ps", ps);
 		map.put("data",data);
 		map.put("layout",who);

@@ -3,8 +3,8 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">#34A2DA</item>
-        <item name="colorPrimaryDark">#1785C6</item>
+        <item name="colorPrimary">#ffffff</item>
+        <item name="colorPrimaryDark">#aaaaaa</item>
 		<item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
 		
@@ -12,7 +12,18 @@
         <!--<item name="colorAccent">#FF4081</item>
         <item name="android:windowBackground">@android:color/white</item>-->
     </style>
+	<style name="AppThemeDark" parent="Theme.AppCompat">
+        <!-- Customize your theme here. -->
+        <item name="android:actionBarStyle">@style/AppThemeDark.ActionBarStyle</item>
+    </style>
+
+    <style name="AppThemeDark.ActionBarStyle" parent="android:Widget.ActionBar">
+        <item name="android:background">#001100</item>
+    </style>
 	<style name="normalButton" prent="android:style/Widget.Holo.Button">
 		<item name="android:background">@drawable/button_normal</item>
+	</style>
+	<style name="tabfont" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+		<item name ="android:textSize">20sp</item>
 	</style>
 </resources> 
