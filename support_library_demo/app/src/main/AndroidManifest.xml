@@ -28,7 +28,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+		<activity android:name=".Message_c"
+            android:label="King arthur"></activity>
+		<activity android:name=".Paid_Video"
+            android:label="knight of Lancelot"></activity>
+		<activity android:name=".Collect_"
+            android:label="knight of Lancelot"></activity>
+		<activity android:name=".Balance_"
+            android:label="knight of gawaine"></activity>
+		
+			
         <activity android:name=".SubActivity"
             android:label="工匠若水详情"></activity>
 		<activity android:name=".Home"/>

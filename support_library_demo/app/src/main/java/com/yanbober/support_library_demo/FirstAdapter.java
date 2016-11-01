@@ -13,7 +13,7 @@ public class FirstAdapter extends RecyclerView.Adapter<MyViewHolder2> {
 
     private List<Integer> counttype=new ArrayList<>();
 
-	int[] layout={R.layout.recy_card_item,R.layout.share_item,R.layout.headlayout};
+	int[] layout={R.layout.recy_card_item,R.layout.share_item,R.layout.paid_item};
     private OnItemClickListener mListener;
 	/**
      * 点击事件的接口
@@ -84,7 +84,23 @@ public class FirstAdapter extends RecyclerView.Adapter<MyViewHolder2> {
 
 				break;
 			
+case 2:
+				view=LayoutInflater.from(context).inflate(R.layout.paid_item,parent,false);
+				holder=new MyViewHolder2(view);
 
+
+				break;
+			case 3:
+				//collect_是否显示小红点
+				view=LayoutInflater.from(context).inflate(R.layout.collect_item,parent,false);
+				holder=new MyViewHolder2(view);
+
+
+				break;
+						
+				
+				
+				
 		}
 		//view = LayoutInflater.from(context).inflate(layout[(int)lists.get(2).get("layout")],
 		//										parent,false);
@@ -170,8 +186,43 @@ public class FirstAdapter extends RecyclerView.Adapter<MyViewHolder2> {
 					
 					break;
 					case 2:
-						
+					holder.paid_name.setText((String)lists.get(position).get("text"));
+					holder.paid_ps.setText((String)lists.get(position).get("ps"));
+					holder.rll.setBackgroundResource((Integer)lists.get(position).get("image"));
+					
+					
 						break;
+						
+			case 3:
+				//collect是否显示小圆点
+				if((Integer)lists.get(position).get("isspot")==1)
+				{//不显示
+					holder.collect_spot.setVisibility(View.INVISIBLE);
+					}else
+					{
+						//显示
+					}
+				//collect是否许显示支付按钮
+
+				if((Integer)lists.get(position).get("ispay")==1)
+				{//不显示
+					holder.collect_rv.setVisibility(View.INVISIBLE);
+				}else
+				{
+					//显示
+					//缺少一个支付按钮响应事件逻辑
+				}
+				
+					
+				holder.collect_name.setText((String)lists.get(position).get("text"));
+				holder.collect_ps.setText((String)lists.get(position).get("ps"));
+				holder.collect_back.setBackgroundResource((Integer)lists.get(position).get("image"));
+				
+
+				break;
+				
+			
+						
 
 		}
 
@@ -342,9 +393,10 @@ public class FirstAdapter extends RecyclerView.Adapter<MyViewHolder2> {
 class MyViewHolder2 extends RecyclerView.ViewHolder{
 
 	////viewtype0
-    TextView mTv,name,data,ps,is;
+    TextView mTv,name,data,ps,is,paid_name,paid_ps,collect_spot,collect_name,collect_ps;
+	RelativeLayout rll;
 	ImageView img,img1;
-RelativeLayout rv;
+RelativeLayout rv,collect_rv,collect_back;
 	String[] provent;
 
     public MyViewHolder2(View itemView) {
@@ -357,6 +409,23 @@ rv=(RelativeLayout)itemView.findViewById(R.id.recycarditemRelativeLayout1);
 is=(TextView)itemView.findViewById(R.id.tTextView);
 		img=(ImageView)itemView.findViewById(R.id.recy_card_itemImageView);
 		mTv=(TextView)itemView.findViewById(R.id.recy_card_itemTextView);
+	//////Paid_Video
+		paid_name	=(TextView)itemView.findViewById(R.id.paiditemTextView1);
+	paid_ps	=(TextView)itemView.findViewById(R.id.recy_card_itemTextView);
+		rll=(RelativeLayout)itemView.findViewById(R.id.paid_itemRelativeLayout);
+		//////Paid_Video
+		/////Collect_
+		collect_rv=(RelativeLayout)itemView.findViewById(R.id.collectitemRelativeLayout1);
+		//支付按钮(rela)
+		collect_spot=(TextView)itemView.findViewById(R.id.tTextView);
+		//小圆点
+		collect_name=(TextView)itemView.findViewById(R.id.paiditemTextView1);
+		//名字
+		collect_ps=(TextView)itemView.findViewById(R.id.recy_card_itemTextView);
+		//说明
+		collect_back=(RelativeLayout)itemView.findViewById(R.id.collectitemRelativeLayout2);
+		//背景(海报)
+		//////Collect_
     }
 }
 class MyViewHolder1 extends RecyclerView.ViewHolder{

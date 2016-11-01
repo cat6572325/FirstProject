@@ -14,11 +14,13 @@ import android.util.*;
 import android.view.*;
 import android.view.View.*;
 import android.widget.*;
+import android.widget.AdapterView.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
 
 import android.support.v7.widget.Toolbar;
+import android.view.View.OnClickListener;
 /**
  * 一个中文版Demo App搞定所有Android的Support Library新增所有兼容控件
  * 支持最新2015 Google I/O大会Android Design Support Library
@@ -72,6 +74,8 @@ public class MainActivity extends ActionBarActivity {
 	
 LinearLayout ll;
 	public ImageView heard;
+	
+	ImageView message;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -231,6 +235,8 @@ public void setgroup(String[] group,String[] phones)
         mViewPager = (ViewPager) this.findViewById(R.id.view_pager);
 		rl=(ListView)this.findViewById(R.id.tRecyclerView1);
 		ll=(LinearLayout)this.findViewById(R.id.activitymainLinearLayout1);
+		message=(ImageView)this.findViewById(R.id.activitymainTextView1);
+		
 		ThreadEx c1=new ThreadEx(MainActivity.this,"loginAndPass");
 		Thread x1=new Thread(c1);
 		//x1.start();
@@ -244,7 +250,7 @@ public void setgroup(String[] group,String[] phones)
 	
 		
 		addTextToList("首页",0,R.drawable.home);
-		addTextToList("已付",1,R.drawable.paid);
+		addTextToList("已付",0,R.drawable.paid);
 		
 		addTextToList("我的",0,R.drawable.fab_bg_normal);
 		addTextToList("收藏",0,R.drawable.collect);
@@ -257,13 +263,48 @@ public void setgroup(String[] group,String[] phones)
 		
 		ladapter=new MyChatAdapter(MainActivity.this,lists,layout);
 		rl.setAdapter(ladapter);
+		rl.setOnItemClickListener(new OnItemClickListener(){
+	public void onItemClick(AdapterView<?> parent,View view,int position,long id)
+	{
+		TextView tv=(TextView)view.findViewById(R.id.leftlistitemTextView1);
+		String str=tv.getText().toString();
+		if(str.equals("首页"))
+		{
+			
+		}
+		if(str.equals("已付"))
+		{
+			Intent intent=new Intent(MainActivity.this,Paid_Video.class);
+			startActivity(intent);
+		}
 		
+		if(str.equals("收藏"))
+		{
+			Intent intent=new Intent(MainActivity.this,Collect_.class);
+			startActivity(intent);
+		}
+		if(str.equals("余额"))
+		{
+			Intent intent=new Intent(MainActivity.this,Balance_.class);
+			startActivity(intent);
+		}
+		}
+		});
         //初始化ToolBar
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.menu);//android.R.drawable.ic_dialog_alert);
         actionBar.setDisplayHomeAsUpEnabled(true);
-
+message.setOnClickListener(new View.OnClickListener()
+{
+	
+	public void onClick(View v)
+	{
+		Intent intent=new Intent(MainActivity.this,Message_c.class);
+		startActivity(intent);
+		
+	}
+});
         //对NavigationView添加item的监听事件
        // mNavigationView.setNavigationItemSelectedListener(naviListener);
         //开启应用默认打开DrawerLayout
