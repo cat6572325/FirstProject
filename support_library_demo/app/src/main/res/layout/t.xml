@@ -5,6 +5,127 @@
 	android:layout_height="fill_parent"
 	android:orientation="vertical">
 
-	
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="vertical"
+		android:layout_centerInParent="true">
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:orientation="horizontal"
+			android:gravity="center_horizontal"
+			android:layout_margin="25dp">
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:text="看视频的方法"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:layout_width="wrap_content"/>
+
+		</LinearLayout>
+
+		<RelativeLayout
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:orientation="horizontal"
+			android:gravity="center_vertical">
+
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:layout_marginLeft="20dp"
+				android:gravity="center_vertical">
+
+				<ImageView
+					android:layout_height="35dp"
+					android:layout_width="35dp"
+					android:background="@drawable/image"/>
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:text="夜愿"
+					android:textAppearance="?android:attr/textAppearanceMedium"
+					android:layout_width="wrap_content"/>
+
+			</LinearLayout>
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:text="888人付款"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="wrap_content"
+				android:textColor="#88939393"
+				android:layout_centerHorizontal="true"
+				android:layout_centerVertical="true"/>
+
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:layout_alignParentRight="true"
+				android:layout_marginRight="20dp"
+				android:gravity="center_vertical"
+				android:layout_centerVertical="true">
+
+				<ImageView
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:background="@drawable/start_yellow"/>
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:text="收藏"
+					android:textAppearance="?android:attr/textAppearanceMedium"
+					android:layout_width="wrap_content"
+					android:textColor="#F48B08"/>
+
+			</LinearLayout>
+
+		</RelativeLayout>
+
+		<View
+			android:layout_height="5dp"
+			android:background="?android:attr/dividerVertical"
+			android:layout_width="match_parent"
+			android:layout_marginBottom="30dp"
+			android:layout_marginTop="20dp"/>
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:orientation="horizontal"
+			android:layout_margin="15dp"
+			android:gravity="center_vertical">
+
+			<View
+				android:layout_height="25dp"
+				android:layout_width="4dp"
+				android:background="#8810B1"/>
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:text="简介 ："
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:layout_width="wrap_content"/>
+
+		</LinearLayout>
+
+		<RelativeLayout
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_marginLeft="15dp"
+			android:layout_marginRight="15dp">
+
+			<TextView
+				android:layout_height="match_parent"
+				android:text="提示：长按视频区域全屏。在线播放，实时下载，网络优化，你看，只要点一下收藏就可以随时看，当然这要视频是免费的，希望观看愉快！/n应用作者记"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="wrap_content"/>
+
+		</RelativeLayout>
+
+	</LinearLayout>
+
 </LinearLayout>
 

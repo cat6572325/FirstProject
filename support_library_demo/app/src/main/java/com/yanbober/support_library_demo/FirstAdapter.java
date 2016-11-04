@@ -27,7 +27,9 @@ public class FirstAdapter extends RecyclerView.Adapter<MyViewHolder2> {
     public void setmOnItemClickListener(OnItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
-
+	public void setOnClickListener(OnItemClickListener listener){
+        this.mListener = listener;
+    }
     /**
      * 构造函数
      * @param context
@@ -98,6 +100,13 @@ case 2:
 
 				break;
 						
+			case 4:
+				//collect_是否显示小红点
+				view=LayoutInflater.from(context).inflate(R.layout.my_video_tabs_al_rv_carditem,parent,false);
+				holder=new MyViewHolder2(view);
+
+
+				break;
 				
 				
 				
@@ -168,6 +177,8 @@ case 2:
     public void onBindViewHolder(final MyViewHolder2 holder, int position) {
         ViewGroup.LayoutParams params =  holder.itemView.getLayoutParams();//得到item的LayoutParams布局参数
 		//setUpItemEvent(holder);
+		holder.itemView.setLayoutParams(params);//把params设置给item布局
+		
 		//通过返回的viewtype获得硬性布局
 		switch(getItemViewType(position))
 		{
@@ -189,7 +200,24 @@ case 2:
 					holder.paid_name.setText((String)lists.get(position).get("text"));
 					holder.paid_ps.setText((String)lists.get(position).get("ps"));
 					holder.rll.setBackgroundResource((Integer)lists.get(position).get("image"));
+				if(mListener!=null){//如果设置了监听那么它就不为空，然后回调相应的方法
 					
+										holder.itemView.setOnClickListener(new View.OnClickListener() {
+												@Override
+												public void onClick(View v) {
+													int pos = holder.getLayoutPosition();//得到当前点击item的位置pos
+													mListener.onItemClickListener(holder.itemView,pos);//把事件交给我们实现的接口那里处理
+												}
+											});
+										holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+												@Override
+												public boolean onLongClick(View v) {
+													int pos = holder.getLayoutPosition();//得到当前点击item的位置pos
+													mListener.onItemLongClickListener(holder.itemView,pos);//把事件交给我们实现的接口那里处理
+													return true;
+												}
+											});
+											}
 					
 						break;
 						
@@ -220,7 +248,9 @@ case 2:
 				
 
 				break;
-				
+				case 4:
+					
+					break;
 			
 						
 
@@ -339,6 +369,7 @@ case 2:
 		 }//switch
 		 */
     }
+	
 
     @Override
     public int getItemCount() {
@@ -395,7 +426,7 @@ class MyViewHolder2 extends RecyclerView.ViewHolder{
 	////viewtype0
     TextView mTv,name,data,ps,is,paid_name,paid_ps,collect_spot,collect_name,collect_ps;
 	RelativeLayout rll;
-	ImageView img,img1;
+	ImageView img,img1,pay_run_img;
 RelativeLayout rv,collect_rv,collect_back;
 	String[] provent;
 
@@ -413,6 +444,8 @@ is=(TextView)itemView.findViewById(R.id.tTextView);
 		paid_name	=(TextView)itemView.findViewById(R.id.paiditemTextView1);
 	paid_ps	=(TextView)itemView.findViewById(R.id.recy_card_itemTextView);
 		rll=(RelativeLayout)itemView.findViewById(R.id.paid_itemRelativeLayout);
+		pay_run_img=(ImageView)itemView.findViewById(R.id.paiditemImageView1);
+		
 		//////Paid_Video
 		/////Collect_
 		collect_rv=(RelativeLayout)itemView.findViewById(R.id.collectitemRelativeLayout1);

@@ -73,7 +73,7 @@ public class MainActivity extends ActionBarActivity {
 	public ArrayList<HashMap<String,Object>> lists=new ArrayList<HashMap<String,Object>>();
 	
 LinearLayout ll;
-	public ImageView heard;
+	public ImageView heard,left_head;
 	
 	ImageView message;
     @Override
@@ -236,7 +236,7 @@ public void setgroup(String[] group,String[] phones)
 		rl=(ListView)this.findViewById(R.id.tRecyclerView1);
 		ll=(LinearLayout)this.findViewById(R.id.activitymainLinearLayout1);
 		message=(ImageView)this.findViewById(R.id.activitymainTextView1);
-		
+		left_head=(ImageView)this.findViewById(R.id.drawer_headerImageView);
 		ThreadEx c1=new ThreadEx(MainActivity.this,"loginAndPass");
 		Thread x1=new Thread(c1);
 		//x1.start();
@@ -263,6 +263,15 @@ public void setgroup(String[] group,String[] phones)
 		
 		ladapter=new MyChatAdapter(MainActivity.this,lists,layout);
 		rl.setAdapter(ladapter);
+		
+		left_head.setOnClickListener(new OnClickListener()
+		{
+			public void onClick(View v)
+			{
+				Intent intent=new Intent(MainActivity.this,Personal_.class);
+				startActivity(intent);
+			}
+		});
 		rl.setOnItemClickListener(new OnItemClickListener(){
 	public void onItemClick(AdapterView<?> parent,View view,int position,long id)
 	{
@@ -283,11 +292,24 @@ public void setgroup(String[] group,String[] phones)
 			Intent intent=new Intent(MainActivity.this,Collect_.class);
 			startActivity(intent);
 		}
+		if(str.equals("我的"))
+		{
+			Intent intent=new Intent(MainActivity.this,My_Video_.class);
+			startActivity(intent);
+		}
+		
 		if(str.equals("余额"))
 		{
 			Intent intent=new Intent(MainActivity.this,Balance_.class);
 			startActivity(intent);
 		}
+		
+		if(str.equals("设置"))
+		{
+			Intent intent=new Intent(MainActivity.this,Setting_.class);
+			startActivity(intent);
+		}
+		
 		}
 		});
         //初始化ToolBar

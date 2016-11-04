@@ -36,6 +36,22 @@
             android:label="knight of Lancelot"></activity>
 		<activity android:name=".Balance_"
             android:label="knight of gawaine"></activity>
+		<activity android:name=".My_Video_"
+            android:label="knight of geraint"></activity>
+		<activity android:name=".Setting_"
+            android:label="knight of gareth"></activity>
+		<activity android:name=".Modify_Name_"
+            android:label="knight of galahad"></activity>
+		<activity android:name=".Modify_Password_"
+            android:label="knight of gaheris"></activity>
+		<activity android:name=".Set_Pay_pwd_"
+            android:label="knight of bors de ganis"></activity>
+		<activity android:name=".Pay_Complete_"
+            android:label="knight of bedivere"></activity>
+		<activity android:name=".Personal_"
+            android:label="knight of kay"></activity>
+		<activity android:name=".Run_Video_"
+            android:label="knight of Lamorak"></activity>
 		
 			
         <activity android:name=".SubActivity"

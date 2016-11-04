@@ -28,6 +28,7 @@ public class Pop_Img extends Dialog {
 	public static class Builder {
 		private Context context;
 		Home home;
+		Setting_ setting_;
 		private String title,acco,pas;
 		private String message;
 		EditText loe,pae;
@@ -48,6 +49,12 @@ public class Pop_Img extends Dialog {
 		{
 			this.home=home;
 		}
+		public Builder(Setting_ setting_)
+		{
+			this.setting_=setting_;
+		}
+		
+		
 		public Builder setMessage(String message) {
 			this.message = message;
 			return this;
@@ -216,10 +223,45 @@ public class Pop_Img extends Dialog {
 
 			dialog.setContentView(layout);
 			return dialog;
-			}else
+			}//ifhome!=null
+		
+			if(setting_!=null)
 			{
-				return null;
-			}
+
+				LayoutInflater inflater = (LayoutInflater) setting_
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				// instantiate the dialog with the custom Theme
+				dialog = new Pop_Img(setting_,R.style.Dialog);
+				layout= inflater.inflate(R.layout.enter_pay_pwd_dlg, null);
+				dialog.addContentView(layout, new LayoutParams(
+										  LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+
+
+				//loe=(EditText)layout.findViewById(R.id.regE);
+			//	pae=(EditText)layout.findViewById(R.id.pasE);
+				if (positiveButtonClickListener != null) {
+					//确认
+					
+					((Button) layout.findViewById(R.id.enterpaypwddlgButton1))
+						.setOnClickListener(new View.OnClickListener()
+						{
+							public void onClick(View v) {
+								positiveButtonClickListener.onClick(dialog,
+																	DialogInterface.BUTTON_POSITIVE);
+							    				
+																	
+
+							}
+						});
+				}
+				
+				dialog.setContentView(layout);
+				return dialog;
+				}else
+				{
+					return null;
+				}
+				
 		}
 	}
 }
