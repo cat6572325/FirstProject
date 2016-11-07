@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.*;
 import android.graphics.*;
 import android.os.*;
+import java.util.*;
 
 
 
@@ -29,6 +30,7 @@ public class Pop_Img extends Dialog {
 		private Context context;
 		Home home;
 		Setting_ setting_;
+		HashMap<String,Object> map;
 		private String title,acco,pas;
 		private String message;
 		EditText loe,pae;
@@ -49,9 +51,10 @@ public class Pop_Img extends Dialog {
 		{
 			this.home=home;
 		}
-		public Builder(Setting_ setting_)
+		public Builder(Setting_ setting_,HashMap<String,Object> map)
 		{
 			this.setting_=setting_;
+			this.map=map;
 		}
 		
 		
@@ -227,12 +230,14 @@ public class Pop_Img extends Dialog {
 		
 			if(setting_!=null)
 			{
-
+if((Integer)map.get("isprogress")==0)
+{
 				LayoutInflater inflater = (LayoutInflater) setting_
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				// instantiate the dialog with the custom Theme
-				dialog = new Pop_Img(setting_,R.style.Dialog);
-				layout= inflater.inflate(R.layout.enter_pay_pwd_dlg, null);
+				dialog = new Pop_Img(setting_,R.style.Dialog1);
+				layout= inflater.inflate(R.layout.video_data_edit_layout,null);//.enter_pay_pwd_dlg, null);
+				
 				dialog.addContentView(layout, new LayoutParams(
 										  LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 
@@ -242,7 +247,7 @@ public class Pop_Img extends Dialog {
 				if (positiveButtonClickListener != null) {
 					//确认
 					
-					((Button) layout.findViewById(R.id.enterpaypwddlgButton1))
+					((Button) layout.findViewById(R.id.videodataeditlayoutButton1))//.enterpaypwddlgButton1))
 						.setOnClickListener(new View.OnClickListener()
 						{
 							public void onClick(View v) {
@@ -253,10 +258,32 @@ public class Pop_Img extends Dialog {
 
 							}
 						});
+						
 				}
 				
 				dialog.setContentView(layout);
+				
+				
 				return dialog;
+}else//if(isprogress)
+{//显示成进度圈君
+	LayoutInflater inflater = (LayoutInflater) setting_
+		.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	// instantiate the dialog with the custom Theme
+	dialog = new Pop_Img(setting_,R.style.Dialog);
+	layout= inflater.inflate(R.layout.custom_progressbar,null);//.enter_pay_pwd_dlg, null);
+
+	dialog.addContentView(layout, new LayoutParams(
+							  LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+	
+	dialog.setContentView(layout);
+RoundProgressBar bar=(RoundProgressBar)layout.findViewById(R.id.roundProgressBar2);
+bar.setMax((Integer)map.get("max"));
+bar.setProgress((Integer)map.get("progress"));
+bar.setCricleColor((Integer)map.get("color"));
+	return dialog;
+}//if(isprogress) else
+				
 				}else
 				{
 					return null;

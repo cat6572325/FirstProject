@@ -14,6 +14,7 @@ package com.yanbober.support_library_demo;
 
 
 import android.content.*;
+import android.graphics.*;
 import android.os.*;
 import android.support.v7.app.*;
 import android.view.*;
@@ -74,14 +75,26 @@ public class Setting_ extends AppCompatActivity
 					}
 					if (str.equals("支付密码"))
 					{
-						Pop_Img.Builder p=new Pop_Img.Builder(Setting_.this);
+						HashMap<String,Object> 	map=new HashMap<String,Object>();
+						map.put("isprogress",0);
+						
+						Pop_Img.Builder p=new Pop_Img.Builder(Setting_.this,map);
 						p.setPositiveButton("[潮汕揭]初版\n问题反馈:(qq) 1213965634\n\n", new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog, int which)
 								{
 									dialog.dismiss();
 									//login
-									Intent intent=new Intent(Setting_.this,Set_Pay_pwd_.class);
-									startActivity(intent);
+									//Intent intent=new Intent(Setting_.this,Set_Pay_pwd_.class);
+									//startActivity(intent);
+									HashMap<String,Object> 	map1=new HashMap<String,Object>();
+									map1.put("isprogress",1);
+									map1.put("progress",25);
+									map1.put("max",100);
+								map1.put("color",Color.rgb(555,333,333));
+									Pop_Img.Builder p1=new Pop_Img.Builder(Setting_.this,map1);
+									p1.create().show();
+									
+									
 								}
 								//设置你的操作事项
 

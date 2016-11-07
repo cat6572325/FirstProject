@@ -36,9 +36,9 @@
 			<ListView
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
-				android:dividerHeight="2dp"
+				android:dividerHeight="1dp"
 				android:id="@+id/tRecyclerView1"
-				android:divider="#88E5E5E5"/>
+				android:divider="#88FFFFFF"/>
 
 		</RelativeLayout>
 

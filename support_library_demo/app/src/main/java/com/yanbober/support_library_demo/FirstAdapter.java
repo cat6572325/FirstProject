@@ -249,7 +249,9 @@ case 2:
 
 				break;
 				case 4:
-					
+					//是否显示点和上传按钮
+					holder.collect_spot.setVisibility(View.INVISIBLE);
+					holder.my_video_al_rv.setVisibility(View.INVISIBLE);
 					break;
 			
 						
@@ -427,7 +429,7 @@ class MyViewHolder2 extends RecyclerView.ViewHolder{
     TextView mTv,name,data,ps,is,paid_name,paid_ps,collect_spot,collect_name,collect_ps;
 	RelativeLayout rll;
 	ImageView img,img1,pay_run_img;
-RelativeLayout rv,collect_rv,collect_back;
+RelativeLayout rv,collect_rv,collect_back,my_video_al_rv;
 	String[] provent;
 
     public MyViewHolder2(View itemView) {
@@ -459,6 +461,12 @@ is=(TextView)itemView.findViewById(R.id.tTextView);
 		collect_back=(RelativeLayout)itemView.findViewById(R.id.collectitemRelativeLayout2);
 		//背景(海报)
 		//////Collect_
+		
+		/////My_Video_
+		my_video_al_rv=(RelativeLayout)itemView.findViewById(R.id.my_video_tabs_al_rv_carditemRelativeLayout);
+		
+		
+		////My_Video_
     }
 }
 class MyViewHolder1 extends RecyclerView.ViewHolder{
