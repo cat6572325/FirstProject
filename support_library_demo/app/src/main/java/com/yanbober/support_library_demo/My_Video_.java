@@ -2,7 +2,6 @@ package com.yanbober.support_library_demo;
 
 import android.animation.*;
 import android.content.*;
-import android.graphics.*;
 import android.os.*;
 import android.support.design.widget.*;
 import android.support.v4.app.*;
@@ -10,17 +9,14 @@ import android.support.v4.view.*;
 import android.support.v4.widget.*;
 import android.support.v7.app.*;
 import android.support.v7.widget.*;
-import android.util.*;
 import android.view.*;
 import android.view.View.*;
 import android.widget.*;
-import android.widget.AdapterView.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
 
 import android.support.v7.widget.Toolbar;
-import android.view.View.OnClickListener;
 /**
  * 一个中文版Demo App搞定所有Android的Support Library新增所有兼容控件
  * 支持最新2015 Google I/O大会Android Design Support Library
@@ -99,10 +95,10 @@ public class My_Video_ extends ActionBarActivity {
         // Build the menu with default options: light theme, 90 degrees, 72dp radius.
         // Set 4 default SubActionButtons
         final FloatingActionMenu rightLowerMenu = new FloatingActionMenu.Builder(this)
-			.addSubActionView(rLSubBuilder.setContentView(rlIcon1).build())
-			.addSubActionView(rLSubBuilder.setContentView(rlIcon2).build())
-			.addSubActionView(rLSubBuilder.setContentView(rlIcon3).build())
-			.addSubActionView(rLSubBuilder.setContentView(rlIcon4).build())
+			.addSubActionView(rLSubBuilder.setContentView(rlIcon1).build(),new OnclickListener())
+			.addSubActionView(rLSubBuilder.setContentView(rlIcon2).build(),new OnclickListener())
+			.addSubActionView(rLSubBuilder.setContentView(rlIcon3).build(),new OnclickListener())
+			.addSubActionView(rLSubBuilder.setContentView(rlIcon4).build(),new OnclickListener())
 			.attachTo(rightLowerButton)
 			.build();
 
@@ -207,6 +203,14 @@ public class My_Video_ extends ActionBarActivity {
 
 		lists.add(map);
     }
+	
+	class OnclickListener implements OnClickListener
+	{
+		public void onClick(View v)
+		{
+			Toast.makeText(My_Video_.this,"iii",5).show();
+		}
+	}
 }
 
 

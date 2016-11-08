@@ -1,11 +1,12 @@
 package com.yanbober.support_library_demo;
+import android.content.*;
 import android.os.*;
 import android.support.annotation.*;
 import android.support.v4.app.*;
 import android.support.v7.widget.*;
 import android.view.*;
-import java.util.*;
 import android.widget.*;
+import java.util.*;
 
 public class My_Video_Not_Uploaded_ extends Fragment {
     private View mParentView;
@@ -58,7 +59,20 @@ public class My_Video_Not_Uploaded_ extends Fragment {
 
         mRecyclerView.setAdapter(adapter);
 
+		adapter.setOnClickListener(new FirstAdapter.OnItemClickListener()
+			{
+				public void onItemClickListener(View v,int position)
+				{
+					Intent intent=new Intent(getActivity(),Round_Video_.class);
+					startActivity(intent);
+					}
+					
+	public void onItemLongClickListener(View v,int position)
+	{
 
+
+	}
+	});
     }
 
 	public void addTextToList2(String text, int who, int id,String ps,String data,int person,String name,int is)

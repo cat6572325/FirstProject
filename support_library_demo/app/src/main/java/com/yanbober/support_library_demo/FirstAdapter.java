@@ -251,7 +251,27 @@ case 2:
 				case 4:
 					//是否显示点和上传按钮
 					holder.collect_spot.setVisibility(View.INVISIBLE);
-					holder.my_video_al_rv.setVisibility(View.INVISIBLE);
+					//holder.my_video_al_rv.setVisibility(View.INVISIBLE);
+				if(mListener!=null){//如果设置了监听那么它就不为空，然后回调相应的方法
+
+					holder.itemView.setOnClickListener(new View.OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								int pos = holder.getLayoutPosition();//得到当前点击item的位置pos
+								mListener.onItemClickListener(holder.itemView,pos);//把事件交给我们实现的接口那里处理
+							}
+						});
+					holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+							@Override
+							public boolean onLongClick(View v) {
+								int pos = holder.getLayoutPosition();//得到当前点击item的位置pos
+								mListener.onItemLongClickListener(holder.itemView,pos);//把事件交给我们实现的接口那里处理
+								return true;
+							}
+						});
+				}
+				
+					
 					break;
 			
 						

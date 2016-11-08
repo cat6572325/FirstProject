@@ -90,6 +90,7 @@ public class Setting_ extends AppCompatActivity
 									map1.put("isprogress",1);
 									map1.put("progress",25);
 									map1.put("max",100);
+									map1.put("textsize",25);
 								map1.put("color",Color.rgb(555,333,333));
 									Pop_Img.Builder p1=new Pop_Img.Builder(Setting_.this,map1);
 									p1.create().show();

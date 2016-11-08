@@ -48,7 +48,8 @@
 				android:orientation="horizontal"
 				android:layout_centerHorizontal="true">
 
-				<ImageView
+				<com.yanbober.support_library_demo.RoundProgress_Button
+					
 					android:layout_height="wrap_content"
 					android:layout_width="wrap_content"
 					android:src="@android:drawable/ic_delete"

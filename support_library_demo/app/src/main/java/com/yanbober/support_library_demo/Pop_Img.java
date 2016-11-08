@@ -279,6 +279,7 @@ if((Integer)map.get("isprogress")==0)
 	dialog.setContentView(layout);
 RoundProgressBar bar=(RoundProgressBar)layout.findViewById(R.id.roundProgressBar2);
 bar.setMax((Integer)map.get("max"));
+bar.setTextSize((Integer)map.get("textsize"));
 bar.setProgress((Integer)map.get("progress"));
 bar.setCricleColor((Integer)map.get("color"));
 	return dialog;
