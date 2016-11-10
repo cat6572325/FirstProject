@@ -12,11 +12,16 @@
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.READ_PHONE_STATE" ></uses-permission>
 	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+	<uses-feature android:name="android.hardware.camera"/>
+	<uses-feature android:name="android.hardware.camera.autofocus"/>
+	<uses-permission android:name="android.permission.CAMERA"/>
+	<uses-permission android:name="android.permission.RECORD_AUDIO" />
+	<uses-permission android:name="android.permission.RECORD_VIDEO" />
 	
 	
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -51,6 +56,8 @@
 		<activity android:name=".Personal_"
             android:label="knight of kay"></activity>
 		<activity android:name=".Run_Video_"
+            android:label="knight of Lamorak"></activity>
+		<activity android:name=".Round_Video_"
             android:label="knight of Lamorak"></activity>
 		
 			

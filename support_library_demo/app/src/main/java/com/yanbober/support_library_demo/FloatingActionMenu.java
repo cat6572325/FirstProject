@@ -1,26 +1,13 @@
 package com.yanbober.support_library_demo;
 
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.Path;
-import android.graphics.PathMeasure;
-import android.graphics.PixelFormat;
-import android.graphics.Point;
-import android.graphics.Rect;
-import android.graphics.RectF;
-import android.hardware.SensorManager;
-import android.view.Display;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.OrientationEventListener;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.FrameLayout;
-
-
-import java.util.ArrayList;
-import java.util.List;
+import android.app.*;
+import android.content.*;
+import android.graphics.*;
+import android.hardware.*;
+import android.view.*;
+import android.view.View.*;
+import android.widget.*;
+import java.util.*;
 
 /**
  * Provides the main structure of the menu.
@@ -50,7 +37,7 @@ public class FloatingActionMenu {
     private boolean systemOverlay;
     /** a simple layout to contain all the sub action views in the system overlay mode */
     private FrameLayout overlayContainer;
-
+public int id=0;
     private OrientationEventListener orientationListener;
 
     /**
@@ -63,6 +50,23 @@ public class FloatingActionMenu {
      * @param animationHandler
      * @param animated
      */
+	public OnItemClickListener mListener;
+	/**
+     * 点击事件的接口
+     */
+	public interface  OnItemClickListener{
+		void onItemClickListener(View view,int position);//点击
+		void onItemLongClickListener(View view,int position);//长按
+	}
+	
+	private OnItemClickListener mOnItemClickListener;
+
+    public void setmOnItemClickListener(OnItemClickListener mOnItemClickListener) {
+        this.mOnItemClickListener = mOnItemClickListener;
+    }
+	public void setOnClickListener(OnItemClickListener listener){
+        this.mListener = listener;
+    }
     public FloatingActionMenu(final View mainActionView,
                               int startAngle,
                               int endAngle,
@@ -554,21 +558,35 @@ public class FloatingActionMenu {
     /**
      * A simple structure to put a view and its x, y, width and height values together
      */
+	 
+	 
     public static class Item {
         public int x;
         public int y;
         public int width;
         public int height;
-
+public int id=0;
         public float alpha;
 
         public View view;
 
-        public Item(View view, int width, int height) {
+        public Item(View view, int width, int height,int id) {
+			//设置子控件大小
+			this.id=id;
             this.view = view;
             this.width = width;
             this.height = height;
             alpha = view.getAlpha();
+			
+		view.setOnClickListener(new OnClickListener()
+			{
+				public void onClick(View v)
+				{
+					
+				
+				}
+				
+			});
             x = 0;
             y = 0;
         }
@@ -628,21 +646,41 @@ public class FloatingActionMenu {
         }
 
         public Builder addSubActionView(View subActionView, int width, int height) {
-            subActionItems.add(new Item(subActionView, width, height));
+            subActionItems.add(new Item(subActionView, width, height,0));
             return this;
         }
+		private OnClickListener getItemClickListener(final OnClickListener listener) {
+			return new OnClickListener() {
 
+				@Override
+				public void onClick(final View viewClicked) {
+					
+					
+					
+					}
+					
+					};
+				}
+				
         /**
          * Adds a sub action view that is already alive, but not added to a parent View.
          * @param subActionView a view for the menu
          * @return the builder object itself
          */
-        public Builder addSubActionView(View subActionView) {
+        public Builder addSubActionView(View subActionView,OnClickListener listener) {
             if(systemOverlay) {
                 throw new RuntimeException("Sub action views cannot be added without " +
 										   "definite width and height. Please use " +
 										   "other methods named addSubActionView");
             }
+			//subActionView.setOnClickListener(getItemClickListener(listener));
+			subActionView.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+					//	mListener.onItemClickListener(subActionView);//把事件交给我们实现的接口那里处理
+						int i=2;
+						}
+						});
             return this.addSubActionView(subActionView, 0, 0);
         }
 

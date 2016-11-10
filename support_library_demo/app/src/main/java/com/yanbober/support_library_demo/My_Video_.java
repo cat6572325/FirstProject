@@ -2,7 +2,6 @@ package com.yanbober.support_library_demo;
 
 import android.animation.*;
 import android.content.*;
-import android.graphics.*;
 import android.os.*;
 import android.support.design.widget.*;
 import android.support.v4.app.*;
@@ -10,17 +9,14 @@ import android.support.v4.view.*;
 import android.support.v4.widget.*;
 import android.support.v7.app.*;
 import android.support.v7.widget.*;
-import android.util.*;
 import android.view.*;
 import android.view.View.*;
 import android.widget.*;
-import android.widget.AdapterView.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
 
 import android.support.v7.widget.Toolbar;
-import android.view.View.OnClickListener;
 /**
  * 一个中文版Demo App搞定所有Android的Support Library新增所有兼容控件
  * 支持最新2015 Google I/O大会Android Design Support Library
@@ -61,6 +57,7 @@ public class My_Video_ extends ActionBarActivity {
     private TabLayout mTabLayout;
     //v4中的ViewPager控件
     private ViewPager mViewPager;
+	MyChatAdapter ladapter;
 	ListView rl;
 	int[] layout={R.layout.left_list_item,R.layout.line_item};
 
@@ -99,10 +96,10 @@ public class My_Video_ extends ActionBarActivity {
         // Build the menu with default options: light theme, 90 degrees, 72dp radius.
         // Set 4 default SubActionButtons
         final FloatingActionMenu rightLowerMenu = new FloatingActionMenu.Builder(this)
-			.addSubActionView(rLSubBuilder.setContentView(rlIcon1).build())
-			.addSubActionView(rLSubBuilder.setContentView(rlIcon2).build())
-			.addSubActionView(rLSubBuilder.setContentView(rlIcon3).build())
-			.addSubActionView(rLSubBuilder.setContentView(rlIcon4).build())
+			.addSubActionView(rLSubBuilder.setContentView(rlIcon1).build(),new OnclickListener())
+			.addSubActionView(rLSubBuilder.setContentView(rlIcon2).build(),new OnclickListener())
+			.addSubActionView(rLSubBuilder.setContentView(rlIcon3).build(),new OnclickListener())
+			.addSubActionView(rLSubBuilder.setContentView(rlIcon4).build(),new OnclickListener())
 			.attachTo(rightLowerButton)
 			.build();
 
@@ -142,7 +139,7 @@ public class My_Video_ extends ActionBarActivity {
 		//   mNavigationView = (NavigationView) this.findViewById(R.id.navigation_view);
         mTabLayout = (TabLayout) this.findViewById(R.id.myvideotab);
         mViewPager = (ViewPager) this.findViewById(R.id.view_pager);
-		
+		rl=(ListView)this.findViewById(R.id.tRecyclerView1);
 	
 			message=(ImageView)this.findViewById(R.id.activitymainTextView1);
 
@@ -192,21 +189,142 @@ public class My_Video_ extends ActionBarActivity {
         //同时也要覆写PagerAdapter的getPageTitle方法，否则Tab没有title
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabsFromPagerAdapter(adapter);
+		
+			addTextToList("首页",0,R.drawable.home);
+			addTextToList("已付",0,R.drawable.paid);
+
+			addTextToList("我的",0,R.drawable.fab_bg_normal);
+			addTextToList("收藏",0,R.drawable.collect);
+			addTextToList("余额",0,R.drawable.balance);
+			addTextToList("分割贱",1,R.drawable.fab_bg_normal);
+
+			addTextToList("设置",0,R.drawable.fab_bg_normal);
+			addTextToList("反馈",0,R.drawable.feedback);
+
+
+			ladapter=new MyChatAdapter(My_Video_.this,lists,layout);
+			rl.setAdapter(ladapter);
+			
+		
     }
-	public void addTextToList(String text, int who, int id,String data,int isspot,int ispay)
+	public void addTextToList(String text, int who,int id)
 	{
 		HashMap<String,Object> map=new HashMap<String,Object>();
-
+		map.put("person", who);
 		map.put("image", id);
 		map.put("text", text);
-		map.put("isspot",isspot);
-		map.put("ispay",ispay);
-		
-		map.put("data",data);
+
 		map.put("layout",who);
 
 		lists.add(map);
     }
+	
+	class OnclickListener implements OnClickListener
+	{
+		public void onClick(View v)
+		{
+			Toast.makeText(My_Video_.this,"iii",5).show();
+		}
+	}
+	private class MyChatAdapter extends BaseAdapter
+	{
+
+        Context context=null;
+        ArrayList<HashMap<String,Object>> chatList=null;
+        int[] layout;
+        String[] from;
+        int[] to;
+
+
+
+        public MyChatAdapter(Context context,
+                             ArrayList<HashMap<String, Object>> chatList, int[] layout
+                             )
+		{
+			super();
+			this.context = context;
+			this.chatList = chatList;
+			this.layout = layout;
+
+        }
+
+
+        public int getCount()
+		{
+			// TODO Auto-generated method stub
+			return chatList.size();
+        }
+
+
+        public Object getItem(int arg0)
+		{
+			// TODO Auto-generated method stub
+			return null;
+        }
+
+
+        public long getItemId(int position)
+		{
+			// TODO Auto-generated method stub
+			return position;
+        }
+
+
+        ////////////
+        class ViewHolder
+		{
+            public ImageView imageView=null;
+            public TextView textView=null;
+			public String title;
+			private ImageView i_icon,i_icon2;
+			public TextView T_title,T_red;
+        }
+        ////////////
+
+        public View getView(int position, View convertView, ViewGroup parent)
+		{
+			// TODO Auto-generated method stub
+			ViewHolder holder=null;
+			final TextView tt;
+			LinearLayout re;
+			int who=(Integer)chatList.get(position).get("person");
+
+
+			switch(who)
+			{
+				case 0:
+					convertView = LayoutInflater.from(context).inflate(
+						layout[who], null);
+					ImageView img=(ImageView)convertView.findViewById(R.id.left_list_itemImageView);
+					TextView tv=(TextView)convertView.findViewById(R.id.leftlistitemTextView1);
+					img.setImageResource((Integer)chatList.get(position).get("image"));
+					tv.setText((String)chatList.get(position).get("text"));
+
+
+					break;
+				case 1:
+					isEnabled(position);
+					convertView = LayoutInflater.from(context).inflate(
+						layout[who], null);
+					View v=(View)convertView.findViewById(R.id.lineitemView1);
+					v.setOnClickListener(new OnClickListener()
+						{
+							public void onClick(View view)
+							{
+
+							}
+						});
+
+					break;
+
+
+			}
+			return convertView;
+
+		}
+	}
+	
+	
 }
 
 

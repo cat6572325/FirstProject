@@ -100,14 +100,21 @@ LinearLayout ll;
         rlIcon2.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_camera_light));
         rlIcon3.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_video_light));
         rlIcon4.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_place_light));
-
+rlIcon1.setOnClickListener(new OnClickListener()
+{
+	
+	public void onClick(View v)
+	{
+		Toast.makeText(MainActivity.this,"iii",5).show();
+	}
+});
         // Build the menu with default options: light theme, 90 degrees, 72dp radius.
         // Set 4 default SubActionButtons
         final FloatingActionMenu rightLowerMenu = new FloatingActionMenu.Builder(this)
-			.addSubActionView(rLSubBuilder.setContentView(rlIcon1).build())
-			.addSubActionView(rLSubBuilder.setContentView(rlIcon2).build())
-			.addSubActionView(rLSubBuilder.setContentView(rlIcon3).build())
-			.addSubActionView(rLSubBuilder.setContentView(rlIcon4).build())
+			.addSubActionView(rLSubBuilder.setContentView(rlIcon1).build(),new OnclickListener())
+			.addSubActionView(rLSubBuilder.setContentView(rlIcon2).build(),new OnclickListener())
+			.addSubActionView(rLSubBuilder.setContentView(rlIcon3).build(),new OnclickListener())
+			.addSubActionView(rLSubBuilder.setContentView(rlIcon4).build(),new OnclickListener())
 			.attachTo(rightLowerButton)
 			.build();
 
@@ -131,7 +138,7 @@ LinearLayout ll;
 					animation.start();
 				}
 			});
-
+		
         // Set up the large red button on the center right side
         // With custom button and content sizes and margins
     /*    int redActionButtonSize = getResources().getDimensionPixelSize(R.dimen.red_action_button_size);
@@ -226,6 +233,11 @@ public void setgroup(String[] group,String[] phones)
 	idf.setgroup(MainActivity.this,group,phones);
 	
 }
+	
+
+    
+    
+
     private void initView() {
         //MainActivity的布局文件中的主要控件初始化
         mToolbar = (Toolbar) this.findViewById(R.id.tool_bar);
@@ -247,8 +259,8 @@ public void setgroup(String[] group,String[] phones)
        // manager.setOrientation(2,LinearLayoutManager.HORIZONTAL);
       //  rl.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
 		//设置RecyclerView布局管理器为2列垂直排布
-	
 		
+  
 		addTextToList("首页",0,R.drawable.home);
 		addTextToList("已付",0,R.drawable.paid);
 		
@@ -358,17 +370,15 @@ message.setOnClickListener(new View.OnClickListener()
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabsFromPagerAdapter(adapter);
     }
-	public void addTextToList(String text, int who,int id)
+	class OnclickListener implements OnClickListener
 	{
-		HashMap<String,Object> map=new HashMap<String,Object>();
-		map.put("person", who);
-		map.put("image", id);
-		map.put("text", text);
+		public void onClick(View v)
+		{
+			Toast.makeText(MainActivity.this,"iii",5).show();
+		}
+	}
 	
-		map.put("layout",who);
 	
-		lists.add(map);
-    }
 
     private NavigationView.OnNavigationItemSelectedListener naviListener = new NavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -495,7 +505,17 @@ message.setOnClickListener(new View.OnClickListener()
 	public void setButtonClickedListener(OnButtonClickedListener buttonClickedListener){
 		this.buttonClickedListener=buttonClickedListener;
 	}
-	
+	public void addTextToList(String text, int who,int id)
+	{
+		HashMap<String,Object> map=new HashMap<String,Object>();
+		map.put("person", who);
+		map.put("image", id);
+		map.put("text", text);
+
+		map.put("layout",who);
+
+		lists.add(map);
+    }
 	private class MyChatAdapter extends BaseAdapter
 	{
 

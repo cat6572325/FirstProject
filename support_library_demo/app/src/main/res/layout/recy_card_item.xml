@@ -5,12 +5,23 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:orientation="vertical"
 	android:layout_height="200dp">
-
+	<android.support.v7.widget.CardView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:cardBackgroundColor="#ffffff"
+		app:cardCornerRadius="0dp"
+		app:cardElevation="2dp"
+		android:layout_marginRight="5dp"
+		android:layout_marginLeft="5dp"
+		android:layout_marginTop="5dp"
+		android:layout_centerHorizontal="true"
+		android:id="@+id/myvideotabsalrvcarditemCardView1">
+		
 	<RelativeLayout
 		android:layout_height="match_parent"
 		android:layout_width="match_parent"
 		android:background="@drawable/qq"
-		android:layout_margin="13dp">
+		>
 
 		<ImageView
 			android:layout_width="50dp"
@@ -42,7 +53,8 @@
 		</RelativeLayout>
 
 	</RelativeLayout>
-
+	</android.support.v7.widget.CardView>
+	
 	<TextView
 		android:layout_height="13dp"
 		android:id="@+id/tTextView"
@@ -52,8 +64,7 @@
 		android:minWidth="15dp"
 		android:gravity="center_vertical|center_horizontal"
 		android:minHeight="15dp"
-		android:layout_marginRight="5dp"
-		android:layout_marginTop="4dp"/>
-
-</RelativeLayout>
+		android:layout_marginRight="3dp"
+		android:layout_marginTop="3dp"/>
+	</RelativeLayout>
 

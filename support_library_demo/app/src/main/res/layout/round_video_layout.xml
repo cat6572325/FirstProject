@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:android_custom="http://schemas.android.com/apk/res/com.yanbober.support_library_demo"
+	android:layout_height="fill_parent"
+	android:orientation="vertical">
+
+	<RelativeLayout
+		android:layout_height="70dp"
+		android:layout_width="match_parent">
+
+		<ImageView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:src="@drawable/back_purple"
+			android:layout_centerVertical="true"
+			android:layout_marginLeft="25dp"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:text="●5:00"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="wrap_content"
+			android:layout_centerInParent="true"
+			android:textSize="30sp"
+			android:textColor="#5E1BBE"/>
+
+	</RelativeLayout>
+
+	<RelativeLayout
+		android:layout_height="match_parent"
+		android:layout_width="match_parent">
+
+		<SurfaceView
+			android:layout_width="match_parent"
+			android:layout_height="280dp"
+			android:id="@+id/camera_surfaceview"
+			android:layout_margin="10dp"/>
+
+		<RelativeLayout
+			android:layout_height="150dp"
+			android:layout_width="match_parent"
+			android:layout_alignParentBottom="true">
+
+			<LinearLayout
+				android:layout_height="match_parent"
+				android:layout_width="wrap_content"
+				android:orientation="horizontal"
+				android:layout_centerHorizontal="true">
+
+				<ImageView
+					android:layout_height="60dp"
+					android:layout_width="45dp"
+					android:layout_margin="17dp"
+					android:background="@drawable/remove_voice_black"/>
+
+				<com.yanbober.support_library_demo.RoundProgressBar
+					android:layout_height="100dp"
+					android:layout_width="95dp"
+					android_custom:roundColor="#939393"
+					android:id="@+id/round_bar"
+					android_custom:roundProgressColor="#5E1BBE"
+					android_custom:textIsDisplayable="false"
+					android_custom:roundWidth="2dp"
+					android:layout_margin="10dp"
+					android:background="@drawable/roundbutton"/>
+
+				<ImageView
+					android:layout_height="50dp"
+					android:layout_width="60dp"
+					android:layout_margin="10dp"
+					android:background="@drawable/turncmera"/>
+
+			</LinearLayout>
+
+		</RelativeLayout>
+
+	</RelativeLayout>
+
+</LinearLayout>
+
