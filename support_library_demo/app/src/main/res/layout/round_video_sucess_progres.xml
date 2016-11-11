@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android_custom="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.yanbober.support_library_demo.RoundProgressBar
+        android:layout_height="200dp"
+        android:layout_width="200dp"
+        android_custom:roundColor="#939393"
+        android:id="@+id/round_bar"
+
+        android_custom:roundProgressColor="#5E1BBE"
+        android_custom:textIsDisplayable="true"
+        android_custom:roundWidth="30dp"
+        android:layout_margin="10dp"
+        android_custom:textSize="20dp"
+        android_custom:textColor="#53066c"
+        android:layout_centerInParent="true" />
+</RelativeLayout>

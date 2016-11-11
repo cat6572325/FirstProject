@@ -109,7 +109,7 @@ public class RoundProgressBar extends View {
 		 * 画最外层的大圆环
 		 */
 		int centre = getWidth()/2; //获取圆心的x坐标
-		int radius = (int) (centre - roundWidth/2-25); //圆环的半径
+		int radius = (int) (centre - roundWidth/2-28); //圆环的半径
 		paint.setColor(roundColor); //设置圆环的颜色
 		paint.setStyle(Paint.Style.STROKE); //设置空心
 		paint.setStrokeWidth(roundWidth); //设置圆环的宽度

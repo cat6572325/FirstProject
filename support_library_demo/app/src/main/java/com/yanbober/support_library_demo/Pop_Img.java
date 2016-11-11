@@ -29,6 +29,7 @@ public class Pop_Img extends Dialog {
 	public static class Builder {
 		private Context context;
 		Home home;
+		Round_Video_ round_video_;
 		Setting_ setting_;
 		HashMap<String,Object> map;
 		private String title,acco,pas;
@@ -51,6 +52,10 @@ public class Pop_Img extends Dialog {
 		{
 			this.home=home;
 		}
+		public Builder(Round_Video_ round_video_)
+		{
+			this.round_video_=round_video_;
+		}
 		public Builder(Setting_ setting_,HashMap<String,Object> map)
 		{
 			this.setting_=setting_;
@@ -66,7 +71,7 @@ public class Pop_Img extends Dialog {
 		/**
 		 * Set the Dialog message from resource
 		 * 
-		 * @param title
+		 * @param
 		 * @return
 		 */
 		public Builder setMessage(int message) {

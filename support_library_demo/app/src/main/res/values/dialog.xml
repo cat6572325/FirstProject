@@ -4,7 +4,7 @@
 
     <style name="AppBaseTheme" parent="android:Theme.Light"></style>
 
-    <style name="AppTheme" parent="AppBaseTheme"></style>
+    <style name="AppTheme１" parent="AppBaseTheme"></style>
 
     <style name="text_18_ffffff">
         <item name="android:textSize">18.0dip</item>

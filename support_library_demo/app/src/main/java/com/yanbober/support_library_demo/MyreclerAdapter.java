@@ -162,7 +162,7 @@ public class MyreclerAdapter extends RecyclerView.Adapter<MyViewHolder> {
 		{
 			
 			case 0:
-				holder.img.setImageResource(lists.get(position).get("image"));
+				holder.img.setImageResource((Integer)lists.get(position).get("image"));
 				
 				
 				break;
@@ -297,7 +297,7 @@ public class MyreclerAdapter extends RecyclerView.Adapter<MyViewHolder> {
 		}*/
 		
 		//去除所有其他方法，直接确定array里的布局
-		return lists.get(position).get("layout");
+		return (int)lists.get(position).get("layout");
 		
 		
 		

@@ -1,13 +1,16 @@
 package com.yanbober.support_library_demo;
 
 import android.app.*;
+import android.content.DialogInterface;
 import android.graphics.*;
 import android.hardware.*;
 import android.media.*;
 import android.media.MediaRecorder.*;
 import android.os.*;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.view.*;
 import android.view.View.*;
+import android.webkit.WebView;
 import android.widget.*;
 import java.io.*;
 import java.util.*;
@@ -17,6 +20,20 @@ import android.support.design.widget.*;
 public class Round_Video_ extends Activity
 
 {
+    public Handler mHandler = new Handler()
+    {
+        public void handleMessage(android.os.Message msg)
+        {
+            switch (msg.what)
+            {
+                case 0:
+
+                    break;
+
+
+            }
+        }
+    };
 RoundProgressBar bar;
 int message =0;
 	private Button startButton, stopButton, playButton;
@@ -24,6 +41,7 @@ int message =0;
 	private boolean isRecording;
 	private MediaRecorder mediaRecorder;
 	private Camera camera;
+	public RelativeLayout HideLayout;
 	static int flag=0;
 	int count=0;
 	Timer mTimer=new Timer();
@@ -38,7 +56,7 @@ int message =0;
 		mSurfaceView=(SurfaceView)findViewById(R.id.camera_surfaceview);
 		bar=(RoundProgressBar)findViewById(R.id.round_bar);
 		bar.setMax(100);
-		
+		initView();
 		Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.roundbutton);  
 		
 		//bar.setBitmap(bitmap,0);
@@ -61,6 +79,8 @@ int message =0;
 				
 					stop();
 					bar.setBackgroundResource(R.drawable.roundbutton);
+					HideLayout.setVisibility(View.VISIBLE);
+					//解除隐藏
 					flag=0;
 				}
 				bar.invalidate();
@@ -70,7 +90,15 @@ int message =0;
 	
 	// 声明Surface不维护自己的缓冲区，针对Android3.0以下设备支持
 	mSurfaceView.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-	}
+	}//oncreate()
+	public void initView()
+{
+HideLayout=(RelativeLayout)this.findViewById(R.id.HideLayout);
+//初始隐藏这个布局
+	HideLayout.setVisibility(View.INVISIBLE);
+	//隐藏(不可见)
+
+}//initView
 	public void setprog()
 	{
 		task t=new task(count,bar);
@@ -112,7 +140,7 @@ int message =0;
     public void maxtimemessage(RoundProgressBar bar)
 	{
 		if(message==0)
-			Snackbar.make(bar,"请注意录制时长",200).setAction("不再提示",new View.OnClickListener()
+			Snackbar.make(bar,"请注意录制时长",Snackbar.LENGTH_SHORT).setAction("不再提示",new View.OnClickListener()
 				{
 					public void onClick(View v)
 					{
@@ -219,8 +247,61 @@ int message =0;
 		}
 		super.onDestroy();
 	}
+//////////////////sucess Onclick
+public void delete(View v)
+{
+
+    Message_Dialog editNameDialog = new Message_Dialog();
+    editNameDialog.show(getFragmentManager(), "EditNameDialog");
+
+
+
+
+}
+public void upload(View v)
+{
+
+
+    Pop_Img.Builder p=new Pop_Img.Builder(Round_Video_.this);
+   /* p.setPositiveButton("[潮汕揭]初版\n问题反馈:(qq) 1213965634\n\n", new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int which)
+        {
+            dialog.dismiss();
+            //需要将数据传给对话框然后实时更新进度条
+
+        }
+        //设置你的操作事项
+
+
+    });*/
+
+
+    p.create().show();
+   /* WebView wv=new WebView(this);
+    wv.getSettings().setJavaScriptEnabled(true);
+    //设置可操作js
+    wv.addJavascriptInterface(new Mytest(),"test");
+wv.loadUrl("http://192.168.1.112:1103/home/with/Try-videos-master/login.js");
+    wv.loadUrl("javascript :    router.post( );*/
+
+}
+public void edit(View v)
+{
+
+}
+//////////////////sucess Onclick
+public class Mytest
+    {
+        public int test()
+        {
+            return 1000;
+        }
+    }
 
 	
 	
 	
 }
+
+
+

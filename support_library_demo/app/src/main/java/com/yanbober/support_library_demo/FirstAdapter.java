@@ -406,7 +406,7 @@ case 2:
 		 }*/
 
 		//去除所有其他方法，直接确定array里的布局
-		return lists.get(position).get("layout");
+		return (int)lists.get(position).get("layout");
 
 
 
@@ -489,7 +489,7 @@ is=(TextView)itemView.findViewById(R.id.tTextView);
 		////My_Video_
     }
 }
-class MyViewHolder1 extends RecyclerView.ViewHolder{
+class MyViewHolderFirst extends RecyclerView.ViewHolder{
 
 	////viewtype1
 	TextView mTv,name,data,ps;
@@ -497,7 +497,7 @@ class MyViewHolder1 extends RecyclerView.ViewHolder{
 
 	String[] provent;
 
-	public MyViewHolder1(View itemView) {
+	public MyViewHolderFirst(View itemView) {
 		super(itemView);
 
 

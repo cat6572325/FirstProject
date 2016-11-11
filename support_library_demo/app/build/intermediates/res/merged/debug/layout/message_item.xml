@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal">
+
+	<ImageView
+		android:layout_height="50dp"
+		android:layout_width="50dp"
+		android:layout_marginTop="5dp"
+		android:background="@drawable/image"
+		android:id="@+id/messageitemImageView1"/>
+
+	<RelativeLayout
+		android:layout_height="70dp"
+		android:layout_width="match_parent">
+
+		<TextView
+			android:layout_height="10dp"
+			android:layout_width="10dp"
+			android:layout_centerVertical="true"
+			android:layout_marginLeft="10dp"
+			android:id="@+id/messageitemTextView1"
+			android:background="@drawable/button_normal"/>
+
+		<TextView
+			android:layout_height="30dp"
+			android:layout_width="230dp"
+			android:maxWidth="400dp"
+			android:layout_centerVertical="true"
+			android:layout_marginLeft="20dp"
+			android:text="父母女女女啊坡头额咯咳特灵DJ木木木口服欧诺陆木木木目的港女魔头美女额"
+			android:textColor="#C2C2C2"
+			android:textSize="15sp"
+			android:maxHeight="45dp"
+			android:id="@+id/messageitemTextView2"
+			android:ellipsize="end"
+			android:singleLine="true"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_alignParentRight="true"
+			android:layout_marginRight="15dp"
+			android:text="13月33日"
+			android:textColor="#C3C2C1"
+			android:id="@+id/messageitemTextView3"/>
+
+	</RelativeLayout>
+
+</LinearLayout>
+

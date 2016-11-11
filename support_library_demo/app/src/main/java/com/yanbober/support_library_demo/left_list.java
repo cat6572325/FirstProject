@@ -35,8 +35,7 @@ public interface  OnItemClickListener{
     /**
      * 构造函数
      * @param context
-     * @param datas
-     */
+	 */
 
 
     public left_list(Context context,ArrayList<HashMap<String,Object>> lists) {
@@ -307,7 +306,7 @@ public interface  OnItemClickListener{
 		 }*/
 
 		//去除所有其他方法，直接确定array里的布局
-		return lists.get(position).get("layout");
+		return (int)lists.get(position).get("layout");
 
 
 
