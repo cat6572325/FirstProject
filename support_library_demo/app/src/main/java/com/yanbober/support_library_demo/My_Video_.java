@@ -218,6 +218,25 @@ public class My_Video_ extends ActionBarActivity {
 
 		lists.add(map);
     }
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_info_details:
+				//   mViewPager.setCurrentItem(0);
+                break;
+            case R.id.menu_share:
+				//     mViewPager.setCurrentItem(1);
+                break;
+            case R.id.menu_agenda:
+				//     mViewPager.setCurrentItem(2);
+                break;
+            case android.R.id.home:
+                //主界面左上角的icon点击反应
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 	
 	class OnclickListener implements OnClickListener
 	{

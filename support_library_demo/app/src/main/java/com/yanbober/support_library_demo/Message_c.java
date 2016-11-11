@@ -1,22 +1,16 @@
 package com.yanbober.support_library_demo;
 
-import android.animation.*;
 import android.content.*;
-import android.graphics.*;
 import android.os.*;
-import android.support.design.widget.*;
-import android.support.v4.app.*;
 import android.support.v4.view.*;
 import android.support.v4.widget.*;
 import android.support.v7.app.*;
 import android.support.v7.widget.*;
-import android.util.*;
 import android.view.*;
 import android.view.View.*;
+import android.webkit.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
-import java.io.*;
-import java.net.*;
 import java.util.*;
 
 import android.support.v7.widget.Toolbar;
@@ -64,7 +58,11 @@ DrawerLayout mDrawerLayout;
 		tb=(Toolbar)this.findViewById(R.id.tool_bar);
 		mDrawerLayout=(DrawerLayout)this.findViewById(R.id.drawer_layout);
 		addTextToList1("King arthur payment $3 to your of video","september13",0,R.drawable.image);
+WebView wv=new WebView(Message_c.this);
+WebSettings wset=wv.getSettings();
+wset.setJavaScriptEnabled(true);
 
+wv.loadUrl("http://192.168.1.112:1103/with/Try-videos-master/api/Login/login.js");
 
 		ladapter1=new MyChatAdapter1(Message_c.this,lists1,layout1);
 		lv.setAdapter(ladapter1);
@@ -83,14 +81,14 @@ DrawerLayout mDrawerLayout;
 		addTextToList("反馈",0,R.drawable.feedback);
 
 
-		ladapter=new MyChatAdapter(Message_c.this,lists,layout);
-		rl.setAdapter(ladapter);
+		
 //初始化ToolBar
         setSupportActionBar(tb);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.menu);//android.R.drawable.ic_dialog_alert);
         actionBar.setDisplayHomeAsUpEnabled(true);
-		
+		ladapter=new MyChatAdapter(Message_c.this,lists,layout);
+		rl.setAdapter(ladapter);
 		rl.setOnItemClickListener(new OnItemClickListener(){
 				
 	public void onItemClick(AdapterView<?> parent,View view,int position,long id)
@@ -145,7 +143,25 @@ DrawerLayout mDrawerLayout;
 
 		lists1.add(map);
     }
-	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_info_details:
+             //   mViewPager.setCurrentItem(0);
+                break;
+            case R.id.menu_share:
+           //     mViewPager.setCurrentItem(1);
+                break;
+            case R.id.menu_agenda:
+           //     mViewPager.setCurrentItem(2);
+                break;
+            case android.R.id.home:
+                //主界面左上角的icon点击反应
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 	private class MyChatAdapter1 extends BaseAdapter
 	{
 
