@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+        <Button
+            android:layout_height="20dp"
+            android:layout_width="23dp"
+            android:text="←"
+            android:layout_margin="24dp"
+            android:background="@drawable/back_purple"
+            android:id="@+id/Enter_Random_Back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="注册"
+            android:textSize="22sp"
+            android:layout_margin="20dp"
+            android:id="@+id/title" />
+<TextView
+    android:layout_width="wrap_content"
+    android:id="@+id/sendrandom"
+    android:layout_below="@id/title"
+    android:textSize="18dp"
+    android:text="短信验证码还没有发往１３８００１３８００"
+    android:layout_centerHorizontal="true"
+    android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_below="@id/sendrandom"
+            android:layout_centerInParent="true">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:layout_alignParentTop="true"
+                android:id="@+id/entering"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true">
+
+                <EditText
+                    android:layout_width="25dp"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="20dp"
+
+                    android:id="@+id/editText"
+
+                    android:layout_weight="1"
+                    android:background="@drawable/random_style"
+                    android:maxLength="1"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:inputType="number" />
+
+                <EditText
+                    android:layout_width="25dp"
+                    android:layout_height="70dp"
+                    android:id="@+id/editText1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/random_style"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:maxLength="1"
+                    android:inputType="number" />
+                <EditText
+                    android:layout_width="25dp"
+                    android:layout_height="70dp"
+                    android:id="@+id/editText2"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/random_style"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:maxLength="1"
+                    android:inputType="number" />
+                <EditText
+                    android:layout_width="25dp"
+                    android:layout_height="70dp"
+                    android:id="@+id/editText3"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/random_style"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:maxLength="1"
+                    android:inputType="number" />
+                <EditText
+                    android:layout_width="25dp"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/editText4"
+                    android:layout_weight="1"
+                    android:background="@drawable/random_style"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:maxLength="1"
+                    android:inputType="number" />
+                <EditText
+                    android:layout_width="25dp"
+                    android:layout_height="70dp"
+                    android:id="@+id/editText5"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/random_style"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:maxLength="1"
+                    android:inputType="number" />
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_below="@id/entering"
+                android:text="重发短信"
+                android:id="@+id/resend"
+android:layout_centerHorizontal="true"
+                android:textSize="20dp"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="注册即同意 181s注册条款"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp" />
+    </RelativeLayout>
+
+</LinearLayout>
+

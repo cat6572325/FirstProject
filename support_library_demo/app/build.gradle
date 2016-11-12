@@ -19,16 +19,12 @@ android {
     }
 }
 dependencies {
-
-	
-
 	compile 'com.android.support:cardview-v7:23.0.1'
 	compile 'com.android.support:recyclerview-v7:23.+'
 	compile 'com.android.support:cardview-v7:23.+'
 	compile 'com.android.support:appcompat-v7:23.0.1'
 	compile 'com.android.support:design:23.+'
 	compile 'com.android.support:support-v4:23.+'
-
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
 }

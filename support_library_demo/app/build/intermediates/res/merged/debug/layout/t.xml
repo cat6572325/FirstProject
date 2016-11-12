@@ -2,76 +2,28 @@
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
-	xmlns:app="http://schemas.android.com/apk/res-auto">
+	android:layout_height="match_parent">
 
-	<RelativeLayout
+
+	<ProgressBar
+		style="?android:attr/progressBarStyleLarge"
 		android:layout_width="wrap_content"
-		android:layout_height="135dp">
+		android:layout_height="wrap_content"
+		android:id="@+id/progressBar"
+		android:layout_gravity="center_vertical"
+		android:layout_weight="1" />
 
-		<RelativeLayout
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:id="@+id/collectitemRelativeLayout2">
+	<ProgressBar
+		style="?android:attr/progressBarStyleSmall"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/progressBar2"
+		android:layout_weight="1" />
 
-			<LinearLayout
-				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:orientation="horizontal"
-				android:layout_alignParentBottom="true"
-				android:id="@+id/uploadedtabsrvitemLinearLayout1"
-				android:background="#FFFFFF">
-
-				<TextView
-					android:layout_height="23dp"
-					android:ellipsize="end"
-					android:text="五分钟识遍所有东西"
-					android:layout_width="140dp"
-					android:layout_marginLeft="14dp"
-					android:textSize="17sp"
-					android:gravity="center_vertical"
-					android:maxWidth="140dp"
-					android:singleLine="true"/>
-
-			</LinearLayout>
-
-			<ImageView
-				android:layout_height="wrap_content"
-				android:layout_width="match_parent"
-				android:layout_above="@id/uploadedtabsrvitemLinearLayout1"
-				android:background="@drawable/qq"/>
-
-			<TextView
-				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:id="@+id/paiditemTextView1"
-				android:layout_marginLeft="12dp"
-				android:textColor="#FFFFFF"
-				android:textSize="15sp"
-				android:text="9000000人付款"
-				android:layout_above="@id/uploadedtabsrvitemLinearLayout1"
-				android:paddingBottom="5dp"/>
-
-		</RelativeLayout>
-
-		<RelativeLayout
-			android:layout_height="wrap_content"
-			android:layout_width="match_parent"
-			android:background="#88000000"
-			android:id="@+id/my_video_tabs_al_rv_carditemRelativeLayout"
-			android:layout_centerVertical="true">
-
-			<Button
-				android:layout_height="wrap_content"
-				android:text="上传"
-				android:layout_width="wrap_content"
-				android:layout_centerHorizontal="true"
-				android:paddingLeft="10dp"
-				android:paddingRight="10dp"
-				android:id="@+id/myvideotabsalrvcarditemButton1"/>
-
-		</RelativeLayout>
-
-	</RelativeLayout>
-
+	<SeekBar
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/seekBar"
+		android:layout_weight="1" />
 </LinearLayout>
 

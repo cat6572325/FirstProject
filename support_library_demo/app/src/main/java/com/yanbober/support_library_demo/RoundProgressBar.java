@@ -123,7 +123,7 @@ public class RoundProgressBar extends View {
 		/**
 		 * 画进度百分比
 		 */
-		paint.setStrokeWidth(0); 
+		paint.setStrokeWidth(0);
 		paint.setColor(textColor);
 		paint.setTextSize(textSize);
 		paint.setTypeface(Typeface.DEFAULT_BOLD); //设置字体
@@ -141,7 +141,13 @@ public class RoundProgressBar extends View {
 
 		//设置进度是实心还是空心
 		paint.setStrokeWidth(roundWidth+5); //设置圆环的宽度
-		paint.setColor(roundProgressColor);  //设置进度的颜色
+		//paint.setColor(roundProgressColor);  //设置进度的颜色
+		//Paint p=new Paint();
+
+		LinearGradient lg=new LinearGradient(0,0,100,100,Color.RED,Color.BLUE,Shader.TileMode.MIRROR);
+		SweepGradient sg=new SweepGradient(280, 360, Color.rgb(90,0,160), Color.rgb(160,0,250));
+		//参数一为渐变起初点坐标x位置，参数二为y轴位置，参数三和四分辨对应渐变终点，最后参数为平铺方式，这里设置为镜像
+		paint.setShader(sg);
 		RectF oval = new RectF(centre - radius, centre - radius, centre
 							   + radius, centre + radius);  //用于定义的圆弧的形状和大小的界限
 

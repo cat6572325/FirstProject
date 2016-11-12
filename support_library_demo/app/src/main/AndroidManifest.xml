@@ -25,7 +25,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.yanbober.support_library_demo.MainActivity"
+            android:name="com.yanbober.support_library_demo.Register_"
             android:label="工匠若水" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -58,10 +58,16 @@
 		<activity android:name=".Run_Video_"
             android:label="knight of Lamorak"></activity>
 		<activity android:name=".Round_Video_"
-            android:label="knight of Lamorak"></activity>
-		
-			
-        <activity android:name=".SubActivity"
+            android:label="knight of Percivale"></activity>
+		<activity android:name=".MainActivity"
+			android:label="knight of Tristan"></activity>
+		<activity android:name=".Send_random_"
+			android:label="knight of Dagonet"></activity>
+		<activity android:name=".Register_sucess_Message_"
+			android:label="knight of Mordred"></activity>
+
+
+		<activity android:name=".SubActivity"
             android:label="工匠若水详情"></activity>
 		<activity android:name=".Home"/>
 		<activity

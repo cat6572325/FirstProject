@@ -35,14 +35,26 @@ public class Pop_Img extends Dialog {
 		private String title,acco,pas;
 		private String message;
 		EditText loe,pae;
-		
+		RelativeLayout indelayout;
+		Button uploadbutton;
+		RoundProgressBar bar;
+		Handler mViewUpdateHandler;
+
 		private String positiveButtonText;
 		private String negativeButtonText;
 		private View contentView;
 		Bitmap btm;
 
+		boolean red=true;
+		boolean green=true;
+		ImageView miusic , voice;
+		TextView miusict,voicet;
+
 		private DialogInterface.OnClickListener positiveButtonClickListener;
 		private DialogInterface.OnClickListener negativeButtonClickListener;
+		private DialogInterface.OnClickListener add_miusicOnclick;
+		private DialogInterface.OnClickListener add_reviceOnclick;
+		private DialogInterface.OnClickListener upload_click;
 
 		public Builder(Context con) {
 			this.context = context;
@@ -52,9 +64,10 @@ public class Pop_Img extends Dialog {
 		{
 			this.home=home;
 		}
-		public Builder(Round_Video_ round_video_)
+		public Builder(Round_Video_ round_video_,HashMap<String,Object> map)
 		{
 			this.round_video_=round_video_;
+			this.map=map;
 		}
 		public Builder(Setting_ setting_,HashMap<String,Object> map)
 		{
@@ -113,11 +126,12 @@ public class Pop_Img extends Dialog {
 		 * @param positiveButtonText
 		 * @return
 		 */
-		public Builder setPositiveButton(int positiveButtonText,
+		public Builder setUploadclick(int positiveButtonText,
 										 DialogInterface.OnClickListener listener) {
-			this.positiveButtonText = (String) context
-				.getText(positiveButtonText);
-			this.positiveButtonClickListener = listener;
+			//// TODO  上传
+			//this.positiveButtonText = (String) context
+			//	.getText(positiveButtonText);
+			this.upload_click = listener;
 			return this;
 		}
 
@@ -128,6 +142,16 @@ public class Pop_Img extends Dialog {
 			return this;
 		}
 
+		public  Builder setaddMiusic(DialogInterface.OnClickListener listener)
+		{
+			this.add_miusicOnclick=listener;
+			return this;
+		}
+		public Builder setrevioce(DialogInterface.OnClickListener listener)
+		{
+			this.add_reviceOnclick=listener;
+			return this;
+		}
 		public Builder setNegativeButton(int negativeButtonText,
 										 DialogInterface.OnClickListener listener) {
 			this.negativeButtonText = (String) context
@@ -151,22 +175,8 @@ public class Pop_Img extends Dialog {
 		public Pop_Img create() {
 			final Pop_Img dialog;
 			View layout ;
-			if(home!=null)
-			{
-				
-			LayoutInflater inflater = (LayoutInflater) home
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			// instantiate the dialog with the custom Theme
-			dialog = new Pop_Img(home,R.style.Dialog);
-			layout= inflater.inflate(R.layout.login_dialog, null);
-			dialog.addContentView(layout, new LayoutParams(
-									  LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 
-			
-				loe=(EditText)layout.findViewById(R.id.regE);
-				pae=(EditText)layout.findViewById(R.id.pasE);
 
-				
 
 			// set the dialog title
 			//((TextView) layout.findViewById(R.id.title)).setText(title);
@@ -175,24 +185,7 @@ public class Pop_Img extends Dialog {
 		//	((Button) layout.findViewById(R.id.btn_login))
 		//	.setText(positiveButtonText);
 		
-		
-			if (positiveButtonClickListener != null) {
-				((Button) layout.findViewById(R.id.btn_login))
-					.setOnClickListener(new View.OnClickListener()
-					{
-						public void onClick(View v) {
-							positiveButtonClickListener.onClick(dialog,
-										DialogInterface.BUTTON_POSITIVE);
-							Toast.makeText(home,"ii",Toast.LENGTH_SHORT).show();				
-							
-							ThreadEx t=new ThreadEx(home,"login"+"|"+loe.getText().toString()+"|"+pae.getText().toString());
-							Thread x=new Thread(t);
-							x.start();						
-																
-						}
-					});
-			}
-			
+
 			
 			/* } else {
 			 // if no confirm button just set the visibility to GONE
@@ -229,10 +222,7 @@ public class Pop_Img extends Dialog {
 			 .addView(contentView, new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
 			 }*/
 
-			dialog.setContentView(layout);
-			return dialog;
-			}//ifhome!=null
-		
+
 			if(setting_!=null)
 			{
 if((Integer)map.get("isprogress")==0)
@@ -241,11 +231,21 @@ if((Integer)map.get("isprogress")==0)
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				// instantiate the dialog with the custom Theme
 				dialog = new Pop_Img(setting_,R.style.Dialog1);
-				layout= inflater.inflate(R.layout.video_data_edit_layout,null);//.enter_pay_pwd_dlg, null);
+				layout= inflater.inflate(R.layout.enter_pay_pwd_dlg, null);
 				
 				dialog.addContentView(layout, new LayoutParams(
 										  LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 
+	((ImageView)layout.findViewById(R.id.video_edit_miusic_img))
+			.setOnClickListener(new View.OnClickListener()
+			{
+				@Override
+				public void onClick(View view) {
+					//view.setBackgroundResource(R.drawable.add_music);
+				}
+			}
+
+			);
 
 				//loe=(EditText)layout.findViewById(R.id.regE);
 			//	pae=(EditText)layout.findViewById(R.id.pasE);
@@ -271,7 +271,8 @@ if((Integer)map.get("isprogress")==0)
 				
 				return dialog;
 }else//if(isprogress)
-{//显示成进度圈君
+{
+//TODO 显示成进度圈君
 	LayoutInflater inflater = (LayoutInflater) setting_
 		.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	// instantiate the dialog with the custom Theme
@@ -290,11 +291,156 @@ bar.setCricleColor((Integer)map.get("color"));
 	return dialog;
 }//if(isprogress) else
 				
-				}else
-				{
-					return null;
 				}
-				
-		}
+
+
+			if(round_video_!=null)
+			{
+
+				if((int)map.get("upload")==0) {
+					//TODO 进度圈
+					LayoutInflater inflater = (LayoutInflater) round_video_
+							.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+					// instantiate the dialog with the custom Theme
+					dialog = new Pop_Img(round_video_, R.style.Dialog1);
+					layout = inflater.inflate(R.layout.round_video_sucess_progres, null);//.enter_pay_pwd_dlg, null);
+
+					dialog.addContentView(layout, new LayoutParams(
+							LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+
+					dialog.setContentView(layout);
+					RoundProgressBar bar=(RoundProgressBar)layout.findViewById(R.id.round_bar);
+					bar.setMax((Integer)map.get("max"));
+					bar.setTextSize((Integer)map.get("textsize"));
+					bar.setProgress((Integer)map.get("progress"));
+					bar.setCricleColor((Integer)map.get("color"));
+
+
+				}else {
+					//TODO 是一个编辑信息的对话框
+					LayoutInflater inflater = (LayoutInflater) round_video_
+							.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+					// instantiate the dialog with the custom Theme
+					dialog = new Pop_Img(round_video_, R.style.Dialog1);
+					layout = inflater.inflate(R.layout.video_data_edit_layout, null);//.enter_pay_pwd_dlg, null);
+
+					dialog.addContentView(layout, new LayoutParams(
+							LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+
+					dialog.setContentView(layout);
+
+
+					//loe=(EditText)layout.findViewById(R.id.regE);
+					//	pae=(EditText)layout.findViewById(R.id.pasE);
+					//todo 控件初始化
+					miusict=(TextView)layout.findViewById(R.id.video_edit_miusic_tv);
+					miusic=(ImageView) layout.findViewById(R.id.video_edit_miusic_img);//.enterpaypwddlgButton1))
+					voice=(ImageView)layout.findViewById(R.id.video_edit_voice_img);
+					voicet=(TextView)layout.findViewById(R.id.video_edit_voice_tv);
+					uploadbutton=(Button)layout.findViewById(R.id.videodataeditlayoutButton1);
+					bar=(RoundProgressBar)layout.findViewById(R.id.roundProgressBar2);
+					indelayout=(RelativeLayout)layout.findViewById(R.id.video_edit_hide_layout);
+					//初始进度圈是隐藏的
+					indelayout.setVisibility(View.INVISIBLE);
+					bar.setMax(100);
+
+
+					if (upload_click != null) {
+						//TODO 添加音乐的按钮
+						uploadbutton.setOnClickListener(new View.OnClickListener() {
+							public void onClick(View v) {
+								upload_click.onClick(dialog,
+										DialogInterface.BUTTON_POSITIVE);
+								indelayout.setVisibility(View.VISIBLE);
+								//解除隐藏布局的隐藏
+
+
+
+
+							}
+						});
+
+					}
+					if (add_miusicOnclick != null) {
+						//TODO 添加音乐的按钮
+								miusic.setOnClickListener(new View.OnClickListener() {
+									public void onClick(View v) {
+										add_miusicOnclick.onClick(dialog,
+												DialogInterface.BUTTON_POSITIVE);
+										if(red==true)
+										{
+											miusic.setBackgroundResource(R.drawable.add_music);
+											miusict.setTextColor(Color.rgb(160,0,250));
+											voice.setBackgroundResource(R.drawable.remove_voice_black);
+											red=false;
+											green=true;
+											//表示音乐不能再添加
+											//而消音可以点击
+										}else
+										{
+											//已点击过就不会再做任何其他响应
+										}
+									}
+								});
+
+					}
+					if (add_reviceOnclick != null) {
+						//TODO 去除声音的按钮
+						//.enterpaypwddlgButton1))
+						voice.setOnClickListener(new View.OnClickListener() {
+							public void onClick(View v) {
+								add_reviceOnclick.onClick(dialog,
+										DialogInterface.BUTTON_POSITIVE);
+								if (green == true) {
+									miusic.setBackgroundResource(R.drawable.add_music_black);
+									miusict.setTextColor(Color.rgb(100, 100, 100));
+									voice.setBackgroundResource(R.drawable.remove_voice);
+									red = true;
+									green = false;
+									//表示音乐可以再添加
+									//而消音不再可以点击
+
+								} else {
+									//已点击过就不会再做任何其他响应
+
+								}
+							}
+						});
+					}
+
+
+
+					mViewUpdateHandler = new Handler() {
+						@Override
+						public void handleMessage(Message msg) {
+							super.handleMessage(msg);
+							bar.setProgress(bar.getProgress()+1);
+bar.invalidate();
+
+						}
+					};
+
+				}// 不是进度圈而是编辑
+
+
+
+					return dialog;
+
+			}//round_video_
+			 else
+			{
+				return null;
+			}
+
+
+
+
+		}//onCreate
+		public void OnProgressChanged(int count)
+	{
+		mViewUpdateHandler.sendEmptyMessage(0);
+
 	}
+
+}
 }

@@ -68,7 +68,7 @@
 		android:layout_margin="30dp"
 		android:id="@+id/personallayoutLinearLayout1"
 		android:layout_below="@id/personallayoutRelativeLayout1"
-		android:background="@drawable/login">
+		android:background="@drawable/login_background_style">
 
 		<LinearLayout
 			android:layout_height="match_parent"

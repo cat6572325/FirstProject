@@ -31,7 +31,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.yanbober.support_library_demo.MainActivity"
+            android:name="com.yanbober.support_library_demo.Register_"
             android:label="工匠若水" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -77,7 +77,16 @@
             android:label="knight of Lamorak" />
         <activity
             android:name="com.yanbober.support_library_demo.Round_Video_"
-            android:label="knight of Lamorak" />
+            android:label="knight of Percivale" />
+        <activity
+            android:name="com.yanbober.support_library_demo.MainActivity"
+            android:label="knight of Tristan" />
+        <activity
+            android:name="com.yanbober.support_library_demo.Send_random_"
+            android:label="knight of Dagonet" />
+        <activity
+            android:name="com.yanbober.support_library_demo.Register_sucess_Message_"
+            android:label="knight of Mordred" />
         <activity
             android:name="com.yanbober.support_library_demo.SubActivity"
             android:label="工匠若水详情" />
