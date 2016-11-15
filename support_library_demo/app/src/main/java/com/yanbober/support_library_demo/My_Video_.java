@@ -17,6 +17,9 @@ import java.net.*;
 import java.util.*;
 
 import android.support.v7.widget.Toolbar;
+
+import org.w3c.dom.Text;
+
 /**
  * 一个中文版Demo App搞定所有Android的Support Library新增所有兼容控件
  * 支持最新2015 Google I/O大会Android Design Support Library
@@ -66,6 +69,8 @@ public class My_Video_ extends ActionBarActivity {
 
 	LinearLayout ll;
 	public ImageView heard;
+	//右上角新消息提示红点
+	TextView Message_point;
 
 	ImageView message;
     @Override
@@ -140,7 +145,7 @@ public class My_Video_ extends ActionBarActivity {
         mTabLayout = (TabLayout) this.findViewById(R.id.myvideotab);
         mViewPager = (ViewPager) this.findViewById(R.id.view_pager);
 		rl=(ListView)this.findViewById(R.id.tRecyclerView1);
-	
+			Message_point=(TextView)findViewById(R.id.tTextView);
 			message=(ImageView)this.findViewById(R.id.activitymainTextView1);
 
 		
@@ -155,8 +160,10 @@ public class My_Video_ extends ActionBarActivity {
 
 				public void onClick(View v)
 				{
+					Message_point.setVisibility(View.INVISIBLE);
 					Intent intent=new Intent(My_Video_.this,Message_c.class);
 					startActivity(intent);
+
 
 				}
 			});

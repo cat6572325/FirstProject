@@ -18,7 +18,11 @@ RecyclerView rv=null;
 Toolbar tb;
 	public ArrayList<HashMap<String,Object>> lists=new ArrayList<HashMap<String,Object>>();
 	public FirstAdapter adapter;
-	
+	//右上角新消息提示红点
+	TextView Message_point;
+
+	ImageView message;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -31,6 +35,9 @@ Toolbar tb;
 	{
 		rv=(RecyclerView)findViewById(R.id.paidvideorv);
 		tb=(Toolbar)findViewById(R.id.paidToolbar);
+		Message_point=(TextView)findViewById(R.id.tTextView);
+		message=(ImageView)this.findViewById(R.id.activitymainTextView1);
+
 		//初始化ToolBar
         setSupportActionBar(tb);
 		tb.setNavigationIcon(R.drawable.back_purple);
@@ -39,13 +46,26 @@ Toolbar tb;
 			public void onClick(View v)
 			{
 				onBackPressed();
-				
+
 			}
-			
+
 		});
 		rv.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
 		//设置RecyclerView布局管理器为1列垂直排布
 		addTextToList("本 拉登教你打仗",2,R.drawable.qq,"901人付款");
+		message.setOnClickListener(new View.OnClickListener()
+		{
+
+			public void onClick(View v)
+			{
+				Message_point.setVisibility(View.INVISIBLE);
+				Intent intent=new Intent(Paid_Video.this,Message_c.class);
+				startActivity(intent);
+
+
+			}
+		});
+
 		adapter = new FirstAdapter(Paid_Video.this,lists);
 
         rv.setAdapter(adapter);
@@ -55,7 +75,7 @@ Toolbar tb;
 				{
 					Intent intent=new Intent(Paid_Video.this,Run_Video_.class);
 					startActivity(intent);
-					
+
 					ImageView img=(ImageView)v.findViewById(R.id.paiditemImageView1);
 					img.setOnClickListener(new OnClickListener()
 					{
@@ -66,10 +86,12 @@ Toolbar tb;
 				}
 				public void onItemLongClickListener(View v,int position)
 				{
-					
-					
+
+
 				}
 			});
+
+
 	}
 	public void addTextToList(String text, int who, int id,String data)
 	{

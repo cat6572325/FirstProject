@@ -1,4 +1,12 @@
 package com.yanbober.support_library_demo;
+
+
+
+/*
+		这个类显示在My_Video_的一个tab中，显示的内容是表示用户已经上传了的视频
+
+
+ */
 import android.os.*;
 import android.support.annotation.*;
 import android.support.v4.app.*;
@@ -12,7 +20,7 @@ public class My_Video_tabs_item_already extends Fragment {
 	public ArrayList<HashMap<String,Object>> lists=new ArrayList<HashMap<String,Object>>();
 	private List<Integer> counttype=new ArrayList<>();
 	private List<String> data=new ArrayList<>();
-
+	RelativeLayout rel;
 	public FirstAdapter adapter;
 	RelativeLayout rv;
     private RecyclerView mRecyclerView;
@@ -29,6 +37,7 @@ public class My_Video_tabs_item_already extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         mRecyclerView = (RecyclerView) mParentView.findViewById(R.id.uploaded_tabs_rv);
+		rel=(RelativeLayout)mParentView.findViewById(R.id.my_video_tabs_al_rv_carditemRelativeLayout);
 		mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 		//mRecyclerView.addItemDecoration(new div
 
@@ -48,7 +57,7 @@ public class My_Video_tabs_item_already extends Fragment {
 						   ,android.R.drawable.ic_lock_lock,"ps"
 						   ,"data",0
 						   ,"这点略大，颜色不一样，标题栏缺少图标和点击效果，"
-						   ,0
+						   ,1
 						   );
 			
 		}
@@ -60,7 +69,7 @@ public class My_Video_tabs_item_already extends Fragment {
 		
 
     }
-	
+
 	public void addTextToList2(String text, int who, int id,String ps,String data,int person,String name,int is)
 	{
 		HashMap<String,Object> map=new HashMap<String,Object>();

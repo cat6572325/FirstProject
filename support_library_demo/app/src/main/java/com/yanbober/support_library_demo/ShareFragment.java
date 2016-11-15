@@ -19,7 +19,7 @@ public class ShareFragment extends Fragment {
 	public ArrayList<HashMap<String,Object>> lists=new ArrayList<HashMap<String,Object>>();
 	private List<Integer> counttype=new ArrayList<>();
 	private List<String> data=new ArrayList<>();
-	
+
 	public FirstAdapter adapter;
 	RelativeLayout rv;
     private RecyclerView mRecyclerView;
@@ -38,7 +38,7 @@ public class ShareFragment extends Fragment {
         mRecyclerView = (RecyclerView) mParentView.findViewById(R.id.recycler_view);
 		mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 		 //mRecyclerView.addItemDecoration(new div
-       
+
        // LinearLayoutManager manager = new LinearLayoutManager(mRecyclerView.getContext());
        // manager.setOrientation(2,LinearLayoutManager.HORIZONTAL);
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
@@ -46,8 +46,8 @@ public class ShareFragment extends Fragment {
 	//	addTextToList2("广东",2,android.R.drawable.ic_lock_lock,"ps","data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊");
 		//addTextToList2("广东",1,android.R.drawable.ic_lock_lock,"ps","data",0,"这点略大，颜色不一样，标题栏缺少图标和点击效果，",0);
 		addTextToList2("广东",0,android.R.drawable.ic_lock_lock,"ps","data",0,"这点略大，颜色不一样，标题栏缺少图标和点击效果，",1);
-		
-		
+
+
 		for(int i=0;i<android.R.drawable.class.getDeclaredFields().length;i++)
 		{
 			addTextToList2("广东"
@@ -61,15 +61,15 @@ public class ShareFragment extends Fragment {
 			data.add("uuu");
 		}
 		String str;
-		
+
 		adapter = new FirstAdapter(getActivity(),lists);
-		
+
         mRecyclerView.setAdapter(adapter);
 		ThreadEx ex=new ThreadEx((MainActivity)getActivity(),"getshare");
 		Thread x=new Thread(ex);
 		x.start();
-		
-		
+
+
     }
 	public void addTextToList3(String text, int who, String id,String ps,String data,int person,String name)
 	{
@@ -109,5 +109,5 @@ public class ShareFragment extends Fragment {
 		map.put("name",name);
 		lists.add(map);
     }
-	
+
 }

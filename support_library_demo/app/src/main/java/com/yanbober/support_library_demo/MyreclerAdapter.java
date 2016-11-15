@@ -37,8 +37,8 @@ public class MyreclerAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     /**
      * 构造函数
-     * @param context
-     * @param datas
+     * @param
+     * @param
      */
 	
 	
@@ -350,7 +350,7 @@ class MyViewHolder extends RecyclerView.ViewHolder{
 		data=(TextView)itemView.findViewById(R.id.share_itemTextViewData);
 		
 		
-			img=(ImageView)itemView.findViewById(R.id.recy_card_itemImageView);
+		//	img=(ImageView)itemView.findViewById(R.id.recy_card_itemImageView);
 			mTv=(TextView)itemView.findViewById(R.id.recy_card_itemTextView);
     }
 	}

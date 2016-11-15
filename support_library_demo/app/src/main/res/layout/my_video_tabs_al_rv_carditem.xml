@@ -46,12 +46,18 @@
 						android:singleLine="true"/>
 
 				</LinearLayout>
-
+<View
+	android:layout_width="match_parent"
+	android:layout_height="1dp"
+	android:background="#7a7a7a7a"
+	android:id="@+id/views"
+	android:layout_above="@id/uploadedtabsrvitemLinearLayout1"
+	/>
 				<ImageView
-					android:layout_height="wrap_content"
+					android:layout_height="fill_parent"
 					android:layout_width="match_parent"
-					android:layout_above="@id/uploadedtabsrvitemLinearLayout1"
-					android:background="@drawable/qq"/>
+					android:layout_above="@id/views"
+					android:background="@android:drawable/sym_def_app_icon"/>
 
 				<TextView
 					android:layout_height="wrap_content"
@@ -69,7 +75,7 @@
 			<RelativeLayout
 				android:layout_height="wrap_content"
 				android:layout_width="match_parent"
-				android:background="#88000000"
+				android:background="#00000000"
 				android:id="@+id/my_video_tabs_al_rv_carditemRelativeLayout"
 				android:layout_centerVertical="true">
 
@@ -80,7 +86,8 @@
 					android:layout_centerHorizontal="true"
 					android:paddingLeft="10dp"
 					android:paddingRight="10dp"
-					android:id="@+id/myvideotabsalrvcarditemButton1"/>
+					android:id="@+id/myvideotabsalrvcarditemButton1"
+					android:background="@drawable/button_my_video2" />
 
 			</RelativeLayout>
 

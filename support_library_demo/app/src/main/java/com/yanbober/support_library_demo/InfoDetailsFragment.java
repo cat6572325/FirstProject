@@ -1,5 +1,6 @@
 package com.yanbober.support_library_demo;
 
+import android.annotation.TargetApi;
 import android.content.*;
 import android.os.*;
 import android.support.annotation.*;
@@ -8,12 +9,8 @@ import android.support.v7.widget.*;
 import android.view.*;
 import android.widget.*;
 import java.util.*;
-/**
- * Author       : yanbo
- * Date         : 2015-06-01
- * Time         : 15:09
- * Description  :
- */
+
+
 public class InfoDetailsFragment extends Fragment {
     private RecyclerView mRecyclerView,rv;
 	View v;
@@ -23,9 +20,10 @@ public class InfoDetailsFragment extends Fragment {
 	User user=new User();
 	private List<Integer> counttype=new ArrayList<>();
 	private List<String> data=new ArrayList<>();
-	
-	
-    @Nullable
+	LinearLayoutManager lm;
+	int lastVisibleItem;
+
+	@Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
      v  =  inflater.inflate(R.layout.info_details_fragment, container, false);
@@ -48,10 +46,11 @@ public class InfoDetailsFragment extends Fragment {
 					}
 					}
 					};
-    @Override
+    @TargetApi(Build.VERSION_CODES.M)
+	@Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-		for(int i=0;i<android.R.drawable.class.getDeclaredFields().length;i++)
+		for(int i=0;i<10;i++)
 		{
 			//addTextToList("广东",1,android.R.drawable.ic_lock_lock,"ps","data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊");
 			
@@ -75,9 +74,49 @@ public class InfoDetailsFragment extends Fragment {
 					Toast.makeText(getActivity(),position+"+++++++++LongClick:",Toast.LENGTH_LONG).show();
 
 				}
+		});
+		//TODO 上拉加载更多
+
+		mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+			@Override
+			public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+				super.onScrollStateChanged(recyclerView, newState);
+				lm= (LinearLayoutManager) mRecyclerView.getLayoutManager();
+				if (newState == RecyclerView.SCROLL_STATE_IDLE
+				&& lastVisibleItem + 1 == adapter.getItemCount()) {    //adapter.changeMoreStatus(0);
+					new Handler().postDelayed(new Runnable() {
+						@Override
+						public void run() {
+							List<String> newDatas = new ArrayList<String>();
+							for (int i = 0; i < 5; i++) {
+								int index = i + 1;
+								newDatas.add("more item" + index);
+							}
+							addTextToList("uuu", 1, "android.R.drawable.ic_lock_lock", 0, "name");
+							//mHandler.sendEmptyMessage(0);
+							mRecyclerView.notifyAll();
+							
+							//// TODO: 16-11-13  
+							//	adapter.addMoreItem(newDatas);
+							//adapter.changeMoreStatus(0);
+						}
+					}, 2500);
+				}
+
+
+			}
+				@Override
+				public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+					super.onScrolled(recyclerView,dx, dy);
+					lastVisibleItem = lm.findLastVisibleItemPosition();
+
+				}
 			});
-		
-    }
+
+
+
+
+			}
 	public void addTextToList(String text, int who, String id, int count,String name)
 	{
 		HashMap<String,Object> map=new HashMap<String,Object>();

@@ -47,6 +47,8 @@
     <color name="color_7">#cccc99</color>
     <color name="color_8">#cc9966</color>
     <color name="color_9">#ff99cc</color>
+    <color name="color_first">#88666666</color>
+    <color name="color_first_">#99999999</color>
     <color name="design_fab_shadow_end_color">@android:color/transparent</color>
     <color name="design_fab_shadow_mid_color">#14000000</color>
     <color name="design_fab_shadow_start_color">#44000000</color>

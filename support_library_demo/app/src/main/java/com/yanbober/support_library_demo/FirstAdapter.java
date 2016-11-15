@@ -1,9 +1,19 @@
 package com.yanbober.support_library_demo;
+
+
+/*
+	由MyrecyviewAdapter稍加修改的一个RecyclerView的专用适配器
+
+
+
+ */
+
 import android.content.*;
 import android.support.v7.widget.*;
 import android.view.*;
 import android.widget.*;
 import java.util.*;
+
 public class FirstAdapter extends RecyclerView.Adapter<MyViewHolder2> {
     private ArrayList<HashMap<String,Object>> lists,addrs;
     private Context context;
@@ -32,8 +42,8 @@ public class FirstAdapter extends RecyclerView.Adapter<MyViewHolder2> {
     }
     /**
      * 构造函数
-     * @param context
-     * @param datas
+     * @param
+     * @param
      */
 
 
@@ -250,8 +260,11 @@ case 2:
 				break;
 				case 4:
 					//是否显示点和上传按钮
-					holder.collect_spot.setVisibility(View.INVISIBLE);
-					//holder.my_video_al_rv.setVisibility(View.INVISIBLE);
+					//My_video
+					if((Integer)lists.get(position).get("is")==1) {
+						holder.collect_spot.setVisibility(View.INVISIBLE);
+						holder.my_video_al_rv.setVisibility(View.INVISIBLE);
+					}
 				if(mListener!=null){//如果设置了监听那么它就不为空，然后回调相应的方法
 
 					holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -460,7 +473,7 @@ RelativeLayout rv,collect_rv,collect_back,my_video_al_rv;
 		data=(TextView)itemView.findViewById(R.id.share_itemTextViewData);
 rv=(RelativeLayout)itemView.findViewById(R.id.recycarditemRelativeLayout1);
 is=(TextView)itemView.findViewById(R.id.tTextView);
-		img=(ImageView)itemView.findViewById(R.id.recy_card_itemImageView);
+	//	img=(ImageView)itemView.findViewById(R.id.recy_card_itemImageView);
 		mTv=(TextView)itemView.findViewById(R.id.recy_card_itemTextView);
 	//////Paid_Video
 		paid_name	=(TextView)itemView.findViewById(R.id.paiditemTextView1);

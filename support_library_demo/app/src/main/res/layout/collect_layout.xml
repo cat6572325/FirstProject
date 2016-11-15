@@ -43,9 +43,12 @@
 				<TextView
 					android:id="@+id/tTextView"
 					android:background="@drawable/button_normal"
-					android:layout_width="10dp"
+					android:layout_width="wrap_content"
 					android:layout_alignParentRight="true"
 					android:minWidth="10dp"
+					android:text="1"
+					android:textSize="4dp"
+					android:textColor="@android:color/white"
 					android:gravity="center_vertical|center_horizontal"
 					android:minHeight="10dp"
 					android:layout_height="9dp"

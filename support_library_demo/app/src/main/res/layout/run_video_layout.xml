@@ -9,7 +9,7 @@
 	<android.support.design.widget.AppBarLayout
 		android:id="@+id/app_bar"
 		android:layout_width="match_parent"
-		android:layout_height="250dp"
+		android:layout_height="290dp"
 		android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
 		<android.support.design.widget.CollapsingToolbarLayout
@@ -36,9 +36,10 @@
 
 				</SurfaceView>
 
-				<LinearLayout
-					android:layout_height="wrap_content"
+				<RelativeLayout
+					android:layout_height="match_parent"
 					android:layout_width="fill_parent"
+					android:id="@+id/Run_Video_hide"
 					android:orientation="vertical"
 					android:layout_alignBottom="@id/surfaceView1">
 
@@ -46,16 +47,18 @@
 						android:orientation="horizontal"
 						android:layout_gravity="center_horizontal"
 						android:layout_marginTop="4.0dip"
+						android:layout_centerInParent="true"
 						android:layout_height="wrap_content"
 						android:layout_width="wrap_content">
+						<ImageView
+							android:layout_height="50dp"
+							android:background="@drawable/list_play"
+							android:layout_width="50dp"
+							android:layout_margin="13dp"
+							android:layout_centerHorizontal="true"
+							android:layout_centerVertical="true"
+							android:id="@+id/btnPlayUrl"/>
 
-						<Button
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:id="@+id/btnPlayUrl"
-							android:text="播放网络视频">
-
-						</Button>
 
 						<Button
 							android:layout_height="wrap_content"
@@ -65,19 +68,12 @@
 
 						</Button>
 
-						<Button
-							android:layout_height="wrap_content"
-							android:layout_width="80dip"
-							android:text="停止"
-							android:id="@+id/btnStop">
-
-						</Button>
-
 					</LinearLayout>
 
 					<LinearLayout
 						android:orientation="horizontal"
 						android:layout_width="fill_parent"
+						android:layout_alignParentBottom="true"
 						android:layout_height="wrap_content"
 						android:layout_marginBottom="20dip">
 
@@ -95,15 +91,17 @@
 
 					</LinearLayout>
 
-				</LinearLayout>
+				</RelativeLayout>
 
 			</RelativeLayout>
 
 			<android.support.v7.widget.Toolbar
 				android:id="@+id/tool_bar"
 				android:layout_width="match_parent"
+
 				android:layout_height="?attr/actionBarSize"
-				app:layout_collapseMode="pin"/>
+				app:layout_collapseMode="pin"
+				android:background="#d9daf0" />
 
 		</android.support.design.widget.CollapsingToolbarLayout>
 

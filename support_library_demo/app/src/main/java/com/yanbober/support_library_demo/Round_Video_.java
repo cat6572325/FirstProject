@@ -1,21 +1,26 @@
 package com.yanbober.support_library_demo;
 
 import android.app.*;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.*;
 import android.hardware.*;
+import android.hardware.Camera.Size;
 import android.media.*;
 import android.media.MediaRecorder.*;
 import android.os.*;
+
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.text.Layout;
 import android.util.DisplayMetrics;
+
 import android.util.TimeUtils;
 import android.view.*;
 import android.view.View.*;
 import android.webkit.WebView;
 import android.widget.*;
 import java.io.*;
+import java.security.Policy;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -51,7 +56,9 @@ static int message =0;
 	Timer mTimer=new Timer();
 	TimeUnit t;
 	File file = new File("/sdcard/RoundVideo/video.3gp");
+	String COMMA_PATTERN=",";
 
+	Size size;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -100,6 +107,7 @@ static int message =0;
 	public void initView()
 {
 HideLayout=(RelativeLayout)this.findViewById(R.id.HideLayout);
+
 //初始隐藏这个布局
 	HideLayout.setVisibility(View.INVISIBLE);
 	//隐藏(不可见)
@@ -172,11 +180,15 @@ HideLayout=(RelativeLayout)this.findViewById(R.id.HideLayout);
             getWindowManager().getDefaultDisplay().getMetrics(dm);
 			mediaRecorder = new MediaRecorder();// 创建mediarecorder对象
 			//摄像头旋转90度
+
 			camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
+			Camera.Parameters mParams = camera.getParameters();
+			mParams.setPreviewSize(720, 1280);
 			camera.setDisplayOrientation(90);
             camera.unlock();
 
-            mediaRecorder.setCamera(camera);
+
+			mediaRecorder.setCamera(camera);
             // 设置录制视频源为Camera(相机)
 			mediaRecorder.setVideoSource(Camera.CameraInfo.CAMERA_FACING_BACK);
 			//设置音频采集方式
@@ -190,15 +202,15 @@ HideLayout=(RelativeLayout)this.findViewById(R.id.HideLayout);
 			
 			//mediaRecorder.setMaxDuration(60*1000);
 			//录像旋转90度
-			mediaRecorder.setOrientationHint(90);
+			//mediaRecorder.setOrientationHint(90);
 			// 设置录制完成后视频的封装格式THREE_GPP为3gp.MPEG_4为mp4
 			//mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
 			// 设置录制的视频编码h263 h264
 			mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
 			//设置高质量录制,改变码率
-			mediaRecorder.setVideoEncodingBitRate(5*600*600);
+			mediaRecorder.setVideoEncodingBitRate(5*1024*1024);
 			//设置视频录制的分辨率。必须放在设置编码和格式的后面，否则报错
-			mediaRecorder.setVideoSize(640, 480);
+			mediaRecorder.setVideoSize(720, 560);
 			// 设置录制的视频帧率。必须放在设置编码和格式的后面，否则报错
 			mediaRecorder.setVideoFrameRate(20);
 			// 设置视频文件输出的路径
@@ -206,7 +218,6 @@ HideLayout=(RelativeLayout)this.findViewById(R.id.HideLayout);
 			// 设置捕获视频图像的预览界面
 
 			mediaRecorder.setPreviewDisplay(mSurfaceView.getHolder().getSurface());
-
 			mediaRecorder.setOnErrorListener(new OnErrorListener() {
 
 					@Override
@@ -395,9 +406,20 @@ public class Mytest
         }
     }
 
-	
-	
-	
+
+
+
+	protected DisplayMetrics getScreenWH() {
+		DisplayMetrics dMetrics = new DisplayMetrics();
+		dMetrics = this.getResources().getDisplayMetrics();
+		return dMetrics;
+	}
+
+
+
+
+
+
 }
 
 
