@@ -55,12 +55,14 @@
 
 		<SurfaceView
 			android:layout_width="match_parent"
-			android:layout_height="280dp"
+			android:layout_height="450dp"
 			android:id="@+id/camera_surfaceview" />
 
 		<RelativeLayout
 			android:layout_height="150dp"
 			android:layout_width="match_parent"
+			android:background="#88333333"
+			android:id="@+id/bottom_hide_layout"
 			android:layout_alignParentBottom="true">
 
 			<LinearLayout
@@ -99,11 +101,12 @@
 
 		</RelativeLayout>
 	<RelativeLayout
-		android:layout_height="match_parent"
+		android:layout_height="150dp"
+		android:layout_alignParentBottom="true"
 		android:layout_width="match_parent"
 		android:id="@+id/HideLayout"
-		android:layout_below="@id/camera_surfaceview"
-		android:background="#ffffff"
+
+		android:background="#88555555"
 	>
 		<LinearLayout
 			android:layout_height="wrap_content"

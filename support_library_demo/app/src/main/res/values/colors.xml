@@ -12,4 +12,5 @@
     <color name="color_9">#ff99cc</color>
     <color name="color_first">#88666666</color>
     <color name="color_first_">#99999999</color>
+    <color name="color_first_collect">#dedcdc</color>
 </resources>

@@ -10,6 +10,7 @@
 	<android.support.design.widget.CoordinatorLayout
 		xmlns:app="http://schemas.android.com/apk/res-auto"
 		android:id="@+id/main_content"
+
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
 
@@ -64,7 +65,6 @@
 							android:layout_height="9dp"
 							android:layout_marginTop="11dp"
 							android:layout_marginRight="18dp"/>
-
 					</RelativeLayout>
 
 				</RelativeLayout>
@@ -84,9 +84,10 @@
 				android:layout_width="match_parent">
 
 				<View
-					android:layout_height="5dp"
+					android:layout_height="1dp"
 					android:layout_width="match_parent"
-					android:background="@drawable/with_shadow"
+
+					android:background="#88000000"
 					android:id="@+id/modifynameView1"/>
 
 			</RelativeLayout>
@@ -99,31 +100,38 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"/>
 
-		<android.support.design.widget.FloatingActionButton
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="bottom|right"
-			android:id="@+id/f1"
-			android:layout_margin="16dp"
-
-			app:layout_anchorGravity="bottom|right|end" />
-
-		<android.support.design.widget.FloatingActionButton
+		<Button
 			android:id="@+id/f2"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			android:background="@drawable/maru_no"
+			android:layout_width="50dp"
+			android:layout_height="50dp"
+			android:layout_margin="30dp"
+			android:text="拍摄"
+			android:textSize="15dp"
 			android:layout_gravity="bottom|right"
-			android:layout_margin="16dp"
-
-			app:layout_anchorGravity="bottom|right|end" />
-		<android.support.design.widget.FloatingActionButton
+			/>
+		<Button
 			android:id="@+id/f3"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			android:background="@drawable/maru_no"
+			android:layout_width="50dp"
+			android:layout_height="50dp"
+			android:layout_margin="30dp"
+			android:text="本地"
+			android:textSize="15dp"
 			android:layout_gravity="bottom|right"
-			android:layout_margin="16dp"
+			/>
+		<Button
+			android:id="@+id/f1"
+			android:background="@drawable/maru_no"
+			android:layout_width="80dp"
+			android:layout_height="80dp"
+			android:layout_margin="20dp"
+			android:text="x"
+			android:textSize="25dp"
+			android:textColor="#7f2bed"
+			android:layout_gravity="bottom|right"
 
-			app:layout_anchorGravity="bottom|right|end" />
+			/>
 	</android.support.design.widget.CoordinatorLayout>
 
 
@@ -214,6 +222,7 @@
 					android:id="@+id/left_list_itemImageView"
 					android:layout_marginRight="35dp"
 					android:layout_marginTop="9dp"
+					android:background="@drawable/login_up"
 					android:layout_marginLeft="10dp"/>
 
 				<TextView

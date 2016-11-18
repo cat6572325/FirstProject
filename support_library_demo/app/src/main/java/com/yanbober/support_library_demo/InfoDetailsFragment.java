@@ -53,7 +53,7 @@ public class InfoDetailsFragment extends Fragment {
 		for(int i=0;i<10;i++)
 		{
 			//addTextToList("广东",1,android.R.drawable.ic_lock_lock,"ps","data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊");
-			
+			addTextToList("uuu",1,"android.R.drawable.ic_lock_lock",0,"name");
 		}
 		addTextToList("uuu",1,"android.R.drawable.ic_lock_lock",0,"name");
 		
@@ -77,14 +77,18 @@ public class InfoDetailsFragment extends Fragment {
 		});
 		//TODO 上拉加载更多
 
-		mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+	/*	mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
 			@Override
 			public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
 				super.onScrollStateChanged(recyclerView, newState);
-				lm= (LinearLayoutManager) mRecyclerView.getLayoutManager();
-				if (newState == RecyclerView.SCROLL_STATE_IDLE
-				&& lastVisibleItem + 1 == adapter.getItemCount()) {    //adapter.changeMoreStatus(0);
-					new Handler().postDelayed(new Runnable() {
+				lm = (LinearLayoutManager) mRecyclerView.getLayoutManager();
+				if (lm.findViewByPosition(lm.findFirstVisibleItemPosition()).getTop() == 0
+						&&
+						lm.findFirstVisibleItemPosition() == 0)
+
+
+					Toast.makeText(getContext(), "last", Toast.LENGTH_LONG).show();
+				/*	new Handler().postDelayed(new Runnable() {
 						@Override
 						public void run() {
 							List<String> newDatas = new ArrayList<String>();
@@ -92,26 +96,26 @@ public class InfoDetailsFragment extends Fragment {
 								int index = i + 1;
 								newDatas.add("more item" + index);
 							}
-							addTextToList("uuu", 1, "android.R.drawable.ic_lock_lock", 0, "name");
+						//	addTextToList("uuu", 1, "android.R.drawable.ic_lock_lock", 0, "name");
 							//mHandler.sendEmptyMessage(0);
-							mRecyclerView.notifyAll();
+						//	mRecyclerView.notifyAll();
 							
 							//// TODO: 16-11-13  
 							//	adapter.addMoreItem(newDatas);
 							//adapter.changeMoreStatus(0);
 						}
 					}, 2500);
-				}
-
-
 			}
+
+
+
 				@Override
 				public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
 					super.onScrolled(recyclerView,dx, dy);
 					lastVisibleItem = lm.findLastVisibleItemPosition();
 
 				}
-			});
+			});*/
 
 
 

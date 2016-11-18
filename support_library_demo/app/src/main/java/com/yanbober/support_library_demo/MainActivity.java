@@ -16,6 +16,7 @@ import android.view.*;
 import android.view.View.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
+import android.support.design.widget.FloatingActionButton;
 
 import java.io.*;
 import java.net.*;
@@ -30,7 +31,7 @@ import android.view.View.OnClickListener;
  */
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
     public Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
@@ -43,17 +44,17 @@ public class MainActivity extends ActionBarActivity {
 
                     break;
                 case 1:
-                    if(count<100) {
+                    if (count < 100) {
                         count++;
                         button2.setX(button2.getX() - 2);
-                        button3.setY(button3.getY()+2);
+                        button3.setY(button3.getY() - 2);
                     }
                     break;
                 case 2:
-                    if(count>0) {
+                    if (count > 0) {
                         count--;
                         button2.setX(button2.getX() + 2);
-                        button3.setY(button3.getY()-2);
+                        button3.setY(button3.getY() + 2);
                     }
 
                     break;
@@ -95,10 +96,7 @@ public class MainActivity extends ActionBarActivity {
     public ImageView heard, left_head;
 
     ImageView message;
-
-
-    FloatingActionButton button1,button2, button3;
-
+    Button button1 = null, button2 = null, button3 = null;
 
     //////// TODO: http网络请求
     HttpURLConnection conn = null;
@@ -107,7 +105,8 @@ public class MainActivity extends ActionBarActivity {
     byte[] requestBody = null;//请求体
     String responseHeader = null;//响应头
     byte[] responseBody = null;//响应体
-    int count=0;
+    int count = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,9 +117,8 @@ public class MainActivity extends ActionBarActivity {
         }
         //初始化控件及布局
         initView();
-
         //上面请求主线程可以使用http
-    	final ImageView fabIconNew = new ImageView(this);
+    /*	final ImageView fabIconNew = new ImageView(this);
         fabIconNew.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_new_light));
         final Popup_Button rightLowerButton = new Popup_Button.Builder(this)
 			.setContentView(fabIconNew)
@@ -173,11 +171,7 @@ rlIcon1.setOnClickListener(new OnClickListener()
 					ObjectAnimator animation = ObjectAnimator.ofPropertyValuesHolder(fabIconNew, pvhR);
 					animation.start();
 				}
-			});
-		
-
-
-
+			});*/
     }
 
     public void setdate() {
@@ -209,9 +203,12 @@ rlIcon1.setOnClickListener(new OnClickListener()
         Message_point = (TextView) findViewById(R.id.tTextView);
         message = (ImageView) this.findViewById(R.id.activitymainTextView1);
         left_head = (ImageView) this.findViewById(R.id.drawer_headerImageView);
-     //   button1=(FloatingActionButton)this.findViewById(R.id.f1);
-      //  button2=(FloatingActionButton)this.findViewById(R.id.f2);
-      //  button3=(FloatingActionButton)this.findViewById(R.id.f3);
+        button1 = (Button) this.findViewById(R.id.f1);
+        button2 = (Button) this.findViewById(R.id.f2);
+        button3 = (Button) this.findViewById(R.id.f3);
+        button2.setVisibility(View.INVISIBLE);
+        button3.setVisibility(View.INVISIBLE);
+
         Message_point.setText("1");
         ThreadEx c1 = new ThreadEx(MainActivity.this, "loginAndPass");
         Thread x1 = new Thread(c1);
@@ -297,7 +294,7 @@ rlIcon1.setOnClickListener(new OnClickListener()
         // mNavigationView.setNavigationItemSelectedListener(naviListener);
         //开启应用默认打开DrawerLayout
         //  mDrawerLayout.openDrawer(ll);
-	/*	View v=mNavigationView.getHeaderView(0);
+    /*	View v=mNavigationView.getHeaderView(0);
 		heard=(ImageView)v.findViewById(R.id.drawer_headerImageView);
 		heard.setBackgroundResource(android.R.drawable.dark_header);*/
         //初始化TabLayout的title数据集
@@ -323,54 +320,44 @@ rlIcon1.setOnClickListener(new OnClickListener()
         //同时也要覆写PagerAdapter的getPageTitle方法，否则Tab没有title
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabsFromPagerAdapter(adapter);
-       /* button1.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(count<100)
-                {
-
-                    new Thread(new ThreadShowback()).start();
-                }else
-
-                {
-                    button2.setVisibility(View.VISIBLE);
-                    new Thread(new ThreadShow()).start();
-                }
-
-            }
-        });*/
-        threadS s=new threadS(MainActivity.this);
-        Thread xx=new Thread(s);
-       xx.start();
+        POpFloag();
+        threadS s = new threadS(MainActivity.this);
+        Thread xx = new Thread(s);
+        xx.start();
     }//initView
 
-    public void POpFloag()
-    {
+    public void POpFloag() {
+        //// TODO: 右下角按钮点击事件
         button1.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(count==100)
-                {
+                if (count == 100) {
                     new Thread(new ThreadShowback()).start();
-
-
-                }else
-
-                {
+                } else {
                     button2.setVisibility(View.VISIBLE);
                     button3.setVisibility(View.VISIBLE);
-
                     new Thread(new ThreadShow()).start();
 
                 }
-
             }
         });
+        button2.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO 开始录像
+                Intent intent = new Intent(MainActivity.this, Round_Video_.class);
+                startActivity(intent);
+            }
 
+        });
 
+        button3.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
 
-
+        });
     }
     class OnclickListener implements OnClickListener {
         public void onClick(View v) {
@@ -431,19 +418,18 @@ rlIcon1.setOnClickListener(new OnClickListener()
     ///////////////Thread////////
 
 
-
     // 线程类
-   class ThreadShow implements Runnable {
+    class ThreadShow implements Runnable {
 
         @Override
         public void run() {
             // TODO Auto-generated method stub
             while (true) {
                 try {
-                    if (count<100) {
+                    if (count < 100) {
                         Thread.sleep(1);
                         mHandler.sendEmptyMessage(1);
-                    }else {
+                    } else {
                         break;
                     }
                 } catch (Exception e) {
@@ -454,6 +440,7 @@ rlIcon1.setOnClickListener(new OnClickListener()
             }
         }
     }
+
     class ThreadShowback implements Runnable {
 
         @Override
@@ -461,11 +448,10 @@ rlIcon1.setOnClickListener(new OnClickListener()
             // TODO Auto-generated method stub
             while (true) {
                 try {
-                    if (count>0) {
+                    if (count > 0) {
                         Thread.sleep(1);
                         mHandler.sendEmptyMessage(2);
-                    }else
-                    {
+                    } else {
                         button2.setVisibility(View.INVISIBLE);
                         button3.setVisibility(View.INVISIBLE);
                         break;
@@ -478,12 +464,12 @@ rlIcon1.setOnClickListener(new OnClickListener()
             }
         }
     }
-    public class threadS implements  Runnable
-    {
+
+    public class threadS implements Runnable {
         Context context;
-        public threadS(Context context)
-        {
-            this.context=context;
+
+        public threadS(Context context) {
+            this.context = context;
         }
 
         @Override
@@ -501,9 +487,9 @@ rlIcon1.setOnClickListener(new OnClickListener()
 
                 conn.setRequestMethod("POST");
                 // InputStreamReader read = new InputStreamReader(conn.getInputStream());
-               // BufferedReader in = new BufferedReader(read);
-              //  OutputStreamWriter writer=new OutputStreamWriter(conn.getOutputStream());
-              //  writer.write("phonenumber=15913044423");
+                // BufferedReader in = new BufferedReader(read);
+                //  OutputStreamWriter writer=new OutputStreamWriter(conn.getOutputStream());
+                //  writer.write("phonenumber=15913044423");
                 // Post请求不能使用缓存
 
                 conn.setUseCaches(false);
@@ -512,56 +498,54 @@ rlIcon1.setOnClickListener(new OnClickListener()
 
 // 设置Content-type
 
-                conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
 // 在调用getOutputStream时会隐式调用conn.connect()
 
                 DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
 
-               String content ="phonenumber=15913044423";//+ URLEncoder.encode("15913044423","gb2312");
+                String content = "phonenumber=15913044423";//+ URLEncoder.encode("15913044423","gb2312");
 
                 dos.writeBytes(content);
 
 
-
-
                 String str, str1 = null;
-              //  while ((str = in.readLine()) != null) {
-              //      str1 = str;
-              //  }
+                //  while ((str = in.readLine()) != null) {
+                //      str1 = str;
+                //  }
                 dos.flush();
 
                 dos.close();
 
 // 连接完成之后可以关闭这个连接
 
-               // conn.disconnect();
+                // conn.disconnect();
 
 
-            //    InputStreamReader isr = new InputStreamReader(conn.getInputStream());
+                //    InputStreamReader isr = new InputStreamReader(conn.getInputStream());
 
-               // BufferedReader br = new BufferedReader(isr);
+                // BufferedReader br = new BufferedReader(isr);
 
-             //   String line = null;
+                //   String line = null;
 
-              //  while(((line = br.readLine()) != null)) {
+                //  while(((line = br.readLine()) != null)) {
 
 
-             //   }
+                //   }
 
 // 关闭连接
 
-              //  isr.close();
+                //  isr.close();
 
                 conn.disconnect();
 
-              //  read.close();
+                //  read.close();
                 //writer.close();
-               // conn.disconnect();
-               // Toast.makeText(MainActivity.this, str1, Toast.LENGTH_LONG).show();
+                // conn.disconnect();
+                // Toast.makeText(MainActivity.this, str1, Toast.LENGTH_LONG).show();
             } catch (MalformedURLException e) {
                 e.printStackTrace();
-              //  writer.close();
+                //  writer.close();
                 conn.disconnect();
             } catch (IOException e) {
 
@@ -627,7 +611,6 @@ rlIcon1.setOnClickListener(new OnClickListener()
 
 
     ///////////////Thread////////
-
 
 
     public void addTextToList(String text, int who, int id) {
@@ -727,7 +710,6 @@ rlIcon1.setOnClickListener(new OnClickListener()
 
         }
     }
-
 
 
 }

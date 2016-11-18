@@ -1,5 +1,13 @@
 package com.yanbober.support_library_demo;
 
+/*
+        这个原本是要弹出一张图片作为图片显示器的，但被我拿来做了一些弹窗
+        目前有Setting_
+        Round_Video_
+
+ */
+
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,9 +22,9 @@ import android.widget.*;
 import android.graphics.*;
 import android.os.*;
 
+import com.yanbober.support_library_demo.Http_Util.Http_UploadFile_;
+
 import java.util.*;
-
-
 public class Pop_Img extends Dialog {
 
     public Pop_Img(Context context) {
@@ -29,6 +37,7 @@ public class Pop_Img extends Dialog {
 
     public static class Builder {
         private Context context;
+        ImageView Video_data_edit_close;
         Home home;
         Round_Video_ round_video_;
         Setting_ setting_;
@@ -40,7 +49,6 @@ public class Pop_Img extends Dialog {
         Button uploadbutton, Set_Pay_Pwd_sure, Set_Pay_Pwd_cancel;
         RoundProgressBar bar;
         Handler mViewUpdateHandler;
-
         private String positiveButtonText;
         private String negativeButtonText;
         private View contentView;
@@ -50,7 +58,7 @@ public class Pop_Img extends Dialog {
         boolean green = true;
         ImageView miusic, voice;
         TextView miusict, voicet;
-
+        Http_UploadFile_ http_uploadFile_;
         private DialogInterface.OnClickListener positiveButtonClickListener;
         private DialogInterface.OnClickListener negativeButtonClickListener;
         private DialogInterface.OnClickListener add_miusicOnclick;
@@ -66,9 +74,11 @@ public class Pop_Img extends Dialog {
             this.home = home;
         }
 
-        public Builder(Round_Video_ round_video_, HashMap<String, Object> map) {
+        public Builder(Round_Video_ round_video_, HashMap<String, Object> map,Object httpLoad) {
+
             this.round_video_ = round_video_;
             this.map = map;
+            this.http_uploadFile_=(Http_UploadFile_)httpLoad;
         }
 
         public Builder(Setting_ setting_, HashMap<String, Object> map) {
@@ -285,7 +295,7 @@ public class Pop_Img extends Dialog {
                     return dialog;
                 } else//if(isprogress)
                 {
-//TODO 显示成进度圈君
+                    //TODO 显示成进度圈君
                     LayoutInflater inflater = (LayoutInflater) setting_
                             .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     // instantiate the dialog with the custom Theme
@@ -308,7 +318,6 @@ public class Pop_Img extends Dialog {
 
 
             if (round_video_ != null) {
-
                 if ((int) map.get("upload") == 0) {
                     //TODO 进度圈
                     LayoutInflater inflater = (LayoutInflater) round_video_
@@ -316,18 +325,14 @@ public class Pop_Img extends Dialog {
                     // instantiate the dialog with the custom Theme
                     dialog = new Pop_Img(round_video_, R.style.Dialog1);
                     layout = inflater.inflate(R.layout.round_video_sucess_progres, null);//.enter_pay_pwd_dlg, null);
-
                     dialog.addContentView(layout, new LayoutParams(
                             LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-
                     dialog.setContentView(layout);
                     RoundProgressBar bar = (RoundProgressBar) layout.findViewById(R.id.round_bar);
                     bar.setMax((Integer) map.get("max"));
                     bar.setTextSize((Integer) map.get("textsize"));
                     bar.setProgress((Integer) map.get("progress"));
                     bar.setCricleColor((Integer) map.get("color"));
-
-
                 } else {
                     //TODO 是一个编辑信息的对话框
                     LayoutInflater inflater = (LayoutInflater) round_video_
@@ -352,21 +357,20 @@ public class Pop_Img extends Dialog {
                     uploadbutton = (Button) layout.findViewById(R.id.videodataeditlayoutButton1);
                     bar = (RoundProgressBar) layout.findViewById(R.id.roundProgressBar2);
                     indelayout = (RelativeLayout) layout.findViewById(R.id.video_edit_hide_layout);
+                    Video_data_edit_close=(ImageView)layout.findViewById(R.id.edi_video_data_close_button);
                     //初始进度圈是隐藏的
                     indelayout.setVisibility(View.INVISIBLE);
                     bar.setMax(100);
-
-
                     if (upload_click != null) {
-                        //TODO 添加音乐的按钮
+                        //TODO 上传
                         uploadbutton.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View v) {
                                 upload_click.onClick(dialog,
                                         DialogInterface.BUTTON_POSITIVE);
                                 indelayout.setVisibility(View.VISIBLE);
                                 //解除隐藏布局的隐藏
-
-
+                                //mViewUpdateHandler.sendEmptyMessage(0);
+                                // 每次调用增加max for %1
                             }
                         });
 
@@ -407,26 +411,27 @@ public class Pop_Img extends Dialog {
                                     green = false;
                                     //表示音乐可以再添加
                                     //而消音不再可以点击
-
                                 } else {
                                     //已点击过就不会再做任何其他响应
-
                                 }
                             }
                         });
                     }
-
-
+                    Video_data_edit_close.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+                        }
+                    });
                     mViewUpdateHandler = new Handler() {
                         @Override
                         public void handleMessage(Message msg) {
+                            //接受请求设置Progressbar的进度
                             super.handleMessage(msg);
                             bar.setProgress(bar.getProgress() + 1);
                             bar.invalidate();
-
                         }
                     };
-
                 }// 不是进度圈而是编辑
 
 

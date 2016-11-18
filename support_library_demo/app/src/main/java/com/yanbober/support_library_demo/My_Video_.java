@@ -81,7 +81,7 @@ public class My_Video_ extends ActionBarActivity {
         initView();
 
 
-		final ImageView fabIconNew = new ImageView(this);
+	/*	final ImageView fabIconNew = new ImageView(this);
         fabIconNew.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_new_light));
         final Popup_Button rightLowerButton = new Popup_Button.Builder(this)
 			.setContentView(fabIconNew)
@@ -132,7 +132,7 @@ public class My_Video_ extends ActionBarActivity {
         // With custom button and content sizes and margins
 		
 
-
+*/
 
 
 
@@ -140,7 +140,7 @@ public class My_Video_ extends ActionBarActivity {
 	    private void initView() {
         //MainActivity的布局文件中的主要控件初始化
         mToolbar = (Toolbar) this.findViewById(R.id.myvideotoolbar);
-    //    mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
+        mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
 		//   mNavigationView = (NavigationView) this.findViewById(R.id.navigation_view);
         mTabLayout = (TabLayout) this.findViewById(R.id.myvideotab);
         mViewPager = (ViewPager) this.findViewById(R.id.view_pager);
@@ -249,7 +249,7 @@ public class My_Video_ extends ActionBarActivity {
 	{
 		public void onClick(View v)
 		{
-			Toast.makeText(My_Video_.this,"iii",5).show();
+			Toast.makeText(My_Video_.this,"iii",Toast.LENGTH_LONG).show();
 		}
 	}
 	private class MyChatAdapter extends BaseAdapter

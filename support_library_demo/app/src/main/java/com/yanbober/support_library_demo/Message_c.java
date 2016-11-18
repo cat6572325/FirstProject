@@ -30,7 +30,7 @@ import android.view.View.OnClickListener;
 
 public class Message_c extends AppCompatActivity
 {
-	MyChatAdapter1 ladapter1;
+	MyChatAdapter ladapter;
 	int[] layout1={R.layout.message_item,R.layout.line_item};
 ListView lv=null;
 Toolbar tb=null;
@@ -68,7 +68,9 @@ DrawerLayout mDrawerLayout;
 		lv = (ListView) this.findViewById(R.id.message_listview);
 		tb = (Toolbar) this.findViewById(R.id.tool_bar);
 		mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
-		addTextToList1("King arthur payment $3 to your of video", "september13", 0, R.drawable.image);
+		addTextToList("King arthur payment $3 to your of video", "september13", 0, R.drawable.image);
+		ladapter = new MyChatAdapter(Message_c.this, lists, layout);
+		rl.setAdapter(ladapter);
 
 
 //初始化ToolBar
@@ -85,7 +87,7 @@ DrawerLayout mDrawerLayout;
 
 		
 	}
-	public void addTextToList1(String text, String time,int who,int id)
+	public void addTextToList(String text, String time,int who,int id)
 	{
 		HashMap<String,Object> map=new HashMap<String,Object>();
 		map.put("person", who);
@@ -110,12 +112,13 @@ DrawerLayout mDrawerLayout;
                 break;
             case android.R.id.home:
                 //主界面左上角的icon点击反应
-                mDrawerLayout.openDrawer(GravityCompat.START);
+               // mDrawerLayout.openDrawer(GravityCompat.START);
+				finish();
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
-	private class MyChatAdapter1 extends BaseAdapter
+	private class MyChatAdapter extends BaseAdapter
 	{
 
         Context context=null;
@@ -126,7 +129,7 @@ DrawerLayout mDrawerLayout;
 
 
 
-        public MyChatAdapter1(Context context,
+        public MyChatAdapter(Context context,
                              ArrayList<HashMap<String, Object>> chatList, int[] layout
                              )
 		{

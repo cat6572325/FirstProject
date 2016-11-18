@@ -68,6 +68,10 @@ public class TestPaint extends Activity {
         });
 
     }
+
+
+
+
     // 线程类
     class ThreadShow implements Runnable {
 
