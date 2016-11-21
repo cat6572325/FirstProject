@@ -25,6 +25,7 @@ import android.view.View.OnClickListener;
 public class Setting_ extends AppCompatActivity {
     ListView rl;
     MyChatAdapter ladapter;
+    User user=new User();
     int[] layout = {R.layout.setting_list_item, R.layout.line_item};
 
 
@@ -41,7 +42,7 @@ public class Setting_ extends AppCompatActivity {
 
     public void initView() {
         rl = (ListView) this.findViewById(R.id.tRecyclerView1);
-        addTextToList("夜愿", "昵称", 0, R.drawable.home, 0);
+        addTextToList(user.name, "昵称", 0, R.drawable.home, 0);
 
         addTextToList("分割贱", "没有", 1, R.drawable.fab_bg_normal, 0);
 
@@ -72,8 +73,8 @@ public class Setting_ extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             //	dialog.dismiss();
                             //login
-                            //Intent intent=new Intent(Setting_.this,Set_Pay_pwd_.class);
-                            //startActivity(intent);
+                            Intent intent=new Intent(Setting_.this,Set_Pay_pwd_.class);
+                            startActivity(intent);
 
 
                         }

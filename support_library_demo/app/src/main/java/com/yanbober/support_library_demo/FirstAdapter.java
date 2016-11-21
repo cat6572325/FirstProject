@@ -9,7 +9,12 @@ package com.yanbober.support_library_demo;
  */
 
 import android.content.*;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.*;
+import android.util.Base64;
 import android.view.*;
 import android.widget.*;
 import java.util.*;
@@ -90,7 +95,7 @@ public class FirstAdapter extends RecyclerView.Adapter<MyViewHolder2> {
 				
 				break;
 			case 1:
-				view=LayoutInflater.from(context).inflate(R.layout.share_item,parent,false);
+				view=LayoutInflater.from(context).inflate(R.layout.recy_card_item,parent,false);
 				holder=new MyViewHolder2(view);
 
 
@@ -202,16 +207,40 @@ case 2:
 					
 				}
 				break;
-				
 				case 1:
-					
+					holder.infoDetails_paidcount_tv.setText(lists.get(position).get("data").toString());
+					holder.infoDetails_title_tv.setText(lists.get(position).get("name").toString());
+					byte[] bitmapArray1;
+					bitmapArray1 = Base64.decode(lists.get(position).get("image").toString(), Base64.DEFAULT);
+					Bitmap bitmap1= BitmapFactory.decodeByteArray(bitmapArray1, 0,
+							bitmapArray1.length);
+					Drawable drawable=new BitmapDrawable(bitmap1);
+					holder.infoDetails_relativelayout.setBackground(drawable);
+					//设置内容背景图
+					if(mListener!=null){//如果设置了监听那么它就不为空，然后回调相应的方法
+						holder.itemView.setOnClickListener(new View.OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								int pos = holder.getLayoutPosition();//得到当前点击item的位置pos
+								mListener.onItemClickListener(holder.itemView,pos);//把事件交给我们实现的接口那里处理
+							}
+						});
+						holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+							@Override
+							public boolean onLongClick(View v) {
+								int pos = holder.getLayoutPosition();//得到当前点击item的位置pos
+								mListener.onItemLongClickListener(holder.itemView,pos);//把事件交给我们实现的接口那里处理
+								return true;
+							}
+						});
+					}
 					break;
 					case 2:
 					holder.paid_name.setText((String)lists.get(position).get("text"));
 					holder.paid_ps.setText((String)lists.get(position).get("ps"));
 					holder.rll.setBackgroundResource((Integer)lists.get(position).get("image"));
+
 				if(mListener!=null){//如果设置了监听那么它就不为空，然后回调相应的方法
-					
 										holder.itemView.setOnClickListener(new View.OnClickListener() {
 												@Override
 												public void onClick(View v) {
@@ -459,10 +488,11 @@ case 2:
 class MyViewHolder2 extends RecyclerView.ViewHolder{
 
 	////viewtype0
-    TextView mTv,name,data,ps,is,paid_name,paid_ps,collect_spot,collect_name,collect_ps;
+    TextView mTv,name,data,ps,is,paid_name,paid_ps,collect_spot,collect_name,collect_ps
+			,infoDetails_paidcount_tv,infoDetails_title_tv;
 	RelativeLayout rll;
 	ImageView img,img1,pay_run_img;
-RelativeLayout rv,collect_rv,collect_back,my_video_al_rv;
+RelativeLayout rv,collect_rv,collect_back,my_video_al_rv,infoDetails_relativelayout;
 	String[] provent;
 
     public MyViewHolder2(View itemView) {
@@ -500,6 +530,15 @@ is=(TextView)itemView.findViewById(R.id.tTextView);
 		
 		
 		////My_Video_
+
+
+
+		////InfoDetailsFragment
+
+		infoDetails_title_tv=(TextView)itemView.findViewById(R.id.recy_card_Title);
+		infoDetails_paidcount_tv=(TextView)itemView.findViewById(R.id.recy_card_itemTextView);
+		infoDetails_relativelayout=(RelativeLayout)itemView.findViewById(R.id.Video_item_Relativelayout);
+		////InfoDetailsFragment
     }
 }
 class MyViewHolderFirst extends RecyclerView.ViewHolder{

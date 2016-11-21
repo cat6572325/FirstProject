@@ -60,14 +60,6 @@
 							android:id="@+id/btnPlayUrl"/>
 
 
-						<Button
-							android:layout_height="wrap_content"
-							android:id="@+id/btnPause"
-							android:text="暂停"
-							android:layout_width="80dip">
-
-						</Button>
-
 					</LinearLayout>
 
 					<LinearLayout
@@ -101,7 +93,7 @@
 
 				android:layout_height="?attr/actionBarSize"
 				app:layout_collapseMode="pin"
-				android:background="#d9daf0" />
+			/>
 
 		</android.support.design.widget.CollapsingToolbarLayout>
 

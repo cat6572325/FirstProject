@@ -42,4 +42,8 @@ public class File_with_ {
     {
         return fi;
     }
+    public void DeleteFile()
+    {
+        fi.delete();
+    }
 }

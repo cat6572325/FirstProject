@@ -22,6 +22,9 @@ import android.widget.Toast;
 import com.yanbober.support_library_demo.Http_Util.Get_LastData_Util;
 import com.yanbober.support_library_demo.Http_Util.Http_UploadFile_;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
@@ -48,25 +51,26 @@ public class Register_ extends AppCompatActivity {
         public void handleMessage(android.os.Message msg) {
             Bundle bun;
             switch (msg.what) {
-
-
-
-
                 case 0:
                     bun=msg.getData();
-
+                    try {
                     if (bun.get("?").equals("注册成功"))
                     {
-                        user.phone=bun.get("phone").toString();
+                        JSONObject JS=(JSONObject)msg.obj;
+                            User.phone=JS.getString("phone");
+                        User._id=JS.getString("_id");
                         Intent intent = new Intent(Register_.this, MainActivity.class);
                         startActivity(intent);
-                        finish();
+                       // finish();
+
                     }else
                     {
                         //注册失败
                         Toast.makeText(Register_.this,"注册失败："+bun.get("!").toString(),Toast.LENGTH_SHORT).show();
                     }
-
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
                     break;
 
@@ -123,18 +127,29 @@ public class Register_ extends AppCompatActivity {
                     //新建一个发送POST的class
                     //  networkAsyncTask.execute("NETWORK_POST_JSON",phon.getText().toString(),pas.getText().toString());
                     //执行
-                    try { url= new URL("http://192.168.1.112:1103/reg/user"); }
-                    catch (MalformedURLException e) {
-                        e.printStackTrace();
-                    }
+                    try {
+                        url = new URL("http://192.168.1.112:1103/reg/user");
 
-                        Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(Register_.this, mHandler
-                                ,url
+
+                        Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(Register_.this
+                                , mHandler
+                                , url
                                 , "0"//注册
-                                , "phone="+phon.getText().toString()+"&userpassword="+pas.getText().toString());
-                    Thread x=new Thread(http_uploadFile_);
-                    x.start();
-
+                                , "POST"
+                                , "phone=" + phon.getText().toString() + "&userpassword=" + pas.getText().toString());
+                        Thread x = new Thread(http_uploadFile_);
+                         x.start();
+                        Http_UploadFile_ http_uploadFile_Delete = new Http_UploadFile_(Register_.this
+                                , mHandler
+                                , new URL("http://192.168.1.112:1103/reg/user/:_id=(582a7c41c0e5280bbce3bc94)")
+                                , "2"//删除
+                                , "DELETE"
+                                , "phone=" + phon.getText().toString() + "&userpassword=" + pas.getText().toString());
+                        Thread x1 = new Thread(http_uploadFile_Delete);
+                      //  x1.start();
+                    }catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
                     break;
                 case R.id.Register_back:
                     //TODO 左上角返回

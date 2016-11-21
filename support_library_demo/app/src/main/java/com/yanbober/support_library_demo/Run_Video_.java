@@ -68,7 +68,7 @@ public class Run_Video_ extends ActionBarActivity {
 		btnPlayUrl = (ImageView) this.findViewById(R.id.btnPlayUrl);
 		btnPlayUrl.setOnClickListener(new ClickEvent());
 
-		btnPause = (Button) this.findViewById(R.id.btnPause);
+		//btnPause = (Button) this.findViewById(R.id.btnPause);
 		surfaceView.setOnClickListener(new ClickEvent());
 
 
@@ -98,6 +98,7 @@ public class Run_Video_ extends ActionBarActivity {
 	class ClickEvent implements OnClickListener {
 		@Override
 		public void onClick(View arg0) {
+
 			if (arg0 == surfaceView) {
 				hideButtons.setVisibility(View.VISIBLE);
 				//延时３秒再隐藏布局

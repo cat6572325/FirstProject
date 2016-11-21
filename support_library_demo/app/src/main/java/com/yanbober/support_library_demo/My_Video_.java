@@ -38,8 +38,9 @@ public class My_Video_ extends ActionBarActivity {
 					bun=msg.getData();
 			
 					break;
-
-
+				case 3:
+					User_name.setText(user.name);
+					break;
 			}
 		}
 	};
@@ -70,7 +71,7 @@ public class My_Video_ extends ActionBarActivity {
 	LinearLayout ll;
 	public ImageView heard;
 	//右上角新消息提示红点
-	TextView Message_point;
+	TextView Message_point,User_name;
 
 	ImageView message;
     @Override
@@ -138,6 +139,9 @@ public class My_Video_ extends ActionBarActivity {
 
     }
 	    private void initView() {
+			user.my_video_=null;
+			user.my_video_=My_Video_.this;
+			mHandler.sendEmptyMessage(3);
         //MainActivity的布局文件中的主要控件初始化
         mToolbar = (Toolbar) this.findViewById(R.id.myvideotoolbar);
         mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
@@ -147,6 +151,7 @@ public class My_Video_ extends ActionBarActivity {
 		rl=(ListView)this.findViewById(R.id.tRecyclerView1);
 			Message_point=(TextView)findViewById(R.id.tTextView);
 			message=(ImageView)this.findViewById(R.id.activitymainTextView1);
+			User_name=(TextView)this.findViewById(R.id.User_name);
 
 		
 
@@ -196,11 +201,10 @@ public class My_Video_ extends ActionBarActivity {
         //同时也要覆写PagerAdapter的getPageTitle方法，否则Tab没有title
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabsFromPagerAdapter(adapter);
-		
 			addTextToList("首页",0,R.drawable.home);
 			addTextToList("已付",0,R.drawable.paid);
 
-			addTextToList("我的",0,R.drawable.fab_bg_normal);
+			//addTextToList("我的",0,R.drawable.fab_bg_normal);
 			addTextToList("收藏",0,R.drawable.collect);
 			addTextToList("余额",0,R.drawable.balance);
 			addTextToList("分割贱",1,R.drawable.fab_bg_normal);
@@ -211,7 +215,39 @@ public class My_Video_ extends ActionBarActivity {
 
 			ladapter=new MyChatAdapter(My_Video_.this,lists,layout);
 			rl.setAdapter(ladapter);
-			
+			rl.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					TextView tv = (TextView) view.findViewById(R.id.leftlistitemTextView1);
+					String str = tv.getText().toString();
+					if (str.equals("首页")) {
+
+					}
+					if (str.equals("已付")) {
+						Intent intent = new Intent(My_Video_.this, Paid_Video.class);
+						startActivity(intent);
+					}
+
+					if (str.equals("收藏")) {
+						Intent intent = new Intent(My_Video_.this, Collect_.class);
+						startActivity(intent);
+					}
+					if (str.equals("我的")) {
+						Intent intent = new Intent(My_Video_.this, My_Video_.class);
+						startActivity(intent);
+					}
+
+					if (str.equals("余额")) {
+						Intent intent = new Intent(My_Video_.this, Balance_.class);
+						startActivity(intent);
+					}
+
+					if (str.equals("设置")) {
+						Intent intent = new Intent(My_Video_.this, Setting_.class);
+						startActivity(intent);
+					}
+
+				}
+			});
 		
     }
 	public void addTextToList(String text, int who,int id)

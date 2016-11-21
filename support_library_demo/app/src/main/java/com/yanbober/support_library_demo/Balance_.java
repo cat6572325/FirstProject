@@ -94,9 +94,9 @@ public class Balance_ extends AppCompatActivity
 		addTextToList("首页",0,R.drawable.home);
 		addTextToList("已付",0,R.drawable.paid);
 
-		addTextToList("我的",0,R.drawable.fab_bg_normal);
+		addTextToList("我的",0,R.drawable.my_video);
 		addTextToList("收藏",0,R.drawable.collect);
-		addTextToList("余额",0,R.drawable.balance);
+	//	addTextToList("余额",0,R.drawable.balance);
 		addTextToList("分割贱",1,R.drawable.fab_bg_normal);
 
 		addTextToList("设置",0,R.drawable.fab_bg_normal);
@@ -153,6 +153,7 @@ public class Balance_ extends AppCompatActivity
 
 			}
 		});
+
 		//TODO 右上角按钮
 		message.setOnClickListener(new View.OnClickListener()
 		{
@@ -274,13 +275,22 @@ public class Balance_ extends AppCompatActivity
 			if(convertView!=null){
 				view = convertView;
 				groupholder = (GroupHolder) view.getTag();
-			}else{
-				view = View.inflate(Balance_.this,R.layout.balance_group_item, null);
-				groupholder =new GroupHolder();
+			}else {
+				view = View.inflate(Balance_.this, R.layout.balance_group_item, null);
+				groupholder = new GroupHolder();
 				//groupholder.Rightimage=(ImageView)view.findViewById(R.id.Balance_Group_Image);
 				//groupholder.Rightimage.setBackgroundResource(R.drawable.);
 				//加载父布局
 				view.setTag(groupholder);
+
+			}
+			groupholder.Rightimage=(ImageView)view.findViewById(R.id.Balance_Group_Image);
+			if (isExpanded) {
+				//展开
+				groupholder.Rightimage.setBackgroundResource(R.drawable.down);
+			}else
+			{
+				groupholder.Rightimage.setBackgroundResource(R.drawable.ahead);
 			}
 			return view;
 		}

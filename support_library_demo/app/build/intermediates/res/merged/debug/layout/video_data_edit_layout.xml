@@ -131,6 +131,7 @@
 						android:ems="10"
 						android:layout_width="match_parent"
 						android:hint="视频名称"
+						android:id="@+id/Round_Tile"
 						android:ellipsize="end"
 						android:singleLine="true"
 						android:layout_marginLeft="20dp"
@@ -161,6 +162,7 @@
 						android:layout_width="match_parent"
 						android:hint="视频价位"
 						android:ellipsize="end"
+						android:id="@+id/Round_Money"
 						android:singleLine="true"
 						android:layout_marginLeft="20dp"
 						android:background="#00000000"/>
@@ -190,6 +192,7 @@
 						android:layout_width="match_parent"
 						android:hint="视频简介"
 						android:ellipsize="end"
+						android:id="@+id/Round_Ps"
 						android:singleLine="true"
 						android:layout_marginLeft="20dp"
 						android:background="#00000000"/>

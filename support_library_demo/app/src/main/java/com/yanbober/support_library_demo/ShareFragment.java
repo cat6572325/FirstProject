@@ -100,12 +100,8 @@ public class ShareFragment extends Fragment {
 		httpmap.put("video","ssssssssssss");
 		httpmap.put("path","http://192.168.1.112:1103/login");
 		httpUtil=new Get_LastData_Util(getContext(),"NETWORK_POST_JSON",httpmap);
-		httpUtil.connectioning();;
+	//	httpUtil.connectioning();;
 		//启动
-
-
-
-
 
 		try {
 			URL url=new URL("http://192.168.1.112:1103/");

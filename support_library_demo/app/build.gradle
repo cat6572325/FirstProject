@@ -6,8 +6,8 @@ android {
 
     defaultConfig {
         applicationId "com.yanbober.support_library_demo"
-        minSdkVersion 14
-        targetSdkVersion 14
+        minSdkVersion 19
+        targetSdkVersion 19
         versionCode 1
         versionName "1.0"
     }
@@ -19,14 +19,14 @@ android {
     }
 }
 dependencies {
-	compile 'com.android.support:cardview-v7:23.0.1'
-	compile 'com.android.support:recyclerview-v7:23.+'
-	compile 'com.android.support:cardview-v7:23.+'
-	compile 'com.android.support:appcompat-v7:23.0.1'
-	compile 'com.android.support:design:23.+'
-	compile 'com.android.support:support-v4:23.+'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-
+    compile 'com.android.support:cardview-v7:23.0.1'
+    compile 'com.android.support:recyclerview-v7:23.+'
+    compile 'com.android.support:cardview-v7:23.+'
+    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.android.support:design:23.+'
+    compile 'com.android.support:support-v4:23.+'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile files('libs/org.json.jar')
 }
 	
 

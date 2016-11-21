@@ -50,7 +50,7 @@ public class My_Video_tabs_item_already extends Fragment {
 		addTextToList2("广东",4,android.R.drawable.ic_lock_lock,"ps","data",0,"这点略大，颜色不一样，标题栏缺少图标和点击效果，",1);
 
 
-		for(int i=0;i<android.R.drawable.class.getDeclaredFields().length;i++)
+		for(int i=0;i<10;i++)
 		{
 			addTextToList2("广东"
 						   ,4

@@ -11,7 +11,7 @@
 	android:layout_height="match_parent">
 		<RelativeLayout
 			android:layout_height="45dp"
-			android:background="#dedcdc"
+
 			android:id="@+id/one"
 			android:layout_width="match_parent">
 			<ImageView
@@ -116,6 +116,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:textSize="15sp"
+					android:id="@+id/User_name"
 					android:text="UserName"/>
 
 				<TextView
@@ -170,6 +171,7 @@
 					android:id="@+id/left_list_itemImageView"
 					android:layout_marginRight="35dp"
 					android:layout_marginTop="9dp"
+					android:background="@drawable/login_up"
 					android:layout_marginLeft="10dp"/>
 
 				<TextView

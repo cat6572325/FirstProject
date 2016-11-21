@@ -37,7 +37,7 @@ Toolbar tb=null;
 	public ArrayList<HashMap<String,Object>> lists1=new ArrayList<HashMap<String,Object>>();
 	ListView rl;
 
-	int[] layout={R.layout.left_list_item,R.layout.line_item};
+	int[] layout={R.layout.message_item,R.layout.line_item};
 DrawerLayout mDrawerLayout;
 
 	public ArrayList<HashMap<String,Object>> lists=new ArrayList<HashMap<String,Object>>();
@@ -70,9 +70,7 @@ DrawerLayout mDrawerLayout;
 		mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
 		addTextToList("King arthur payment $3 to your of video", "september13", 0, R.drawable.image);
 		ladapter = new MyChatAdapter(Message_c.this, lists, layout);
-		rl.setAdapter(ladapter);
-
-
+		lv.setAdapter(ladapter);
 //初始化ToolBar
 		setSupportActionBar(tb);
 		ActionBar actionBar = getSupportActionBar();
@@ -96,7 +94,7 @@ DrawerLayout mDrawerLayout;
 		map.put("time",time);
 		map.put("layout",who);
 
-		lists1.add(map);
+		lists.add(map);
     }
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {

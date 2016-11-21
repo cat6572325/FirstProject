@@ -2,6 +2,7 @@ package com.yanbober.support_library_demo;
 
 import android.animation.*;
 import android.content.*;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.*;
 import android.os.*;
 import android.provider.Telephony;
@@ -25,22 +26,27 @@ import java.util.*;
 import android.support.v7.widget.Toolbar;
 import android.view.View.OnClickListener;
 
+import com.yanbober.support_library_demo.DataHelpers.DataHelper;
+
+import org.w3c.dom.Text;
+
 /**
  * 一个中文版Demo App搞定所有Android的Support Library新增所有兼容控件
  * 支持最新2015 Google I/O大会Android Design Support Library
  */
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements InfoDetailsFragment.OnActivityebent{
     public Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
                 case 0:
-                    Bundle bun = new Bundle();
-                    bun = msg.getData();
-                    String[] group = bun.getStringArray("group");
-                    String[] phones = bun.getStringArray("phones");
-                    setgroup(group, phones);
+                  //获取视频列表
+
+                    ArrayList<HashMap<String,Object>> videoList=new ArrayList<HashMap<String,Object>>();
+                    //一次接收10条数据
+                    user.VideoList=videoList;
+                    //上面那句将１０条数据的list转给user了
 
                     break;
                 case 1:
@@ -58,12 +64,19 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     break;
+                case 3:
+                //更新ui
+                    User_name.setText(user.name);
+                break;
             }
 
 
         }
     };
-
+    String[] str1;
+    SQLiteDatabase db=null;
+    DataHelper dataserver;
+    private static Boolean isExit = false;
     InfoDetailsFragment idf = new InfoDetailsFragment();
     ShareFragment sf = new ShareFragment();
     AgendaFragment af = new AgendaFragment();
@@ -83,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
 
     //右上角新消息提示红点
-    TextView Message_point;
+    TextView Message_point,User_name;
 
     ListView rl;
     MyChatAdapter ladapter;
@@ -94,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
     LinearLayout ll;
     public ImageView heard, left_head;
-
+    TextView loginout;
     ImageView message;
     Button button1 = null, button2 = null, button3 = null;
 
@@ -173,7 +186,33 @@ rlIcon1.setOnClickListener(new OnClickListener()
 				}
 			});*/
     }
+    private void exitBy2Click() {
+        Timer tExit = null;
+        if (isExit == false) {
+            isExit = true; // 准备退出
+            //Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            tExit = new Timer();
+            tExit.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    isExit = false; // 取消退出
+                }
+            }, 2000); // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
 
+        } else {
+            finish();
+            System.exit(0);
+        }
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        if(keyCode == KeyEvent.KEYCODE_BACK)
+        {
+            exitBy2Click(); //调用双击退出函数
+        }
+        return false;
+    }
     public void setdate() {
         //设置头像,将序列化的图片反序列化
         byte[] bitmapArray;
@@ -192,6 +231,9 @@ rlIcon1.setOnClickListener(new OnClickListener()
 
 
     private void initView() {
+        user.mainActivity=null;
+        user.mainActivity=MainActivity.this;
+        mHandler.sendEmptyMessage(3);
         //MainActivity的布局文件中的主要控件初始化
         mToolbar = (Toolbar) this.findViewById(R.id.tool_bar);
         mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
@@ -203,6 +245,8 @@ rlIcon1.setOnClickListener(new OnClickListener()
         Message_point = (TextView) findViewById(R.id.tTextView);
         message = (ImageView) this.findViewById(R.id.activitymainTextView1);
         left_head = (ImageView) this.findViewById(R.id.drawer_headerImageView);
+        loginout=(TextView)this.findViewById(R.id.leftlistitemTextView1);
+        User_name=(TextView)this.findViewById(R.id.User_name);
         button1 = (Button) this.findViewById(R.id.f1);
         button2 = (Button) this.findViewById(R.id.f2);
         button3 = (Button) this.findViewById(R.id.f3);
@@ -222,10 +266,10 @@ rlIcon1.setOnClickListener(new OnClickListener()
         //设置RecyclerView布局管理器为2列垂直排布
 
 
-        addTextToList("首页", 0, R.drawable.home);
+       // addTextToList("首页", 0, R.drawable.home);
         addTextToList("已付", 0, R.drawable.paid);
 
-        addTextToList("我的", 0, R.drawable.fab_bg_normal);
+        addTextToList("我的", 0, R.drawable.my_video);
         addTextToList("收藏", 0, R.drawable.collect);
         addTextToList("余额", 0, R.drawable.balance);
         addTextToList("分割贱", 1, R.drawable.fab_bg_normal);
@@ -275,6 +319,7 @@ rlIcon1.setOnClickListener(new OnClickListener()
 
             }
         });
+
         //初始化ToolBar
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -324,8 +369,20 @@ rlIcon1.setOnClickListener(new OnClickListener()
         threadS s = new threadS(MainActivity.this);
         Thread xx = new Thread(s);
         xx.start();
-    }//initView
+        loginout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Onebent("sssssssssssssssssssssssssssss");
+                dataserver.inst(db, user.phone + "|" +
+                        user.pas + "|" +
+                        user.name + "|" +
+                        "0", MainActivity.this);//flag为0
+                Intent intent =new Intent(MainActivity.this, Login_.class);
+                startActivity(intent);
 
+            }
+        });
+    }//initView
     public void POpFloag() {
         //// TODO: 右下角按钮点击事件
         button1.setOnClickListener(new OnClickListener() {
@@ -359,6 +416,12 @@ rlIcon1.setOnClickListener(new OnClickListener()
 
         });
     }
+
+    @Override
+    public void Onebent(String str) {
+        String str1=str;
+    }
+
     class OnclickListener implements OnClickListener {
         public void onClick(View v) {
             Toast.makeText(MainActivity.this, "iii", Toast.LENGTH_SHORT).show();

@@ -24,7 +24,11 @@ import android.os.*;
 
 import com.yanbober.support_library_demo.Http_Util.Http_UploadFile_;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
+
 public class Pop_Img extends Dialog {
 
     public Pop_Img(Context context) {
@@ -44,7 +48,7 @@ public class Pop_Img extends Dialog {
         HashMap<String, Object> map;
         private String title, acco, pas;
         private String message;
-        EditText loe, pae, Pay_pwd;
+        EditText loe, pae, Pay_pwd, round_title, round_money, round_ps;
         RelativeLayout indelayout;
         Button uploadbutton, Set_Pay_Pwd_sure, Set_Pay_Pwd_cancel;
         RoundProgressBar bar;
@@ -58,7 +62,8 @@ public class Pop_Img extends Dialog {
         boolean green = true;
         ImageView miusic, voice;
         TextView miusict, voicet;
-        Http_UploadFile_ http_uploadFile_;
+        File_with_ file_with;
+
         private DialogInterface.OnClickListener positiveButtonClickListener;
         private DialogInterface.OnClickListener negativeButtonClickListener;
         private DialogInterface.OnClickListener add_miusicOnclick;
@@ -74,11 +79,11 @@ public class Pop_Img extends Dialog {
             this.home = home;
         }
 
-        public Builder(Round_Video_ round_video_, HashMap<String, Object> map,Object httpLoad) {
-
+        public Builder(Round_Video_ round_video_, HashMap<String, Object> map, File_with_ file_with) {
+            this.file_with = file_with;
             this.round_video_ = round_video_;
             this.map = map;
-            this.http_uploadFile_=(Http_UploadFile_)httpLoad;
+            //   this.http_uploadFile_=(Http_UploadFile_)httpLoad;
         }
 
         public Builder(Setting_ setting_, HashMap<String, Object> map) {
@@ -199,7 +204,7 @@ public class Pop_Img extends Dialog {
 
 			
 			/* } else {
-			 // if no confirm button just set the visibility to GONE
+             // if no confirm button just set the visibility to GONE
 			 layout.findViewById(R.id.positiveButton).setVisibility(
 			 View.GONE);
 			 }*/
@@ -349,7 +354,11 @@ public class Pop_Img extends Dialog {
 
                     //loe=(EditText)layout.findViewById(R.id.regE);
                     //	pae=(EditText)layout.findViewById(R.id.pasE);
+
                     //todo 控件初始化
+                    round_title = (EditText) layout.findViewById(R.id.Round_Tile);
+                    round_money = (EditText) layout.findViewById(R.id.Round_Money);
+                    round_ps = (EditText) layout.findViewById(R.id.Round_Ps);
                     miusict = (TextView) layout.findViewById(R.id.video_edit_miusic_tv);
                     miusic = (ImageView) layout.findViewById(R.id.video_edit_miusic_img);//.enterpaypwddlgButton1))
                     voice = (ImageView) layout.findViewById(R.id.video_edit_voice_img);
@@ -357,7 +366,7 @@ public class Pop_Img extends Dialog {
                     uploadbutton = (Button) layout.findViewById(R.id.videodataeditlayoutButton1);
                     bar = (RoundProgressBar) layout.findViewById(R.id.roundProgressBar2);
                     indelayout = (RelativeLayout) layout.findViewById(R.id.video_edit_hide_layout);
-                    Video_data_edit_close=(ImageView)layout.findViewById(R.id.edi_video_data_close_button);
+                    Video_data_edit_close = (ImageView) layout.findViewById(R.id.edi_video_data_close_button);
                     //初始进度圈是隐藏的
                     indelayout.setVisibility(View.INVISIBLE);
                     bar.setMax(100);
@@ -371,79 +380,99 @@ public class Pop_Img extends Dialog {
                                 //解除隐藏布局的隐藏
                                 //mViewUpdateHandler.sendEmptyMessage(0);
                                 // 每次调用增加max for %1
-                            }
-                        });
-
-                    }
-                    if (add_miusicOnclick != null) {
-                        //TODO 添加音乐的按钮
-                        miusic.setOnClickListener(new View.OnClickListener() {
-                            public void onClick(View v) {
-                                add_miusicOnclick.onClick(dialog,
-                                        DialogInterface.BUTTON_POSITIVE);
-                                if (red == true) {
-                                    miusic.setBackgroundResource(R.drawable.add_music);
-                                    miusict.setTextColor(Color.rgb(160, 0, 250));
-                                    voice.setBackgroundResource(R.drawable.remove_voice_black);
-                                    red = false;
-                                    green = true;
-                                    //表示音乐不能再添加
-                                    //而消音可以点击
-                                } else {
-                                    //已点击过就不会再做任何其他响应
+                                HashMap<String, Object> maphttp = new HashMap<String, Object>();
+                                maphttp.put("title", round_title.getText().toString());
+                                maphttp.put("vdourl", file_with.GetFile().getPath().toString());
+                                maphttp.put("introduction", round_ps.getText().toString());
+                                maphttp.put("price", round_money.getText().toString());
+                                maphttp.put("paidppnumber", "0");//购买人数
+                                maphttp.put("concernednumber", "0");//收藏人数
+                                URL url = null;
+                                try {
+                                    url = new URL("http://192.168.1.112:1103/user/video/all/detail");
+                                } catch (MalformedURLException e) {
+                                    e.printStackTrace();
                                 }
+                                Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(round_video_
+                                        , round_video_.mHandler
+                                        //, new File("/sdcard/RoundVideo/video.mp4")
+                                        , url
+                                        , "0"
+                                        , "GET"
+                                        , maphttp);
                             }
                         });
-
                     }
-                    if (add_reviceOnclick != null) {
-                        //TODO 去除声音的按钮
-                        //.enterpaypwddlgButton1))
-                        voice.setOnClickListener(new View.OnClickListener() {
-                            public void onClick(View v) {
-                                add_reviceOnclick.onClick(dialog,
-                                        DialogInterface.BUTTON_POSITIVE);
-                                if (green == true) {
-                                    miusic.setBackgroundResource(R.drawable.add_music_black);
-                                    miusict.setTextColor(Color.rgb(100, 100, 100));
-                                    voice.setBackgroundResource(R.drawable.remove_voice);
-                                    red = true;
-                                    green = false;
-                                    //表示音乐可以再添加
-                                    //而消音不再可以点击
-                                } else {
-                                    //已点击过就不会再做任何其他响应
+                        if (add_miusicOnclick != null) {
+                            //TODO 添加音乐的按钮
+                            miusic.setOnClickListener(new View.OnClickListener() {
+                                public void onClick(View v) {
+                                    add_miusicOnclick.onClick(dialog,
+                                            DialogInterface.BUTTON_POSITIVE);
+                                    if (red == true) {
+                                        miusic.setBackgroundResource(R.drawable.add_music);
+                                        miusict.setTextColor(Color.rgb(160, 0, 250));
+                                        voice.setBackgroundResource(R.drawable.remove_voice_black);
+                                        red = false;
+                                        green = true;
+                                        //表示音乐不能再添加
+                                        //而消音可以点击
+                                    } else {
+                                        //已点击过就不会再做任何其他响应
+                                    }
                                 }
+                            });
+
+                        }
+                        if (add_reviceOnclick != null) {
+                            //TODO 去除声音的按钮
+                            //.enterpaypwddlgButton1))
+                            voice.setOnClickListener(new View.OnClickListener() {
+                                public void onClick(View v) {
+                                    add_reviceOnclick.onClick(dialog,
+                                            DialogInterface.BUTTON_POSITIVE);
+                                    if (green == true) {
+                                        miusic.setBackgroundResource(R.drawable.add_music_black);
+                                        miusict.setTextColor(Color.rgb(100, 100, 100));
+                                        voice.setBackgroundResource(R.drawable.remove_voice);
+                                        red = true;
+                                        green = false;
+                                        //表示音乐可以再添加
+                                        //而消音不再可以点击
+                                    } else {
+                                        //已点击过就不会再做任何其他响应
+                                    }
+                                }
+                            });
+                        }
+                        Video_data_edit_close.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialog.dismiss();
                             }
                         });
-                    }
-                    Video_data_edit_close.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            dialog.dismiss();
-                        }
-                    });
-                    mViewUpdateHandler = new Handler() {
-                        @Override
-                        public void handleMessage(Message msg) {
-                            //接受请求设置Progressbar的进度
-                            super.handleMessage(msg);
-                            bar.setProgress(bar.getProgress() + 1);
-                            bar.invalidate();
-                        }
-                    };
-                }// 不是进度圈而是编辑
+                        mViewUpdateHandler = new Handler() {
+                            @Override
+                            public void handleMessage(Message msg) {
+                                //接受请求设置Progressbar的进度
+                                super.handleMessage(msg);
+                                bar.setProgress(bar.getProgress() + 1);
+                                bar.invalidate();
+                            }
+                        };
+                    }// 不是进度圈而是编辑
 
 
-                return dialog;
-
-            }//round_video_
-            else {
-                return null;
-            }
+                    return dialog;
+                }//round_video_
 
 
-        }//onCreate
+                else{
+                    return null;
+                }
+
+
+            }//onCreate
 
         public void OnProgressChanged(int count) {
             mViewUpdateHandler.sendEmptyMessage(0);
