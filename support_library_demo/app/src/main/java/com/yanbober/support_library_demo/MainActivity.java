@@ -2,6 +2,7 @@ package com.yanbober.support_library_demo;
 
 import android.animation.*;
 import android.content.*;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.*;
 import android.os.*;
@@ -21,13 +22,18 @@ import android.support.design.widget.FloatingActionButton;
 
 import java.io.*;
 import java.net.*;
+import java.sql.SQLDataException;
 import java.util.*;
 
 import android.support.v7.widget.Toolbar;
 import android.view.View.OnClickListener;
 
 import com.yanbober.support_library_demo.DataHelpers.DataHelper;
+import com.yanbober.support_library_demo.Http_Util.Http_UploadFile_;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 /**
@@ -39,14 +45,43 @@ import org.w3c.dom.Text;
 public class MainActivity extends AppCompatActivity implements InfoDetailsFragment.OnActivityebent{
     public Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
+            Bundle bundle=msg.getData();
             switch (msg.what) {
                 case 0:
-                  //获取视频列表
+                    try {
+                        //获取视频列表
+                        if (bundle.getString("?").equals("获取失败")) {
+                            Looper.prepare();
+                            Toast.makeText(MainActivity.this, bundle.getString("!"), Toast.LENGTH_LONG).show();
+                            Looper.loop();
+                        } else {
+                            JSONArray jsonArray = (JSONArray) msg.obj;
+                            HashMap<String, Object> map;
+                            ArrayList<HashMap<String, Object>> maps = new ArrayList<HashMap<String, Object>>();
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject jsonObject = new JSONObject(jsonArray.getString(i));
+                                //获得第i个json
+                                map = new HashMap<String, Object>();
+                                map.put("time",jsonObject.getString("time"));
+                                map.put("title",jsonObject.getString("title"));
+                                map.put("price",jsonObject.getString("price"));
+                                map.put("_id",jsonObject.getString("_id"));
+                                map.put("uploader",jsonObject.getString("uploader"));
+                                map.put("introduction",jsonObject.getString("introduction"));
+                                map.put("vdourl",jsonObject.getString("vdourl"));
+                                map.put("paidppnumber",jsonObject.getString("paidppnumber"));
+                                maps.add(map);
 
-                    ArrayList<HashMap<String,Object>> videoList=new ArrayList<HashMap<String,Object>>();
-                    //一次接收10条数据
-                    user.VideoList=videoList;
-                    //上面那句将１０条数据的list转给user了
+                            }
+                            user.maps=maps;
+                            idf.Onebent(maps);
+                            sf.Onebent(maps);
+
+                        }
+                    }catch (JSONException e)
+                    {
+
+                    }
 
                     break;
                 case 1:
@@ -66,8 +101,62 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
                     break;
                 case 3:
                 //更新ui
-                    User_name.setText(user.name);
+
+                    UpUI("null",(HashMap<String,Object>)msg.obj,"6");
                 break;
+                case 4:
+                        ImageMessage(bundle.getString("?"));
+                    if (bundle.getString("?").equals("修改成功"))
+                    {
+                        User_name.setText(user.name);
+                    }
+                    break;
+                case 5:
+                    //初始化信息
+
+                    try {
+
+                        if (bundle.getString("?").equals("获取失败")) {
+
+                        } else {
+                            JSONObject jsonObject = (JSONObject) msg.obj;
+                            HashMap<String, Object> map;
+                            ArrayList<HashMap<String, Object>> maps = new ArrayList<HashMap<String, Object>>();
+                                map = new HashMap<String, Object>();
+                                map.put("__v",jsonObject.getString("__v"));
+                                map.put("balance",jsonObject.getString("balance"));
+                                map.put("_id",jsonObject.getString("_id"));
+                                map.put("nickname",jsonObject.getString("nickname"));
+                            User_name.setText(jsonObject.getString("nickname"));
+                                map.put("notices",jsonObject.getString("notices"));
+                                map.put("collects",jsonObject.getString("collects"));
+                                map.put("paypassword",jsonObject.getString("paypassword"));
+                                maps.add(map);
+
+                        }
+                    }catch (JSONException e)
+                    {
+
+                    }
+                    break;
+
+                case 6:
+
+                    try {
+                        if (bundle.getString("?").equals("获取失败")) {
+
+                        } else {
+                            JSONObject jsonObject = (JSONObject) msg.obj;
+                            user.picture=jsonObject.get("").toString();
+
+                        }
+                    }catch (JSONException e)
+                    {
+
+                    }
+
+
+                    break;
             }
 
 
@@ -201,7 +290,7 @@ rlIcon1.setOnClickListener(new OnClickListener()
 
         } else {
             finish();
-            System.exit(0);
+            //System.exit(0);
         }
     }
     @Override
@@ -233,7 +322,7 @@ rlIcon1.setOnClickListener(new OnClickListener()
     private void initView() {
         user.mainActivity=null;
         user.mainActivity=MainActivity.this;
-        mHandler.sendEmptyMessage(3);
+        //mHandler.sendEmptyMessage(3);
         //MainActivity的布局文件中的主要控件初始化
         mToolbar = (Toolbar) this.findViewById(R.id.tool_bar);
         mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
@@ -265,7 +354,7 @@ rlIcon1.setOnClickListener(new OnClickListener()
         //  rl.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         //设置RecyclerView布局管理器为2列垂直排布
 
-
+       // addData();
        // addTextToList("首页", 0, R.drawable.home);
         addTextToList("已付", 0, R.drawable.paid);
 
@@ -366,22 +455,30 @@ rlIcon1.setOnClickListener(new OnClickListener()
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabsFromPagerAdapter(adapter);
         POpFloag();
-        threadS s = new threadS(MainActivity.this);
-        Thread xx = new Thread(s);
-        xx.start();
-        loginout.setOnClickListener(new OnClickListener() {
+       loginout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Onebent("sssssssssssssssssssssssssssss");
-                dataserver.inst(db, user.phone + "|" +
-                        user.pas + "|" +
-                        user.name + "|" +
-                        "0", MainActivity.this);//flag为0
-                Intent intent =new Intent(MainActivity.this, Login_.class);
-                startActivity(intent);
+                try {
 
+                    dataserver = new DataHelper(MainActivity.this);
+                    dataserver.inst(db, user.phone
+                            + "|" + user.pas
+                            + "|" + user.phone
+                            + "|null|"
+                            + user.token
+                            + "|0", MainActivity.this);
+                    Intent intent = new Intent(MainActivity.this, Login_.class);
+                    startActivity(intent);
+                    finish();
+                }catch (SQLException e)
+                {
+
+                }
             }
         });
+        CheckData();
+        CheckHead();
     }//initView
     public void POpFloag() {
         //// TODO: 右下角按钮点击事件
@@ -419,7 +516,8 @@ rlIcon1.setOnClickListener(new OnClickListener()
 
     @Override
     public void Onebent(String str) {
-        String str1=str;
+      //  idf.Onebent("sssss");
+       // String str1=str;
     }
 
     class OnclickListener implements OnClickListener {
@@ -527,99 +625,115 @@ rlIcon1.setOnClickListener(new OnClickListener()
             }
         }
     }
+    private void ImageMessage(String message)
+    {
+        Toast.makeText(MainActivity.this,message,Toast.LENGTH_SHORT).show();
+    }
+    //更新数据
+    private void UpUI(String url,HashMap<String,Object> data,String count)
+    {
 
-    public class threadS implements Runnable {
-        Context context;
-
-        public threadS(Context context) {
-            this.context = context;
-        }
-
-        @Override
-        public void run() {
-            try {
-                URL url = new URL("http://192.168.1.112:1103/reg/phone");
-                conn = (HttpURLConnection) url.openConnection();
-                // 设置输入/出流
-
-                conn.setDoOutput(true);
-
-                conn.setDoInput(true);
-
-// 设置请求方式为Post
-
-                conn.setRequestMethod("POST");
-                // InputStreamReader read = new InputStreamReader(conn.getInputStream());
-                // BufferedReader in = new BufferedReader(read);
-                //  OutputStreamWriter writer=new OutputStreamWriter(conn.getOutputStream());
-                //  writer.write("phonenumber=15913044423");
-                // Post请求不能使用缓存
-
-                conn.setUseCaches(false);
-
-                conn.setInstanceFollowRedirects(true);
-
-// 设置Content-type
-
-                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
-// 在调用getOutputStream时会隐式调用conn.connect()
-
-                DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
-
-                String content = "phonenumber=15913044423";//+ URLEncoder.encode("15913044423","gb2312");
-
-                dos.writeBytes(content);
+        //数据库操作
+        dataserver=new DataHelper(MainActivity.this);
+        str1=dataserver.readData("flag|").split("\\|");
 
 
-                String str, str1 = null;
-                //  while ((str = in.readLine()) != null) {
-                //      str1 = str;
-                //  }
-                dos.flush();
-
-                dos.close();
-
-// 连接完成之后可以关闭这个连接
-
-                // conn.disconnect();
+                user.phone=str1[0];
+                user.pas=str1[1];
+                user.name=str1[2];
 
 
-                //    InputStreamReader isr = new InputStreamReader(conn.getInputStream());
 
-                // BufferedReader br = new BufferedReader(isr);
+        //数据库操作
+        HashMap<String,Object> map=data;
+        String str= user.token;
+       //                                                   MainActivity,       handler,  url,connectType,token,data) {
+        Http_UploadFile_ http_uploadFile_=new Http_UploadFile_(MainActivity.this,mHandler,url,count,str1[4],map.get("name").toString());
+        Thread x=new Thread(http_uploadFile_);
+        x.start();
+    }
 
-                //   String line = null;
+//初始化信息
+    public void addData()
+    {
+        //数据库操作
+        dataserver=new DataHelper(MainActivity.this);
+        str1=dataserver.readData("flag|").split("\\|");
+        //  "nickname" : ${nickname},    //昵称(String)
+        //  "paypassword" : ${paypassword},    //支付密码(String)
+        // "balance" : ${balance},    //余额(Number)
+        //"notices" : ${notices},    //通知(String)  [存的只是通知id]
+        //"collects" : ${collects}    //收藏(String)  [存的只是收藏id]
+        //                                                   MainActivity,       handler,  url,connectType,token,data) {
+       Http_UploadFile_ http_uploadFile_=new Http_UploadFile_(MainActivity.this
+               ,mHandler
+               ,"http://192.168.1.112:1103/user/information?token="+str1[4]
+               ,"7"
+               ,str1[4]
+               ,str1[1]+"||0|0|0");
+        Thread x=new Thread(http_uploadFile_);
+        x.start();
 
-                //  while(((line = br.readLine()) != null)) {
 
+    }
+    public void CheckData()
+    {
+        //数据库操作
+        dataserver=new DataHelper(MainActivity.this);
+        str1=dataserver.readData("flag|").split("\\|");
+        //  "nickname" : ${nickname},    //昵称(String)
+        //  "paypassword" : ${paypassword},    //支付密码(String)
+        // "balance" : ${balance},    //余额(Number)
+        //"notices" : ${notices},    //通知(String)  [存的只是通知id]
+        //"collects" : ${collects}    //收藏(String)  [存的只是收藏id]
+        //                                                   MainActivity,       handler,  url,connectType,token,data) {
+        Http_UploadFile_ http_uploadFile_=new Http_UploadFile_(MainActivity.this
+                ,mHandler
+                ,"http://192.168.1.112:1103/user/information/"+user._id
+                ,"8"
+                ,str1[4]
+                ,str1[1]+"||0|0|0");
+        Thread x=new Thread(http_uploadFile_);
+        x.start();
 
-                //   }
+    }
+    public void CheckHead()
+    {
+        //数据库操作
+        dataserver=new DataHelper(MainActivity.this);
+        str1=dataserver.readData("flag|").split("\\|");
+          //    MainActivity,       handler,  url,connectType,token,data) {
+        Http_UploadFile_ http_uploadFile_=new Http_UploadFile_(MainActivity.this
+                ,mHandler
+                ,"http://trying-video.herokuapp.com/user/image?token="+user.token
+                ,"9"
+                ,str1[4]
+                ,str1[1]+"||0|0|0");
+        Thread x=new Thread(http_uploadFile_);
+        x.start();
 
-// 关闭连接
+    }
 
-                //  isr.close();
+    public void loadHead()
+    {
+        //数据库操作
+        dataserver=new DataHelper(MainActivity.this);
+        str1=dataserver.readData("flag|").split("\\|");
+        //  "nickname" : ${nickname},    //昵称(String)
+        //  "paypassword" : ${paypassword},    //支付密码(String)
+        // "balance" : ${balance},    //余额(Number)
+        //"notices" : ${notices},    //通知(String)  [存的只是通知id]
+        //"collects" : ${collects}    //收藏(String)  [存的只是收藏id]
+        //                                                   MainActivity,       handler,  url,connectType,token,data) {
+        Http_UploadFile_ http_uploadFile_=new Http_UploadFile_(MainActivity.this
+                ,mHandler
+                ,"http://trying-video.herokuapp.com/user/image?token="+user.token
+                ,"10"
+                ,str1[4]
+                ,str1[1]+"||0|0|0");
+        Thread x=new Thread(http_uploadFile_);
+        x.start();
 
-                conn.disconnect();
-
-                //  read.close();
-                //writer.close();
-                // conn.disconnect();
-                // Toast.makeText(MainActivity.this, str1, Toast.LENGTH_LONG).show();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-                //  writer.close();
-                conn.disconnect();
-            } catch (IOException e) {
-
-                e.printStackTrace();
-            } finally {
-                //最后将conn断开连接
-                if (conn != null) {
-                    conn.disconnect();
-                }
-            }
-        }
     }
 //	public class threadEx implements Runnable
 //	{/////The get file from server of thread

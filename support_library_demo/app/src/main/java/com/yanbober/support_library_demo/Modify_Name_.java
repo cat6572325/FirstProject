@@ -1,5 +1,6 @@
 package com.yanbober.support_library_demo;
 
+import android.content.Intent;
 import android.media.Image;
 import android.os.*;
 import android.support.v4.view.GravityCompat;
@@ -16,10 +17,12 @@ import com.yanbober.support_library_demo.*;
 
 import android.support.v7.widget.Toolbar;
 
+import java.util.HashMap;
+
 public class Modify_Name_ extends AppCompatActivity {
     //将ToolBar与TabLayout结合放入AppBarLayout
     private Toolbar mToolbar;
-    User user = new User();
+    User user=new User();
     private DrawerLayout mDrawerLayout;
     EditText modify_e;
     ImageView Ok_img;
@@ -33,7 +36,7 @@ public class Modify_Name_ extends AppCompatActivity {
     public void inintView() {
         mToolbar = (Toolbar) this.findViewById(R.id.Modify_Toolbar);
         mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
-        Ok_img=(ImageView)this.findViewById(R.id.Modify_OK);
+
         modify_e=(EditText)this.findViewById(R.id.Modify_e);
         //初始化ToolBar
         setSupportActionBar(mToolbar);
@@ -42,20 +45,34 @@ public class Modify_Name_ extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.back_purple);//android.R.drawable.ic_dialog_alert);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        Ok_img.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                user.name=modify_e.getText().toString();
-                if (user.mainActivity!=null)
-                    user.mainActivity.mHandler.sendEmptyMessage(3);
-                if (user.my_video_!=null)
-                user.my_video_.mHandler.sendEmptyMessage(3);
-                if (user.collect_!=null)
-                    user.collect_.mHandler.sendEmptyMessage(3);
-            }
-        });
-    }
 
+    }
+    public void onBackPressed() {
+        //code......
+
+        HashMap<String,Object> map=new HashMap<String,Object>();
+        map.put("name",modify_e.getText().toString());
+
+        Message msg=new Message();
+        Bundle bundle=new Bundle();
+        msg.what=3;
+        msg.obj=map;
+
+     //   bundle.putString("nickname",str);
+        msg.setData(bundle);
+        user.name=modify_e.getText().toString();
+        if (user.mainActivity!=null)
+            user.mainActivity.mHandler.sendMessage(msg);
+        if (user.my_video_!=null)
+            user.my_video_.mHandler.sendEmptyMessage(3);
+        if (user.collect_!=null)
+            user.collect_.mHandler.sendEmptyMessage(3);
+
+        Intent intent=new Intent(Modify_Name_.this,MainActivity.class);
+        startActivity(intent);
+        finish();
+        //结束activity防止无限退回
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

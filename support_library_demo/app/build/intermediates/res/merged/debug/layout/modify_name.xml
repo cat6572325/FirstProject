@@ -78,14 +78,7 @@
 			android:shadowRadius="1.0"
 			android:id="@+id/Modify_e"
 			android:typeface="monospace"/>
-		<ImageView
-			android:layout_width="35dp"
-			android:layout_height="35dp"
 
-			android:layout_marginTop="25dp"
-			android:layout_alignParentRight="true"
-			android:id="@+id/Modify_OK"
-			android:src="@drawable/ahead" />
 	</LinearLayout>
 	</RelativeLayout>
 	<View

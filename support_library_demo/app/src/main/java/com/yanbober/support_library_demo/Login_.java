@@ -24,9 +24,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import com.yanbober.support_library_demo.DataHelpers.*;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 /**
  * Created by cat6572325 on 16-11-18.
  */
@@ -38,6 +45,7 @@ public class Login_ extends AppCompatActivity {
                 case 0:
                     bun=msg.getData();
                     try {
+                        if (bun!=null)
                         if (bun.get("?").equals("登录成功"))
                         {
                             JSONArray array=(JSONArray)msg.obj;
@@ -47,17 +55,27 @@ public class Login_ extends AppCompatActivity {
 
                             user.phone=phoneone.getString("phone");
                             user.name=phoneone.getString("phone");
+                            user.token=token_.getString("token");
                             User._id=phoneone.getString("_id");
+                            user.pas=phoneone.getString("userpassword");
                             Intent intent = new Intent(Login_.this, MainActivity.class);
+                            dataserver.inst(db,user.phone
+                                    +"|"+user.pas
+                                    +"|"+user.phone
+                                    +"|null|"
+                                    + user.token
+                                    +"|1",Login_.this);
+
+                            //手机　密码　名字　头像序列　token　是否登录状态
+                            user.pas=pas.getText().toString();
                             startActivity(intent);
-                            // finish();
+                             finish();
                         }else
                         {
-                            //注册失败
-                            Looper.prepare();
-                            Toast.makeText(Login_.this,"登录失败："+bun.get("!").toString(),Toast.LENGTH_SHORT).show();
-                            Looper.loop();
-
+                            //登录失败
+                         //   Looper.prepare();
+                          //  Toast.makeText(Login_.this,"登录失败："+bun.get("!").toString(),Toast.LENGTH_SHORT).show();
+                           // Looper.loop();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -106,25 +124,27 @@ public class Login_ extends AppCompatActivity {
         pas.addTextChangedListener(new Mytextwatcher());
         Register_Enter.setVisibility(View.INVISIBLE);
         Register_Enter.setOnClickListener(new MyClickListener());
-
+        register.setOnClickListener(new MyClickListener());
         backbtn.setOnClickListener(new MyClickListener());
-
 
         //数据库操作
         dataserver=new DataHelper(Login_.this);
-
         str1=dataserver.readData("flag|").split("\\|");
         if(str1[0].equals("flag"))
         {//如果已经登录且没有正常退出
-
         }else {
             if (str1[5].equals("1")) {
-
+                Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(Login_.this
+                        , mHandler
+                        , "http://192.168.1.112:1103/login"
+                        , "1"//登录
+                        , "POST"
+                        , str1[0] + "|"+str1[1]);
+                Thread x = new Thread(http_uploadFile_);
+                x.start();
             }
         }
-
                 //数据库操作
-
     }
 
     class MyClickListener implements View.OnClickListener {
@@ -139,23 +159,18 @@ public class Login_ extends AppCompatActivity {
                     //新建一个发送POST的class
                     //  networkAsyncTask.execute("NETWORK_POST_JSON",phon.getText().toString(),pas.getText().toString());
                     //执行
-                    dataserver.inst(db,user.phone+"|"+user.pas+"|"+user.phone+"|null|1",Login_.this);
-                    //手机　密码　名字　头像序列　是否登录状态
-                    try {
-                        url = new URL("http://192.168.1.112:1103/login");
 
 
+                      //  url = new URL("http://192.168.1.112:1103/login");
                         Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(Login_.this
                                 , mHandler
-                                , url
+                                , "http://192.168.1.112:1103/login"
                                 , "1"//登录
                                 , "POST"
-                                , "phone=" + phon.getText().toString() + "&userpassword=" + pas.getText().toString());
+                                , phon.getText().toString() + "|" + pas.getText().toString());
                         Thread x = new Thread(http_uploadFile_);
                         x.start();
-                         }catch (MalformedURLException e) {
-                        e.printStackTrace();
-                    }
+
                     break;
                 case R.id.Register_back:
                     //TODO 左上角返回
@@ -164,6 +179,7 @@ public class Login_ extends AppCompatActivity {
                 case R.id.Login_Regi_Button:
                     Intent intent=new Intent(Login_.this,Register_.class);
                     startActivity(intent);
+
                     break;
             }
         }

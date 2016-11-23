@@ -10,10 +10,13 @@ import java.util.HashMap;
 public class User
 {
 	public static String phone="null",pas="null",name="null",flag="null",picture="null",
-	chatdata="null",city="null",sex="null",old="null",_id=null
+	chatdata="null",city="null",sex="null",old="null",_id="null",token="null";
 	;
+
+
 	public static ArrayList<HashMap<String,Object>>VideoList;
 	public static MainActivity mainActivity;
 	public static My_Video_ my_video_;
 	public static Collect_ collect_;
+	public static ArrayList<HashMap<String, Object>> maps,Datas;
 }

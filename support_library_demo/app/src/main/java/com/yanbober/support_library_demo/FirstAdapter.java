@@ -17,6 +17,11 @@ import android.support.v7.widget.*;
 import android.util.Base64;
 import android.view.*;
 import android.widget.*;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.*;
 
 public class FirstAdapter extends RecyclerView.Adapter<MyViewHolder2> {
@@ -211,10 +216,27 @@ case 2:
 					holder.infoDetails_paidcount_tv.setText(lists.get(position).get("data").toString());
 					holder.infoDetails_title_tv.setText(lists.get(position).get("name").toString());
 					byte[] bitmapArray1;
-					bitmapArray1 = Base64.decode(lists.get(position).get("image").toString(), Base64.DEFAULT);
-					Bitmap bitmap1= BitmapFactory.decodeByteArray(bitmapArray1, 0,
-							bitmapArray1.length);
-					Drawable drawable=new BitmapDrawable(bitmap1);
+					//bitmapArray1 = Base64.decode(lists.get(position).get("image").toString(), Base64.DEFAULT);
+					//Bitmap bitmap1= BitmapFactory.decodeByteArray(bitmapArray1, 0,
+					//		bitmapArray1.length);
+					//以url解析图片
+					Bitmap bitmap2=null;
+					try {
+						URL url=new URL(lists.get(position).get("image").toString());
+						HttpURLConnection conn = (HttpURLConnection) url
+								.openConnection();
+						conn.setDoInput(true);
+						conn.connect();
+						InputStream is = conn.getInputStream();
+						bitmap2 = BitmapFactory.decodeStream(is);
+						is.close();
+						conn.disconnect();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					Drawable drawable=new BitmapDrawable(bitmap2);
+					//以url解析图片　
+
 					holder.infoDetails_relativelayout.setBackground(drawable);
 					//设置内容背景图
 					if(mListener!=null){//如果设置了监听那么它就不为空，然后回调相应的方法

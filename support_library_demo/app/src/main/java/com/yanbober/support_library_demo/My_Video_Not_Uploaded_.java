@@ -56,21 +56,17 @@ public class My_Video_Not_Uploaded_ extends Fragment {
 		String str;
 
 		adapter = new FirstAdapter(getActivity(),lists);
-
         mRecyclerView.setAdapter(adapter);
-
 		adapter.setOnClickListener(new FirstAdapter.OnItemClickListener()
 			{
 				public void onItemClickListener(View v,int position)
 				{
-					Intent intent=new Intent(getActivity(),Round_Video_.class);
-					startActivity(intent);
+					//Intent intent=new Intent(getActivity(),Round_Video_.class);
+					//startActivity(intent);
 					}
 					
 	public void onItemLongClickListener(View v,int position)
 	{
-
-
 	}
 	});
     }

@@ -25,7 +25,16 @@ import java.util.*;
 
 
 public class InfoDetailsFragment extends Fragment {
-
+    private Handler mHandler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            Bundle bundle=new Bundle();
+            bundle=msg.getData();
+            switch (msg.what) {
+                case 0:
+                    break;
+            }
+        }
+    };
     private RecyclerView mRecyclerView, rv;
     View v;
     public ArrayList<HashMap<String, Object>> lists = new ArrayList<HashMap<String, Object>>(), lists2 = new ArrayList<HashMap<String, Object>>();
@@ -48,63 +57,20 @@ public class InfoDetailsFragment extends Fragment {
         return v;
     }
 
-    private Handler mHandler = new Handler() {
-        public void handleMessage(android.os.Message msg) {
-            switch (msg.what) {
-                case 0:
 
-                    break;
-
-
-            }
-        }
-    };
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initView();
-        Bitmap bitmap= BitmapFactory.decodeResource(this.getContext().getResources(),R.drawable.ic_launcher);
-        ByteArrayOutputStream out=new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG,100,out);
-        byte[] bytes=out.toByteArray();
-        String str=Base64.encodeToString(bytes,Base64.DEFAULT);
-        addTextToList("sssss",1,str,0,"skajdhksaj");
-        addTextToList("sssss",1,str,0,"skajdhksaj");
-        addTextToList("sssss",1,str,0,"skajdhksaj");
-        addTextToList("sssss",1,str,0,"skajdhksaj");addTextToList("sssss",1,str,0,"skajdhksaj");
-        addTextToList("sssss",1,str,0,"skajdhksaj");
-        addTextToList("sssss",1,str,0,"skajdhksaj");
 
-
-        if(user.VideoList!=null) {
-
-            //获取10条数据
-            for (int i = 0; i <user.VideoList.size(); i++) {
-
-                //addTextToList("广东",1,android.R.drawable.ic_lock_lock,"ps","data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊");
-                addTextToList(user.VideoList.get(i).get("paid_count").toString()
-                        , 1
-                        ,user.VideoList.get(i).get("head_image").toString()
-                        , 0
-                        ,user.VideoList.get(i).get("title").toString());
-                //暂定内容，参数....购买人数,布局,头像,是否显示红点,标题
-                //头像和内容壁纸需要在适配器以二进制转为图片
-            }
-          //  addTextToList("uuu", 1, "android.R.drawable.ic_lock_lock", 0, "name");
-        }
         adapter = new FirstAdapter(getActivity(), lists);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
 
         mRecyclerView.setAdapter(adapter);
        // ebent.Onebent("aaaaaaaaaaaaaaaa");
-        try {
-            Http_UploadFile_ http_uploadFile_=new Http_UploadFile_((MainActivity)getActivity(),mHandler,new URL("http://192.168.1.112:1103/"),"4","POST","data");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+initView();
         adapter.setmOnItemClickListener(new FirstAdapter.OnItemClickListener() {
             @Override
             public void onItemClickListener(View view, int position) {
@@ -188,15 +154,18 @@ public class InfoDetailsFragment extends Fragment {
     }
     private void initView()
     {
-        try {
+
             MainActivity mainActivity;
             mainActivity= (MainActivity)getActivity();
-            URL url = new URL("http://192.168.1.112:1103/");
-            Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(mainActivity,mHandler, url,"4","POST","getvideos");
-        }catch (IOException e)
-        {
+            Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(mainActivity
+                    ,mainActivity.mHandler
+                    ,"http://192.168.1.112:1103/user/video/all/detail"
+                    ,"4"
+                    ,"POST"
+                    ,"getvideos");
+        Thread t=new Thread(http_uploadFile_);
+        t.start();
 
-        }
         }
 
 public interface OnActivityebent
@@ -204,9 +173,24 @@ public interface OnActivityebent
         public void Onebent(String str);
 
     }
-public void Onebent(String str)
-{
-    String str1=str;
+public void Onebent(ArrayList<HashMap<String, Object>> maps)
+{//MainActivity接口
+    ArrayList<HashMap<String, Object>> map=maps;
+    for (int i = 0; i <map.size(); i++) {
+        if (i==10) {return ;}
+        //addTextToList("广东",1,android.R.drawable.ic_lock_lock,"ps","data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊");
+        addTextToList(map.get(i).get("paidppnumber").toString()
+                , 1
+                ,map.get(i).get("vdourl").toString()
+                , 0
+                ,map.get(i).get("title").toString());
+
+        //暂定内容，参数....购买人数,布局,头像,是否显示红点,标题
+        //头像和内容壁纸需要在适配器以二进制转为图片
+    }
+    adapter.notifyDataSetChanged();
+    //  addTextToList("uuu", 1, "android.R.drawable.ic_lock_lock", 0, "name");
+   // Toast.makeText(getContext(),str1,Toast.LENGTH_LONG).show();
 
 }
     @Override

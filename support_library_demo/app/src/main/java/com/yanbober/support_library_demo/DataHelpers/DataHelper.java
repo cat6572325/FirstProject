@@ -43,6 +43,7 @@ public class DataHelper extends SQLiteOpenHelper
                 ",itPass text" +
                 ",itName text" +
                 ",itHeadPictrue text" +
+                ",itToken"+
                 ",flag text)";
         //执行创建数据库操作
         db.execSQL(sql);
@@ -55,20 +56,30 @@ public class DataHelper extends SQLiteOpenHelper
     }
     public long inst(SQLiteDatabase db,String name,Context cot)
     {
-        //SQLiteDatabase db5 = dbHelper5.getReadableDatabase();
-        String[] data=name.split("\\|");
-        db= getWritableDatabase();//获取可写SQLiteDatabase对象
-        //调用delete方法，删除数据
-        db.delete("Flag", "_id=?", new String[]{"1"});
-        //ContentValues类似map，存入的是键值对
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("itPhone", data[0]);
-        contentValues.put("itPass", data[1]);
-        contentValues.put("itName", data[2]);
-        contentValues.put("itHeadPictrue", data[3]);
-        contentValues.put("flag", data[4]);
-        //db.execSQL("insert into tb_test(_id,tname,tage,ttle) values(3,'h','h','f')");
-        return db.insert("Flag", null, contentValues);
+        ContentValues contentValues=null;
+        try {
+            //SQLiteDatabase db5 = dbHelper5.getReadableDatabase();
+            String[] data = name.split("\\|");
+            db = getWritableDatabase();//获取可写SQLiteDatabase对象
+            //调用delete方法，删除数据
+            db.delete("Flag", "_id=?", new String[]{"1"});
+            //ContentValues类似map，存入的是键值对
+            contentValues = new ContentValues();
+            contentValues.put("itPhone", data[0]);
+            contentValues.put("itPass", data[1]);
+            contentValues.put("itName", data[2]);
+            contentValues.put("itHeadPictrue", data[3]);
+            contentValues.put("itToken", data[4]);
+
+            contentValues.put("flag", data[5]);
+            //db.execSQL("insert into tb_test(_id,tname,tage,ttle) values(3,'h','h','f')");
+        }catch (SQLiteDiskIOException e)
+        {
+
+        }finally {
+            return db.insert("Flag", null, contentValues);
+        }
+
 
     }
     public String readData(String name)
@@ -81,13 +92,14 @@ public class DataHelper extends SQLiteOpenHelper
         {
             Cursor cursor = db.rawQuery("select * from Flag", null);
             while (cursor.moveToNext()) {
-                name = cursor.getString(0)+"|"; //获取第一列的值,第一列的索引从0开始
-                name+= cursor.getString(1)+"|";//获取第二列的值
-                name += cursor.getString(2)+"|";//获取第三列的值
-                name += cursor.getString(3)+"|";
-                name+=cursor.getString(4)+"|";
+                name = cursor.getString(1)+"|"; //获取第一列的值,第一列的索引从0开始
+                name+= cursor.getString(2)+"|";//获取第二列的值
+                name += cursor.getString(3)+"|";//获取第三列的值
+                name += cursor.getString(4)+"|";
+                name+=cursor.getString(5)+"|";
 
-                name+=cursor.getString(5);
+                name+=cursor.getString(6);
+
             }
             cursor.close();
             db.close();

@@ -59,10 +59,12 @@ public class Setting_ extends AppCompatActivity {
                 if (str.equals("昵称")) {
                     Intent intent = new Intent(Setting_.this, Modify_Name_.class);
                     startActivity(intent);
+                    finish();
                 }
                 if (str.equals("登陆密码")) {
                     Intent intent = new Intent(Setting_.this, Modify_Password_.class);
                     startActivity(intent);
+                    finish();
                 }
                 if (str.equals("支付密码")) {
                     HashMap<String, Object> map = new HashMap<String, Object>();
@@ -75,7 +77,7 @@ public class Setting_ extends AppCompatActivity {
                             //login
                             Intent intent=new Intent(Setting_.this,Set_Pay_pwd_.class);
                             startActivity(intent);
-
+                            finish();
 
                         }
                         //设置你的操作事项

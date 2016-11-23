@@ -20,10 +20,6 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/layout/paid_video.xml"
     },
     {
-        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/notification_template_media_custom.xml",
-        "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/layout/notification_template_media_custom.xml"
-    },
-    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/abc_screen_simple.xml",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/layout/abc_screen_simple.xml"
     },
@@ -52,6 +48,10 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/layout/agenda_fragment.xml"
     },
     {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/add_data_layout.xml",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/layout/add_data_layout.xml"
+    },
+    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_icon.xml",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/layout/abc_list_menu_item_icon.xml"
     },
@@ -60,16 +60,12 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/layout/list_item.xml"
     },
     {
-        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/notification_action.xml",
-        "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/layout/notification_action.xml"
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/notification_template_big_media_narrow.xml",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/layout/notification_template_big_media_narrow.xml"
     },
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/text_input_layout.xml",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/layout/text_input_layout.xml"
-    },
-    {
-        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/notification_template_big_media_narrow.xml",
-        "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/layout/notification_template_big_media_narrow.xml"
     },
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/notification_template_media.xml",
@@ -94,10 +90,6 @@
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/message_delete.xml",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/layout/message_delete.xml"
-    },
-    {
-        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/notification_action_tombstone.xml",
-        "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/layout/notification_action_tombstone.xml"
     },
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/design_navigation_item.xml",
@@ -134,10 +126,6 @@
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/abc_screen_simple_overlay_action_mode.xml",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/layout/abc_screen_simple_overlay_action_mode.xml"
-    },
-    {
-        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/design_text_input_password_icon.xml",
-        "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/design/25.0.0/res/layout/design_text_input_password_icon.xml"
     },
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/personal_layout.xml",
@@ -248,24 +236,12 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/layout/abc_action_bar_title_item.xml"
     },
     {
-        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/notification_template_lines_media.xml",
-        "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/layout/notification_template_lines_media.xml"
-    },
-    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/paid_item.xml",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/layout/paid_item.xml"
     },
     {
-        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/notification_template_icon_group.xml",
-        "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/layout/notification_template_icon_group.xml"
-    },
-    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/recy_card_item.xml",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/layout/recy_card_item.xml"
-    },
-    {
-        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/abc_popup_menu_header_item_layout.xml",
-        "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/layout/abc_popup_menu_header_item_layout.xml"
     },
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/share_fragment.xml",
@@ -304,10 +280,6 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/layout/abc_search_view.xml"
     },
     {
-        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/design_bottom_navigation_item.xml",
-        "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/design/25.0.0/res/layout/design_bottom_navigation_item.xml"
-    },
-    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/line_item.xml",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/layout/line_item.xml"
     },
@@ -336,20 +308,8 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/layout/login_layout.xml"
     },
     {
-        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/notification_template_big_media_custom.xml",
-        "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/layout/notification_template_big_media_custom.xml"
-    },
-    {
-        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/notification_template_custom_big.xml",
-        "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/layout/notification_template_custom_big.xml"
-    },
-    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/abc_action_menu_item_layout.xml",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/layout/abc_action_menu_item_layout.xml"
-    },
-    {
-        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/notification_template_big_media_narrow_custom.xml",
-        "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/layout/notification_template_big_media_narrow_custom.xml"
     },
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/set_new_pay_pwd_layout.xml",

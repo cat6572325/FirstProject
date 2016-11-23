@@ -90,6 +90,7 @@ MERGED from [com.android.support:support-vector-drawable:23.4.0] /home/cat657232
 MERGED from [com.android.support:support-v4:23.4.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:support-v4:23.4.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:support-v4:23.4.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/AndroidManifest.xml:22:5-20
+MERGED from [cn.edu.zafu:coreprogress:0.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/cn.edu.zafu/coreprogress/0.0.1/AndroidManifest.xml:11:5-12:19
 	android:label
 		ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/AndroidManifest.xml:25:9-41
 	android:allowBackup
@@ -273,6 +274,8 @@ MERGED from [com.android.support:support-vector-drawable:23.4.0] /home/cat657232
 MERGED from [com.android.support:support-v4:23.4.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/AndroidManifest.xml:20:5-43
 MERGED from [com.android.support:support-v4:23.4.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/AndroidManifest.xml:20:5-43
 MERGED from [com.android.support:support-v4:23.4.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/AndroidManifest.xml:20:5-43
+MERGED from [io.reactivex:rxandroid:1.2.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/io.reactivex/rxandroid/1.2.1/AndroidManifest.xml:19:5-43
+MERGED from [cn.edu.zafu:coreprogress:0.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/cn.edu.zafu/coreprogress/0.0.1/AndroidManifest.xml:7:5-9:41
 	tools:overrideLibrary
 		ADDED from [com.android.support:appcompat-v7:23.4.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/AndroidManifest.xml:23:9-75
 	android:targetSdkVersion

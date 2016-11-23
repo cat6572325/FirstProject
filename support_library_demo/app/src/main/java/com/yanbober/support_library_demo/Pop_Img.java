@@ -396,7 +396,7 @@ public class Pop_Img extends Dialog {
                                 Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(round_video_
                                         , round_video_.mHandler
                                         //, new File("/sdcard/RoundVideo/video.mp4")
-                                        , url
+                                        , "http://192.168.1.112:1103/user/video/all/detail"
                                         , "0"
                                         , "GET"
                                         , maphttp);

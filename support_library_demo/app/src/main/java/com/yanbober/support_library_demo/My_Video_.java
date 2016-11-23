@@ -36,7 +36,7 @@ public class My_Video_ extends ActionBarActivity {
 				case 0:
 					Bundle bun=new Bundle();
 					bun=msg.getData();
-			
+					finish();
 					break;
 				case 3:
 					User_name.setText(user.name);
@@ -220,6 +220,8 @@ public class My_Video_ extends ActionBarActivity {
 					TextView tv = (TextView) view.findViewById(R.id.leftlistitemTextView1);
 					String str = tv.getText().toString();
 					if (str.equals("首页")) {
+						Intent intent = new Intent(My_Video_.this, MainActivity.class);
+						startActivity(intent);
 
 					}
 					if (str.equals("已付")) {

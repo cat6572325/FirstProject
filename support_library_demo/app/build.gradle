@@ -27,6 +27,17 @@ dependencies {
     compile 'com.android.support:support-v4:23.+'
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/org.json.jar')
+    testCompile 'com.squareup.okhttp3:mockwebserver:3.4.2'
+    compile 'com.squareup.okhttp3:okhttp:3.4.2'
+    // retrofit, 基于Okhttp，考虑到项目中经常会用到retrofit，就导入这个了。
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+// ButterKnife
+    compile 'com.jakewharton:butterknife:7.0.1'
+//  rxjava 本例中线程切换要用到，代替handler
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'cn.edu.zafu:coreprogress:0.0.1'
+
 }
 	
 

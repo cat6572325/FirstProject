@@ -46,7 +46,7 @@ public class ShareFragment extends Fragment {
 	RelativeLayout rv;
 	private RecyclerView mRecyclerView;
 	Get_LastData_Util httpUtil;
-
+	User user=new User();
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class ShareFragment extends Fragment {
 		//设置RecyclerView布局管理器为2列垂直排布
 		//	addTextToList2("广东",2,android.R.drawable.ic_lock_lock,"ps","data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊");
 		//addTextToList2("广东",1,android.R.drawable.ic_lock_lock,"ps","data",0,"这点略大，颜色不一样，标题栏缺少图标和点击效果，",0);
-		addTextToList2("广东", 0, android.R.drawable.ic_lock_lock, "ps", "data", 0, "这点略大，颜色不一样，标题栏缺少图标和点击效果，", 1);
+	/*	addTextToList2("广东", 0, android.R.drawable.ic_lock_lock, "ps", "data", 0, "这点略大，颜色不一样，标题栏缺少图标和点击效果，", 1);
 		for (int i = 0; i < 10; i++) {
 			addTextToList2("广东"
 					, 0
@@ -79,7 +79,7 @@ public class ShareFragment extends Fragment {
 			);
 			counttype.add(R.drawable.icon_people);
 			data.add("uuu");
-		}
+		}*/
 		String str;
 		adapter = new FirstAdapter(getActivity(), lists);
 		mRecyclerView.setAdapter(adapter);
@@ -94,62 +94,65 @@ public class ShareFragment extends Fragment {
 				Toast.makeText(getContext(),"last",Toast.LENGTH_LONG).show();
 			}
 		});
-		HashMap<String , Object> httpmap=new HashMap<String,Object>();
-		httpmap.put("phone","13566554433");
-		httpmap.put("password","asd1234");
-		httpmap.put("video","ssssssssssss");
-		httpmap.put("path","http://192.168.1.112:1103/login");
-		httpUtil=new Get_LastData_Util(getContext(),"NETWORK_POST_JSON",httpmap);
-	//	httpUtil.connectioning();;
-		//启动
+initView();
 
-		try {
-			URL url=new URL("http://192.168.1.112:1103/");
-			Http_UploadFile_ http_uploadFile_=new Http_UploadFile_(mHandler,new File("/sdcard/RoundVideo/video.mp4"),url,"Login","44|99");
-			//http_uploadFile_.post();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
+    }
+public void initView()
+{
+	if (user.maps!=null) {
+		ArrayList<HashMap<String, Object>> map = user.maps;
+		for (int i = 0; i < map.size(); i++) {
+			if (i == 10) {
+				return;
+			}
+			//addTextToList("广东",1,android.R.drawable.ic_lock_lock,"ps","data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊");
+			addTextToList(map.get(i).get("paidppnumber").toString()
+					, 1
+					, map.get(i).get("vdourl").toString()
+					, 0
+					, map.get(i).get("title").toString());
+
+			//暂定内容，参数....购买人数,布局,头像,是否显示红点,标题
+			//头像和内容壁纸需要在适配器以二进制转为图片
 		}
-
-    }
-
-	public void addTextToList3(String text, int who, String id,String ps,String data,int person,String name)
-	{
-		HashMap<String,Object> map=new HashMap<String,Object>();
-		map.put("person", person);
+		adapter.notifyDataSetChanged();
+		//  addTextToList("uuu", 1, "android.R.drawable.ic_lock_lock", 0, "name");
+		// Toast.makeText(getContext(),str1,Toast.LENGTH_LONG).show();
+	}
+}
+	public void addTextToList(String text, int who, String id, int count, String name) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("person", who);
 		map.put("image", id);
-		map.put("text", text);
-		map.put("ps", ps);
-		map.put("data",data);
-		map.put("layout",who);
-		map.put("name",name);
-		lists.add(map);
-    }
-	public void addTextToList2(String text, int who, int id,String ps,String data,int person,String name,int is)
-	{
-		HashMap<String,Object> map=new HashMap<String,Object>();
-		map.put("person", person);
-		map.put("image", id);
-		map.put("text", text);
-		map.put("is",is);
-		map.put("ps", ps);
-		map.put("data",data);
-		map.put("layout",who);
-		map.put("name",name);
+		map.put("data", text);
+		map.put("count", count);
+		map.put("layout", who);
+		map.put("name", name);
 
 		lists.add(map);
-    }
-	public void addTextToList(String text, int who, String id,String ps,String data,int person,String name)
-	{
-		HashMap<String,Object> map=new HashMap<String,Object>();
-		map.put("person", person);
-		map.put("image", id);
-		map.put("text", text);
-		map.put("ps", ps);
-		map.put("data",data);
-		map.put("layout",who);
-		map.put("name",name);
-		lists.add(map);
-    }
 
+	}
+
+
+	public void Onebent(ArrayList<HashMap<String, Object>> maps)
+	{//MainActivity接口
+		ArrayList<HashMap<String, Object>> map=maps;
+		for (int i = 0; i <map.size(); i++) {
+			if (i==10)
+				return ;
+			//addTextToList("广东",1,android.R.drawable.ic_lock_lock,"ps","data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊");
+			addTextToList(map.get(i).get("paidppnumber").toString()
+					, 1
+					,map.get(i).get("vdourl").toString()
+					, 0
+					,map.get(i).get("title").toString());
+
+			//暂定内容，参数....购买人数,布局,头像,是否显示红点,标题
+			//头像和内容壁纸需要在适配器以二进制转为图片
+		}
+		adapter.notifyDataSetChanged();
+		//  addTextToList("uuu", 1, "android.R.drawable.ic_lock_lock", 0, "name");
+		// Toast.makeText(getContext(),str1,Toast.LENGTH_LONG).show();
+
+	}
 }

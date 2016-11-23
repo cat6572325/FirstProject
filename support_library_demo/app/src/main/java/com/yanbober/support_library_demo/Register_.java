@@ -54,7 +54,7 @@ public class Register_ extends AppCompatActivity {
                 case 0:
                     bun=msg.getData();
                     try {
-                    if (bun.get("?").equals("注册成功"))
+                    if (bun.getString("?").equals("注册成功"))
                     {
                         JSONObject JS=(JSONObject)msg.obj;
                             User.phone=JS.getString("phone");
@@ -127,29 +127,18 @@ public class Register_ extends AppCompatActivity {
                     //新建一个发送POST的class
                     //  networkAsyncTask.execute("NETWORK_POST_JSON",phon.getText().toString(),pas.getText().toString());
                     //执行
-                    try {
-                        url = new URL("http://192.168.1.112:1103/reg/user");
+
 
 
                         Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(Register_.this
                                 , mHandler
-                                , url
+                                , "http://192.168.1.112:1103/reg/user"
                                 , "0"//注册
                                 , "POST"
-                                , "phone=" + phon.getText().toString() + "&userpassword=" + pas.getText().toString());
+                                , phon.getText().toString() + "|" + pas.getText().toString());
                         Thread x = new Thread(http_uploadFile_);
                          x.start();
-                        Http_UploadFile_ http_uploadFile_Delete = new Http_UploadFile_(Register_.this
-                                , mHandler
-                                , new URL("http://192.168.1.112:1103/reg/user/:_id=(582a7c41c0e5280bbce3bc94)")
-                                , "2"//删除
-                                , "DELETE"
-                                , "phone=" + phon.getText().toString() + "&userpassword=" + pas.getText().toString());
-                        Thread x1 = new Thread(http_uploadFile_Delete);
-                      //  x1.start();
-                    }catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
+
                     break;
                 case R.id.Register_back:
                     //TODO 左上角返回

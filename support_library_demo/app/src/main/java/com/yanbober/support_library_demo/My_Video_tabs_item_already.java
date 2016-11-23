@@ -7,6 +7,7 @@ package com.yanbober.support_library_demo;
 
 
  */
+import android.content.Intent;
 import android.os.*;
 import android.support.annotation.*;
 import android.support.v4.app.*;
@@ -62,11 +63,21 @@ public class My_Video_tabs_item_already extends Fragment {
 			
 		}
 		String str;
-
 		adapter = new FirstAdapter(getActivity(),lists);
 
         mRecyclerView.setAdapter(adapter);
-		
+		adapter.setOnClickListener(new FirstAdapter.OnItemClickListener() {
+			@Override
+			public void onItemClickListener(View view, int position) {
+				Intent intent=new Intent(getContext(),Run_Video_.class);
+				startActivity(intent);
+			}
+
+			@Override
+			public void onItemLongClickListener(View view, int position) {
+
+			}
+		});
 
     }
 
