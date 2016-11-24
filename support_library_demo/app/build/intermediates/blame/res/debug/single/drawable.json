@@ -80,12 +80,12 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/ic_action_headphones.png"
     },
     {
-        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/listview_line.xml",
-        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/listview_line.xml"
-    },
-    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/qq.jpg",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/qq.jpg"
+    },
+    {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/listview_line.xml",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/listview_line.xml"
     },
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/press_gray.xml",

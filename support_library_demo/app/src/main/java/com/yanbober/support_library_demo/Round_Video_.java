@@ -17,6 +17,7 @@ import android.system.ErrnoException;
 import android.text.Layout;
 import android.util.DisplayMetrics;
 
+import android.util.Log;
 import android.util.TimeUtils;
 import android.view.*;
 import android.view.View.*;
@@ -34,6 +35,11 @@ import java.util.concurrent.TimeUnit;
 import android.hardware.Camera;
 import android.support.design.widget.*;
 
+import com.okhttplib.HttpInfo;
+import com.okhttplib.OkHttpUtil;
+import com.okhttplib.OkHttpUtilInterface;
+import com.okhttplib.annotation.CacheLevel;
+import com.okhttplib.callback.ProgressCallback;
 import com.yanbober.support_library_demo.Http_Util.Http_UploadFile_;
 
 import java.io.IOException;
@@ -81,6 +87,7 @@ public class Round_Video_ extends Activity
             }
         }
     };
+    User user=new User();
     RoundProgressBar bar;
     static int message = 0;
     private Button startButton, stopButton, playButton;
@@ -101,6 +108,9 @@ public class Round_Video_ extends Activity
     int minute, min;
     Size size;
     task Prog_task;
+
+
+    Pop_Img.Builder p;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -594,7 +604,7 @@ public class Round_Video_ extends Activity
             map1.put("upload", 1);
             map1.put("color", Color.rgb(555, 333, 333));
 
-            Pop_Img.Builder p = new Pop_Img.Builder(Round_Video_.this, map1,file_with);
+           p = new Pop_Img.Builder(Round_Video_.this, map1,file_with);
           p.setaddMiusic(new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     //dialog.dismiss();
@@ -611,7 +621,8 @@ public class Round_Video_ extends Activity
                 public void onClick(DialogInterface dialog, int which) {
                   //  Toast.makeText(Round_Video_.this,"click",Toast.LENGTH_SHORT).show();
                     //发送http请求，上传视频
-
+                    doUploadImg("http://trying-video.herokuapp.com/user/image?token="+user.token
+                            ,file_with.GetFile().getPath());
                 }
             });
                   p.create().show();
@@ -868,14 +879,46 @@ public class Round_Video_ extends Activity
             mediaMuxer.stop();
             mediaExtractor1.release();
             mediaMuxer.release();
-
             //  Log.e("TAG", "finish");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     //TODO 视频处理　　AAAAAAAAAAAAAA
+    //TODO 上传视频   VVVVVVVVVVVVVVVVVVV 　差上传成功与否检测，待研究
+    private void doUploadImg(String url,String filePath) {
+        OkHttpUtilInterface okHttpUtil = OkHttpUtil.Builder()
+                .setCacheLevel(CacheLevel.FIRST_LEVEL)
+                .setConnectTimeout(25).build(this);
+//一个okHttpUtil即为一个网络连接
+        HttpInfo info = HttpInfo.Builder()
+                .setUrl(url)
+                .addUploadFile("file",filePath, new ProgressCallback() {
+                    @Override
+                    public void onProgressMain(int percent, long bytesWritten, long contentLength, boolean done) {
+                        // uploadProgress.setProgress(percent);
+                        Log.e("ssss", "上传进度：" + percent);
 
+                        p.OnProgressChanged(percent);
+                        if (percent == 100)
+                        {
+                            p.OnProgressChanged(101);
+                        Toast.makeText(Round_Video_.this, "上传结束，原视频保存在本地的:" + file_with.GetFile().getPath(), Toast.LENGTH_LONG).show();
+                        //超过100则结束对话框并提示成功
+                        }
+                    }
+                    @Override
+                    public void onResponseMain(String filePath,HttpInfo info)
+                    {
+                        String str=info.getRetDetail();
+                        Log.e("上传信息",str);
+                    }
+                })
+                .build();
+        OkHttpUtil.getDefault(this).doUploadFileAsync(info);
+    }
+
+    //TODO 上传视频　　AAAAAAAAAAAAAAAAAA
 }
 
 

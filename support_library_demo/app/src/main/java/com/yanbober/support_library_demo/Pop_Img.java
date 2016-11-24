@@ -456,7 +456,11 @@ public class Pop_Img extends Dialog {
                             public void handleMessage(Message msg) {
                                 //接受请求设置Progressbar的进度
                                 super.handleMessage(msg);
-                                bar.setProgress(bar.getProgress() + 1);
+                                if (msg.arg1==101)
+                                {
+                                    dialog.dismiss();
+                                }
+                                bar.setProgress(msg.arg1);
                                 bar.invalidate();
                             }
                         };
@@ -475,7 +479,9 @@ public class Pop_Img extends Dialog {
             }//onCreate
 
         public void OnProgressChanged(int count) {
-            mViewUpdateHandler.sendEmptyMessage(0);
+            Message msg=new Message();
+            msg.arg1=count;
+            mViewUpdateHandler.sendMessage(msg);
 
         }
 

@@ -71,10 +71,18 @@ public class InfoDetailsFragment extends Fragment {
         mRecyclerView.setAdapter(adapter);
        // ebent.Onebent("aaaaaaaaaaaaaaaa");
 initView();
-        adapter.setmOnItemClickListener(new FirstAdapter.OnItemClickListener() {
+        adapter.setOnClickListener(new FirstAdapter.OnItemClickListener() {
             @Override
             public void onItemClickListener(View view, int position) {
                 Toast.makeText(getActivity(), position + "========Click:", Toast.LENGTH_SHORT).show();
+                //跳往Run_Video_播放视频
+                Intent intent =new Intent(getContext(),Run_Video_.class);
+                Bundle bundle=new Bundle();
+                bundle.putString("count",String.valueOf(position));
+                //count是为了定位到一开始时保存的视频列表中某一个视频的数据
+                intent.putExtras(bundle);
+                startActivity(intent);
+
             }
 
             @Override

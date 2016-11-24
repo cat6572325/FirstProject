@@ -6,6 +6,8 @@ import android.os.Message;
 import android.system.ErrnoException;
 import android.util.Log;
 
+import com.squareup.okhttp.Headers;
+import com.squareup.okhttp.MultipartBuilder;
 import com.yanbober.support_library_demo.Login_;
 import com.yanbober.support_library_demo.MainActivity;
 import com.yanbober.support_library_demo.Modify_Password_;
@@ -33,6 +35,9 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.edu.zafu.coreprogress.helper.ProgressHelper;
+import cn.edu.zafu.coreprogress.listener.ProgressRequestListener;
+import cn.edu.zafu.coreprogress.listener.impl.UIProgressRequestListener;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -41,6 +46,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+
+
 
 /**
  * Created by cat6572325 on 16-11-17.
@@ -96,6 +103,13 @@ public class Http_UploadFile_ implements Runnable {
 
     }
 
+    public Http_UploadFile_(Handler handler,String url,String path,String connectType)
+    {
+        this.handler=handler;
+        this.url=url;
+        this.sendMethod=path;
+        this.connectType=connectType;
+    }
     public Http_UploadFile_(Modify_Password_ p, Handler handler, String url, String connectType, String sendMethod, String data) {
         this.handler = handler;
         this.p = p;
@@ -143,7 +157,7 @@ public class Http_UploadFile_ implements Runnable {
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     public OkHttpClient client = new OkHttpClient();
-
+    public com.squareup.okhttp.OkHttpClient client1=new com.squareup.okhttp.OkHttpClient();
     public Http_UploadFile_(Round_Video_ regis, Handler handler, String url, String connectType, String sendMethod, HashMap<String, Object> Data) {
         this.round_video_ = regis;
         this.handler = handler;
@@ -228,7 +242,8 @@ public class Http_UploadFile_ implements Runnable {
                 }
                 break;
             case 10:
-
+                //上传文件
+                //upload(sendMethod);
                 break;
         }
     }
@@ -779,4 +794,8 @@ public class Http_UploadFile_ implements Runnable {
             }
         });
     }
+
+
+
+
 }

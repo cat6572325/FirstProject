@@ -5,12 +5,17 @@ import android.support.design.widget.*;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.*;
 import android.support.v7.widget.*;
+import android.util.Log;
 import android.view.*;
 import android.view.View.*;
 import android.widget.*;
 
 import android.support.v7.widget.Toolbar;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.TimerTask;
 
 public class Run_Video_ extends ActionBarActivity {
@@ -35,14 +40,22 @@ public class Run_Video_ extends ActionBarActivity {
 	private Player player;
 	RelativeLayout hideButtons;
 	CollapsingToolbarLayout collapsingToolbar;
-	
-	
+	String count=null;
+	User user=new User();
+	JSONObject jsonObject=null;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.run_video_layout);
 			initView();
+		Bundle bun=this.getIntent().getExtras();
+		if (bun != null && bun.containsKey("Data"))
+		{
+
+		count=bun.getString("count");
+			//strs=str.split("\\|");
+		}
 		}
 		
 		
@@ -58,7 +71,7 @@ public class Run_Video_ extends ActionBarActivity {
 		
 		collapsingToolbar =
 		(CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle("this s Run Video Pager !!");
+       // collapsingToolbar.setTitle("this s Run Video Pager !!");
 		
 		
 		//down is full scrren
@@ -99,16 +112,16 @@ public class Run_Video_ extends ActionBarActivity {
 		@Override
 		public void onClick(View arg0) {
 
-			if (arg0 == surfaceView) {
-				hideButtons.setVisibility(View.VISIBLE);
-				//延时３秒再隐藏布局
-				player.pause();
-				mHandler.sendEmptyMessageDelayed(0,3000);
+				if (arg0 == surfaceView) {
+					hideButtons.setVisibility(View.VISIBLE);
+					//延时３秒再隐藏布局
+					player.pause();
+					mHandler.sendEmptyMessageDelayed(0, 3000);
 
-			} else if (arg0 == btnPlayUrl) {
-				String url="http://www.sciencep.com/movies/1411711067.mp4";
-				player.playUrl(url);
-			}
+				} else if (arg0 == btnPlayUrl) {
+					player.playUrl(user.maps.get(Integer.getInteger(count)).get("vdourl").toString());
+				}
+
 		}
 	}
 	class SeekBarChangeEvent implements SeekBar.OnSeekBarChangeListener {

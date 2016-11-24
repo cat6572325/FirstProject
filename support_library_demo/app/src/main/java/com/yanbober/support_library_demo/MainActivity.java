@@ -28,6 +28,13 @@ import java.util.*;
 import android.support.v7.widget.Toolbar;
 import android.view.View.OnClickListener;
 
+
+import com.okhttplib.HttpInfo;
+import com.okhttplib.OkHttpUtil;
+import com.okhttplib.OkHttpUtilInterface;
+import com.okhttplib.annotation.CacheLevel;
+import com.okhttplib.callback.CallbackOk;
+import com.okhttplib.callback.ProgressCallback;
 import com.yanbober.support_library_demo.DataHelpers.DataHelper;
 import com.yanbober.support_library_demo.Http_Util.Http_UploadFile_;
 
@@ -35,6 +42,21 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Headers;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.MultipartBuilder;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
+import com.yanbober.support_library_demo.Http_Util.http_thread_;
+
+import cn.edu.zafu.coreprogress.helper.ProgressHelper;
+import cn.edu.zafu.coreprogress.listener.ProgressRequestListener;
+import cn.edu.zafu.coreprogress.listener.impl.UIProgressRequestListener;
+import okhttp3.ResponseBody;
 
 /**
  * 一个中文版Demo App搞定所有Android的Support Library新增所有兼容控件
@@ -479,6 +501,7 @@ rlIcon1.setOnClickListener(new OnClickListener()
         });
         CheckData();
         CheckHead();
+        doUploadImg();
     }//initView
     public void POpFloag() {
         //// TODO: 右下角按钮点击事件
@@ -734,7 +757,62 @@ rlIcon1.setOnClickListener(new OnClickListener()
         Thread x=new Thread(http_uploadFile_);
         x.start();
 
+
+
+
     }
+public void Upload()
+{
+    HashMap<String ,Object> map=new HashMap<String ,Object>();
+    map.put("path","/sdcard/RoundVideo/video1.3gp");
+    http_thread_ http_thread_=new http_thread_();
+    Thread x=new Thread(http_thread_);
+    x.start();
+
+    OkHttpUtilInterface okHttpUtil = OkHttpUtil.Builder()
+            .setCacheLevel(CacheLevel.FIRST_LEVEL)
+            .setConnectTimeout(25).build(this);
+//一个okHttpUtil即为一个网络连接
+    okHttpUtil.doGetAsync(
+            HttpInfo.Builder().setUrl("http://..").build(),new CallbackOk() {
+                @Override
+                public void onResponse(HttpInfo info) throws IOException {
+                    if (info.isSuccessful()) {
+                        String result = info.getRetDetail();
+                        //resultTV.setText("异步请求："+result);
+                    }
+                }
+            });
+}
+
+    private void doUploadImg() {
+        OkHttpUtilInterface okHttpUtil = OkHttpUtil.Builder()
+                .setCacheLevel(CacheLevel.FIRST_LEVEL)
+                .setConnectTimeout(25).build(this);
+//一个okHttpUtil即为一个网络连接
+
+        HttpInfo info = HttpInfo.Builder()
+                .setUrl("http://trying-video.herokuapp.com/user/image?token="+user.token)
+                .addUploadFile("file", "/sdcard/RoundVideo/video1.3gp", new ProgressCallback() {
+                   @Override
+
+                    public void onProgressMain(int percent, long bytesWritten, long contentLength, boolean done) {
+                       // uploadProgress.setProgress(percent);
+                        Log.e("ssss","上传进度：" + percent);
+
+                        int i=percent;
+                    }
+                    @Override
+                    public void onResponseMain(String filePath,HttpInfo info)
+                    {
+                        String str=info.getRetDetail();
+                        Log.e("上传信息",str);
+                    }
+                })
+                .build();
+        OkHttpUtil.getDefault(this).doUploadFileAsync(info);
+    }
+
 //	public class threadEx implements Runnable
 //	{/////The get file from server of thread
 //		File name;
