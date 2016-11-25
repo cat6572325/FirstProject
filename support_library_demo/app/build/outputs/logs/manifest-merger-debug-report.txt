@@ -21,6 +21,7 @@ ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/Andro
 		ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/AndroidManifest.xml:6:19-61
 uses-permission#android.permission.INTERNET
 ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/AndroidManifest.xml:7:2-64
+MERGED from [com.github.zhaokaiqiang.okhttpplus:library:1.0.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.github.zhaokaiqiang.okhttpplus/library/1.0.0/AndroidManifest.xml:11:5-67
 	android:name
 		ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/AndroidManifest.xml:7:19-61
 uses-permission#android.permission.ACCESS_WIFI_STATE
@@ -29,6 +30,7 @@ ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/Andro
 		ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/AndroidManifest.xml:8:19-70
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
 ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/AndroidManifest.xml:9:2-94
+MERGED from [com.github.zhaokaiqiang.okhttpplus:library:1.0.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.github.zhaokaiqiang.okhttpplus/library/1.0.0/AndroidManifest.xml:12:5-81
 	android:name
 		ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/AndroidManifest.xml:9:19-75
 uses-permission#android.permission.READ_EXTERNAL_STORAGE
@@ -296,6 +298,7 @@ MERGED from [com.android.support:support-vector-drawable:23.4.0] /home/cat657232
 MERGED from [com.android.support:support-v4:23.4.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/AndroidManifest.xml:20:5-43
 MERGED from [com.android.support:support-v4:23.4.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/AndroidManifest.xml:20:5-43
 MERGED from [com.android.support:support-v4:23.4.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/AndroidManifest.xml:20:5-43
+MERGED from [com.github.zhaokaiqiang.okhttpplus:library:1.0.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.github.zhaokaiqiang.okhttpplus/library/1.0.0/AndroidManifest.xml:7:5-9:41
 MERGED from [cn.edu.zafu:coreprogress:0.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/cn.edu.zafu/coreprogress/0.0.1/AndroidManifest.xml:7:5-9:41
 MERGED from [com.zhousf.lib:okhttp3:2.5] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.zhousf.lib/okhttp3/2.5/AndroidManifest.xml:7:5-9:41
 MERGED from [com.android.support:appcompat-v7:23.4.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/AndroidManifest.xml:21:5-23:78

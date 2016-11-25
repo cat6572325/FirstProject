@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.v7.widget.*;
 import android.util.Base64;
 import android.view.*;
@@ -299,9 +300,43 @@ case 2:
 				}else
 				{
 					//显示
-					//缺少一个支付按钮响应事件逻辑
+
 				}
-				
+				holder.collect_paid_button.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						User user=new User();
+						if (user._id.equals("null"))
+						{//如果id为null则未登录，于是需要跳到登录窗口
+							Intent intent=new Intent(context,Login_.class);
+							Bundle bundle=new Bundle();
+							bundle.putString("backActivity","Collect_");
+							intent.putExtras(bundle);
+							context.startActivity(intent);
+						}else
+						{//否则弹出支付框
+							HashMap<String, Object> map = new HashMap<String, Object>();
+							map.put("isprogress", 0);
+
+							Pop_Img.Builder p = new Pop_Img.Builder((Collect_) context, map);
+							p.setPositiveButton("[潮汕揭]初版\n问题反馈:(qq) 1213965634\n\n", new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int which) {
+									//	dialog.dismiss();
+									//login
+									//Intent intent=new Intent((Paid_Video)Context,Set_Pay_pwd_.class);
+									//startActivity(intent);
+									//finish();
+
+								}
+								//设置你的操作事项
+
+
+							});
+
+							p.create().show();
+						}
+					}
+				});
 					
 				holder.collect_name.setText((String)lists.get(position).get("text"));
 				holder.collect_ps.setText((String)lists.get(position).get("ps"));
@@ -516,6 +551,7 @@ class MyViewHolder2 extends RecyclerView.ViewHolder{
 	ImageView img,img1,pay_run_img;
 RelativeLayout rv,collect_rv,collect_back,my_video_al_rv,infoDetails_relativelayout;
 	String[] provent;
+	Button collect_paid_button=null;
 
     public MyViewHolder2(View itemView) {
         super(itemView);
@@ -537,6 +573,8 @@ is=(TextView)itemView.findViewById(R.id.tTextView);
 		/////Collect_
 		collect_rv=(RelativeLayout)itemView.findViewById(R.id.collectitemRelativeLayout1);
 		//支付按钮(rela)
+		collect_paid_button=(Button)itemView.findViewById(R.id.collect_paid_button);
+		//支付按钮
 		collect_spot=(TextView)itemView.findViewById(R.id.tTextView);
 		//小圆点
 		collect_name=(TextView)itemView.findViewById(R.id.paiditemTextView1);

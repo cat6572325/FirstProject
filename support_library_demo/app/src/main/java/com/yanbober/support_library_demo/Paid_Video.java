@@ -11,6 +11,9 @@ import java.util.*;
 
 import android.support.v7.widget.Toolbar;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Paid_Video extends AppCompatActivity
 
 {
@@ -20,7 +23,7 @@ Toolbar tb;
 	public FirstAdapter adapter;
 	//右上角新消息提示红点
 	TextView Message_point;
-
+	User user=new User();
 	ImageView message;
 
 	@Override
@@ -90,6 +93,17 @@ Toolbar tb;
 
 				}
 			});
+		JSONObject jsonObject= null;
+		try {
+			jsonObject = new JSONObject(user.mydata.get("notices").toString());
+			if(jsonObject.getJSONArray("notices").length()>1)
+			{Message_point.setText("1");}else
+			{
+				Message_point.setVisibility(View.INVISIBLE);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 
 
 	}

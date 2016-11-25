@@ -85,6 +85,7 @@ public class Register_ extends AppCompatActivity {
     TextInputLayout til,til1;
     Get_LastData_Util httpUtil;
     URL url;
+    int phones=0,pass=0;
 
 
     @Override
@@ -132,7 +133,7 @@ public class Register_ extends AppCompatActivity {
 
                         Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(Register_.this
                                 , mHandler
-                                , "http://192.168.1.112:1103/reg/user"
+                                , "http://trying-video.herokuapp.com/reg/user"
                                 , "0"//注册
                                 , "POST"
                                 , phon.getText().toString() + "|" + pas.getText().toString());
@@ -170,22 +171,27 @@ public class Register_ extends AppCompatActivity {
             switch (a)
             {
                 case R.id.phone_key:
+                    phones=s.length();
                     if (s.length() !=11) {
                         til.setErrorEnabled(true);
                         til.setError("手机号必须11位");
                         Register_Enter.setVisibility(View.INVISIBLE);
                     }else
+                    if (pass>8){
                     til.setErrorEnabled(false);
-                    Register_Enter.setVisibility(View.VISIBLE);
+                    Register_Enter.setVisibility(View.VISIBLE);}
                     break;
                 case R.id.pas_key:
+                    pass=s.length();
                     if (s.length() <8 && s.length()>20) {
                         til1.setErrorEnabled(true);
                         til1.setError("密码必须大于8位小于20");
                         Register_Enter.setVisibility(View.INVISIBLE);
                     }else
+                    if (phones>8) {
                         til.setErrorEnabled(false);
-                    Register_Enter.setVisibility(View.VISIBLE);
+                        Register_Enter.setVisibility(View.VISIBLE);
+                    }
                     break;
             }
 

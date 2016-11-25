@@ -167,7 +167,7 @@ initView();
             mainActivity= (MainActivity)getActivity();
             Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(mainActivity
                     ,mainActivity.mHandler
-                    ,"http://192.168.1.112:1103/user/video/all/detail"
+                    ,"http://trying-video.herokuapp.com/user/video/all/detail"
                     ,"4"
                     ,"POST"
                     ,"getvideos");

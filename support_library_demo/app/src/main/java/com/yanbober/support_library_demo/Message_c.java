@@ -189,15 +189,12 @@ DrawerLayout mDrawerLayout;
 					TextView tv=(TextView)convertView.findViewById(R.id.messageitemTextView2);
 					img.setImageResource((Integer)chatList.get(position).get("image"));
 					tv.setText((String)chatList.get(position).get("text"));
-
-
 					break;
 				case 1:
 					isEnabled(position);
 					convertView = LayoutInflater.from(context).inflate(
 						layout[who], null);
 					View v=(View)convertView.findViewById(R.id.lineitemView1);
-
 					break;
 
 

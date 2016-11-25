@@ -1,11 +1,11 @@
 [
     {
-        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/stop.png",
-        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable-xxhdpi/stop.png"
-    },
-    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/down.png",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable-xxhdpi/down.png"
+    },
+    {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/stop.png",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable-xxhdpi/stop.png"
     },
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/abc_ic_star_half_black_36dp.png",
@@ -30,6 +30,10 @@
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/abc_ic_menu_moreoverflow_mtrl_alpha.png",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable-xxhdpi-v4/abc_ic_menu_moreoverflow_mtrl_alpha.png"
+    },
+    {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/floating_main_button.png",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable-xxhdpi/floating_main_button.png"
     },
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/abc_switch_track_mtrl_alpha.9.png",

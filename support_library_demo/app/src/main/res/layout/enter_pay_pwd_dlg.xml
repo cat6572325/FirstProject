@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+
     android:orientation="vertical">
 
     <LinearLayout
@@ -18,6 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:text="原支付密码"
+            android:id="@+id/paid_pwd_text"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#9214DF"
             android:textSize="25sp" />

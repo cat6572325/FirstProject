@@ -114,7 +114,7 @@ public class RoundProgressBar extends View {
 		paint.setStyle(Paint.Style.STROKE); //设置空心
 		paint.setStrokeWidth(roundWidth); //设置圆环的宽度
 		paint.setAntiAlias(true);  //消除锯齿 
-		canvas.drawCircle(centre, centre, radius, paint); //画出圆环
+		//canvas.drawCircle(centre, centre, radius, paint); //画出圆环
 //		Paint p=new Paint();
 //		//Rect rect=new Rect(0,0,getWidth(),getHeight());
 //		  canvas.drawBitmap(bitmap, 20,10, paint);  
@@ -140,7 +140,7 @@ public class RoundProgressBar extends View {
 		 */
 
 		//设置进度是实心还是空心
-		paint.setStrokeWidth(roundWidth+5); //设置圆环的宽度
+		paint.setStrokeWidth(roundWidth);//+5); //设置圆环的宽度
 		//paint.setColor(roundProgressColor);  //设置进度的颜色
 		//Paint p=new Paint();
 

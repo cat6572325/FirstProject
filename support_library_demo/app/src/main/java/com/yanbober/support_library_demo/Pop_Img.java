@@ -11,6 +11,8 @@ package com.yanbober.support_library_demo;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,7 @@ import android.graphics.*;
 import android.os.*;
 
 import com.yanbober.support_library_demo.Http_Util.Http_UploadFile_;
+import com.yanbober.support_library_demo.Http_Util.http_thread_;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -45,23 +48,27 @@ public class Pop_Img extends Dialog {
         Home home;
         Round_Video_ round_video_;
         Setting_ setting_;
+        Collect_ collect_;
+        TimerTask http_uploadFile_;
         HashMap<String, Object> map;
         private String title, acco, pas;
         private String message;
-        EditText loe, pae, Pay_pwd, round_title, round_money, round_ps;
-        RelativeLayout indelayout;
-        Button uploadbutton, Set_Pay_Pwd_sure, Set_Pay_Pwd_cancel;
+        EditText loe, pae, Pay_pwd, round_title, round_money, round_ps,collect_enter;
+        RelativeLayout indelayout,error_RelativeLayout;
+        Button uploadbutton, Set_Pay_Pwd_sure, Set_Pay_Pwd_cancel,collect_button,collect_button2;
         RoundProgressBar bar;
         Handler mViewUpdateHandler;
         private String positiveButtonText;
         private String negativeButtonText;
         private View contentView;
         Bitmap btm;
+        String ERror=null;
 
+        final User user=new User();
         boolean red = true;
         boolean green = true;
         ImageView miusic, voice;
-        TextView miusict, voicet;
+        TextView miusict, voicet,collect_paid_text,error_Text;
         File_with_ file_with;
 
         private DialogInterface.OnClickListener positiveButtonClickListener;
@@ -69,6 +76,7 @@ public class Pop_Img extends Dialog {
         private DialogInterface.OnClickListener add_miusicOnclick;
         private DialogInterface.OnClickListener add_reviceOnclick;
         private DialogInterface.OnClickListener upload_click;
+        private DialogInterface.OnClickListener ERRor_Click;
 
         public Builder(Context con) {
             this.context = context;
@@ -89,6 +97,21 @@ public class Pop_Img extends Dialog {
         public Builder(Setting_ setting_, HashMap<String, Object> map) {
             this.setting_ = setting_;
             this.map = map;
+        }
+
+        public Builder(Collect_ collect_, HashMap<String, Object> map) {
+            this.collect_=collect_;
+            this.map=map;
+        }
+
+
+
+        public Builder(Context context,String ERror,HashMap<String, Object> map) {
+            //错误提示框
+            this.context=context;
+            this.map=map;
+            this.ERror=ERror;
+
         }
 
 
@@ -150,8 +173,13 @@ public class Pop_Img extends Dialog {
             this.upload_click = listener;
             return this;
         }
+        public Builder setERorOnClick(int positiveButtonText,
+                                      DialogInterface.OnClickListener listener) {
+            this.ERRor_Click=listener;
+            return this;
 
-        public Builder setPositiveButton(String positiveButtonText,
+        }
+            public Builder setPositiveButton(String positiveButtonText,
                                          DialogInterface.OnClickListener listener) {
             this.positiveButtonText = positiveButtonText;
             this.positiveButtonClickListener = listener;
@@ -237,9 +265,39 @@ public class Pop_Img extends Dialog {
 			 ((LinearLayout) layout.findViewById(R.id.content))
 			 .addView(contentView, new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
 			 }*/
+            if (ERror!=null)
+            {
+                LayoutInflater inflater = (LayoutInflater) context
+                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                // instantiate the dialog with the custom Theme
+                dialog = new Pop_Img(context, R.style.Dialog1);
+                layout = inflater.inflate(R.layout.error_dialog, null);
+
+                dialog.addContentView(layout, new LayoutParams(
+                        LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+                error_Text=(TextView)layout.findViewById(R.id.error_text);
+                error_RelativeLayout=(RelativeLayout)layout.findViewById(R.id.Error_RelativeLayout);
+                error_Text.setText(map.get("Message").toString());
+                if (ERRor_Click!=null)
+                {
+                    error_RelativeLayout.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+
+                        positiveButtonClickListener.onClick(dialog,
+                                DialogInterface.BUTTON_POSITIVE);
+                        //将点击事件传出去
+
+                       // Snackbar.make(view, "you press key for sure  " + Pay_pwd.getText().toString(), Snackbar.LENGTH_SHORT).show();
+                    }
 
 
-            if (setting_ != null) {
+                });
+                }
+                return dialog;
+            }
+                    if (setting_ != null) {
                 if ((Integer) map.get("isprogress") == 0) {
                     LayoutInflater inflater = (LayoutInflater) setting_
                             .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -321,6 +379,62 @@ public class Pop_Img extends Dialog {
 
             }
 
+            if (collect_ != null) {
+
+                LayoutInflater inflater = (LayoutInflater) collect_
+                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                // instantiate the dialog with the custom Theme
+                dialog = new Pop_Img(collect_, R.style.Dialog1);
+                layout = inflater.inflate(R.layout.enter_pay_pwd_dlg, null);
+                dialog.addContentView(layout, new LayoutParams(
+                        LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+                collect_enter=(EditText)layout.findViewById(R.id.Pay_Pwd_Edit);
+                collect_button=(Button)layout.findViewById(R.id.enterpaypwddlgButton1);
+                collect_button2=(Button)layout.findViewById(R.id.enterpaypwddlgButton2);
+
+                collect_paid_text=(TextView)layout.findViewById(R.id.paid_pwd_text);
+                if (user.paidPwd.equals("null"))
+                {//支付密码为空，也就是没有设置过
+                    collect_paid_text.setText("设置支付密码");
+                }else
+                {
+
+                }
+                collect_button.setOnClickListener(new View.OnClickListener() {
+                                                      @Override
+                                                      public void onClick(View view) {
+                                                          dialog.dismiss();
+                                                      }
+                                                  });
+                        collect_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (collect_enter.getText().toString().equals(""))
+                        {
+                            Toast.makeText(collect_,"未输入任何字符!!",Toast.LENGTH_LONG).show();
+                        }
+                        if (user.paidPwd.equals("null"))
+                        {//支付密码为空，也就是没有设置过
+                           Http_UploadFile_ http_uploadFile_=new Http_UploadFile_(collect_.mHandler,"http://localhost:1103/user/payword?token="+user.token
+                                   ,"path","11修改支付密码");
+                        }else
+                        {
+                            if (user.paidPwd.equals(collect_enter.getText().toString()))
+                            {//密码验证成功
+                                Toast.makeText(collect_,"支付密码验证成功，配对正确!!",Toast.LENGTH_LONG).show();
+                            }else
+                            {
+                                Toast.makeText(collect_,"支付密码验证成功，但是配对不正确!!",Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }
+                });
+
+
+
+                return dialog;
+
+            }//if Collect_
 
             if (round_video_ != null) {
                 if ((int) map.get("upload") == 0) {

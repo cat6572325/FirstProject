@@ -18,6 +18,8 @@ import java.util.*;
 
 import android.support.v7.widget.Toolbar;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 /**
@@ -79,7 +81,11 @@ public class My_Video_ extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_video);
         //初始化控件及布局
-        initView();
+		try {
+			initView();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 
 
 	/*	final ImageView fabIconNew = new ImageView(this);
@@ -138,7 +144,7 @@ public class My_Video_ extends ActionBarActivity {
 
 
     }
-	    private void initView() {
+	    private void initView() throws JSONException {
 			user.my_video_=null;
 			user.my_video_=My_Video_.this;
 			mHandler.sendEmptyMessage(3);
@@ -250,7 +256,22 @@ public class My_Video_ extends ActionBarActivity {
 
 				}
 			});
-		
+			JSONObject jsonObject= null;
+			try {
+				if(jsonObject.getString("notices").equals("0"))
+				{
+					Message_point.setVisibility(View.INVISIBLE);
+				}else {
+					jsonObject = new JSONObject(user.mydata.get("notices").toString());
+					if (jsonObject.getJSONArray("notices").length() > 1) {
+						Message_point.setText("1");
+					} else {
+						Message_point.setVisibility(View.INVISIBLE);
+					}
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
     }
 	public void addTextToList(String text, int who,int id)
 	{

@@ -23,6 +23,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.yanbober.support_library_demo.*;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.*;
 
 public class Balance_ extends AppCompatActivity
@@ -45,8 +49,7 @@ public class Balance_ extends AppCompatActivity
 	ListView rl;
 	MyChatAdapter ladapter;
 	int[] layout={R.layout.left_list_item,R.layout.line_item};
-
-
+	User user=new User();
 	public ArrayList<HashMap<String,Object>> lists=new ArrayList<HashMap<String,Object>>();
 	public ImageView heard,left_head,message;
 	String[] groups;
@@ -176,7 +179,22 @@ public class Balance_ extends AppCompatActivity
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 
-
+		JSONObject jsonObject= null;
+		try {
+			if(jsonObject.getString("notices").equals("0"))
+			{
+				Message_point.setVisibility(View.INVISIBLE);
+			}else {
+				jsonObject = new JSONObject(user.mydata.get("notices").toString());
+				if (jsonObject.getJSONArray("notices").length() > 1) {
+					Message_point.setText("1");
+				} else {
+					Message_point.setVisibility(View.INVISIBLE);
+				}
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	}
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

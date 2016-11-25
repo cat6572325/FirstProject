@@ -41,6 +41,8 @@ import com.okhttplib.OkHttpUtilInterface;
 import com.okhttplib.annotation.CacheLevel;
 import com.okhttplib.callback.ProgressCallback;
 import com.yanbober.support_library_demo.Http_Util.Http_UploadFile_;
+import com.yanbober.support_library_demo.Http_Util.http_thread_;
+import com.yanbober.support_library_demo.Message_S.View_One;
 
 import java.io.IOException;
 import java.util.List;
@@ -70,14 +72,39 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Round_Video_ extends Activity
 
 {
     public Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
+            Bundle bundle=new Bundle();
             switch (msg.what) {
-                case 0:
 
+
+                case 0:
+                    try {
+                        if (bundle.getString("?").equals("success")) {
+                            View_One view_one = new View_One(Round_Video_.this,bundle.getString("!"));
+                            p.OnProgressChanged(101);
+                            //101代表退出
+                        }
+                        if (bundle.getString("?").equals("ing")) {
+                            bundle = msg.getData();
+                            p.OnProgressChanged(msg.arg1);
+
+                            //错误提示：
+                        }
+                        if (bundle.getString("?").equals("error")) {
+                            JSONObject jsonObject = new JSONObject(bundle.getString("!"));
+                            View_One view_one = new View_One(Round_Video_.this,bundle.getString("!"));
+                        }
+                    }catch (JSONException e)
+                    {
+
+                    }
                     break;
                 case 1:
 
@@ -108,6 +135,7 @@ public class Round_Video_ extends Activity
     int minute, min;
     Size size;
     task Prog_task;
+    ImageView sound,turnC;
 
 
     Pop_Img.Builder p;
@@ -134,12 +162,16 @@ public class Round_Video_ extends Activity
             {////点击开始录像
                 if (flag == 0)
                 {
+
                     if (camera!=null)
+                        sound.setVisibility(View.INVISIBLE);
+                    turnC.setVisibility(View.VISIBLE);
                         stop();
                     bar.setBackgroundResource(R.drawable.roundbuttoning);
                     start();
                     flag = 1;
                     setprog();
+
 
                 } else {//点击结束录像
                     stop();
@@ -165,6 +197,8 @@ public class Round_Video_ extends Activity
         HideLayout = (RelativeLayout) this.findViewById(R.id.HideLayout);
         top_time = (TextView) this.findViewById(R.id.RoundTop_time);
         bottom_hide_layout = (RelativeLayout) this.findViewById(R.id.bottom_hide_layout);
+        sound=(ImageView)this.findViewById(R.id.Round_sound);
+        turnC=(ImageView)this.findViewById(R.id.Round_turn);
         //初始隐藏这个布局
         HideLayout.setVisibility(View.INVISIBLE);
         //隐藏(不可见)
@@ -621,8 +655,11 @@ public class Round_Video_ extends Activity
                 public void onClick(DialogInterface dialog, int which) {
                   //  Toast.makeText(Round_Video_.this,"click",Toast.LENGTH_SHORT).show();
                     //发送http请求，上传视频
-                    doUploadImg("http://trying-video.herokuapp.com/user/image?token="+user.token
-                            ,file_with.GetFile().getPath());
+
+                    http_thread_ htt=new http_thread_("http://trying-video.herokuapp.com/user/video?token="+user.token
+                            ,file_with.GetFile().getPath()
+                            ,mHandler
+                            ,"videofile");
                 }
             });
                   p.create().show();

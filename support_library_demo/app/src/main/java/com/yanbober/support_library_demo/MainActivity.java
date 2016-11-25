@@ -16,6 +16,8 @@ import android.support.v7.widget.*;
 import android.util.*;
 import android.view.*;
 import android.view.View.*;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.*;
 import android.widget.AdapterView.*;
 import android.support.design.widget.FloatingActionButton;
@@ -154,6 +156,18 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
                                 map.put("collects",jsonObject.getString("collects"));
                                 map.put("paypassword",jsonObject.getString("paypassword"));
                                 maps.add(map);
+                            user.mydata=map;
+                            if(jsonObject.getString("notices").equals("0"))
+                            {
+                                Message_point.setVisibility(View.INVISIBLE);
+                            }else
+                            {
+                                if(jsonObject.getJSONArray("notices").length()>1)
+                                {Message_point.setText("1");}else
+                                {
+                                    Message_point.setVisibility(View.INVISIBLE);
+                                }
+                            }
 
                         }
                     }catch (JSONException e)
@@ -166,7 +180,6 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 
                     try {
                         if (bundle.getString("?").equals("获取失败")) {
-
                         } else {
                             JSONObject jsonObject = (JSONObject) msg.obj;
                             user.picture=jsonObject.get("").toString();
@@ -184,6 +197,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 
         }
     };
+    RotateAnimation animation;
     String[] str1;
     SQLiteDatabase db=null;
     DataHelper dataserver;
@@ -220,8 +234,9 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
     public ImageView heard, left_head;
     TextView loginout;
     ImageView message;
-    Button button1 = null, button2 = null, button3 = null;
+    Button button2 = null, button3 = null;
 
+    FloatingActionButton  button1 = null;
     //////// TODO: http网络请求
     HttpURLConnection conn = null;
 
@@ -236,9 +251,9 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (Build.VERSION.SDK_INT >= 11) {
-            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build());
-            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectLeakedSqlLiteObjects().detectLeakedClosableObjects().penaltyLog().penaltyDeath().build());
-        }
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build());
+           StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectLeakedSqlLiteObjects().detectLeakedClosableObjects().penaltyLog().penaltyDeath().build());
+       }
         //初始化控件及布局
         initView();
         //上面请求主线程可以使用http
@@ -342,6 +357,9 @@ rlIcon1.setOnClickListener(new OnClickListener()
 
 
     private void initView() {
+        animation =new RotateAnimation(0f,90f,Animation.RELATIVE_TO_SELF,
+                0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+
         user.mainActivity=null;
         user.mainActivity=MainActivity.this;
         //mHandler.sendEmptyMessage(3);
@@ -358,12 +376,12 @@ rlIcon1.setOnClickListener(new OnClickListener()
         left_head = (ImageView) this.findViewById(R.id.drawer_headerImageView);
         loginout=(TextView)this.findViewById(R.id.leftlistitemTextView1);
         User_name=(TextView)this.findViewById(R.id.User_name);
-        button1 = (Button) this.findViewById(R.id.f1);
+        button1 = (FloatingActionButton) this.findViewById(R.id.f1);
         button2 = (Button) this.findViewById(R.id.f2);
         button3 = (Button) this.findViewById(R.id.f3);
         button2.setVisibility(View.INVISIBLE);
         button3.setVisibility(View.INVISIBLE);
-
+      //  if (user.)
         Message_point.setText("1");
         ThreadEx c1 = new ThreadEx(MainActivity.this, "loginAndPass");
         Thread x1 = new Thread(c1);
@@ -482,7 +500,6 @@ rlIcon1.setOnClickListener(new OnClickListener()
             public void onClick(View view) {
                 //Onebent("sssssssssssssssssssssssssssss");
                 try {
-
                     dataserver = new DataHelper(MainActivity.this);
                     dataserver.inst(db, user.phone
                             + "|" + user.pas
@@ -499,15 +516,30 @@ rlIcon1.setOnClickListener(new OnClickListener()
                 }
             }
         });
-        CheckData();
-        CheckHead();
-        doUploadImg();
+
+      //
+       CheckData();
+       //  CheckHead();
+       // http_thread_ htt=new http_thread_("http://trying-video.herokuapp.com/user/image?token=","/sdcard/DCIM/Camera/IMG_20160926_183708.jpg",mHandler);
+       // Thread b=new Thread(htt);
+    // b.start();
     }//initView
     public void POpFloag() {
         //// TODO: 右下角按钮点击事件
         button1.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                animation.setDuration(500);//设置动画持续时间
+                /** 常用方法 */
+              //  animation.setRepeatCount(500);//设置重复次数
+animation.setFillAfter(true);//动画执行完后是否停留在执行完的状态
+//animation.setStartOffset(long startOffset);//执行前的等待时间
+view.setAnimation(animation);
+                //iv_drag.setAnimation(animation);
+                //	/** 开始动画 */
+                //	animation.startNow();
+                // 结束动画
+                //animation.cancel();
                 if (count == 100) {
                     new Thread(new ThreadShowback()).start();
                 } else {
@@ -531,7 +563,7 @@ rlIcon1.setOnClickListener(new OnClickListener()
         button3.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                doUploadImg("http://trying-video.herokuapp.com/user/image?token=","/sdcard/DCIM/Camera/IMG_20160926_183708.jpg");
             }
 
         });
@@ -673,7 +705,7 @@ rlIcon1.setOnClickListener(new OnClickListener()
        //                                                   MainActivity,       handler,  url,connectType,token,data) {
         Http_UploadFile_ http_uploadFile_=new Http_UploadFile_(MainActivity.this,mHandler,url,count,str1[4],map.get("name").toString());
         Thread x=new Thread(http_uploadFile_);
-        x.start();
+      //  x.start();
     }
 
 //初始化信息
@@ -690,7 +722,7 @@ rlIcon1.setOnClickListener(new OnClickListener()
         //                                                   MainActivity,       handler,  url,connectType,token,data) {
        Http_UploadFile_ http_uploadFile_=new Http_UploadFile_(MainActivity.this
                ,mHandler
-               ,"http://192.168.1.112:1103/user/information?token="+str1[4]
+               ,"http://trying-video.herokuapp.com/user/information?token="+str1[4]
                ,"7"
                ,str1[4]
                ,str1[1]+"||0|0|0");
@@ -712,7 +744,7 @@ rlIcon1.setOnClickListener(new OnClickListener()
         //                                                   MainActivity,       handler,  url,connectType,token,data) {
         Http_UploadFile_ http_uploadFile_=new Http_UploadFile_(MainActivity.this
                 ,mHandler
-                ,"http://192.168.1.112:1103/user/information/"+user._id
+                ,"http://trying-video.herokuapp.com/user/information/"+user._id
                 ,"8"
                 ,str1[4]
                 ,str1[1]+"||0|0|0");
@@ -729,7 +761,7 @@ rlIcon1.setOnClickListener(new OnClickListener()
         Http_UploadFile_ http_uploadFile_=new Http_UploadFile_(MainActivity.this
                 ,mHandler
                 ,"http://trying-video.herokuapp.com/user/image?token="+user.token
-                ,"9"
+                ,"10"
                 ,str1[4]
                 ,str1[1]+"||0|0|0");
         Thread x=new Thread(http_uploadFile_);
@@ -761,45 +793,23 @@ rlIcon1.setOnClickListener(new OnClickListener()
 
 
     }
-public void Upload()
-{
-    HashMap<String ,Object> map=new HashMap<String ,Object>();
-    map.put("path","/sdcard/RoundVideo/video1.3gp");
-    http_thread_ http_thread_=new http_thread_();
-    Thread x=new Thread(http_thread_);
-    x.start();
 
-    OkHttpUtilInterface okHttpUtil = OkHttpUtil.Builder()
-            .setCacheLevel(CacheLevel.FIRST_LEVEL)
-            .setConnectTimeout(25).build(this);
-//一个okHttpUtil即为一个网络连接
-    okHttpUtil.doGetAsync(
-            HttpInfo.Builder().setUrl("http://..").build(),new CallbackOk() {
-                @Override
-                public void onResponse(HttpInfo info) throws IOException {
-                    if (info.isSuccessful()) {
-                        String result = info.getRetDetail();
-                        //resultTV.setText("异步请求："+result);
-                    }
-                }
-            });
-}
 
-    private void doUploadImg() {
+
+    public void doUploadImg(String url,String path) {
         OkHttpUtilInterface okHttpUtil = OkHttpUtil.Builder()
                 .setCacheLevel(CacheLevel.FIRST_LEVEL)
                 .setConnectTimeout(25).build(this);
 //一个okHttpUtil即为一个网络连接
 
         HttpInfo info = HttpInfo.Builder()
-                .setUrl("http://trying-video.herokuapp.com/user/image?token="+user.token)
-                .addUploadFile("file", "/sdcard/RoundVideo/video1.3gp", new ProgressCallback() {
+                .setUrl(url+user.token)
+                .addUploadFile("file", path, new ProgressCallback() {
                    @Override
 
                     public void onProgressMain(int percent, long bytesWritten, long contentLength, boolean done) {
                        // uploadProgress.setProgress(percent);
                         Log.e("ssss","上传进度：" + percent);
-
                         int i=percent;
                     }
                     @Override

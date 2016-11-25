@@ -2,15 +2,26 @@ package com.yanbober.support_library_demo.Http_Util;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.util.Pair;
+import android.widget.Toast;
 
 
+import com.okhttplib.HttpInfo;
+import com.okhttplib.OkHttpUtil;
+import com.okhttplib.OkHttpUtilInterface;
+import com.okhttplib.annotation.CacheLevel;
+import com.okhttplib.callback.ProgressCallback;
+import com.socks.okhttp.plus.OkHttpProxy;
 
-import com.squareup.okhttp.Headers;
-import com.squareup.okhttp.MultipartBuilder;
+import com.socks.okhttp.plus.listener.UploadListener;
+import com.socks.okhttp.plus.model.Progress;
+import com.squareup.okhttp.Response;
+import com.yanbober.support_library_demo.MainActivity;
 import com.yanbober.support_library_demo.User;
 
 import java.io.File;
@@ -19,14 +30,16 @@ import java.io.IOException;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
-import cn.edu.zafu.coreprogress.helper.ProgressHelper;
-import cn.edu.zafu.coreprogress.listener.ProgressRequestListener;
-import cn.edu.zafu.coreprogress.listener.impl.UIProgressRequestListener;
+
+import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okio.Buffer;
@@ -41,101 +54,135 @@ import okio.Sink;
 public class http_thread_ extends Thread {
         String str;
     Handler handler;
-    URL url;
+    String url,path,key;
+
+    User user=new User();
     public com.squareup.okhttp.OkHttpClient client1=new com.squareup.okhttp.OkHttpClient();
 
-    public http_thread_()
+    public http_thread_(String url,String path,Handler handler,String key)
     {
 
         this.str=str;
         this.handler=handler;
         this.url=url;
+        this.path=path;
+        this.key=key;
+
+
+
     }
+    OkHttpClient okHttpClient = OkHttpProxy.getInstance();
     @Override
     public void run() {
         super.run();
+       pul();
+    }
+    private void doUploadImg() {
 
+        OkHttpUtilInterface okHttpUtil = OkHttpUtil.Builder()
+                .setCacheLevel(CacheLevel.FIRST_LEVEL)
+                .setConnectTimeout(25).build(this);
+//一个okHttpUtil即为一个网络连接
 
-        File file = new File("/sdcard/RoundVideo/video1.3gp");
-        //此文件必须在手机上存在，实际情况下请自行修改，这个目录下的文件只是在我手机中存在。
+        HttpInfo info = HttpInfo.Builder()
+                .setUrl(url+user.token)
+                .addUploadFile("file", path, new ProgressCallback() {
+                    @Override
 
+                    public void onProgressMain(int percent, long bytesWritten, long contentLength, boolean done) {
+                        // uploadProgress.setProgress(percent);
+                        Log.e("ssss","上传进度：" + percent);
 
-        //这个是非ui线程回调，不可直接操作UI
-        final ProgressRequestListener progressListener = new ProgressRequestListener() {
-            @Override
-            public void onRequestProgress(long bytesWrite, long contentLength, boolean done) {
-                Log.e("TAG", "bytesWrite:" + bytesWrite);
-                Log.e("TAG", "contentLength" + contentLength);
-                Log.e("TAG", (100 * bytesWrite) / contentLength + " % done ");
-                Log.e("TAG", "done:" + done);
-                Log.e("TAG", "================================");
-            }
-        };
-
-
-        //这个是ui线程回调，可直接操作UI
-        final UIProgressRequestListener uiProgressRequestListener = new UIProgressRequestListener() {
-            @Override
-            public void onUIRequestProgress(long bytesWrite, long contentLength, boolean done) {
-                Log.e("TAG", "bytesWrite:" + bytesWrite);
-                Log.e("TAG", "contentLength" + contentLength);
-                Log.e("TAG", (100 * bytesWrite) / contentLength + " % done ");
-                Log.e("TAG", "done:" + done);
-                Log.e("TAG", "================================");
-                //ui层回调
-                // uploadProgress.setProgress((int) ((100 * bytesWrite) / contentLength));
-                Message msg = new Message();
-                msg.arg1 = (int) ((100 * bytesWrite) / contentLength);
-                handler.sendMessage(msg);
-                //Toast.makeText(getApplicationContext(), bytesWrite + " " + contentLength + " " + done, Toast.LENGTH_LONG).show();
-            }
-        };
-
-        //构造上传请求，类似web表单
-        com.squareup.okhttp.RequestBody requestBody = new MultipartBuilder().type(MultipartBuilder.FORM)
-
-                .addFormDataPart("video", "filename", com.squareup.okhttp.RequestBody.create(com.squareup.okhttp.MediaType.parse("application/octet-stream"), file))
+                        int i=percent;
+                    }
+                    @Override
+                    public void onResponseMain(String filePath,HttpInfo info)
+                    {
+                        String str=info.getRetDetail();
+                        Log.e("上传信息",str);
+                    }
+                })
                 .build();
-        User user = new User();
-        //进行包装，使其支持进度回调
-        final com.squareup.okhttp.Request request = new com.squareup.okhttp.Request.Builder().url("http://trying-video.herokuapp.com/user/video?token=" + user.token)//"http://121.41.119.107:81/test/result.php")
-                .post(ProgressHelper.addProgressRequestListener(requestBody, uiProgressRequestListener))
-                .build();
-        client1.newCall(request).enqueue(new com.squareup.okhttp.Callback() {
-
-            @Override
-            public void onFailure(com.squareup.okhttp.Request request, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(com.squareup.okhttp.Response response) throws IOException {
-
-            }
-        });
-
-        //开始请求
-       /* client1.newCall(request).enqueue(new com.squareup.okhttp.Callback() {
-
-            public void onFailure(com.squareup.okhttp.Call call, IOException e) {
-
-            }
-
-            public void onResponse(com.squareup.okhttp.Call call, com.squareup.okhttp.Response response) throws IOException {
-            }
-
-            @Override
-            public void onFailure(com.squareup.okhttp.Request request, IOException e) {
-                Log.e("TAG", "error ", e);
-            }
-
-            @Override
-            public void onResponse(com.squareup.okhttp.Response response) throws IOException {
-                Log.e("TAG", response.body().string());
-            }
-
-        });*/
-
+        OkHttpUtil.getDefault(this).doUploadFileAsync(info);
     }
 
+
+    public void pul()
+    {
+       final Message msg=new Message();
+        final Bundle bundle=new Bundle();
+        File file = new File(path);//Environment.getExternalStorageDirectory(), "jiandan02.jpg");
+        if (!file.exists()) {
+          //  Toast.makeText(MainActivity.this, "File not exits！", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Map<String, String> param = new HashMap<>();
+        param.put("file","videofile");
+        Pair<String, File> pair = new Pair(key, file);
+
+        OkHttpProxy
+                .upload()
+                .url(url)
+                .file(pair)
+                .setParams(param)
+                .setWriteTimeOut(20)
+                .start(new UploadListener() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        Log.e("完成", e.toString());
+                    }
+
+                    @Override
+                    public void onResponse(Call call, okhttp3.Response response) throws IOException {
+                        String str=response.body().string();
+                        Log.e("aaaa",str);
+                        Log.e("完成", String.valueOf(response.isSuccessful()));
+                        bundle.putString("?","success");
+                        bundle.putString("!",str);
+                        msg.what=0;
+                        handler.sendMessage(msg);
+
+                    }
+
+
+                    @Override
+                    public void onSuccess(okhttp3.Response response) {
+                        try {
+
+                            String str=response.body().string();
+                            bundle.putString("?","success");
+                            bundle.putString("!",str);
+                            msg.what=0;
+                            handler.sendMessage(msg);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Exception e) {
+                      //  tv_response.setText(e.getMessage());
+                        Log.e("bbbb",String.valueOf(e));
+                        bundle.putString("?","error");
+                       bundle.putString("!",e.toString());
+                        msg.what=0;
+                        handler.sendMessage(msg);
+                    }
+
+                    @Override
+                    public void onUIProgress(Progress progress) {
+                        int pro = (int) ((progress.getCurrentBytes() + 0.0) / progress.getTotalBytes() * 100);
+                        if (pro > 0) {
+                         int o=pro;
+                            Log.e("sssss",String.valueOf(pro));
+                            bundle.putString("?","ing");
+                            msg.arg1=pro;
+                            msg.what=0;
+                            handler.sendMessage(msg);
+                        }
+                      //  KLog.d("pro = " + pro + " getCurrentBytes = " + progress.getCurrentBytes() + " getTotalBytes = " + progress.getTotalBytes());
+                    }
+                });
+    }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -27,6 +28,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -73,9 +75,13 @@ public class Login_ extends AppCompatActivity {
                         }else
                         {
                             //登录失败
-                         //   Looper.prepare();
-                          //  Toast.makeText(Login_.this,"登录失败："+bun.get("!").toString(),Toast.LENGTH_SHORT).show();
-                           // Looper.loop();
+                            //Snackbar.make(Login_.this.pas,bun.getString("!").toString(),Snackbar.LENGTH_SHORT).show();
+                            HashMap<String,Object> map=new HashMap<String,Object>();
+                            map.put("Message","error");
+                            Pop_Img.Builder pr = new Pop_Img.Builder(Login_.this,"ERRor",map);
+                            pr.create().show();
+
+
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -109,8 +115,7 @@ public class Login_ extends AppCompatActivity {
 
     protected void initView() {
         Register_Enter = (ImageView) findViewById(R.id.Register_Button);
-        backbtn = (Button) findViewById(R.id.Login_Back);
-        phon = (EditText) findViewById(R.id.login_phone);
+         phon = (EditText) findViewById(R.id.login_phone);
         pas = (EditText) findViewById(R.id.login_pass);
         til=(TextInputLayout)findViewById(R.id.login_phone1);
         til1=(TextInputLayout)findViewById(R.id.login_pass1);
@@ -125,7 +130,7 @@ public class Login_ extends AppCompatActivity {
         Register_Enter.setVisibility(View.INVISIBLE);
         Register_Enter.setOnClickListener(new MyClickListener());
         register.setOnClickListener(new MyClickListener());
-        backbtn.setOnClickListener(new MyClickListener());
+
 
         //数据库操作
         dataserver=new DataHelper(Login_.this);
@@ -136,7 +141,7 @@ public class Login_ extends AppCompatActivity {
             if (str1[5].equals("1")) {
                 Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(Login_.this
                         , mHandler
-                        , "http://192.168.1.112:1103/login"
+                        , "http://trying-video.herokuapp.com/login"
                         , "1"//登录
                         , "POST"
                         , str1[0] + "|"+str1[1]);
@@ -164,7 +169,7 @@ public class Login_ extends AppCompatActivity {
                       //  url = new URL("http://192.168.1.112:1103/login");
                         Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(Login_.this
                                 , mHandler
-                                , "http://192.168.1.112:1103/login"
+                                , "http://trying-video.herokuapp.com/login"
                                 , "1"//登录
                                 , "POST"
                                 , phon.getText().toString() + "|" + pas.getText().toString());
@@ -172,10 +177,7 @@ public class Login_ extends AppCompatActivity {
                         x.start();
 
                     break;
-                case R.id.Register_back:
-                    //TODO 左上角返回
-                    finish();
-                    break;
+
                 case R.id.Login_Regi_Button:
                     Intent intent=new Intent(Login_.this,Register_.class);
                     startActivity(intent);

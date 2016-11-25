@@ -2,15 +2,19 @@ package com.yanbober.support_library_demo.Http_Util;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.system.ErrnoException;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.squareup.okhttp.Headers;
 import com.squareup.okhttp.MultipartBuilder;
 import com.yanbober.support_library_demo.Login_;
 import com.yanbober.support_library_demo.MainActivity;
+import com.yanbober.support_library_demo.Message_S.View_One;
 import com.yanbober.support_library_demo.Modify_Password_;
+import com.yanbober.support_library_demo.Pop_Img;
 import com.yanbober.support_library_demo.Register_;
 import com.yanbober.support_library_demo.Round_Video_;
 
@@ -34,6 +38,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import cn.edu.zafu.coreprogress.helper.ProgressHelper;
 import cn.edu.zafu.coreprogress.listener.ProgressRequestListener;
@@ -46,7 +53,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
 
 
 /**
@@ -103,13 +109,13 @@ public class Http_UploadFile_ implements Runnable {
 
     }
 
-    public Http_UploadFile_(Handler handler,String url,String path,String connectType)
-    {
-        this.handler=handler;
-        this.url=url;
-        this.sendMethod=path;
-        this.connectType=connectType;
+    public Http_UploadFile_(Handler handler, String url, String path, String connectType) {
+        this.handler = handler;
+        this.url = url;
+        this.sendMethod = path;
+        this.connectType = connectType;
     }
+
     public Http_UploadFile_(Modify_Password_ p, Handler handler, String url, String connectType, String sendMethod, String data) {
         this.handler = handler;
         this.p = p;
@@ -157,7 +163,8 @@ public class Http_UploadFile_ implements Runnable {
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     public OkHttpClient client = new OkHttpClient();
-    public com.squareup.okhttp.OkHttpClient client1=new com.squareup.okhttp.OkHttpClient();
+    public com.squareup.okhttp.OkHttpClient client1 = new com.squareup.okhttp.OkHttpClient();
+
     public Http_UploadFile_(Round_Video_ regis, Handler handler, String url, String connectType, String sendMethod, HashMap<String, Object> Data) {
         this.round_video_ = regis;
         this.handler = handler;
@@ -187,13 +194,16 @@ public class Http_UploadFile_ implements Runnable {
                 break;
             case 1:
                 //登录
+
                 try {
                     login_type(url, data);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    View_One view_one = new View_One(login, e.toString());
                 }
+
                 break;
             case 2:
                 //删除帐号
@@ -235,16 +245,81 @@ public class Http_UploadFile_ implements Runnable {
 
                 break;
             case 9:
-                try {
+
                     GetHeadImage(url);
+
+                break;
+            case 10:
+                //上传文件
+                try {
+                    LoadHeadImage(url);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 break;
-            case 10:
-                //上传文件
-                //upload(sendMethod);
+            case 11:
+                //修改支付密码
+
+
                 break;
+        }
+    }
+
+    public void Modify_paidPWD_PATCH() {
+        JSONObject jsonObject = null;
+        String breakStr = null;
+        String[] strs = data.split("\\|");
+        String urls = url;
+        try {
+            RequestBody formBody = new FormBody.Builder()
+                    .add("paypassword", sendMethod)
+                    .build();
+            Request request = new Request.Builder()
+                    .url(urls)
+                    .tag(p)
+                    .patch(formBody)
+                    .build();
+
+            Bundle bundle = new Bundle();
+            Response response = client.newCall(request).execute();
+            if (!response.isSuccessful())
+                throw new IOException(breakStr = response.body().toString());
+            if (breakStr != null) {
+
+                bundle.putString("?", "修改失败");
+                bundle.putString("!", response.body().string());
+            } else
+
+            {
+
+                jsonObject = new JSONObject(response.body().string());
+                try {
+                    bundle.putString("?", "修改失败");
+                    bundle.putString("!", jsonObject.get("error").toString());
+                } catch (JSONException e) {
+                    bundle.putString("?", "修改成功");
+                    //  bundle.putString("!",jsonObject.get("error").toString());
+
+                }
+
+            }
+            //
+            //JSONArray array=jsonObject.getJSONArray("result");
+            //获取复数表单
+
+
+            Message msg = new Message();
+            msg.setData(bundle);
+            //绑定一个数据集，显示成功与否
+            msg.obj = jsonObject;
+            //将一个JSON的对象发送
+            msg.what = 0;
+            handler.sendEmptyMessage(0);
+            //System.out.println(response.body().string());
+        } catch (IOException e) {
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
@@ -400,125 +475,93 @@ public class Http_UploadFile_ implements Runnable {
 
     }
 
-    public void login_type(String url, String json) throws IOException, JSONException {
+    public void login_type(String url, String json) throws InterruptedException, IOException {
         OkHttpClient htt;
         String[] strs = json.split("\\|");
         JSONObject jsonObject = null;
         JSONArray jsonArray = null;
-        String str = null;
+        String str = null, datas = null;
         Response response = null;
+        Bundle bundleError = new Bundle();
+        Message msgError = new Message();
+        RequestBody formBody = new FormBody.Builder()
+                .add("phone", strs[0])
+                .add("userpassword", strs[1])
+                .build();
+        Request request = new Request.Builder()
+                .url(url)
+                .post(formBody)
+                .build();
         try {
-            RequestBody formBody = new FormBody.Builder()
-                    .add("phone", strs[0])
-                    .add("userpassword", strs[1])
-                    .build();
-
-            Request request = new Request.Builder()
-                    .url(url)
-                    .post(formBody)
-                    .build();
-
             response = client.newCall(request).execute();
-            if (!response.isSuccessful()) throw new IOException(str = response.body().toString());
-            if (str == null) {
-                try {
-                    //如果返回的是error
-                    jsonArray = new JSONArray(response.body().string());
-                    str = "登录成功";
-                    Bundle bundle = new Bundle();
-                    Message msg = new Message();
-                    msg.obj = jsonArray;
-                    bundle.putString("?", str);
-                    msg.setData(bundle);
-                    handler.sendMessage(msg);
-                } catch (JSONException e) {
-                    Bundle bundle = new Bundle();
-                    Message msg = new Message();
+        } catch (IOException er) {
 
-                    bundle.putString("?", "登录失败");
-                    bundle.putString("!", response.body().toString());
-                    msg.setData(bundle);
-                    handler.sendMessage(msg);
-                }
+            View_One view_one = new View_One(login, er.toString());
+        }
+        try {
+            if (!response.isSuccessful()) throw new IOException();
+            str = response.body().string();
+            //如果返回的是error
+            jsonArray = new JSONArray(str);
 
-            } else {
-                Bundle bundle = new Bundle();
-                Message msg = new Message();
-                msg.obj = jsonArray;
-                bundle.putString("?", str);
-                msg.setData(bundle);
-                handler.sendMessage(msg);
-            }
-
-
-        } catch (IOException e) {
+            Bundle bundle = new Bundle();
+            Message msg = new Message();
+            msg.obj = jsonArray;
+            msg.what = 0;
+            bundle.putString("?", "登录成功");
+            msg.setData(bundle);
+            handler.sendMessage(msg);
+        } catch (JSONException e) {
             e.printStackTrace();
-        } finally {
-
-            //登录
+            View_One view_one = new View_One(login, str);
 
         }
-
     }
 
-    public void register_type(String url, String json) throws IOException, JSONException {
+    public void register_type(String url, String json) {
         OkHttpClient htt;
         String[] strs = json.split("\\|");
         JSONObject jsonObject = null;
         JSONArray jsonArray = null;
         String str = null;
         Response response = null;
+
+        RequestBody formBody = new FormBody.Builder()
+                .add("phone", strs[0])
+                .add("userpassword", strs[1])
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(formBody)
+                .build();
         try {
-            RequestBody formBody = new FormBody.Builder()
-                    .add("phone", strs[0])
-                    .add("userpassword", strs[1])
-                    .build();
-
-            Request request = new Request.Builder()
-                    .url(url)
-                    .post(formBody)
-                    .build();
-
             response = client.newCall(request).execute();
-            if (!response.isSuccessful()) throw new IOException(str = response.body().toString());
-            if (str == null) {
-                try {
-                    //如果返回的是error
-                    jsonArray = new JSONArray(response.body().string());
+        } catch (IOException e) {
 
-                    Bundle bundle = new Bundle();
-                    Message msg = new Message();
-                    msg.obj = jsonArray;
-                    msg.what = 0;
-                    bundle.putString("?", "注册成功");
-                    msg.setData(bundle);
-                    handler.sendMessage(msg);
-                } catch (JSONException e) {
-                    Bundle bundle = new Bundle();
-                    Message msg = new Message();
-
-                    bundle.putString("?", "注册失败");
-                    bundle.putString("!", response.body().toString());
-                    msg.setData(bundle);
-                    handler.sendMessage(msg);
-                }
-
-            } else {
-                Bundle bundle = new Bundle();
-                Message msg = new Message();
-                msg.obj = jsonArray;
-                bundle.putString("?", str);
-                msg.setData(bundle);
-                handler.sendMessage(msg);
-            }
+            View_One view_one = new View_One(regis, e.toString());
+        }
+        try {
+            if (!response.isSuccessful()) throw new IOException();
+            str = response.body().string();
 
 
+            //如果返回的是error
+            jsonArray = new JSONArray(str);
+
+            Bundle bundle = new Bundle();
+            Message msg = new Message();
+            msg.obj = jsonArray;
+            msg.what = 0;
+            bundle.putString("?", "注册成功");
+            msg.setData(bundle);
+            handler.sendMessage(msg);
+        } catch (JSONException e) {
+            View_One view_one = new View_One(login, str);
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-
-
         }
+
 
     }
 
@@ -643,7 +686,7 @@ public class Http_UploadFile_ implements Runnable {
                 msg = new Message();
                 bundle.putString("?", "获取成功");
 
-                 msg.obj = jsonObject;
+                msg.obj = jsonObject;
                 msg.what = 5;
                 msg.setData(bundle);
                 handler.sendMessage(msg);
@@ -662,7 +705,8 @@ public class Http_UploadFile_ implements Runnable {
 
 
     }
-    private void GetHeadImage(String url) throws IOException {
+
+    private void GetHeadImage(String url) {
         OkHttpClient htt;
         Response response;
         JSONObject jsonObject = null;
@@ -672,42 +716,38 @@ public class Http_UploadFile_ implements Runnable {
             Request request = new Request.Builder().url(url).build();
 
             response = client.newCall(request).execute();
-            if (!response.isSuccessful()) throw new IOException(str = response.body().toString());
-            if (str == null) {
-                Bundle bundle;
-                Message msg = null;
-                try {
+            if (!response.isSuccessful()) {
+                View_One view_one = new View_One(MA, "错误");
+            }
 
-                    jsonObject = new JSONObject(response.body().string());
-                    bundle = new Bundle();
-                    msg = new Message();
-                    bundle.putString("?", "获取成功");
-
-                    msg.obj = jsonObject;
-                    msg.what = 6;
-                    msg.setData(bundle);
-                    handler.sendMessage(msg);
-                } catch (JSONException e) {
-
-                    //  jsonArray = new JSONArray(response.body().string());
-                    bundle = new Bundle();
-                    msg = new Message();
-                    bundle.putString("?", "获取失败");
-                    msg.obj = jsonArray;
-                    msg.what = 6;
-                    msg.setData(bundle);
-                    handler.sendMessage(msg);
-                }
+            str = response.body().string();
+            Bundle bundle;
+            Message msg = null;
+            try {
+                jsonObject = new JSONObject(str);
+                bundle = new Bundle();
+                msg = new Message();
+                bundle.putString("?", "获取成功");
+                msg.obj = jsonObject;
+                msg.what = 6;
+                msg.setData(bundle);
+                handler.sendMessage(msg);
+            } catch (JSONException e) {
+                //  jsonArray = new JSONArray(response.body().string());
+                View_One view_one = new View_One(MA, e.toString());
             }
         }catch (IOException er)
         {
-
+            Log.e("头像获取失败:",er.toString());
+            View_One view_one = new View_One(MA, er.toString());
         }
+
+
     }
 
     private void LoadHeadImage(String url) throws IOException {
         //异步上传图片
-        File file=new File(url);
+        File file = new File(url);
         OkHttpClient htt;
         Response response;
 
@@ -733,13 +773,14 @@ public class Http_UploadFile_ implements Runnable {
                 msg.setData(bundle);
                 handler.sendMessage(msg);
             }
+
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Log.i("wangshu",response.body().string());
+                Log.i("wangshu", response.body().string());
                 Bundle bundle;
                 Message msg = null;
                 try {
-                   JSONObject jsonObject = new JSONObject(response.body().string());
+                    JSONObject jsonObject = new JSONObject(response.body().string());
                     bundle = new Bundle();
                     msg = new Message();
                     bundle.putString("?", "上传成功");
@@ -748,8 +789,7 @@ public class Http_UploadFile_ implements Runnable {
                     msg.what = 5;
                     msg.setData(bundle);
                     handler.sendMessage(msg);
-                }catch (JSONException e)
-                {
+                } catch (JSONException e) {
 
                 }
 
@@ -763,8 +803,8 @@ public class Http_UploadFile_ implements Runnable {
 
     private void GetHead(String url, final String path) {
         //异步下载图片
-        final String filepath=path;
-        final File file=new File(path);
+        final String filepath = path;
+        final File file = new File(path);
 
         Request request = new Request.Builder().url(url).build();
         client.newCall(request).enqueue(new Callback() {
@@ -794,8 +834,6 @@ public class Http_UploadFile_ implements Runnable {
             }
         });
     }
-
-
 
 
 }

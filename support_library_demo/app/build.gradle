@@ -29,7 +29,8 @@ dependencies {
     compile 'com.android.support:support-v4:23.+'
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/org.json.jar')
-
+    compile files('libs/okhttp-2.7.2.jar')
+    compile 'com.github.zhaokaiqiang.okhttpplus:library:1.0.0'
 
     compile 'cn.edu.zafu:coreprogress:0.0.1'
 

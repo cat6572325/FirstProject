@@ -24,6 +24,10 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/drawable-xhdpi-v4/abc_ab_share_pack_mtrl_alpha.9.png"
     },
     {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/floating_main_button.png",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable-xhdpi/floating_main_button.png"
+    },
+    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/password.png",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable-xhdpi/password.png"
     },

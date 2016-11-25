@@ -55,6 +55,7 @@
 				android:text="支付1亿"
 				android:layout_width="wrap_content"
 				android:layout_centerInParent="true"
+				android:id="@+id/collect_paid_button"
 				android:paddingLeft="25dp"
 				android:paddingRight="25dp"/>
 

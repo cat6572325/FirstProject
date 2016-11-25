@@ -16,6 +16,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOError;
 import java.util.*;
 
@@ -94,10 +97,10 @@ public class Collect_ extends AppCompatActivity
 
 			rv.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
 		//设置RecyclerView布局管理器为1列垂直排布
-		addTextToList("本 拉登教你打仗",3,R.drawable.qq,"901人付款",0,0);
-		addTextToList("King arthur",3,R.drawable.qq,"901人付款",1,0);
-		addTextToList("高文",3,R.drawable.qq,"901人付款",0,1);
-		addTextToList("lancelot",3,R.drawable.qq,"901人付款",1,1);
+		//addTextToList("本 拉登教你打仗",3,R.drawable.qq,"901人付款",0,0);
+		//addTextToList("King arthur",3,R.drawable.qq,"901人付款",1,0);
+		//addTextToList("高文",3,R.drawable.qq,"901人付款",0,1);
+		//addTextToList("lancelot",3,R.drawable.qq,"901人付款",1,1);
 
 
 			//left_list
@@ -152,6 +155,22 @@ public class Collect_ extends AppCompatActivity
 			});
 		}catch(IOError error)
 		{
+		}
+		JSONObject jsonObject= null;
+		try {
+			if(jsonObject.getString("notices").equals("0"))
+			{
+				Message_point.setVisibility(View.INVISIBLE);
+			}else {
+				jsonObject = new JSONObject(user.mydata.get("notices").toString());
+				if (jsonObject.getJSONArray("notices").length() > 1) {
+					Message_point.setText("1");
+				} else {
+					Message_point.setVisibility(View.INVISIBLE);
+				}
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
 	}
 	public void addTextToList(String text, int who, int id,String data,int isspot,int ispay)

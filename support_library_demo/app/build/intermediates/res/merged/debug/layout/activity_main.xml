@@ -120,13 +120,14 @@
 			android:textSize="15dp"
 			android:layout_gravity="bottom|right"
 			/>
-		<Button
+		<android.support.design.widget.FloatingActionButton
 			android:id="@+id/f1"
-			android:background="@drawable/maru_no"
-			android:layout_width="80dp"
-			android:layout_height="80dp"
+
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
 			android:layout_margin="20dp"
-			android:text="x"
+			android:src="@drawable/floating_main_button"
+
 			android:textSize="25dp"
 			android:textColor="#7f2bed"
 			android:layout_gravity="bottom|right"
