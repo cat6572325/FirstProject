@@ -1,6 +1,5 @@
 package com.yanbober.support_library_demo;
 
-import android.animation.*;
 import android.content.*;
 import android.os.*;
 import android.support.design.widget.*;
@@ -15,12 +14,9 @@ import android.widget.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import org.json.*;
 
 import android.support.v7.widget.Toolbar;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 /**
  * 一个中文版Demo App搞定所有Android的Support Library新增所有兼容控件
@@ -224,7 +220,12 @@ public class My_Video_ extends ActionBarActivity {
 			rl.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					TextView tv = (TextView) view.findViewById(R.id.leftlistitemTextView1);
+					
+						if(tv!=null)
+						{
+							
 					String str = tv.getText().toString();
+					
 					if (str.equals("首页")) {
 						Intent intent = new Intent(My_Video_.this, MainActivity.class);
 						startActivity(intent);
@@ -253,23 +254,26 @@ public class My_Video_ extends ActionBarActivity {
 						Intent intent = new Intent(My_Video_.this, Setting_.class);
 						startActivity(intent);
 					}
+					}
 
 				}
 			});
-			JSONObject jsonObject= null;
 			try {
-				if(jsonObject.getString("notices").equals("0"))
-				{
+				JSONObject jsonObject=null;
+				JSONArray jss= new JSONArray(user.mydata.get("notices").toString());
+
+				if (jss.length() < 2) {
 					Message_point.setVisibility(View.INVISIBLE);
-				}else {
-					jsonObject = new JSONObject(user.mydata.get("notices").toString());
-					if (jsonObject.getJSONArray("notices").length() > 1) {
-						Message_point.setText("1");
-					} else {
-						Message_point.setVisibility(View.INVISIBLE);
-					}
 				}
-			} catch (JSONException e) {
+				else {
+
+
+					Message_point.setText(String.valueOf(jss.length()));
+
+
+				}
+			}
+			catch (JSONException e) {
 				e.printStackTrace();
 			}
     }

@@ -75,45 +75,10 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Round_Video_ extends Activity
+public class Round_Video_ extends Activity implements http_thread_.OnInvalitorProgress
 
 {
-    public Handler mHandler = new Handler() {
-        public void handleMessage(android.os.Message msg) {
-            Bundle bundle=new Bundle();
-            switch (msg.what) {
-
-
-                case 0:
-                    try {
-                        if (bundle.getString("?").equals("success")) {
-                            View_One view_one = new View_One(Round_Video_.this,bundle.getString("!"));
-                            p.OnProgressChanged(101);
-                            //101代表退出
-                        }
-                        if (bundle.getString("?").equals("ing")) {
-                            bundle = msg.getData();
-                            p.OnProgressChanged(msg.arg1);
-
-                            //错误提示：
-                        }
-                        if (bundle.getString("?").equals("error")) {
-                            JSONObject jsonObject = new JSONObject(bundle.getString("!"));
-                            View_One view_one = new View_One(Round_Video_.this,bundle.getString("!"));
-                        }
-                    }catch (JSONException e)
-                    {
-
-                    }
-                    break;
-                case 1:
-
-                    start();
-                    break;
-
-            }
-        }
-    };
+    
     User user=new User();
     RoundProgressBar bar;
     static int message = 0;
@@ -138,7 +103,7 @@ public class Round_Video_ extends Activity
     ImageView sound,turnC;
 
 
-    Pop_Img.Builder p;
+   public Pop_Img.Builder p;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,7 +130,7 @@ public class Round_Video_ extends Activity
 
                     if (camera!=null)
                         sound.setVisibility(View.INVISIBLE);
-                    turnC.setVisibility(View.VISIBLE);
+                    turnC.setVisibility(View.INVISIBLE);
                         stop();
                     bar.setBackgroundResource(R.drawable.roundbuttoning);
                     start();
@@ -576,6 +541,11 @@ public class Round_Video_ extends Activity
             recordarl = 0;
         }
     }
+	
+	public void onInvalitorProgress(int counttime)
+	{
+		int y=counttime;
+	}
 
     public void delete(View v) {
         //TODO 删除按钮
@@ -655,11 +625,8 @@ public class Round_Video_ extends Activity
                 public void onClick(DialogInterface dialog, int which) {
                   //  Toast.makeText(Round_Video_.this,"click",Toast.LENGTH_SHORT).show();
                     //发送http请求，上传视频
-
-                    http_thread_ htt=new http_thread_("http://trying-video.herokuapp.com/user/video?token="+user.token
-                            ,file_with.GetFile().getPath()
-                            ,mHandler
-                            ,"videofile");
+					
+                    
                 }
             });
                   p.create().show();
@@ -956,6 +923,68 @@ public class Round_Video_ extends Activity
     }
 
     //TODO 上传视频　　AAAAAAAAAAAAAAAAAA
+	public Handler mHandler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+			Bundle bundle=msg.getData();
+
+			switch (msg.what) {
+
+
+                case 0:
+                    try {
+
+                        if (bundle.getString("?").equals("success")) {
+							//  View_One view_one = new View_One(Round_Video_.this,bundle.getString("!"));
+                            p.OnProgressChanged(101);
+                            //101代表退出
+                        }
+                        if (bundle.getString("?").equals("ing")) {
+							// bundle = msg.getData();
+                         //   p.OnProgressChanged(msg.arg1);
+							Log.e("iiii",String.valueOf( msg.arg1));
+                            //错误提示：
+                        }
+                        if (bundle.getString("?").equals("error")) {
+                            JSONObject jsonObject = new JSONObject(bundle.getString("!"));
+							//  View_One view_one = new View_One(Round_Video_.this,bundle.getString("!"));
+                        }
+                    }catch (JSONException e)
+                    {
+
+                    }
+                    break;
+                case 1:
+
+                    start();
+                    break;
+
+            }
+        }
+    };
+	/**
+	 * 获取视频文件截图
+	 *
+	 * @param path 视频文件的路径
+	 * @return Bitmap 返回获取的Bitmap
+	 */
+	public static Bitmap getVideoThumb(String path) {
+		MediaMetadataRetriever media = new MediaMetadataRetriever();
+		media.setDataSource(path);
+		return media.getFrameAtTime();
+	}
+	/**
+	 * 获取视频文件缩略图 API>=8(2.2)
+	 *
+	 * @param path 视频文件的路径
+	 * @param kind 缩略图的分辨率：MINI_KIND、MICRO_KIND、FULL_SCREEN_KIND
+	 * @return Bitmap 返回获取的Bitmap
+	 */
+	public static Bitmap getVideoThumb2(String path, int kind) {
+		return ThumbnailUtils.createVideoThumbnail(path, kind);
+	}
+	public static Bitmap getVideoThumb2(String path) {
+		return getVideoThumb2(path, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
+	}
 }
 
 

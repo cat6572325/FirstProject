@@ -8,11 +8,9 @@ import android.view.*;
 import android.view.View.*;
 import android.widget.*;
 import java.util.*;
+import org.json.*;
 
 import android.support.v7.widget.Toolbar;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class Paid_Video extends AppCompatActivity
 
@@ -93,18 +91,25 @@ Toolbar tb;
 
 				}
 			});
-		JSONObject jsonObject= null;
+		
 		try {
-			jsonObject = new JSONObject(user.mydata.get("notices").toString());
-			if(jsonObject.getJSONArray("notices").length()>1)
-			{Message_point.setText("1");}else
-			{
+			JSONObject jsonObject=null;
+			JSONArray jss= new JSONArray(user.mydata.get("notices").toString());
+
+			if (jss.length() < 2) {
 				Message_point.setVisibility(View.INVISIBLE);
 			}
-		} catch (JSONException e) {
+			else {
+
+
+				Message_point.setText(String.valueOf(jss.length()));
+
+
+			}
+		}
+		catch (JSONException e) {
 			e.printStackTrace();
 		}
-
 
 	}
 	public void addTextToList(String text, int who, int id,String data)

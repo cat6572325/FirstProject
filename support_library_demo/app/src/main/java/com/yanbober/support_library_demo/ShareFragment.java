@@ -85,7 +85,7 @@ public class ShareFragment extends Fragment {
 		mRecyclerView.setAdapter(adapter);
 		ThreadEx ex = new ThreadEx((MainActivity) getActivity(), "getshare");
 		Thread x = new Thread(ex);
-		x.start();
+		//x.start();
 		mRecyclerView.setOnScrollListener(new OnRcvScrollListener(){
 			@Override
 			public void onBottom() {

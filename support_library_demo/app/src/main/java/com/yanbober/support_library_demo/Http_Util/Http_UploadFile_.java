@@ -210,8 +210,11 @@ public class Http_UploadFile_ implements Runnable {
 
                 break;
             case 3:
-                //上传视频
-
+                //上传视频信息
+				try {
+					LoadHeadImage();
+				}
+				catch (IOException e) {}
                 break;
 
             case 4:
@@ -251,11 +254,7 @@ public class Http_UploadFile_ implements Runnable {
                 break;
             case 10:
                 //上传文件
-                try {
-                    LoadHeadImage(url);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                
                 break;
             case 11:
                 //修改支付密码
@@ -745,7 +744,7 @@ public class Http_UploadFile_ implements Runnable {
 
     }
 
-    private void LoadHeadImage(String url) throws IOException {
+    private void LoadHeadImage() throws IOException {
         //异步上传图片
         File file = new File(url);
         OkHttpClient htt;

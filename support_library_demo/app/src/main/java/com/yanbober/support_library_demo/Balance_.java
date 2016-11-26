@@ -1,33 +1,18 @@
 package com.yanbober.support_library_demo;
 
-import android.app.*;
-import android.content.Context;
-import android.content.Intent;
+import android.content.*;
 import android.os.*;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
+import android.support.v4.view.*;
+import android.support.v4.widget.*;
 import android.support.v7.app.*;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.*;
 import android.view.*;
 import android.view.View.*;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListAdapter;
-import android.widget.ExpandableListView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import com.yanbober.support_library_demo.*;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import android.widget.*;
 import java.util.*;
+import org.json.*;
+
+import android.support.v7.widget.Toolbar;
 
 public class Balance_ extends AppCompatActivity
 {
@@ -120,6 +105,10 @@ public class Balance_ extends AppCompatActivity
 			public void onItemClick(AdapterView<?> parent,View view,int position,long id)
 			{
 				TextView tv=(TextView)view.findViewById(R.id.leftlistitemTextView1);
+				
+				if(tv!=null)
+				{
+					
 				String str=tv.getText().toString();
 				if(str.equals("首页"))
 				{
@@ -153,7 +142,7 @@ public class Balance_ extends AppCompatActivity
 					Intent intent=new Intent(Balance_.this,Setting_.class);
 					startActivity(intent);
 				}
-
+				}
 			}
 		});
 
@@ -179,20 +168,22 @@ public class Balance_ extends AppCompatActivity
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 
-		JSONObject jsonObject= null;
 		try {
-			if(jsonObject.getString("notices").equals("0"))
-			{
+			JSONObject jsonObject=null;
+			JSONArray jss= new JSONArray(user.mydata.get("notices").toString());
+
+			if (jss.length() < 2) {
 				Message_point.setVisibility(View.INVISIBLE);
-			}else {
-				jsonObject = new JSONObject(user.mydata.get("notices").toString());
-				if (jsonObject.getJSONArray("notices").length() > 1) {
-					Message_point.setText("1");
-				} else {
-					Message_point.setVisibility(View.INVISIBLE);
-				}
 			}
-		} catch (JSONException e) {
+			else {
+
+
+				Message_point.setText(String.valueOf(jss.length()));
+
+
+			}
+		}
+		catch (JSONException e) {
 			e.printStackTrace();
 		}
 	}

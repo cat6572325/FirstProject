@@ -79,6 +79,7 @@ initView();
                 Intent intent =new Intent(getContext(),Run_Video_.class);
                 Bundle bundle=new Bundle();
                 bundle.putString("count",String.valueOf(position));
+				bundle.putString("url",user.maps.get(position).get("vdourl").toString());
                 //count是为了定位到一开始时保存的视频列表中某一个视频的数据
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -172,7 +173,7 @@ initView();
                     ,"POST"
                     ,"getvideos");
         Thread t=new Thread(http_uploadFile_);
-        t.start();
+     //   t.start();
 
         }
 

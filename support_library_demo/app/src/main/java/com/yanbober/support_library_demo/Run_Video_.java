@@ -41,7 +41,7 @@ public class Run_Video_ extends ActionBarActivity {
 	RelativeLayout hideButtons;
 	CollapsingToolbarLayout collapsingToolbar;
 	String count=null;
-	User user=new User();
+	final User user=new User();
 	JSONObject jsonObject=null;
 	/** Called when the activity is first created. */
 	@Override
@@ -50,10 +50,11 @@ public class Run_Video_ extends ActionBarActivity {
 		setContentView(R.layout.run_video_layout);
 			initView();
 		Bundle bun=this.getIntent().getExtras();
-		if (bun != null && bun.containsKey("Data"))
+		if (bun != null && bun.containsKey("count"))
 		{
 
-		count=bun.getString("count");
+		count=bun.getString("url");
+		
 			//strs=str.split("\\|");
 		}
 		}
@@ -119,7 +120,11 @@ public class Run_Video_ extends ActionBarActivity {
 					mHandler.sendEmptyMessageDelayed(0, 3000);
 
 				} else if (arg0 == btnPlayUrl) {
-					player.playUrl(user.maps.get(Integer.getInteger(count)).get("vdourl").toString());
+					if(!count.substring(count.lastIndexOf(".")+1).equals("mp4"))
+					{
+						Toast.makeText(Run_Video_.this,"目标url并不指向视频文件",Toast.LENGTH_LONG).show();
+					}else
+					{player.playUrl(count);}//user.maps.get(Integer.getInteger(count)).get("vdourl").toString());
 				}
 
 		}

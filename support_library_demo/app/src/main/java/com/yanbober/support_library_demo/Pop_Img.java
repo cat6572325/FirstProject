@@ -501,7 +501,13 @@ public class Pop_Img extends Dialog {
                                 maphttp.put("price", round_money.getText().toString());
                                 maphttp.put("paidppnumber", "0");//购买人数
                                 maphttp.put("concernednumber", "0");//收藏人数
-                                URL url = null;
+								http_thread_ htt=new http_thread_(round_video_,"http://trying-video.herokuapp.com/user/video?token="+user.token
+																  ,file_with.GetFile().getPath()
+																  ,round_video_.mHandler
+																  ,"videofile");
+								Thread c=new Thread(htt);
+								c.start();
+                             /*   URL url = null;
                                 try {
                                     url = new URL("http://192.168.1.112:1103/user/video/all/detail");
                                 } catch (MalformedURLException e) {
@@ -513,7 +519,7 @@ public class Pop_Img extends Dialog {
                                         , "http://192.168.1.112:1103/user/video/all/detail"
                                         , "0"
                                         , "GET"
-                                        , maphttp);
+                                        , maphttp);*/
                             }
                         });
                     }

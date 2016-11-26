@@ -418,6 +418,8 @@ rlIcon1.setOnClickListener(new OnClickListener()
         rl.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView tv = (TextView) view.findViewById(R.id.leftlistitemTextView1);
+				if(tv!=null)
+				{
                 String str = tv.getText().toString();
                 if (str.equals("首页")) {
 
@@ -445,6 +447,7 @@ rlIcon1.setOnClickListener(new OnClickListener()
                     Intent intent = new Intent(MainActivity.this, Setting_.class);
                     startActivity(intent);
                 }
+				}
 
             }
         });
@@ -516,7 +519,14 @@ rlIcon1.setOnClickListener(new OnClickListener()
                 }
             }
         });
-
+		Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(MainActivity.this
+																 ,mHandler
+																 ,"http://trying-video.herokuapp.com/user/video/all/detail"
+																 ,"4"
+																 ,"POST"
+																 ,"getvideos");
+        Thread t=new Thread(http_uploadFile_);
+		  t.start();
       //
        CheckData();
        //  CheckHead();
@@ -960,6 +970,7 @@ view.setAnimation(animation);
                     isEnabled(position);
                     convertView = LayoutInflater.from(context).inflate(
                             layout[who], null);
+					convertView.setClickable(false);
                     View v = (View) convertView.findViewById(R.id.lineitemView1);
                     v.setOnClickListener(new OnClickListener() {
                         public void onClick(View view) {
