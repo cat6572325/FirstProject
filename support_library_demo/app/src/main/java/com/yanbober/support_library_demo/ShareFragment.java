@@ -99,7 +99,7 @@ initView();
     }
 public void initView()
 {
-	if (user.maps!=null) {
+	/*if (user.maps!=null) {
 		ArrayList<HashMap<String, Object>> map = user.maps;
 		for (int i = 0; i < map.size(); i++) {
 			if (i == 10) {
@@ -118,9 +118,9 @@ public void initView()
 		adapter.notifyDataSetChanged();
 		//  addTextToList("uuu", 1, "android.R.drawable.ic_lock_lock", 0, "name");
 		// Toast.makeText(getContext(),str1,Toast.LENGTH_LONG).show();
-	}
+	}*/
 }
-	public void addTextToList(String text, int who, String id, int count, String name) {
+	public void addTextToList(String text, int who, String id, int count, String name,String photo) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("person", who);
 		map.put("image", id);
@@ -128,7 +128,8 @@ public void initView()
 		map.put("count", count);
 		map.put("layout", who);
 		map.put("name", name);
-
+		map.put("vdoPhotourl",photo);
+		
 		lists.add(map);
 
 	}
@@ -145,7 +146,7 @@ public void initView()
 					, 1
 					,map.get(i).get("vdourl").toString()
 					, 0
-					,map.get(i).get("title").toString());
+						  ,map.get(i).get("title").toString(),map.get(i).get("vdoPhotourl").toString());
 
 			//暂定内容，参数....购买人数,布局,头像,是否显示红点,标题
 			//头像和内容壁纸需要在适配器以二进制转为图片

@@ -108,7 +108,12 @@ public class Http_UploadFile_ implements Runnable {
         this.data = Data;
 
     }
-
+public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
+{
+	this.url=url;
+	this.maphttp=map;
+	this.connectType=cont;
+}
     public Http_UploadFile_(Handler handler, String url, String path, String connectType) {
         this.handler = handler;
         this.url = url;
@@ -211,10 +216,7 @@ public class Http_UploadFile_ implements Runnable {
                 break;
             case 3:
                 //上传视频信息
-				try {
-					LoadHeadImage();
-				}
-				catch (IOException e) {}
+				videodata();
                 break;
 
             case 4:
@@ -263,7 +265,43 @@ public class Http_UploadFile_ implements Runnable {
                 break;
         }
     }
+	public void videodata() {
+        OkHttpClient htt;
+        JSONObject jsonObject = null;
+        JSONArray jsonArray = null;
+        String str = null;
+        try {
+            //  "nickname" : ${nickname},    //昵称(String)
+            //  "paypassword" : ${paypassword},    //支付密码(String)
+            // "balance" : ${balance},    //余额(Number)
+            //"notices" : ${notices},    //通知(String)  [存的只是通知id]
+            //"collects" : ${collects}    //收藏(String)  [存的只是收藏id]
+            RequestBody formBody = new FormBody.Builder()
+				.add("uploader", maphttp.get("uploader").toString())
+				.add("title", maphttp.get("title").toString())
+				.add("introduction", maphttp.get("introduction").toString())
+				.add("price", maphttp.get("price").toString())
+				.add("paidppnumber", "0")
+				.add("concernednumber", "0")
 
+				.build();
+            Request request = new Request.Builder()
+				.url(url)
+				.post(formBody)
+				.build();
+
+            Response response = client.newCall(request).execute();
+            if (!response.isSuccessful()) throw new IOException();
+			str = response.body().string();
+                    Log.e("videodata成功",str);
+                    Log.e("token",url);
+
+               
+				}catch(IOException e)
+				{
+					Log.e("videodata1",e.toString());
+				}
+	}
     public void Modify_paidPWD_PATCH() {
         JSONObject jsonObject = null;
         String breakStr = null;
@@ -763,7 +801,8 @@ public class Http_UploadFile_ implements Runnable {
             public void onFailure(Call call, IOException e) {
                 Bundle bundle;
                 Message msg = null;
-
+				Log.e("Http_Up", e.toString());
+				
                 bundle = new Bundle();
                 msg = new Message();
                 bundle.putString("?", "上传失败");
@@ -775,7 +814,7 @@ public class Http_UploadFile_ implements Runnable {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Log.i("wangshu", response.body().string());
+                Log.e("Http_Up", response.body().string());
                 Bundle bundle;
                 Message msg = null;
                 try {

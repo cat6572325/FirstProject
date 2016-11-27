@@ -501,10 +501,12 @@ public class Pop_Img extends Dialog {
                                 maphttp.put("price", round_money.getText().toString());
                                 maphttp.put("paidppnumber", "0");//购买人数
                                 maphttp.put("concernednumber", "0");//收藏人数
+								maphttp.put("uploader",user.name);
+								
 								http_thread_ htt=new http_thread_(round_video_,"http://trying-video.herokuapp.com/user/video?token="+user.token
 																  ,file_with.GetFile().getPath()
 																  ,round_video_.mHandler
-																  ,"videofile");
+																  ,maphttp);
 								Thread c=new Thread(htt);
 								c.start();
                              /*   URL url = null;

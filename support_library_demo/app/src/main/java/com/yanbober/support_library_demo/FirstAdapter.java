@@ -9,20 +9,15 @@ package com.yanbober.support_library_demo;
  */
 
 import android.content.*;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
+import android.content.res.*;
+import android.graphics.*;
+import android.graphics.drawable.*;
+import android.os.*;
 import android.support.v7.widget.*;
-import android.util.Base64;
 import android.view.*;
 import android.widget.*;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.io.*;
+import java.net.*;
 import java.util.*;
 
 public class FirstAdapter extends RecyclerView.Adapter<MyViewHolder2> {
@@ -222,8 +217,11 @@ case 2:
 					//		bitmapArray1.length);
 					//以url解析图片
 					Bitmap bitmap2=null;
+				URL url;
 					try {
-						URL url=new URL(lists.get(position).get("image").toString());
+						//lists.get(position).get("vdoPhotourl").toString();
+						url=new URL(lists.get(position).get("vdoPhotourl").toString());
+						
 						HttpURLConnection conn = (HttpURLConnection) url
 								.openConnection();
 						conn.setDoInput(true);
@@ -233,8 +231,9 @@ case 2:
 						is.close();
 						conn.disconnect();
 					} catch (IOException e) {
-						e.printStackTrace();
-					}
+						//e.printStackTrace();
+						bitmap2=BitmapFactory.decodeResource(context.getResources(), R.drawable.down);
+						}
 					Drawable drawable=new BitmapDrawable(bitmap2);
 					//以url解析图片　
 

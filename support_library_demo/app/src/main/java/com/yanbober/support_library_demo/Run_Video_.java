@@ -120,7 +120,7 @@ public class Run_Video_ extends ActionBarActivity {
 					mHandler.sendEmptyMessageDelayed(0, 3000);
 
 				} else if (arg0 == btnPlayUrl) {
-					if(!count.substring(count.lastIndexOf(".")+1).equals("mp4"))
+					if(!count.substring(count.lastIndexOf(".")+1).equals("3gp"))
 					{
 						Toast.makeText(Run_Video_.this,"目标url并不指向视频文件",Toast.LENGTH_LONG).show();
 					}else

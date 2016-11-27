@@ -36,6 +36,7 @@ ListView lv=null;
 Toolbar tb=null;
 	public ArrayList<HashMap<String,Object>> lists1=new ArrayList<HashMap<String,Object>>();
 	ListView rl;
+	ImageView left_button;
 
 	int[] layout={R.layout.message_item,R.layout.line_item};
 DrawerLayout mDrawerLayout;
@@ -67,6 +68,8 @@ DrawerLayout mDrawerLayout;
 
 		lv = (ListView) this.findViewById(R.id.message_listview);
 		tb = (Toolbar) this.findViewById(R.id.tool_bar);
+		left_button=(ImageView)this.findViewById(R.id.messagelayoutImageView1);
+		
 		mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
 		addTextToList("King arthur payment $3 to your of video", "september13", 0, R.drawable.image);
 		ladapter = new MyChatAdapter(Message_c.this, lists, layout);
@@ -76,7 +79,14 @@ DrawerLayout mDrawerLayout;
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setHomeAsUpIndicator(R.drawable.back_purple);//android.R.drawable.ic_dialog_alert);
 		actionBar.setDisplayHomeAsUpEnabled(true);
-
+		left_button.setOnClickListener(new OnClickListener()
+		{
+			public void onClick(View v)
+			{
+				finish();
+			}
+			
+		});
 	}
 	public void onItemClick(AdapterView<?> parent,View view,int position,long id)
 	{

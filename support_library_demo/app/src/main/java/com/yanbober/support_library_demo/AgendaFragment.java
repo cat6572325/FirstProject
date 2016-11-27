@@ -147,7 +147,7 @@ public class AgendaFragment extends Fragment {
 
     }
 
-    public void addTextToList(String text, int who, String id, int count, String name) {
+    public void addTextToList(String text, int who, String id, int count, String name,String url) {
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("person", who);
         map.put("image", id);
@@ -155,7 +155,7 @@ public class AgendaFragment extends Fragment {
         map.put("count", count);
         map.put("layout", who);
         map.put("name", name);
-
+		map.put("vdoPhotourl",url);
         lists.add(map);
 
     }
@@ -182,7 +182,9 @@ public class AgendaFragment extends Fragment {
                     , 1
                     ,map.get(i).get("vdourl").toString()
                     , 0
-                    ,map.get(i).get("title").toString());
+                    ,map.get(i).get("title").toString()
+						  ,map.get(i).get("vdoPhotourl").toString()
+					);
 
             //暂定内容，参数....购买人数,布局,头像,是否显示红点,标题
             //头像和内容壁纸需要在适配器以二进制转为图片
@@ -209,7 +211,9 @@ public class AgendaFragment extends Fragment {
                     , 1
                     ,map.get(i).get("vdourl").toString()
                     , 0
-                    ,map.get(i).get("title").toString());
+                    ,map.get(i).get("title").toString()
+						  ,map.get(i).get("vdoPhotourl").toString()
+					);
 
             //暂定内容，参数....购买人数,布局,头像,是否显示红点,标题
             //头像和内容壁纸需要在适配器以二进制转为图片
@@ -242,7 +246,7 @@ public class AgendaFragment extends Fragment {
                 items = null;
                 items = group[i].split("\\#");
                 //group[i] =  "name # ps # imageString
-                addTextToList(items[0], 0, "android.R.drawable.ic_lock_lock", 0, "name");
+               // addTextToList(items[0], 0, "android.R.drawable.ic_lock_lock", 0, "name");
             }
 
         if (phones != null)
@@ -250,7 +254,7 @@ public class AgendaFragment extends Fragment {
                 items = null;
                 items = group[i].split("\\#");
 
-                addTextToList(items[0], 0, "android.R.drawable.ic_lock_lock", 0, "name");
+                //addTextToList(items[0], 0, "android.R.drawable.ic_lock_lock", 0, "name");
             }
 
     }
