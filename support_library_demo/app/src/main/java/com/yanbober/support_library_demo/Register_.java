@@ -59,10 +59,10 @@ public class Register_ extends AppCompatActivity {
                         JSONObject JS=(JSONObject)msg.obj;
                             User.phone=JS.getString("phone");
                         User._id=JS.getString("_id");
-                        Intent intent = new Intent(Register_.this, MainActivity.class);
-                        startActivity(intent);
-                       // finish();
-
+                        Intent intent = new Intent(Register_.this, Register_sucess_Message_.class);
+                       startActivity(intent);
+                      finish();
+						
                     }else
                     {
                         //注册失败

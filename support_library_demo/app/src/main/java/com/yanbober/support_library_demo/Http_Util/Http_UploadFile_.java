@@ -53,6 +53,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import org.json.*;
 
 
 /**
@@ -196,6 +197,7 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
         switch (Integer.parseInt(connectType)) {
             case 0:
                 //注册
+				register_type(url,data);
                 break;
             case 1:
                 //登录
@@ -584,17 +586,17 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
 
 
             //如果返回的是error
-            jsonArray = new JSONArray(str);
+            jsonObject = new JSONObject(str);
 
             Bundle bundle = new Bundle();
             Message msg = new Message();
-            msg.obj = jsonArray;
+            msg.obj = jsonObject;
             msg.what = 0;
             bundle.putString("?", "注册成功");
             msg.setData(bundle);
             handler.sendMessage(msg);
         } catch (JSONException e) {
-            View_One view_one = new View_One(login, str);
+            //View_One view_one = new View_One(login, str);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,11 +1,11 @@
 package com.yanbober.support_library_demo;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.content.*;
+import android.os.*;
+import android.support.annotation.*;
+import android.support.v7.app.*;
+import android.view.*;
+import android.widget.*;
 
 /**
  * Created by cat6572325 on 16-11-12.
@@ -24,6 +24,8 @@ public class Register_sucess_Message_ extends AppCompatActivity {
         Complete_Finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+				Intent intent=new Intent(Register_sucess_Message_.this,Login_.class);
+				startActivity( intent);
                 finish();
             }
         });
