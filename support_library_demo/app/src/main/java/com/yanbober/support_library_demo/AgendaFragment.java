@@ -1,41 +1,18 @@
 package com.yanbober.support_library_demo;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputLayout;
+import android.annotation.*;
+import android.app.*;
+import android.content.*;
+import android.os.*;
+import android.support.annotation.*;
+import android.support.v4.app.*;
+import android.support.v7.widget.*;
+import android.view.*;
+import android.widget.*;
+import com.yanbober.support_library_demo.Http_Util.*;
+import java.util.*;
+
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Base64;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
-
-import com.yanbober.support_library_demo.Http_Util.Get_LastData_Util;
-import com.yanbober.support_library_demo.Http_Util.Http_UploadFile_;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * Author       : yanbo
@@ -90,18 +67,27 @@ public class AgendaFragment extends Fragment {
         mRecyclerView.setAdapter(adapter);
         // ebent.Onebent("aaaaaaaaaaaaaaaa");
         initView();
-        adapter.setmOnItemClickListener(new FirstAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClickListener(View view, int position) {
-                Toast.makeText(getActivity(), position + "========Click:", Toast.LENGTH_SHORT).show();
-            }
+        adapter.setOnClickListener(new FirstAdapter.OnItemClickListener() {
+				@Override
+				public void onItemClickListener(View view, int position) {
+					Toast.makeText(getActivity(), position + "========Click:", Toast.LENGTH_SHORT).show();
+					//跳往Run_Video_播放视频
+					Intent intent =new Intent(getContext(),Run_Video_.class);
+					Bundle bundle=new Bundle();
+					bundle.putString("count",String.valueOf(position));
+					bundle.putString("url",user.maps.get(position).get("vdourl").toString());
+					//count是为了定位到一开始时保存的视频列表中某一个视频的数据
+					intent.putExtras(bundle);
+					startActivity(intent);
 
-            @Override
-            public void onItemLongClickListener(View view, int position) {
-                Toast.makeText(getActivity(), position + "+++++++++LongClick:", Toast.LENGTH_LONG).show();
+				}
 
-            }
-        });
+				@Override
+				public void onItemLongClickListener(View view, int position) {
+					Toast.makeText(getActivity(), position + "+++++++++LongClick:", Toast.LENGTH_LONG).show();
+
+				}
+			});
         //TODO 上拉加载更多
 
 	/*	mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {

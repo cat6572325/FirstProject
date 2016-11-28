@@ -10,14 +10,13 @@ package com.yanbober.support_library_demo;
 
 
 import android.content.*;
-import android.graphics.*;
 import android.os.*;
 import android.support.v7.app.*;
+import android.util.*;
 import android.view.*;
 import android.view.View.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
-
 import java.util.*;
 
 import android.view.View.OnClickListener;
@@ -42,7 +41,7 @@ public class Setting_ extends AppCompatActivity {
 
     public void initView() {
         rl = (ListView) this.findViewById(R.id.tRecyclerView1);
-        addTextToList(user.name, "昵称", 0, R.drawable.home, 0);
+        addTextToList(user.mydata.get("nickname").toString(), "昵称", 0, R.drawable.home, 0);
 
         addTextToList("分割贱", "没有", 1, R.drawable.fab_bg_normal, 0);
 
@@ -75,9 +74,7 @@ public class Setting_ extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             //	dialog.dismiss();
                             //login
-                            Intent intent=new Intent(Setting_.this,Set_Pay_pwd_.class);
-                            startActivity(intent);
-                            finish();
+						
 
                         }
                         //设置你的操作事项

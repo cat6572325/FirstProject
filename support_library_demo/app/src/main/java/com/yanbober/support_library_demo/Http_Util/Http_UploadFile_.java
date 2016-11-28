@@ -1,58 +1,12 @@
 package com.yanbober.support_library_demo.Http_Util;
 
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-import android.system.ErrnoException;
-import android.util.Log;
-import android.widget.Toast;
-
-import com.squareup.okhttp.Headers;
-import com.squareup.okhttp.MultipartBuilder;
-import com.yanbober.support_library_demo.Login_;
-import com.yanbober.support_library_demo.MainActivity;
-import com.yanbober.support_library_demo.Message_S.View_One;
-import com.yanbober.support_library_demo.Modify_Password_;
-import com.yanbober.support_library_demo.Pop_Img;
-import com.yanbober.support_library_demo.Register_;
-import com.yanbober.support_library_demo.Round_Video_;
-
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOError;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import cn.edu.zafu.coreprogress.helper.ProgressHelper;
-import cn.edu.zafu.coreprogress.listener.ProgressRequestListener;
-import cn.edu.zafu.coreprogress.listener.impl.UIProgressRequestListener;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+import android.os.*;
+import android.util.*;
+import com.yanbober.support_library_demo.*;
+import com.yanbober.support_library_demo.Message_S.*;
+import java.io.*;
+import java.util.*;
+import okhttp3.*;
 import org.json.*;
 
 
@@ -86,21 +40,22 @@ public class Http_UploadFile_ implements Runnable {
     File file;
     String sendMethod;
     public String url;
-    String connectType = null, data = null;
+    String connectType = null, data = null ,token=null;
     Register_ regis;
     Login_ login;
     Round_Video_ round_video_;
     Modify_Password_ p;
     MainActivity MA = null;
     HashMap<String, Object> maphttp = null;
-
+	View_One view_one;
     private final static String LINEND = "\r\n";
     private final static String BOUNDARY = "---------------------------7da2137580612"; //数据分隔线
     private final static String PREFIX = "--";
     private final static String MUTIPART_FORMDATA = "multipart/form-data";
     private final static String CHARSET = "utf-8";
     private final static String CONTENTTYPE = "application/octet-stream";
-
+	User user=new User();
+	
     public Http_UploadFile_(Handler handler, File file, String url, String connectType, String Data) {
         this.handler = handler;
         this.file = file;
@@ -206,10 +161,7 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
                     login_type(url, data);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    View_One view_one = new View_One(login, e.toString());
-                }
+                } 
 
                 break;
             case 2:
@@ -244,11 +196,9 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
                 break;
             case 8:
                 //查找个人信息
-                try {
+                
                     CheckData(url);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+               
 
                 break;
             case 9:
@@ -514,7 +464,7 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
 
     }
 
-    public void login_type(String url, String json) throws InterruptedException, IOException {
+    public void login_type(String url, String json) throws InterruptedException {
         OkHttpClient htt;
         String[] strs = json.split("\\|");
         JSONObject jsonObject = null;
@@ -542,7 +492,9 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
             str = response.body().string();
             //如果返回的是error
             jsonArray = new JSONArray(str);
-
+		
+			jsonObject=jsonArray.getJSONObject(0);
+			token=jsonObject.getString("token");
             Bundle bundle = new Bundle();
             Message msg = new Message();
             msg.obj = jsonArray;
@@ -552,9 +504,21 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
             handler.sendMessage(msg);
         } catch (JSONException e) {
             e.printStackTrace();
-            View_One view_one = new View_One(login, str);
+             try {
+				jsonObject = new JSONObject(str);
+				
+				 view_one = new View_One(login, jsonObject.getString("error"));
+				 view_one.viewcreate();
+				
+					
+				
+			}
+			catch (JSONException er) {}
 
-        }
+        }catch( IOException e)
+		{
+			
+		}
     }
 
     public void register_type(String url, String json) {
@@ -578,7 +542,7 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
             response = client.newCall(request).execute();
         } catch (IOException e) {
 
-            View_One view_one = new View_One(regis, e.toString());
+            //View_One view_one = new View_One(regis, e.toString());
         }
         try {
             if (!response.isSuccessful()) throw new IOException();
@@ -587,14 +551,33 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
 
             //如果返回的是error
             jsonObject = new JSONObject(str);
-
-            Bundle bundle = new Bundle();
-            Message msg = new Message();
-            msg.obj = jsonObject;
-            msg.what = 0;
-            bundle.putString("?", "注册成功");
-            msg.setData(bundle);
-            handler.sendMessage(msg);
+			//  "nickname" : ${nickname},    //昵称(String)
+			//  "paypassword" : ${paypassword},    //支付密码(String)
+			// "balance" : ${balance},    //余额(Number)
+			//"notices" : ${notices},    //通知(String)  [存的只是通知id]
+			//"collects" : ${collects}    //收藏(String)  [存的只是收藏id]
+			//                                                   MainActivity,       handler,  url,connectType,token,data) {
+				try{
+				if(jsonObject.getString("error").equals("该手机号已被使用过"))
+					{
+							view_one= new View_One(regis, jsonObject.getString("error"));
+			
+							view_one.viewcreate();
+						
+					}
+					}catch(JSONException e)
+					{
+						Bundle bundle = new Bundle();
+						Message msg = new Message();
+						msg.obj = jsonObject;
+						msg.what = 0;
+						bundle.putString("?", "注册成功");
+						msg.setData(bundle);
+						handler.sendMessage(msg);
+						
+					}
+			
+			
         } catch (JSONException e) {
             //View_One view_one = new View_One(login, str);
         } catch (IOException e) {
@@ -604,7 +587,7 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
 
     }
 
-    public void adddata_type(String url, String json) {
+    public void adddata_type(String urladdtype, String json) {
         OkHttpClient htt;
         String[] strs = json.split("\\|");
         JSONObject jsonObject = null;
@@ -626,34 +609,43 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
                     .build();
 
             Request request = new Request.Builder()
-                    .url(url)
+                    .url(urladdtype)
                     .post(formBody)
                     .build();
 
             Response response = client.newCall(request).execute();
-            if (!response.isSuccessful()) throw new IOException(str = response.body().toString());
-            if (str == null) {
-                try {
+            if (!response.isSuccessful()) throw new IOException();
+			
+			str = response.body().string();
+			try {
+				jsonObject = new JSONObject(str);
+			if(jsonObject.getString("error").equals("昵称已存在，请重命名"))
+			{
+				
+				
+			}
+				
+				Log.e("添加个人信息",str);
+				view_one=new View_One(login,str);
+				
+			}
+			catch (JSONException e) {
+				str = "请求成功";
+				Log.e("添加个人信息",e.toString());
+				view_one=new View_One(login,e.toString());
+				
+			}
 
-                    jsonArray = new JSONArray(response.body().string());
-                } catch (JSONException e) {
+                
 
-                    str = "添加成功";
-                    Bundle bundle = new Bundle();
-                    Message msg = new Message();
-                    bundle.putString("?", str);
-                    //  msg.what=
-                    msg.setData(bundle);
-                    //   handler.sendMessage(msg);
-                    //登录
-
-                }
-
-            }
+            
 
 
         } catch (IOException e) {
             e.printStackTrace();
+			view_one=new View_One(login,e.toString());
+			
+			
         } finally {
 
 
@@ -704,43 +696,65 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
         }
     }
 
-    private void CheckData(String url) throws IOException {
+    private void CheckData(String url)  {
         OkHttpClient htt;
         Response response;
         JSONObject jsonObject = null;
         JSONArray jsonArray = null;
-        String str = null;
-
+        String str1 = null;
+try{
         Request request = new Request.Builder().url(url).build();
 
         response = client.newCall(request).execute();
-        if (!response.isSuccessful()) throw new IOException(str = response.body().toString());
-        if (str == null) {
+		//Log.e("add",response.body().string());
+      //  if (response.isSuccessful())
+	str1=response.body().string();
             Bundle bundle;
             Message msg = null;
-            try {
-
-                jsonObject = new JSONObject(response.body().string());
+           try {
+				if(str1.equals("null"))
+				{
+						//String strss=user.token;
+		adddata_type("http://trying-video.herokuapp.com/user/information?token=" 
+						 + user.token
+						 , "新用户"+System.currentTimeMillis() + "||0|0|0");
+			//暂时没有用户填写资料的界面就先设置默认了
+			
+			}else{
+				
+               jsonObject = new JSONObject(str1);
+			   if(jsonObject.getString("error").equals("个人信息获取失败"))
+				   
+				   {
+					   
+					   adddata_type("http://trying-video.herokuapp.com/user/information?token=" 
+									+ user.token
+									, "新用户"+System.currentTimeMillis() + "||0|0|0");
+					   //暂时没有用户填写资料的界面就先设置默认了
+					   
+				   }
+                
+				}
+           } catch (JSONException e) {
+				
+                  jsonObject = new JSONObject(str1);
                 bundle = new Bundle();
                 msg = new Message();
                 bundle.putString("?", "获取成功");
-
                 msg.obj = jsonObject;
                 msg.what = 5;
                 msg.setData(bundle);
-                handler.sendMessage(msg);
-            } catch (JSONException e) {
-
-                //  jsonArray = new JSONArray(response.body().string());
-                bundle = new Bundle();
-                msg = new Message();
-                bundle.putString("?", "获取失败");
-                msg.obj = jsonArray;
-                msg.what = 5;
-                msg.setData(bundle);
-                handler.sendMessage(msg);
-            }
-        }
+               handler.sendMessage(msg);
+           }
+        
+		
+}catch(IOException e)
+{
+	
+}catch(JSONException e)
+{
+	
+}
 
 
     }

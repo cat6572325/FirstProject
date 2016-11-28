@@ -8,28 +8,16 @@ package com.yanbober.support_library_demo;
  */
 
 
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.Snackbar;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.*;
+import android.app.*;
+import android.content.*;
 import android.graphics.*;
 import android.os.*;
-
-import com.yanbober.support_library_demo.Http_Util.Http_UploadFile_;
-import com.yanbober.support_library_demo.Http_Util.http_thread_;
-
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
+import android.support.design.widget.*;
+import android.util.*;
+import android.view.*;
+import android.view.ViewGroup.*;
+import android.widget.*;
+import com.yanbober.support_library_demo.Http_Util.*;
 import java.util.*;
 
 public class Pop_Img extends Dialog {
@@ -63,12 +51,13 @@ public class Pop_Img extends Dialog {
         private View contentView;
         Bitmap btm;
         String ERror=null;
+		
 
         final User user=new User();
         boolean red = true;
         boolean green = true;
         ImageView miusic, voice;
-        TextView miusict, voicet,collect_paid_text,error_Text;
+        TextView miusict, voicet,collect_paid_text,error_Text,Paid_pwd_text;
         File_with_ file_with;
 
         private DialogInterface.OnClickListener positiveButtonClickListener;
@@ -310,6 +299,13 @@ public class Pop_Img extends Dialog {
                     Set_Pay_Pwd_sure = (Button) layout.findViewById(R.id.enterpaypwddlgButton1);
                     Set_Pay_Pwd_cancel = (Button) layout.findViewById(R.id.enterpaypwddlgButton2);
                     Pay_pwd = (EditText) layout.findViewById(R.id.Pay_Pwd_Edit);
+					Paid_pwd_text=(TextView)layout.findViewById(R.id.paid_pwd_text);
+							if(user.mydata.get("paypassword").toString().equals(""))
+							{
+							Paid_pwd_text.setText("未设置支付密码");
+							Set_Pay_Pwd_sure.setText("马上填写");
+							Pay_pwd.setEnabled(false);
+							}
                     Set_Pay_Pwd_sure.setOnClickListener(new View.OnClickListener() {
 
                         @Override
@@ -319,7 +315,32 @@ public class Pop_Img extends Dialog {
                                     DialogInterface.BUTTON_POSITIVE);
                             //将点击事件传出去
 
-                            Snackbar.make(view, "you press key for sure  " + Pay_pwd.getText().toString(), Snackbar.LENGTH_SHORT).show();
+                            Log.e("PaidWord", user.mydata.get("paypassword").toString());//.equals("0"))
+							if(user.mydata.get("paypassword").toString()!=null)
+							{
+								if(Pay_pwd.getText().toString().equals(user.mydata.get("paypassword").toString()))
+								{//如果支付密码有且配对成功
+									Intent intent=new Intent(setting_,Set_Pay_pwd_.class);
+									setting_.startActivity(intent);
+									setting_.
+									finish();
+									dialog.dismiss();
+									
+								}else
+								{
+									
+									Snackbar.make(view, "you press key for sure  ,But it's error" + Pay_pwd.getText().toString(), Snackbar.LENGTH_SHORT).show();
+									
+								}
+								
+							}else
+							{//设置支付密码
+							
+								}
+
+
+
+                            
                         }
 
 
@@ -329,6 +350,7 @@ public class Pop_Img extends Dialog {
                         @Override
                         public void onClick(View view) {
                             Snackbar.make(view, "you press key for cancel  " + Pay_pwd.getText().toString(), Snackbar.LENGTH_SHORT).show();
+							dialog.dismiss();
                         }
                     });
 

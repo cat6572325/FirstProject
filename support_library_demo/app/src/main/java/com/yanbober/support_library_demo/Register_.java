@@ -183,12 +183,12 @@ public class Register_ extends AppCompatActivity {
                     break;
                 case R.id.pas_key:
                     pass=s.length();
-                    if (s.length() <8 && s.length()>20) {
+                    if (s.length() <8) {
                         til1.setErrorEnabled(true);
                         til1.setError("密码必须大于8位小于20");
                         Register_Enter.setVisibility(View.INVISIBLE);
                     }else
-                    if (phones>8) {
+                    if (phones>10) {
                         til.setErrorEnabled(false);
                         Register_Enter.setVisibility(View.VISIBLE);
                     }

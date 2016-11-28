@@ -737,28 +737,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 		//  x.start();
     }
 
-//初始化信息
-    public void addData() {
-        //数据库操作
-        dataserver = new DataHelper(MainActivity.this);
-        str1 = dataserver.readData("flag|").split("\\|");
-        //  "nickname" : ${nickname},    //昵称(String)
-        //  "paypassword" : ${paypassword},    //支付密码(String)
-        // "balance" : ${balance},    //余额(Number)
-        //"notices" : ${notices},    //通知(String)  [存的只是通知id]
-        //"collects" : ${collects}    //收藏(String)  [存的只是收藏id]
-        //                                                   MainActivity,       handler,  url,connectType,token,data) {
-		Http_UploadFile_ http_uploadFile_=new Http_UploadFile_(MainActivity.this
-															   , mHandler
-															   , "http://trying-video.herokuapp.com/user/information?token=" + str1[4]
-															   , "7"
-															   , str1[4]
-															   , str1[1] + "||0|0|0");
-        Thread x=new Thread(http_uploadFile_);
-        x.start();
 
-
-    }
     public void CheckData() {
         //数据库操作
         dataserver = new DataHelper(MainActivity.this);
@@ -791,7 +770,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 															   , str1[4]
 															   , str1[1] + "||0|0|0");
         Thread x=new Thread(http_uploadFile_);
-        x.start();
+    //    x.start();
 
     }
 

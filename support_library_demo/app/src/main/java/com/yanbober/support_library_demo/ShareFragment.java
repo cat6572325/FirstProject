@@ -1,18 +1,14 @@
 package com.yanbober.support_library_demo;
 
+import android.content.*;
 import android.os.*;
 import android.support.annotation.*;
 import android.support.v4.app.*;
 import android.support.v7.widget.*;
 import android.view.*;
-
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.*;
 import android.widget.*;
 import com.yanbober.support_library_demo.Http_Util.*;
-import com.yanbober.support_library_demo.Custom.RoundProgressBar;
+import java.util.*;
 /**
  * Author       : yanbo
  * Date         : 2015-06-01
@@ -86,14 +82,36 @@ public class ShareFragment extends Fragment {
 		ThreadEx ex = new ThreadEx((MainActivity) getActivity(), "getshare");
 		Thread x = new Thread(ex);
 		//x.start();
-		mRecyclerView.setOnScrollListener(new OnRcvScrollListener(){
+		adapter.setOnClickListener(new FirstAdapter.OnItemClickListener() {
+				@Override
+				public void onItemClickListener(View view, int position) {
+					Toast.makeText(getActivity(), position + "========Click:", Toast.LENGTH_SHORT).show();
+					//跳往Run_Video_播放视频
+					Intent intent =new Intent(getContext(),Run_Video_.class);
+					Bundle bundle=new Bundle();
+					bundle.putString("count",String.valueOf(position));
+					bundle.putString("url",user.maps.get(position).get("vdourl").toString());
+					//count是为了定位到一开始时保存的视频列表中某一个视频的数据
+					intent.putExtras(bundle);
+					startActivity(intent);
+
+				}
+
+				@Override
+				public void onItemLongClickListener(View view, int position) {
+					Toast.makeText(getActivity(), position + "+++++++++LongClick:", Toast.LENGTH_LONG).show();
+
+				}
+			});
+		
+	/*	mRecyclerView.setOnScrollListener(new OnRcvScrollListener(){
 			@Override
 			public void onBottom() {
 				super.onBottom();
 				// 到底部自动加载
 				Toast.makeText(getContext(),"last",Toast.LENGTH_LONG).show();
 			}
-		});
+		});*/
 initView();
 
     }

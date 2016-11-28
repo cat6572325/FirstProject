@@ -8,10 +8,16 @@ import android.widget.Toast;
  * Created by cat6572325 on 16-11-25.
  */
 public class View_One {
+	Context con;String data;
     public View_One(Context context,String Message)
     {
-        Looper.prepare();
-        Toast.makeText(context,Message,Toast.LENGTH_LONG).show();
-        Looper.loop();
+       this.con=context;
+	   this.data=Message;
     }
+	public void viewcreate()
+	{
+		Looper.prepare();
+        Toast.makeText(con,data,Toast.LENGTH_LONG).show();
+        Looper.loop();
+	}
 }

@@ -33,6 +33,7 @@ public class Balance_ extends AppCompatActivity
 	private ViewPager mViewPager;
 	ListView rl;
 	MyChatAdapter ladapter;
+	TextView balances=null;
 	int[] layout={R.layout.left_list_item,R.layout.line_item};
 	User user=new User();
 	public ArrayList<HashMap<String,Object>> lists=new ArrayList<HashMap<String,Object>>();
@@ -45,6 +46,8 @@ public class Balance_ extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.balance_layout);
 		exlv=(ExpandableListView)findViewById(R.id.balance_layoutExpandableListView);
+		balances=(TextView)findViewById(R.id.balance_layoutTextView);
+		balances.setText(user.mydata.get("balance").toString());
 		groups=new String[2];
 		alist=new ArrayList<String>();
 		alist.add("卧槽");
