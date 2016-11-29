@@ -10,6 +10,8 @@ package com.yanbober.support_library_demo;
 
 
 import android.content.*;
+import android.graphics.*;
+import android.net.*;
 import android.os.*;
 import android.support.v7.app.*;
 import android.util.*;
@@ -17,13 +19,18 @@ import android.view.*;
 import android.view.View.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
+import java.io.*;
+import java.net.*;
 import java.util.*;
 
 import android.view.View.OnClickListener;
 
 public class Setting_ extends AppCompatActivity {
     ListView rl;
+	
+	
     MyChatAdapter ladapter;
+	XCRoundImageView headImg=null;
     User user=new User();
     int[] layout = {R.layout.setting_list_item, R.layout.line_item};
 
@@ -41,6 +48,27 @@ public class Setting_ extends AppCompatActivity {
 
     public void initView() {
         rl = (ListView) this.findViewById(R.id.tRecyclerView1);
+		headImg=(XCRoundImageView)this.findViewById(R.id.drawer_headerImageView);
+		headImg.setOnClickListener(new OnClickListener()
+		{
+			public void onClick(View v)
+			{
+				Intent intent=new Intent(Setting_.this,SimpleActivity.class);
+				startActivity(intent);
+				/*Intent intent = new Intent();
+				if (Build.VERSION.SDK_INT < 19) {//因为Android SDK在4.4版本后图片action变化了 所以在这里先判断一下
+					intent.setAction(Intent.ACTION_GET_CONTENT);
+				} else {
+					intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+				}
+				intent.setType("image/*");
+				intent.addCategory(Intent.CATEGORY_OPENABLE);
+				startActivityForResult(intent, 1);
+				
+			}*/
+			}
+		});
+		
         addTextToList(user.mydata.get("nickname").toString(), "昵称", 0, R.drawable.home, 0);
 
         addTextToList("分割贱", "没有", 1, R.drawable.fab_bg_normal, 0);
@@ -89,7 +117,56 @@ public class Setting_ extends AppCompatActivity {
         });
 
     }
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		// TODO: Implement this method
+		super.onActivityResult(requestCode, resultCode, data);
 
+		String str=null;
+			if(requestCode==1)
+			{//file
+			if(data!=null)
+			{
+				str = data.getDataString();
+				Uri uri=data.getData();
+					String pathimg = FileUtils.getUriPath(this, uri); //（因为4.4以后图片uri发生了变化）通过文件工具类 对uri进行解析得到图片路径
+					Log.e("pathimg",pathimg);
+				try{
+					String datasfile = URLDecoder.decode(str,"UTF-8");   //因为Linux编码为utf-8,这样以后可以得到正确的路径
+					Log.e("选择头像",str);
+				String sg=datasfile.substring(datasfile.lastIndexOf("0/") + 1,datasfile.length());
+				File f=new File(pathimg);//"/sdcard"+sg);
+				//File[] fl=f.listFiles();
+				ContentResolver cr = this.getContentResolver();
+					//headImg.setImageURI(Uri.fromFile(f));
+
+					//headImg.setScaleType(ScaleType.FIT_XY);
+
+				
+				
+					Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(Uri.fromFile(f)));
+				//Bitmap b= toRoundBitmap(bitmap);
+					headImg.setImageBitmap(bitmap);
+					
+					
+					//fb.setImageBitmap(bitmap);
+					//ByteArrayOutputStream baos = new ByteArrayOutputStream(); //读取图片到ByteArrayOutputStream 
+					//bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos); 
+					//byte[] bytes = baos.toByteArray();
+					//String str=Base64.encodeToString(bytes, Base64.DEFAULT);
+					
+
+				}
+				catch (FileNotFoundException e)
+				{
+					Log.e("Setting",e.toString());
+				}
+			catch (UnsupportedEncodingException e) {}   //因为Linux编码为utf-8,这样以后可以得到正确的路径
+			}
+	}
+	}
+	
     public void addTextToList(String text, String name, int who, int id, int isarrow) {
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("who", who);
@@ -146,8 +223,8 @@ public class Setting_ extends AppCompatActivity {
             public ImageView imageView = null;
             public TextView textView = null;
             public String title;
-            private ImageView i_icon, i_icon2;
-            public TextView name = null, data = null, flag;
+            private ImageView i_icon, i_icon2,flag;
+            public TextView name = null, data = null;
         }
         ////////////
 
@@ -165,7 +242,7 @@ public class Setting_ extends AppCompatActivity {
                             layout[who], null);
                     holder.name = (TextView) convertView.findViewById(R.id.settinglistitemTextView1);
                     holder.data = (TextView) convertView.findViewById(R.id.settinglistitemTextView2);
-                    holder.flag = (TextView) convertView.findViewById(R.id.settinglistitemTextView3);
+                    holder.flag = (ImageView) convertView.findViewById(R.id.settinglistitemTextView3);
 
 
                     if ((Integer) chatList.get(position).get("isarrow") == 1) {//是否显示右边箭头

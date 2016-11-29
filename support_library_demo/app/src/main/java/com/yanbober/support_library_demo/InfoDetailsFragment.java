@@ -184,7 +184,7 @@ public interface OnActivityebent
     }
 public void Onebent(ArrayList<HashMap<String, Object>> maps)
 {//MainActivity接口
-   /* ArrayList<HashMap<String, Object>> map=maps;
+    ArrayList<HashMap<String, Object>> map=maps;
     for (int i = 0; i <map.size(); i++) {
         if (i==10) {return ;}
         //addTextToList("广东",1,android.R.drawable.ic_lock_lock,"ps","data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊");
@@ -199,7 +199,7 @@ public void Onebent(ArrayList<HashMap<String, Object>> maps)
         //暂定内容，参数....购买人数,布局,头像,是否显示红点,标题
         //头像和内容壁纸需要在适配器以二进制转为图片
     }
-    adapter.notifyDataSetChanged();*/
+    adapter.notifyDataSetChanged();
     //  addTextToList("uuu", 1, "android.R.drawable.ic_lock_lock", 0, "name");
    // Toast.makeText(getContext(),str1,Toast.LENGTH_LONG).show();
 

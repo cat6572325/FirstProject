@@ -1,12 +1,10 @@
 package com.yanbober.support_library_demo;
 
-import android.animation.*;
 import android.content.*;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
+import android.database.*;
+import android.database.sqlite.*;
 import android.graphics.*;
 import android.os.*;
-import android.provider.Telephony;
 import android.support.design.widget.*;
 import android.support.v4.app.*;
 import android.support.v4.view.*;
@@ -16,49 +14,23 @@ import android.support.v7.widget.*;
 import android.util.*;
 import android.view.*;
 import android.view.View.*;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
+import android.view.animation.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
-import android.support.design.widget.FloatingActionButton;
-
+import com.okhttplib.*;
+import com.okhttplib.annotation.*;
+import com.okhttplib.callback.*;
+import com.yanbober.support_library_demo.DataHelpers.*;
+import com.yanbober.support_library_demo.Http_Util.*;
+import com.yanbober.support_library_demo.Message_S.*;
 import java.io.*;
 import java.net.*;
-import java.sql.SQLDataException;
 import java.util.*;
+import org.json.*;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.view.View.OnClickListener;
-
-
-import com.okhttplib.HttpInfo;
-import com.okhttplib.OkHttpUtil;
-import com.okhttplib.OkHttpUtilInterface;
-import com.okhttplib.annotation.CacheLevel;
-import com.okhttplib.callback.CallbackOk;
-import com.okhttplib.callback.ProgressCallback;
-import com.yanbober.support_library_demo.DataHelpers.DataHelper;
-import com.yanbober.support_library_demo.Http_Util.Http_UploadFile_;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.Headers;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.MultipartBuilder;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
-import com.yanbober.support_library_demo.Http_Util.http_thread_;
-
-import cn.edu.zafu.coreprogress.helper.ProgressHelper;
-import cn.edu.zafu.coreprogress.listener.ProgressRequestListener;
-import cn.edu.zafu.coreprogress.listener.impl.UIProgressRequestListener;
-import okhttp3.ResponseBody;
 
 /**
  * 一个中文版Demo App搞定所有Android的Support Library新增所有兼容控件
@@ -75,9 +47,9 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
                     try {
                         //获取视频列表
                         if (bundle.getString("?").equals("获取失败")) {
-                            Looper.prepare();
-                            Toast.makeText(MainActivity.this, bundle.getString("!"), Toast.LENGTH_LONG).show();
-                            Looper.loop();
+                            View_One vv=new View_One(MainActivity.this,"视频列表获取失败");
+							vv.viewcreate();
+							
                         }
 						else {
                             JSONArray jsonArray = (JSONArray) msg.obj;
@@ -144,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
                 case 3:
 					//更新ui
 
-                    UpUI("null", (HashMap<String,Object>)msg.obj, "6");
+                  //  UpUI("null", (HashMap<String,Object>)msg.obj, "6");
 					break;
                 case 4:
 					ImageMessage(bundle.getString("?"));
@@ -543,8 +515,29 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 																 , "getvideos");
         Thread t=new Thread(http_uploadFile_);
 		t.start();
+		
+		Bundle bun=this.getIntent().getExtras();
+		//if (bun != null && bun.containsKey("isfirst"))
+		
+		http_uploadFile_=new Http_UploadFile_(
+			MainActivity.this
+		, mHandler
+				, "http://trying-video.herokuapp.com/user/information?token=" +user.token
+				, "7"
+		, "POST"
+				,  "新用户"+System.currentTimeMillis() + "||0|0|0"
+			);
+        Thread te=new Thread(http_uploadFile_);
+		te.start();
+			//暂时没有用户填写资料的界面就先设置默认了
+		
+		
+			//String str=bun.getString("isfirst");
+			//if(str.equals("0"))
+				CheckData();
 		//
-		CheckData();
+		
+		
 		//  CheckHead();
 		// http_thread_ htt=new http_thread_("http://trying-video.herokuapp.com/user/image?token=","/sdcard/DCIM/Camera/IMG_20160926_183708.jpg",mHandler);
 		// Thread b=new Thread(htt);
@@ -724,17 +717,17 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 
 		user.phone = str1[0];
 		user.pas = str1[1];
-		user.name = str1[2];
-
+		user.name = user.mydata.get("nickname").toString();
+		Log.e("main",user.mydata.get("nickname").toString());
+		Log.e("main",user.name);
+		
 
 
         //数据库操作
-        HashMap<String,Object> map=data;
-        String str= user.token;
-		//                                                   MainActivity,       handler,  url,connectType,token,data) {
-        Http_UploadFile_ http_uploadFile_=new Http_UploadFile_(MainActivity.this, mHandler, url, count, str1[4], map.get("name").toString());
+                             //                         MainActivity,       handler,  url,connectType,token,data) {
+        Http_UploadFile_ http_uploadFile_=new Http_UploadFile_(MainActivity.this, mHandler, url, count, str1[4], user.name);
         Thread x=new Thread(http_uploadFile_);
-		//  x.start();
+		  x.start();
     }
 
 
@@ -753,7 +746,9 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 															   , "http://trying-video.herokuapp.com/user/information/" + user._id
 															   , "8"
 															   , str1[4]
-															   , str1[1] + "||0|0|0");
+															   , str1[1] + "||0|0|0"
+															   
+															   );
         Thread x=new Thread(http_uploadFile_);
         x.start();
 

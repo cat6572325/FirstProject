@@ -1,25 +1,35 @@
 package com.yanbober.support_library_demo;
 
-import android.content.Intent;
-import android.media.Image;
+import android.content.*;
 import android.os.*;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.*;
 import android.support.v7.app.*;
 import android.support.v7.widget.*;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.util.*;
 import android.view.*;
-import android.view.View.*;
 import android.widget.*;
-
-import com.yanbober.support_library_demo.*;
+import java.util.*;
 
 import android.support.v7.widget.Toolbar;
-
-import java.util.HashMap;
+import com.yanbober.support_library_demo.Http_Util.*;
 
 public class Modify_Name_ extends AppCompatActivity {
+	
+	public Handler mHandler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            Bundle bundle=msg.getData();
+            switch (msg.what) {
+                case 0:
+                    Intent intent=new Intent(Modify_Name_.this,MainActivity.class);
+					   startActivity(intent);
+					 finish();
+					break;
+					}
+					}
+					};
+        
+						
+	
     //将ToolBar与TabLayout结合放入AppBarLayout
     private Toolbar mToolbar;
     User user=new User();
@@ -50,28 +60,43 @@ public class Modify_Name_ extends AppCompatActivity {
     public void onBackPressed() {
         //code......
 
+		if(!modify_e.getText().toString().equals(""))
+		{
         HashMap<String,Object> map=new HashMap<String,Object>();
         map.put("name",modify_e.getText().toString());
-
+		user.mydata.put("nickname",modify_e.getText().toString());
+			user.name=modify_e.getText().toString();
+			
         Message msg=new Message();
         Bundle bundle=new Bundle();
+			Log.e("modify_name",user.mydata.get("nickname").toString());
+			Http_UploadFile_ htt=new Http_UploadFile_(mHandler, "http://trying-video.herokuapp.com/user/nickname?token="+user.token, user.name, "6") ;
+			Thread x=new Thread(htt);
+			x.start();
+				
         msg.what=3;
         msg.obj=map;
 
      //   bundle.putString("nickname",str);
         msg.setData(bundle);
-        user.name=modify_e.getText().toString();
-        if (user.mainActivity!=null)
-            user.mainActivity.mHandler.sendMessage(msg);
-        if (user.my_video_!=null)
-            user.my_video_.mHandler.sendEmptyMessage(3);
-        if (user.collect_!=null)
-            user.collect_.mHandler.sendEmptyMessage(3);
-
-        Intent intent=new Intent(Modify_Name_.this,MainActivity.class);
-        startActivity(intent);
-        finish();
+//        if (user.mainActivity!=null)
+//            user.mainActivity.mHandler.sendMessage(msg);
+//        if (user.my_video_!=null)
+//            user.my_video_.mHandler.sendEmptyMessage(3);
+//        if (user.collect_!=null)
+//            user.collect_.mHandler.sendEmptyMessage(3);
+//
+     //   Intent intent=new Intent(Modify_Name_.this,MainActivity.class);
+     //   startActivity(intent);
+      //  finish();
         //结束activity防止无限退回
+		}
+		else
+		{
+			Intent intent=new Intent(Modify_Name_.this,MainActivity.class);
+			startActivity(intent);
+			finish();
+		}
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -112,8 +112,10 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
             , String url
             , String connectType
             , String token
-            , String data) {
+            , String data
+			) {
         this.MA = regis;
+		
         this.handler = handler;
         this.sendMethod = token;
         this.url = url;
@@ -188,7 +190,8 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
                 break;
             case 6:
                 //修改昵称
-                Modify_name_PATCH("http://192.168.1.112:1103/user/nickname?token=" + sendMethod, data);
+                Modify_name_PATCH(url,sendMethod); //"http://192.168.1.112:1103/user/nickname?token=" + sendMethod, data);
+				
                 break;
             case 7:
                 //添加信息
@@ -375,10 +378,10 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
     public void Modify_name_PATCH(String url, String data) {
         JSONObject jsonObject = null;
         String breakStr = null;
-        String[] strs = data.split("\\|");
+     //   String[] strs = data.split("\\|");
         try {
             RequestBody formBody = new FormBody.Builder()
-                    .add("nickname", strs[0])
+                    .add("nickname", data)
                     .build();
             Request request = new Request.Builder()
                     .url(url)
@@ -407,7 +410,7 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
             //绑定一个数据集，显示成功与否
             msg.obj = jsonObject;
             //将一个JSON的对象发送
-            msg.what = 4;
+            msg.what = 0;
             msg.setData(bundle);
             handler.sendMessage(msg);
             //System.out.println(response.body().string());
@@ -632,6 +635,7 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
 			catch (JSONException e) {
 				str = "请求成功";
 				Log.e("添加个人信息",e.toString());
+				
 				view_one=new View_One(login,e.toString());
 				
 			}
@@ -702,8 +706,11 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
         JSONObject jsonObject = null;
         JSONArray jsonArray = null;
         String str1 = null;
-try{
+		try{
+
         Request request = new Request.Builder().url(url).build();
+
+	
 
         response = client.newCall(request).execute();
 		//Log.e("add",response.body().string());
@@ -715,25 +722,23 @@ try{
 				if(str1.equals("null"))
 				{
 						//String strss=user.token;
-		adddata_type("http://trying-video.herokuapp.com/user/information?token=" 
-						 + user.token
-						 , "新用户"+System.currentTimeMillis() + "||0|0|0");
-			//暂时没有用户填写资料的界面就先设置默认了
-			
+		
 			}else{
 				
                jsonObject = new JSONObject(str1);
 			   if(jsonObject.getString("error").equals("个人信息获取失败"))
-				   
+				  
 				   {
 					   
-					   adddata_type("http://trying-video.herokuapp.com/user/information?token=" 
-									+ user.token
-									, "新用户"+System.currentTimeMillis() + "||0|0|0");
-					   //暂时没有用户填写资料的界面就先设置默认了
 					   
 				   }
-                
+                if(jsonObject.getString("error").equals("个人信息已存在，保存失败"))
+
+				{
+
+
+				}
+				   
 				}
            } catch (JSONException e) {
 				

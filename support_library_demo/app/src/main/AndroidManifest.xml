@@ -76,7 +76,11 @@
 			android:label="knight of Mordred"></activity>
 		<activity android:name=".Register_"
 			android:label="knight of Ector"></activity>
-
+		<activity android:name=".ResultActivity"
+			android:label="knight of Ector"></activity>
+		<activity android:name=".SimpleActivity"
+			android:label="knight of Ector"></activity>
+		
 
 		<activity android:name=".SubActivity"
             android:label="工匠若水详情"></activity>
