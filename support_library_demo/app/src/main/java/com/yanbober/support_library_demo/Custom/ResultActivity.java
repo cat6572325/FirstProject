@@ -9,7 +9,6 @@ import com.jph.takephoto.model.*;
 import com.yanbober.support_library_demo.*;
 import java.io.*;
 import java.util.*;
-
 public class ResultActivity extends Activity {
     ArrayList<TImage>images;
     @Override

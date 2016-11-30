@@ -63,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
                                 map.put("title", jsonObject.getString("title"));
                                 map.put("price", jsonObject.getString("price"));
                                 map.put("_id", jsonObject.getString("_id"));
+								user.vid=null;
+								user.vid=jsonObject.getString("_id");
                                 map.put("uploader", jsonObject.getString("uploader"));
                                 map.put("introduction", jsonObject.getString("introduction"));
                                 map.put("vdourl", jsonObject.getString("vdourl"));

@@ -32,12 +32,11 @@ dependencies {
     compile files('libs/okhttp-2.7.2.jar')
     compile 'com.github.zhaokaiqiang.okhttpplus:library:1.0.0'
 compile 'com.jph.takephoto:takephoto_library:4.0.1'
-    compile 'cn.edu.zafu:coreprogress:0.0.1'
-
-
+   
     compile 'com.zhousf.lib:okhttp3:2.5'
-
-
+compile 'com.zcy:selectpicture:1.0.0'
+compile 'cn.edu.zafu:coreprogress:0.0.3'
+compile 'com.zhy:okhttputils:2.6.2'//下载管理和上传管理扩展，根据需要添加
 }
 	
 

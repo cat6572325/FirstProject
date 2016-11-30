@@ -19,6 +19,9 @@ import android.view.*;
 import android.view.View.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
+import com.bumptech.glide.*;
+import com.jph.takephoto.model.*;
+import com.yanbober.support_library_demo.Http_Util.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -26,6 +29,13 @@ import java.util.*;
 import android.view.View.OnClickListener;
 
 public class Setting_ extends AppCompatActivity {
+	
+	public Handler mHandler = new Handler() {
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+					}
+					}
+					};
     ListView rl;
 	
 	
@@ -43,7 +53,8 @@ public class Setting_ extends AppCompatActivity {
         // TODO: Implement this method
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setting_);
-        initView();
+      //  initView();
+	
     }/////onCreate
 
     public void initView() {
@@ -53,7 +64,7 @@ public class Setting_ extends AppCompatActivity {
 		{
 			public void onClick(View v)
 			{
-				Intent intent=new Intent(Setting_.this,SimpleActivity.class);
+					Intent intent=new Intent(Setting_.this,SimpleActivity.class);
 				startActivity(intent);
 				/*Intent intent = new Intent();
 				if (Build.VERSION.SDK_INT < 19) {//因为Android SDK在4.4版本后图片action变化了 所以在这里先判断一下
@@ -67,8 +78,66 @@ public class Setting_ extends AppCompatActivity {
 				
 			}*/
 			}
-		});
-		
+			});
+			Bundle bun=this.getIntent().getExtras();
+		if(bun!=null&&bun.containsKey("images"))
+		{
+			ArrayList<TImage>images;
+			//String str=bun.getString("image");
+			HashMap<String,Object> data=new HashMap<String,Object>();
+			data.put("count",1);
+			images= (ArrayList<TImage>) getIntent().getSerializableExtra("images");
+			Bitmap b=null;//(Bitmap)images.get(0);
+			
+			//Glide.with(this).load(new File(images.get(images.size() - 1).getPath())).asBitmap(b);
+			File f=new File(images.get(images.size() - 1).getPath());
+			ContentResolver cr = this.getContentResolver();
+			
+File dirFile;
+
+			try
+			{
+				Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(Uri.fromFile(f)));
+			dirFile = new File("/sdcard/newbitmap.png");  
+				if(!dirFile.exists()){  
+					try
+					{
+						dirFile.createNewFile();
+					}
+					catch (IOException e)
+					{}
+
+				}  
+			//	File myCaptureFile = new File(path + fileName);  
+				BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(dirFile));  
+				bitmap.compress(Bitmap.CompressFormat.JPEG, 80, bos);  
+				
+				
+				try
+				{
+					bos.flush();
+				
+				
+				bos.close(); 
+				}
+				catch (IOException e)
+				{}  
+			//Bitmap b= toRoundBitmap(bitmap);
+			headImg.setImageBitmap(bitmap);
+			
+				/*上传文件
+				 PATCH方法
+				 */
+				//NewOkhttp v=new NewOkhttp();
+				//Thread cc=new Thread(v);
+				//cc.start();
+			}
+			
+			
+			catch (FileNotFoundException e)
+			{}
+			
+		}
         addTextToList(user.mydata.get("nickname").toString(), "昵称", 0, R.drawable.home, 0);
 
         addTextToList("分割贱", "没有", 1, R.drawable.fab_bg_normal, 0);
@@ -119,7 +188,7 @@ public class Setting_ extends AppCompatActivity {
     }
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
+	{   
 		// TODO: Implement this method
 		super.onActivityResult(requestCode, resultCode, data);
 

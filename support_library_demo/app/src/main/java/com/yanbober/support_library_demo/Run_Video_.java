@@ -17,6 +17,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.TimerTask;
+import android.widget.SearchView.*;
+import com.yanbober.support_library_demo.Http_Util.*;
+import java.util.*;
 
 public class Run_Video_ extends ActionBarActivity {
 	public Handler mHandler = new Handler()
@@ -28,21 +31,33 @@ public class Run_Video_ extends ActionBarActivity {
 				case 0:
 					hideButtons.setVisibility(View.INVISIBLE);
 					break;
-
+					case 1:
+						if(msg.arg1==0)
+						{//是收藏还是取消
+							collect_star.setBackgroundResource(R.drawable.start_yellow);
+						tcollect.setBackgroundColor(0xff999999);
+						}else
+						{
+							collect_star.setBackgroundResource(R.drawable.star_gray);
+							tcollect.setBackgroundColor(0xff88777777);
+							
+						}
+						break;
 
 			}
 		}
 	};
 	private SurfaceView surfaceView;
 	private Button btnPause, btnStop;
-	ImageView btnPlayUrl;
+	ImageView btnPlayUrl,collect_star;
 	private SeekBar skbProgress;
 	private Player player;
 	RelativeLayout hideButtons;
 	CollapsingToolbarLayout collapsingToolbar;
-	String count=null;
+	String count=null,vid=null;
 	final User user=new User();
 	JSONObject jsonObject=null;
+	TextView tcollect;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -54,7 +69,7 @@ public class Run_Video_ extends ActionBarActivity {
 		{
 
 		count=bun.getString("url");
-		
+		vid=bun.getString("vid");
 			//strs=str.split("\\|");
 		}
 		}
@@ -64,11 +79,31 @@ public class Run_Video_ extends ActionBarActivity {
 		{
 			Toolbar toolbar = (Toolbar) this.findViewById(R.id.tool_bar);
 			hideButtons=(RelativeLayout)this.findViewById(R.id.Run_Video_hide);
+			collect_star=(ImageView)this.findViewById(R.id.run_video_layoutImageView);
+			tcollect=(TextView)this.findViewById(R.id.run_video_layoutTextView);
+			
 			setSupportActionBar(toolbar);
 			ActionBar actionBar = getSupportActionBar();
 			actionBar.setHomeAsUpIndicator(R.drawable.back_purple);
 			actionBar.setDisplayHomeAsUpEnabled(true);
-			
+			collect_star.setOnClickListener(new OnClickListener()
+			{
+				public void onClick(View v)
+				{
+						HashMap<String,Object> map=new HashMap<String,Object>();
+						map.put("context",Run_Video_.this);
+						Http_UploadFile_ htt=new Http_UploadFile_("http://trying-video.herokuapp.com/user/collect/"+vid+"?token="+user.token, map,"12");
+						Thread x=new Thread(htt);
+						x.start();
+						
+						//_vid为视频id/
+						/*{
+							"cost" : ${cost}    //支付费用(Number)
+						}
+//如果没有 cost 一般默认为0
+						>>  返回 message: '已添加进收藏'*/
+				}
+			});
 		
 		collapsingToolbar =
 		(CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);

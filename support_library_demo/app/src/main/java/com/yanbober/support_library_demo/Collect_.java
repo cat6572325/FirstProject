@@ -1,32 +1,48 @@
 package com.yanbober.support_library_demo;
 
-import android.content.Context;
-import android.content.Intent;
+import android.content.*;
 import android.os.*;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
+import android.support.v4.view.*;
+import android.support.v4.widget.*;
 import android.support.v7.app.*;
 import android.support.v7.widget.*;
+import android.util.*;
 import android.view.*;
 import android.view.View.*;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOError;
+import android.widget.*;
+import com.yanbober.support_library_demo.Http_Util.*;
+import java.io.*;
 import java.util.*;
 import org.json.*;
+
+import android.support.v7.widget.Toolbar;
 
 public class Collect_ extends AppCompatActivity {
 	public Handler mHandler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
+				case 0:
+					try{
+					//获取列表等详细数据
+					Bundle bun=msg.getData();
+					JSONArray jsa=(JSONArray)msg.obj;
+				if(jsa.length()==0)
+					for(int y=0;y<jsa.length();y++)
+					{
+						JSONObject jso=jsa.getJSONObject(y);
+						Log.e("colllllll",jso.toString());
+						addTextToList("无任何收藏",3,R.drawable.qq,"901人付款",1,1);
+						
+						
+					}
+						addTextToList("无任何收藏",3,R.drawable.qq,"901人付款",1,1);
+						
+					}catch(JSONException e)
+					{
+						
+					}
+					 break;
+					
 				case 3:
 					//更新ui
 					User_name.setText(user.name);
@@ -174,6 +190,9 @@ public class Collect_ extends AppCompatActivity {
 		catch (JSONException e) {
 			e.printStackTrace();
 		}
+		
+		
+		getcollect();
 	}
 	public void addTextToList(String text, int who, int id, String data, int isspot, int ispay) {
 		HashMap<String,Object> map=new HashMap<String,Object>();
@@ -282,6 +301,31 @@ public class Collect_ extends AppCompatActivity {
 			return convertView;
 
 		}
+	}
+	public void getcollect()
+	{
+		
+		
+		HashMap<String ,Object> map=new HashMap<String ,Object>();
+		map.put("context",Collect_.this);
+		
+		String url="http://trying-video.herokuapp.com/user/allcollect?token="+user.token;
+		Http_UploadFile_ http=new Http_UploadFile_(url,map,"13");
+		Thread xx=new Thread(http);
+		xx.start();
+/*
+>>  返回全部收藏
+{
+    {
+        "_id" : "***",
+        "collector" : "***",    // 收藏者
+        "author" : "***",    //作者
+        "videoTitle" : "***",    //视频名
+        "cost" : ***,    //支付费用
+        "vdo_id" : "***"    //视频id
+    },
+    {...},
+    ...*/
 	}
 }
 

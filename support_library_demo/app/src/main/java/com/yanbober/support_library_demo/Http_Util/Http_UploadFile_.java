@@ -4,6 +4,7 @@ import android.os.*;
 import android.util.*;
 import com.yanbober.support_library_demo.*;
 import com.yanbober.support_library_demo.Message_S.*;
+import com.zhy.http.okhttp.*;
 import java.io.*;
 import java.util.*;
 import okhttp3.*;
@@ -210,16 +211,29 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
 
                 break;
             case 10:
-                //上传文件
-                
+               
                 break;
             case 11:
                 //修改支付密码
 
 
                 break;
+				case 12:
+					//添加收藏
+					addcollect();
+					
+					break;
+					
+					case 13:
+						//获取收藏视频列表
+						Get_collects();
+						break;
         }
     }
+	
+	
+	
+	
 	public void videodata() {
         OkHttpClient htt;
         JSONObject jsonObject = null;
@@ -257,6 +271,50 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
 					Log.e("videodata1",e.toString());
 				}
 	}
+	public String addcollect() {
+        OkHttpClient htt;
+        String str = null;
+        try {
+            RequestBody formBody = new FormBody.Builder()
+				.add("cost", "0")
+				
+				.build();
+
+            Request request = new Request.Builder()
+				.url(url)
+				.post(formBody)
+				.build();
+
+            Response response = client.newCall(request).execute();
+
+            str = response.body().string();
+Log.e("add",str);
+Log.e("add",url);
+Run_Video_ run=(Run_Video_)maphttp.get("context");
+Message msg=new Message();
+JSONObject jso=new JSONObject(str);
+if(jso.getString("message").equals("已添加进收藏"))
+{
+msg.arg1=0;
+
+}else
+{
+	msg.arg1=1;
+}
+msg.what=1;
+run.mHandler.sendMessage(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+			view_one=new View_One((Run_Video_)maphttp.get("context"),e.toString());
+			view_one.viewcreate();
+        }catch(JSONException e)
+		{
+			view_one=new View_One((Run_Video_)maphttp.get("context"),e.toString());
+			view_one.viewcreate();
+		}
+        return str;
+
+    }
     public void Modify_paidPWD_PATCH() {
         JSONObject jsonObject = null;
         String breakStr = null;
@@ -265,10 +323,13 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
         try {
             RequestBody formBody = new FormBody.Builder()
                     .add("paypassword", sendMethod)
+					
                     .build();
             Request request = new Request.Builder()
                     .url(urls)
                     .tag(p)
+					.head()
+					
                     .patch(formBody)
                     .build();
 
@@ -366,6 +427,7 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
             msg.obj = jsonObject;
             //将一个JSON的对象发送
             msg.what = 0;
+			
             handler.sendEmptyMessage(0);
             //System.out.println(response.body().string());
         } catch (IOException e) {
@@ -428,6 +490,7 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
             File file = new File("README.md");
 
             Request request = new Request.Builder()
+			
                     .url("https://api.github.com/markdown/raw")
                     .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, file))
                     .build();
@@ -533,6 +596,7 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
         Response response = null;
 
         RequestBody formBody = new FormBody.Builder()
+		
                 .add("phone", strs[0])
                 .add("userpassword", strs[1])
                 .build();
@@ -699,6 +763,60 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
 
         }
     }
+/*获取收藏
+
+
+*/
+
+	private void Get_collects() {
+		Collect_ coll=(Collect_)maphttp.get("context");
+		if(coll!=null)
+			handler=coll.mHandler;
+        OkHttpClient htt;
+            JSONObject jsonObject = null;
+        JSONArray jsonArray = null;
+        String str = null;
+        try {
+            Request request = new Request.Builder().url(url).build();
+
+
+            Response response = client.newCall(request).execute();
+            if (!response.isSuccessful()) throw new IOException();
+			str = response.body().string();
+                Bundle bundle;
+                Message msg = null;
+                try {
+                    jsonArray = new JSONArray(str);
+                    bundle = new Bundle();
+                    msg = new Message();
+                    bundle.putString("?", "获取成功");
+                    msg.obj = jsonArray;
+                    msg.what = 0;
+                    msg.setData(bundle);
+                    handler.sendMessage(msg);
+                } catch (JSONException e) {
+                    jsonObject = new JSONObject(str);
+                    bundle = new Bundle();
+                    msg = new Message();
+                    bundle.putString("?", "获取失败");
+                    bundle.putString("!", jsonObject.getString("error"));
+                    msg.obj = jsonObject;
+                    msg.what = 0;
+                    msg.setData(bundle);
+				
+                    handler.sendMessage(msg);
+                }
+
+            
+
+        } catch (JSONException e) {
+
+        }
+		catch(IOException e)
+		{
+			
+		}
+    }//获取收藏
 
     private void CheckData(String url)  {
         OkHttpClient htt;
@@ -803,61 +921,7 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
 
     }
 
-    private void LoadHeadImage() throws IOException {
-        //异步上传图片
-        File file = new File(url);
-        OkHttpClient htt;
-        Response response;
-
-        JSONArray jsonArray = null;
-        String str = null;
-
-        Request request = new Request.Builder()
-                .url(url)
-                .post(RequestBody.create(MediaType.parse("application/octet-stream"), file))
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Bundle bundle;
-                Message msg = null;
-				Log.e("Http_Up", e.toString());
-				
-                bundle = new Bundle();
-                msg = new Message();
-                bundle.putString("?", "上传失败");
-
-                msg.what = 5;
-                msg.setData(bundle);
-                handler.sendMessage(msg);
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                Log.e("Http_Up", response.body().string());
-                Bundle bundle;
-                Message msg = null;
-                try {
-                    JSONObject jsonObject = new JSONObject(response.body().string());
-                    bundle = new Bundle();
-                    msg = new Message();
-                    bundle.putString("?", "上传成功");
-
-                    msg.obj = jsonObject;
-                    msg.what = 5;
-                    msg.setData(bundle);
-                    handler.sendMessage(msg);
-                } catch (JSONException e) {
-
-                }
-
-            }
-
-        });
-
-
-    }
+    
 
 
     private void GetHead(String url, final String path) {

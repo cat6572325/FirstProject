@@ -39,7 +39,7 @@ public class SimpleActivity extends TakePhotoActivity {
     }
 
     private void showImg(ArrayList<TImage> images) {
-        Intent intent=new Intent(this,ResultActivity.class);
+        Intent intent=new Intent(this,Setting_.class);
         intent.putExtra("images",images);
         startActivity(intent);
     }

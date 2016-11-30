@@ -48,6 +48,13 @@ public class http_thread_ extends Thread {
     @Override
     public void run() {
         super.run();
+		/*switch((Integer)mapvideo.get("count"))
+		{
+			case 1:  
+				loadvideopng();
+				break;
+				
+		}*/
        pul();
 	   
     }
@@ -259,11 +266,11 @@ public class http_thread_ extends Thread {
         final Bundle bundle=new Bundle();
 		final File file = new File(path);//Environment.getExternalStorageDirectory(), "jiandan02.jpg");
         //视频地址
-		key="vidphotofile";
-		File f=new File("/sdcard/RoundVideo/RoundImage.png");
+		//key="vidphotofile";
+		//File f=new File("/sdcard/RoundVideo/RoundImage.png");
 		//暂时创建一个没有内容的视频截图路口
 
-		bitmap2File(getVideoThumb(file.getPath()),f);
+		//bitmap2File(getVideoThumb(file.getPath()),f);
 		//创建截图
 		
 		if (!file.exists()) {
@@ -273,7 +280,7 @@ public class http_thread_ extends Thread {
 
         Map<String, String> param = new HashMap<>();
         param.put("file","videofile");
-        Pair<String, File> pair = new Pair(key, f);
+        Pair<String, File> pair = new Pair(key, file);
         OkHttpProxy
 			.upload()
 			.url(url)
@@ -293,11 +300,11 @@ public class http_thread_ extends Thread {
 
                         Log.e("videophonto",str);
                         Log.e("完成", String.valueOf(response.isSuccessful()));
-					url="http://trying-video.herokuapp.com/user/video/detail/"+_videoid+"?token="+user.token;
+					url="http://trying-video.herokuapp.com/user/image/replace?token="+user.token;
 						
-						Http_UploadFile_ http=new Http_UploadFile_(url,mapvideo,"3");
+						Http_UploadFile_ http=new Http_UploadFile_(url,mapvideo,"10");
 						Thread c=new Thread(http);
-						c.start();
+				//c.start();
 				
 						//开始上传截图
 					

@@ -9,12 +9,13 @@ import java.util.HashMap;
  */
 public class User
 {
-	public static String phone="null",pas="null",name="null",flag="null",picture="null",
+	public static String phone="null",pas="null",name="null",flag="null",picture="null"
+	,vid="null",
 	chatdata="null",city="null",sex="null",old="null",_id="null",token="null",paidPwd="null";
 	;
 
 
-	public static ArrayList<HashMap<String,Object>>VideoList;
+	public static ArrayList<HashMap<String,Object>>Collect_List;
 	public static HashMap<String,Object> mydata;
 	public static MainActivity mainActivity;
 	public static My_Video_ my_video_;
