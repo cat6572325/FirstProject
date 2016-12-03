@@ -16,37 +16,79 @@ import java.util.*;
 import org.json.*;
 
 import android.support.v7.widget.Toolbar;
+import android.widget.AdapterView.*;
 
 public class Collect_ extends AppCompatActivity {
 	public Handler mHandler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 				case 0:
-					try{
+					try{/*
+						 >>  返回全部收藏
+						 {
+						 {
+						 "_id" : "***",
+						 "collector" : "***",    // 收藏者
+						 "author" : "***",    //作者
+						 "videoTitle" : "***",    //视频名
+						 "cost" : ***,    //支付费用
+						 "vdo_id" : "***"    //视频id
+						 },
+						 {...},
+						 ...*/
 					//获取列表等详细数据
 					Bundle bun=msg.getData();
 					JSONArray jsa=(JSONArray)msg.obj;
-				if(jsa.length()==0)
+						ArrayList<HashMap<String,Object>> listmap=new ArrayList<HashMap<String,Object>>();
+				if(jsa.length()>0)
 					for(int y=0;y<jsa.length();y++)
 					{
 						JSONObject jso=jsa.getJSONObject(y);
 						Log.e("colllllll",jso.toString());
-						addTextToList("无任何收藏",3,R.drawable.qq,"901人付款",1,1);
-						
+						addTextToList(jso.getString("videoTitle"),3,R.drawable.qq,"901人付款",1,1);
+						HashMap<String,Object> map=new HashMap<String,Object>();
+						map.put("_id",jso.getString("_id"));
+						map.put("collector",jso.getString("collector"));
+						map.put("auther",jso.getString("auther"));
+						map.put("videoTitle",jso.getString("videoTitle"));
+						map.put("cost",jso.getString("cost"));
+						map.put("vdo_id",jso.getString("vdo_id"));
+						listmap.add(map);
 						
 					}
+					user.Collect_List=listmap;
 						addTextToList("无任何收藏",3,R.drawable.qq,"901人付款",1,1);
 						
 					}catch(JSONException e)
 					{
 						
 					}
+					adapter.notifyDataSetChanged();
 					 break;
 					
 				case 3:
 					//更新ui
 					User_name.setText(user.name);
 					break;
+					case 4:
+						//验证支付密码成功
+					Bundle bun=msg.getData();
+					
+						if(bun.getString("?").equals("继续下一步"))
+						{
+							if(user.mydata.get("paypassword").equals(""))
+							{//跳转至设置支付密码界面
+								Intent intent=new Intent(Collect_.this,Set_Pay_pwd_.class);
+								startActivity(intent);
+								
+								
+							}else
+							{//跳转至支付界面
+								
+							}
+						}
+						
+						break;
 
 			}
 		}
@@ -61,6 +103,7 @@ public class Collect_ extends AppCompatActivity {
 	ImageView menu_img;
 	public ArrayList<HashMap<String,Object>> lists1=new ArrayList<HashMap<String,Object>>();
 	ImageView message;
+	
 	TextView Message_point,User_name;
 	RecyclerView rv=null;
 	Toolbar tb;
@@ -88,6 +131,7 @@ public class Collect_ extends AppCompatActivity {
 			mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
 			User_name = (TextView)this.findViewById(R.id.User_name);
 			menu_img = (ImageView)this.findViewById(R.id.Collect_menu);
+			
 			menu_img.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View view) {
@@ -109,12 +153,24 @@ public class Collect_ extends AppCompatActivity {
 
 			rv.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
 			//设置RecyclerView布局管理器为1列垂直排布
-			//addTextToList("本 拉登教你打仗",3,R.drawable.qq,"901人付款",0,0);
-			//addTextToList("King arthur",3,R.drawable.qq,"901人付款",1,0);
-			//addTextToList("高文",3,R.drawable.qq,"901人付款",0,1);
-			//addTextToList("lancelot",3,R.drawable.qq,"901人付款",1,1);
+			addTextToList("本 拉登教你打仗",3,R.drawable.qq,"901人付款",0,0);
+			addTextToList("King arthur",3,R.drawable.qq,"901人付款",1,0);
+			addTextToList("高文",3,R.drawable.qq,"901人付款",0,1);
+			addTextToList("lancelot",3,R.drawable.qq,"901人付款",1,1);
+			adapter = new FirstAdapter(Collect_.this, lists);
+			rv.setAdapter(adapter);
+			adapter.setOnClickListener(new FirstAdapter.OnItemClickListener() {
+					@Override
+					public void onItemClickListener(View view, int position) {
+						
+					}
 
+					@Override
+					public void onItemLongClickListener(View view, int position) {
+						Toast.makeText(Collect_.this, position + "长按出现多选删除收藏功能尚未决定:", Toast.LENGTH_LONG).show();
 
+					}
+				});
 			//left_list
 			addTextToList("首页", 0, R.drawable.home);
 			addTextToList("已付", 0, R.drawable.paid);
@@ -127,8 +183,7 @@ public class Collect_ extends AppCompatActivity {
 			addTextToList("设置", 0, R.drawable.fab_bg_normal);
 			addTextToList("反馈", 0, R.drawable.feedback);
 
-			adapter = new FirstAdapter(Collect_.this, lists);
-			rv.setAdapter(adapter);
+			
 			ladapter = new MyChatAdapter(Collect_.this, lists1, layout);
 			rl.setAdapter(ladapter);
 			ladapter.isEnabled(3);
@@ -192,7 +247,7 @@ public class Collect_ extends AppCompatActivity {
 		}
 		
 		
-		getcollect();
+		//getcollect();
 	}
 	public void addTextToList(String text, int who, int id, String data, int isspot, int ispay) {
 		HashMap<String,Object> map=new HashMap<String,Object>();
@@ -313,19 +368,22 @@ public class Collect_ extends AppCompatActivity {
 		Http_UploadFile_ http=new Http_UploadFile_(url,map,"13");
 		Thread xx=new Thread(http);
 		xx.start();
-/*
->>  返回全部收藏
-{
-    {
-        "_id" : "***",
-        "collector" : "***",    // 收藏者
-        "author" : "***",    //作者
-        "videoTitle" : "***",    //视频名
-        "cost" : ***,    //支付费用
-        "vdo_id" : "***"    //视频id
-    },
-    {...},
-    ...*/
+
 	}
+	public void testpaipwd()
+	{
+
+
+		HashMap<String ,Object> map=new HashMap<String ,Object>();
+		map.put("context",Collect_.this);
+		map.put("paypassword",user.mydata.get("paypassword").toString());
+		String url="http://trying-video.herokuapp.com/user/oldpayword?token="+user.token;
+		Http_UploadFile_ http=new Http_UploadFile_(url,map,"16");
+		Thread xx=new Thread(http);
+		xx.start();
+
+	}
+	
+	
 }
 

@@ -79,8 +79,8 @@ initView();
                 Intent intent =new Intent(getContext(),Run_Video_.class);
                 Bundle bundle=new Bundle();
                 bundle.putString("count",String.valueOf(position));
-				bundle.putString("vid",user.vid);//maps.get(position).get("_id").toString());
-				
+				bundle.putString("vid",user.maps.get(position).get("_id").toString());
+				//由于目前有一项内容是没有视频id所以会出错
 				bundle.putString("url",user.maps.get(position).get("vdourl").toString());
                 //count是为了定位到一开始时保存的视频列表中某一个视频的数据
                 intent.putExtras(bundle);

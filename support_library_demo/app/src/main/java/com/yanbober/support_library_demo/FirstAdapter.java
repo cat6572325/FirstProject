@@ -194,7 +194,7 @@ case 2:
         ViewGroup.LayoutParams params =  holder.itemView.getLayoutParams();//得到item的LayoutParams布局参数
 		//setUpItemEvent(holder);
 		holder.itemView.setLayoutParams(params);//把params设置给item布局
-		
+		final int count=position;
 		//通过返回的viewtype获得硬性布局
 		switch(getItemViewType(position))
 		{
@@ -316,7 +316,7 @@ case 2:
 						{//否则弹出支付框
 							HashMap<String, Object> map = new HashMap<String, Object>();
 							map.put("isprogress", 0);
-
+							map.put("cost",user.Collect_List.get(count).get("cost").toString());
 							Pop_Img.Builder p = new Pop_Img.Builder((Collect_) context, map);
 							p.setPositiveButton("[潮汕揭]初版\n问题反馈:(qq) 1213965634\n\n", new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog, int which) {

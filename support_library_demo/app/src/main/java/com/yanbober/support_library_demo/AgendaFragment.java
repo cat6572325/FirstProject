@@ -75,11 +75,13 @@ public class AgendaFragment extends Fragment {
 					Intent intent =new Intent(getContext(),Run_Video_.class);
 					Bundle bundle=new Bundle();
 					bundle.putString("count",String.valueOf(position));
+					bundle.putString("vid",user.maps.get(position).get("_id").toString());
+					//由于目前有一项内容是没有视频id所以会出错
 					bundle.putString("url",user.maps.get(position).get("vdourl").toString());
 					//count是为了定位到一开始时保存的视频列表中某一个视频的数据
 					intent.putExtras(bundle);
 					startActivity(intent);
-
+					
 				}
 
 				@Override
@@ -160,7 +162,7 @@ public class AgendaFragment extends Fragment {
     private void initView()
     {
 
-        ArrayList<HashMap<String, Object>> map=user.maps;
+      /*  ArrayList<HashMap<String, Object>> map=user.maps;
         for (int i = 0; i <map.size(); i++) {
             if (i==10) {return ;}
             //addTextToList("广东",1,android.R.drawable.ic_lock_lock,"ps","data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊");
@@ -178,7 +180,7 @@ public class AgendaFragment extends Fragment {
         adapter.notifyDataSetChanged();
         //  addTextToList("uuu", 1, "android.R.drawable.ic_lock_lock", 0, "name");
         // Toast.makeText(getContext(),str1,Toast.LENGTH_LONG).show();
-
+*/
 
     }
 

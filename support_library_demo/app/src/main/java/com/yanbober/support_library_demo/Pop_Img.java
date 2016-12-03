@@ -417,9 +417,13 @@ public class Pop_Img extends Dialog {
                 collect_paid_text=(TextView)layout.findViewById(R.id.paid_pwd_text);
                 if (user.paidPwd.equals("null"))
                 {//支付密码为空，也就是没有设置过
-                    collect_paid_text.setText("设置支付密码");
+				//设置标题显示什么
+                    collect_paid_text.setText("未设置支付密码");
+					collect_button.setText("马上填写");
                 }else
-                {
+                {//
+				collect_paid_text.setText("验证支付密码");
+				collect_button.setText("支付");
 
                 }
                 collect_button.setOnClickListener(new View.OnClickListener() {
@@ -433,17 +437,49 @@ public class Pop_Img extends Dialog {
                     public void onClick(View view) {
                         if (collect_enter.getText().toString().equals(""))
                         {
+							if(user.mydata.get("paypassword")==null)
+							{
                             Toast.makeText(collect_,"未输入任何字符!!",Toast.LENGTH_LONG).show();
+							}else
+							{//已设置支付密码，所以判断
+								
+							}
                         }
                         if (user.paidPwd.equals("null"))
-                        {//支付密码为空，也就是没有设置过
-                           Http_UploadFile_ http_uploadFile_=new Http_UploadFile_(collect_.mHandler,"http://localhost:1103/user/payword?token="+user.token
-                                   ,"path","11修改支付密码");
+                        {//支付密码为空，也就是验证吧
+						//设置点击按钮做什么动作
+                         //  Http_UploadFile_ http_uploadFile_=new Http_UploadFile_(collect_.mHandler,"http://localhost:1103/user/payword?token="+user.token
+                          //         ,"path","11修改支付密码");
+							Intent intent=new Intent(collect_,Set_Pay_pwd_.class);
+							collect_.startActivity(intent);
+							collect_.
+								finish();
+							
+								   
                         }else
                         {
                             if (user.paidPwd.equals(collect_enter.getText().toString()))
                             {//密码验证成功
                                 Toast.makeText(collect_,"支付密码验证成功，配对正确!!",Toast.LENGTH_LONG).show();
+								//那么接下来就是看余额是否足够扣除,如果足够则发送信息，扣除视频的要求金额，然后加入已支付列表了
+								if(judgepaypassword(collect_enter.getText().toString()))
+								{//验证为正确
+									HashMap<String, Object> maphttp = new HashMap<String, Object>();
+									maphttp.put("balance", ((Integer)user.mydata.get("balance"))- (Integer) map.get("cost"));
+									maphttp.put("handler",collect_.mHandler);
+									
+														Http_UploadFile_ htt=new Http_UploadFile_
+														(
+														"http://trying-video.herokuapp.com/user/balance?token="+user.token
+																	  ,maphttp
+																	  ,"16");
+									Thread c=new Thread(htt);
+									c.start();
+								}else
+								{//验证为错误
+									
+								}
+								
                             }else
                             {
                                 Toast.makeText(collect_,"支付密码验证成功，但是配对不正确!!",Toast.LENGTH_LONG).show();
@@ -628,6 +664,16 @@ public class Pop_Img extends Dialog {
             mViewUpdateHandler.sendMessage(msg);
 
         }
-
+		public boolean judgepaypassword(String str)
+		{
+			if(user.mydata.get("paypassword").toString().equals(str))
+			{
+				return true;
+			}else
+			{
+				return false;
+			}
+		}
+		
     }
 }

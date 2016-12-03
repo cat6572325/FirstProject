@@ -45,77 +45,7 @@ public class TestPaint extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.t);
-        textView=(Button) findViewById(R.id.text);
-        textView1=(Button) findViewById(R.id.text1);
-        textView2=(Button) findViewById(R.id.text2);
-        Paint paint=new Paint();
-        Animation uti=AnimationUtils.loadAnimation(this,R.anim.scale___);
-        uti1=AnimationUtils.loadAnimation(this,R.anim.left_button);
-        uti2=AnimationUtils.loadAnimation(this,R.anim.top_button);
-        textView1.setVisibility(View.INVISIBLE);
-        textView2.setVisibility(View.INVISIBLE);
-
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(count==100)
-                {new Thread(new ThreadShowback()).start();}else
-
-                {textView1.setVisibility(View.VISIBLE);new Thread(new ThreadShow()).start();}
-
-            }
-        });
-
-    }
-
-
-
-
-    // 线程类
-    class ThreadShow implements Runnable {
-
-        @Override
-        public void run() {
-            // TODO Auto-generated method stub
-            while (true) {
-                try {
-                    if (count<100) {
-                        Thread.sleep(1);
-                        mHandler.sendEmptyMessage(1);
-                    }else {
-                        break;
-                    }
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                    System.out.println("thread error...");
-                }
-            }
-        }
-    }
-    class ThreadShowback implements Runnable {
-
-        @Override
-        public void run() {
-            // TODO Auto-generated method stub
-            while (true) {
-                try {
-                    if (count>0) {
-                        Thread.sleep(1);
-                        mHandler.sendEmptyMessage(2);
-                    }else
-                    {
-                        textView1.setVisibility(View.INVISIBLE);
-                        break;
-                    }
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                    System.out.println("thread error...");
-                }
-            }
-        }
+        
     }
 
 

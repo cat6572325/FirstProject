@@ -6,6 +6,7 @@ import android.media.*;
 import android.os.*;
 import android.provider.*;
 import android.util.*;
+import com.google.gson.*;
 import com.okhttplib.*;
 import com.okhttplib.annotation.*;
 import com.okhttplib.callback.*;
@@ -13,6 +14,7 @@ import com.socks.okhttp.plus.*;
 import com.socks.okhttp.plus.listener.*;
 import com.socks.okhttp.plus.model.*;
 import com.yanbober.support_library_demo.*;
+import com.yanbober.support_library_demo.Message_S.*;
 import java.io.*;
 import java.util.*;
 import okhttp3.*;
@@ -28,8 +30,9 @@ public class http_thread_ extends Thread {
 	HashMap<String,Object> mapvideo=null;
 	Context con;
 	String _videoid=null;
-
+	public OkHttpClient client = new OkHttpClient();
     User user=new User();
+	View_One view_one=null;
     public com.squareup.okhttp.OkHttpClient client1=new com.squareup.okhttp.OkHttpClient();
 
     public http_thread_(Context con,String url,String path,Handler handler,HashMap<String,Object> data)
@@ -132,7 +135,7 @@ public class http_thread_ extends Thread {
 						
 						_videoid=js.getString("_id");
 					url="http://trying-video.herokuapp.com/user/videophoto/"+js.getString("_id")+"?token="+user.token;
-							loadvideopng();
+							loadvideopng(js.getString("_id"));
 						//开始上传截图
 						}catch(JSONException e)
 						{
@@ -203,9 +206,10 @@ public class http_thread_ extends Thread {
 	{
 		OkHttpClient htt=new OkHttpClient();
        // String[] strs = json.split("\\|");
-      //  JSONObject jsonObject = null;
+        JSONObject jsonObject = null;
         JSONArray jsonArray = null;
         String str = null;
+		Response response = null;
 		
         try {
             /*  "uploader" : ${uploader},    //上传者(string)
@@ -216,7 +220,7 @@ public class http_thread_ extends Thread {
 			"concernednumber" : ${concernednumber}    //收藏人数(Number)
 		}
 		>>  返回 status: '信息已以相同id保存' */
-		RequestBody formBody = new FormBody.Builder()
+			RequestBody formBody = new FormBody.Builder()
 				.add("uploader", mapvideo.get("uploader").toString())
 				.add("title", mapvideo.get("title").toString())
 				.add("introduction", mapvideo.get("introduction").toString())
@@ -224,29 +228,33 @@ public class http_thread_ extends Thread {
 				.add("paidppnumber", "0")
 				.add("concernednumber", "0")
 				
+				
 				.build();
 
             Request request = new Request.Builder()
 				.url(url)
 				.post(formBody)
 				.build();
+Log.e("url",url);
+            try
+			{
+				response = client.newCall(request).execute();
+			}
+			catch (IOException e)
+			{}
+			//if (!response.isSuccessful())
+            str = response.body().string();
+			Log.e("发送视频信息时返回了",str);
+			jsonObject=new JSONObject(str);
+			if(jsonObject.getString("status").equals("信息已以相同id保存"))
+			{
+		
+				view_one=null;
+				view_one=new View_One((Context)mapvideo.get("context"),"上传成功");
+				view_one.viewcreate();
+			}
 
-            Response response = htt.newCall(request).execute();
-            if (!response.isSuccessful()) throw new IOException(str = response.body().toString());
-            if (str == null) {
-                try {
-
-                    jsonArray = new JSONArray(response.body().string());
-					Log.e("videodata",jsonArray.toString());
-					
-                } catch (JSONException e) {
-					Log.e("videodata",e.toString());
-                    str = "添加成功";
-                    
-
-                }
-
-            }
+            
 
 
         } catch (IOException e) {
@@ -254,33 +262,39 @@ public class http_thread_ extends Thread {
 			Log.e("videodata",e.toString());
 			
 			
-        } finally {
+        } catch(JSONException e)
+		{
+			Log.e("上传视频信息时",e.toString());
+		}
+		finally {
 
 
         }
 		
 	}
-	public void loadvideopng()
+	public void loadvideopng(String vid)
     {
+		final String v_id=vid;
 		final Message msg=new Message();
         final Bundle bundle=new Bundle();
 		final File file = new File(path);//Environment.getExternalStorageDirectory(), "jiandan02.jpg");
         //视频地址
-		//key="vidphotofile";
-		//File f=new File("/sdcard/RoundVideo/RoundImage.png");
+		key="vidphotofile";
+		File f=new File("/sdcard/RoundVideo/RoundImage1.png");
 		//暂时创建一个没有内容的视频截图路口
 
-		//bitmap2File(getVideoThumb(file.getPath()),f);
+		bitmap2File(getVideoThumb(file.getPath()),f);
 		//创建截图
 		
 		if (!file.exists()) {
 			//  Toast.makeText(con.this, "File not exits！", Toast.LENGTH_SHORT).show();
+			
             return;
         }
 
         Map<String, String> param = new HashMap<>();
         param.put("file","videofile");
-        Pair<String, File> pair = new Pair(key, file);
+        Pair<String, File> pair = new Pair(key, f);
         OkHttpProxy
 			.upload()
 			.url(url)
@@ -300,14 +314,17 @@ public class http_thread_ extends Thread {
 
                         Log.e("videophonto",str);
                         Log.e("完成", String.valueOf(response.isSuccessful()));
-					url="http://trying-video.herokuapp.com/user/image/replace?token="+user.token;
-						
-						Http_UploadFile_ http=new Http_UploadFile_(url,mapvideo,"10");
-						Thread c=new Thread(http);
-				//c.start();
-				
-						//开始上传截图
+					url="http://trying-video.herokuapp.com/user/video/detail/"+v_id+"?token="+user.token;
+					HashMap<String,Object> map =new HashMap<String,Object>();
 					
+					Http_UploadFile_ http=new Http_UploadFile_(url,mapvideo,"3");
+					Thread x=new Thread(http);
+					x.start();
+					
+					
+					Log.e("返回的视频id",v_id);
+						//videodata("i");
+						
 				}
 
 

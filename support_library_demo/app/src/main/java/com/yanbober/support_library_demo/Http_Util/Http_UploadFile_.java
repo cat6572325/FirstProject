@@ -1,10 +1,10 @@
 package com.yanbober.support_library_demo.Http_Util;
 
+import android.content.*;
 import android.os.*;
 import android.util.*;
 import com.yanbober.support_library_demo.*;
 import com.yanbober.support_library_demo.Message_S.*;
-import com.zhy.http.okhttp.*;
 import java.io.*;
 import java.util.*;
 import okhttp3.*;
@@ -214,8 +214,8 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
                
                 break;
             case 11:
-                //修改支付密码
-
+                //验证支付密码
+				oldpaypassword();
 
                 break;
 				case 12:
@@ -228,10 +228,335 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
 						//获取收藏视频列表
 						Get_collects();
 						break;
+						case 14:
+							//发送通知
+							postMymessage();
+							break;
+							case 15:
+								//获取所有通知
+								GetAllMessage();
+								
+								
+								break;
+								
+								case 16:
+									//更改余额
+									break;
         }
     }
+	/*
+	修改支付密码
+	
+	*/
+	public void oldpaypassword()
+	{
+		
+		if(maphttp.get("handler")!=null)
+			handler=(Handler)maphttp.get("handler");
+	    JSONObject jsonObject = null;
+        JSONArray jsonArray = null;
+        String str = null, datas = null;
+        Response response = null;
+		RequestBody formBody = new FormBody.Builder()
+			.add("paypassword", maphttp.get("paypassword").toString())
+				.build();
+        Request request = new Request.Builder()
+			.url(url)
+			.post(formBody)
+			.build();
+        try {
+            response = client.newCall(request).execute();
+        } catch (IOException er) {
+
+            Log.e("在提交旧支付密码时",er.toString());
+
+		}
+        try {
+            if (!response.isSuccessful()) throw new IOException();
+            str = response.body().string();
+            //如果返回的是error
+            jsonObject = new JSONObject(str);
+			if(jsonObject.getString("message").equals("继续下一步"))
+			{
+				Bundle bundle = new Bundle();
+				Message msg = new Message();
+				bundle.putString("?", "继续下一步");
+				
+				msg.what = 0;
+				msg.setData(bundle);
+				handler.sendMessage(msg);
+				
+				view_one=null;
+				view_one=new View_One((Context)maphttp.get("context"),"继续下一步");
+				view_one.viewcreate();
+				
+				
+
+			}
+			if(jsonObject.getString("message").equals("验证错误"))
+			{
+				view_one=null;
+				view_one=new View_One((Context)maphttp.get("context"),"验证密码错误");
+				view_one.viewcreate();
+				
+				}
+			Log.e("在提交旧支付密码",str);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+			Log.e("在提交旧支付密码的时候",e.toString());
+
+        }catch( IOException e)
+		{
+			Log.e("在提交旧支付密码的时候",e.toString());
+		}
+
+
+	}
+	
+	/*
+	提交新支付密码
+	
+	*/
+	public void newpaypassword()
+	{
+
+		if(maphttp.get("handler")!=null)
+			handler=(Handler)maphttp.get("handler");
+	    JSONObject jsonObject = null;
+        JSONArray jsonArray = null;
+        String str = null, datas = null;
+        Response response = null;
+		RequestBody formBody = new FormBody.Builder()
+			.add("paypassword", maphttp.get("paypassword").toString())
+			.build();
+        Request request = new Request.Builder()
+			.url(url)
+			.patch(formBody)
+			.build();
+        try {
+            response = client.newCall(request).execute();
+        } catch (IOException er) {
+
+            Log.e("在提交新支付密码时",er.toString());
+
+		}
+        try {
+            if (!response.isSuccessful()) throw new IOException();
+            str = response.body().string();
+            //如果返回的是error
+            jsonObject = new JSONObject(str);
+			if(jsonObject.getString("message").equals("已更改支付密码"))
+			{
+
+
+
+
+			}
+			if(jsonObject.getString("message").equals("验证错误"))
+			{
+				view_one=null;
+				view_one=new View_One((Context)maphttp.get("context"),"验证密码错误");
+				view_one.viewcreate();
+
+			}
+			Log.e("在提交新支付密码",str);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+			Log.e("在提交新支付密码的时候",e.toString());
+
+        }catch( IOException e)
+		{
+			Log.e("在提交新支付密码的时候",e.toString());
+		}
+
+
+	}
 	
 	
+	
+	/*
+	获取所有通知
+	
+	*/
+	
+	public void GetAllMessage()
+	{
+		/*>>  返回全部通知
+		 {
+		 {
+		 "_id" : "***",
+		 "videoTitle" : "***",
+		 "outlay" : ***,
+		 "costTF" : "***",
+		 "operaTF" : "***",
+		 "rmoveTF" : "***",
+		 "IrrelevantTF" : "***",
+		 "other" : "***"
+		 },
+		 {...},*/
+		JSONObject jsonObject = null;
+        JSONArray jsonArray = null;
+        String str = null;
+        try {
+            Request request = new Request.Builder().url(url).build();
+
+			if(maphttp.get("handler")!=null)
+				handler=(Handler)maphttp.get("handler");
+            Response response = client.newCall(request).execute();
+            if (!response.isSuccessful()) throw new IOException();
+			str = response.body().string();
+			Bundle bundle;
+			Message msg = null;
+			try {
+				jsonArray = new JSONArray(str);
+				bundle = new Bundle();
+				msg = new Message();
+				bundle.putString("?", "获取成功");
+				msg.obj = jsonArray;
+				msg.what = 0;
+				msg.setData(bundle);
+				handler.sendMessage(msg);
+			} catch (JSONException e) {
+				jsonObject = new JSONObject(str);
+				bundle = new Bundle();
+				msg = new Message();
+				bundle.putString("?", "获取失败");
+				bundle.putString("!", jsonObject.getString("error"));
+				msg.obj = jsonObject;
+				msg.what = 0;
+				msg.setData(bundle);
+
+				handler.sendMessage(msg);
+			}
+
+
+
+        } catch (JSONException e) {
+
+        }
+		catch(IOException e)
+		{
+
+		}
+	}
+	
+	
+	
+	
+	
+	/*
+	
+	发送通知内容
+	
+	*/
+	public void postMymessage()
+	{
+		/*提交新通知
+
+		 POST   http://localhost:1103/user/notice?token=${token}
+		 {
+		 "videoTitle" : ${videoTitle},    //视频名(String)
+		 "outlay" : ${outlay},    //支付收入数目(Number)
+		 "costTF" : ${costTF},    //花费 收入判断(Boolean)
+		 "operaTF" : ${operaTF},    //视频操作 或 花费判断(Boolean)
+		 "rmoveTF" : ${rmoveTF},    //上传 删除判断(Boolean)
+		 "IrrelevantTF" : ${IrrelevantTF},    //其他信息 或 相关信息判断(Boolean)
+		 "other" : ${other}    //其他信息(String)
+		 }
+		 >>  返回 message: '通知已更新'
+		 获取用户全部通知
+		 */
+		 if(maphttp.get("handler")!=null)
+		 handler=(Handler)maphttp.get("handler");
+	    JSONObject jsonObject = null;
+        JSONArray jsonArray = null;
+        String str = null, datas = null;
+        Response response = null;
+           RequestBody formBody = new FormBody.Builder()
+			.add("videoTitle", maphttp.get("videoTitle").toString())
+			.add("outlay", maphttp.get("outlay").toString())
+			.add("costTF", maphttp.get("costTF").toString())
+			.add("operaTF", maphttp.get("operaTF").toString())
+			.add("rmoveTF", maphttp.get("rmoveTF").toString())
+			.add("IrrelevantTF", maphttp.get("IrrelevantTF").toString())
+			.add("other", maphttp.get("other").toString())
+			.build();
+        Request request = new Request.Builder()
+			.url(url)
+			.post(formBody)
+			.build();
+        try {
+            response = client.newCall(request).execute();
+        } catch (IOException er) {
+
+            Log.e("在提交通知时",er.toString());
+			
+			}
+        try {
+            if (!response.isSuccessful()) throw new IOException();
+            str = response.body().string();
+            //如果返回的是error
+            jsonObject = new JSONObject(str);
+			if(jsonObject.getString("message").equals("通知已更新"))
+			{
+				
+			
+			  Bundle bundle = new Bundle();
+            Message msg = new Message();
+            msg.obj = jsonObject;
+            msg.what = 0;
+            bundle.putString("?", "获取成功");
+            msg.setData(bundle);
+         //   handler.sendMessage(msg);
+				
+		 
+		 }
+			Log.e("在提交通知的时候",str);
+			
+        } catch (JSONException e) {
+            e.printStackTrace();
+			Log.e("在提交通知的时候",e.toString());
+			
+        }catch( IOException e)
+		{
+Log.e("在提交通知的时候",e.toString());
+		}
+    
+	
+	}
+	
+	/*
+	
+	删除
+	
+	*/
+	public void Delete_Collect(String deletecollecturl) {
+          String str = null;
+        try {
+         
+            Request request = new Request.Builder()
+				.url(deletecollecturl)
+			.delete()
+				.build();
+
+            Response response = client.newCall(request).execute();
+            if (!response.isSuccessful()) throw new IOException();
+			str = response.body().string();
+			Log.e("删除收藏",str);
+			Log.e("删除收藏url",url);
+			
+
+		}catch(IOException e)
+		{
+			Log.e("videodata1",e.toString());
+			view_one=null;
+			view_one=new View_One((Run_Video_)maphttp.get("context"),e.toString());
+			view_one.viewcreate();
+			
+		}
+	}
 	
 	
 	public void videodata() {
@@ -296,10 +621,45 @@ JSONObject jso=new JSONObject(str);
 if(jso.getString("message").equals("已添加进收藏"))
 {
 msg.arg1=0;
-
+	view_one=null;
+	view_one=new View_One((Run_Video_)maphttp.get("context"),jso.getString("message"));
+	view_one.viewcreate();
+	
 }else
 {
+	String cid=null;
 	msg.arg1=1;
+	//在这里调用删除收藏的方法DeleteCollect
+	if(maphttp.get("vid")!=null)
+	{
+		String vid=maphttp.get("vid").toString();
+		if(user.Collect_List!=null)
+		{
+		for(int i=0;i<user.Collect_List.size();i++)
+		{
+			//获取
+			if(user.Collect_List.get(i).get("_id").toString()!=null)
+			{
+				HashMap<String,Object> vmap=user.Collect_List.get(i);
+				if(vid.equals(user.Collect_List.get(i).get("vdo_id")))
+				{
+					//对比收藏中的视频id和视频id
+					//如果收藏列表某项收藏中的视频id和本视频id对上了
+					cid=user.Collect_List.get(i).get("_id").toString();
+					//比较的是视频id  但赋值的是收藏id
+				}
+			}
+			
+		}
+		if(cid!=null)
+		Delete_Collect("http://trying-video.herokuapp.com/user/collect/"+cid+"?token="+user.token);
+		}else
+		{
+			view_one=null;
+			view_one=new View_One((Run_Video_)maphttp.get("context"),"Collect_List==null");
+			view_one.viewcreate();
+		}
+	}
 }
 msg.what=1;
 run.mHandler.sendMessage(msg);
@@ -769,7 +1129,7 @@ run.mHandler.sendMessage(msg);
 */
 
 	private void Get_collects() {
-		Collect_ coll=(Collect_)maphttp.get("context");
+		MainActivity coll=(MainActivity)maphttp.get("context");
 		if(coll!=null)
 			handler=coll.mHandler;
         OkHttpClient htt;
@@ -791,7 +1151,7 @@ run.mHandler.sendMessage(msg);
                     msg = new Message();
                     bundle.putString("?", "获取成功");
                     msg.obj = jsonArray;
-                    msg.what = 0;
+                    msg.what = 7;
                     msg.setData(bundle);
                     handler.sendMessage(msg);
                 } catch (JSONException e) {
@@ -801,7 +1161,7 @@ run.mHandler.sendMessage(msg);
                     bundle.putString("?", "获取失败");
                     bundle.putString("!", jsonObject.getString("error"));
                     msg.obj = jsonObject;
-                    msg.what = 0;
+                    msg.what = 7;
                     msg.setData(bundle);
 				
                     handler.sendMessage(msg);

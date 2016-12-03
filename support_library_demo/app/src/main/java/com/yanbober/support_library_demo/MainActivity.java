@@ -44,6 +44,20 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
             Bundle bundle=msg.getData();
             switch (msg.what) {
                 case 0:
+					/*
+					视频列表缺少收藏者id支付者id
+					>>  返回全部视频信息
+{   
+    {
+        "_id" : "***",    //视频id
+        "uploader" : "***",    //上传者
+        "title" : "***",    //标题
+        "introduction" : "***",    //简介
+        "price" : ***,    //价格
+        "paidppnumber" : ***,    //付款人数
+        "concernednumber" : ***    //收藏人数
+    },
+    {...},*/
                     try {
                         //获取视频列表
                         if (bundle.getString("?").equals("获取失败")) {
@@ -149,15 +163,16 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 							map.put("paypassword", jsonObject.getString("paypassword"));
 							maps.add(map);
                             user.mydata = map;
-                            if (jsonObject.getString("notices").equals("0")) {
-                                Message_point.setVisibility(View.INVISIBLE);
-                            }
-							else {
-                                if (jsonObject.getJSONArray("notices").length() > 1) {Message_point.setText("1");}
+                         
+                                if (jsonObject.getJSONArray("notices").length() >  0) {
+									
+									
+									Message_point.setText(String.valueOf(jsonObject.getJSONArray("notices").length()));
+									}
 								else {
                                     Message_point.setVisibility(View.INVISIBLE);
                                 }
-                            }
+                            
 
                         }
                     }
@@ -183,6 +198,59 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 
 
                     break;
+					
+					
+					case 7:
+						//接收收藏列表
+					try{/*
+						 >>  返回全部收藏
+						 {
+						 {
+						 "_id" : "***",
+						 "collector" : "***",    // 收藏者
+						 "author" : "***",    //作者
+						 "videoTitle" : "***",    //视频名
+						 "cost" : ***,    //支付费用
+						 "vdo_id" : "***"    //视频id
+						 },
+						 {...},
+						 ...*/
+						//获取列表等详细数据
+						Bundle bun=msg.getData();
+						JSONArray jsa=(JSONArray)msg.obj;
+						ArrayList<HashMap<String,Object>> listmap=new ArrayList<HashMap<String,Object>>();
+						if(jsa.length()>0)
+							for(int y=0;y<jsa.length();y++)
+							{
+								JSONObject jso=jsa.getJSONObject(y);
+								Log.e("colllllll",jso.toString());
+								//addTextToList(jso.getString("videoTitle"),3,R.drawable.qq,"901人付款",1,1);
+								HashMap<String,Object> map=new HashMap<String,Object>();
+								map.put("_id",jso.getString("_id"));
+								map.put("collector",jso.getString("collector"));
+								map.put("author",jso.getString("author"));
+								map.put("videoTitle",jso.getString("videoTitle"));
+								map.put("cost",jso.getString("cost"));
+								map.put("vdo_id",jso.getString("vdo_id"));
+								listmap.add(map);
+
+							}
+						user.Collect_List=listmap;
+						//addTextToList("无任何收藏",3,R.drawable.qq,"901人付款",1,1);
+
+					}catch(JSONException e)
+					{
+						View_One 
+						view_one= new View_One(MainActivity.this,e.toString());
+
+						view_one.viewcreate();
+						
+					}
+			
+					
+						
+						break;
+						//
             }
 
 
@@ -200,6 +268,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
     private DataOutputStream out;
     private Socket socketClien;
     User user = new User();
+	int count=0;
     //将ToolBar与TabLayout结合放入AppBarLayout
     private Toolbar mToolbar;
     //DrawerLayout中的左侧菜单控件
@@ -228,15 +297,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
     Button button2 = null, button3 = null;
 
     FloatingActionButton  button1 = null;
-    //////// TODO: http网络请求
-    HttpURLConnection conn = null;
-
-    String requestHeader = null;//请求头
-    byte[] requestBody = null;//请求体
-    String responseHeader = null;//响应头
-    byte[] responseBody = null;//响应体
-    int count = 0;
-
+  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -307,7 +368,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
         Timer tExit = null;
         if (isExit == false) {
             isExit = true; // 准备退出
-            //Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
             tExit = new Timer();
             tExit.schedule(new TimerTask() {
 					@Override
@@ -509,6 +570,11 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 					}
 				}
 			});
+			if(user.phone.equals("15913044423"))
+			{
+				
+			}else
+			{
 		Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(MainActivity.this
 																 , mHandler
 																 , "http://trying-video.herokuapp.com/user/video/all/detail"
@@ -537,6 +603,8 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 			//String str=bun.getString("isfirst");
 			//if(str.equals("0"))
 				CheckData();
+				getcollect();
+				}
 		//
 		
 		
@@ -822,7 +890,19 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 			.build();
         OkHttpUtil.getDefault(this).doUploadFileAsync(info);
     }
+	public void getcollect()
+	{
 
+
+		HashMap<String ,Object> map=new HashMap<String ,Object>();
+		map.put("context",MainActivity.this);
+
+		String url="http://trying-video.herokuapp.com/user/allcollect?token="+user.token;
+		Http_UploadFile_ http=new Http_UploadFile_(url,map,"13");
+		Thread xx=new Thread(http);
+		xx.start();
+
+	}
 //	public class threadEx implements Runnable
 //	{/////The get file from server of thread
 //		File name;

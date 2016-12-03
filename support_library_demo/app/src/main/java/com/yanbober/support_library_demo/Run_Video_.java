@@ -20,6 +20,7 @@ import java.util.TimerTask;
 import android.widget.SearchView.*;
 import com.yanbober.support_library_demo.Http_Util.*;
 import java.util.*;
+import com.yanbober.support_library_demo.Message_S.*;
 
 public class Run_Video_ extends ActionBarActivity {
 	public Handler mHandler = new Handler()
@@ -36,10 +37,14 @@ public class Run_Video_ extends ActionBarActivity {
 						{//是收藏还是取消
 							collect_star.setBackgroundResource(R.drawable.start_yellow);
 						tcollect.setBackgroundColor(0xff999999);
+						
 						}else
 						{
 							collect_star.setBackgroundResource(R.drawable.star_gray);
-							tcollect.setBackgroundColor(0xff88777777);
+							tcollect.setTextColor(0xff88777777);
+							
+							View_One view_one=new View_One(Run_Video_.this,"收藏已取消");
+							view_one.viewcreate();
 							
 						}
 						break;
@@ -48,6 +53,8 @@ public class Run_Video_ extends ActionBarActivity {
 		}
 	};
 	private SurfaceView surfaceView;
+	ProgressBar tprog;//进度圈
+	
 	private Button btnPause, btnStop;
 	ImageView btnPlayUrl,collect_star;
 	private SeekBar skbProgress;
@@ -69,7 +76,12 @@ public class Run_Video_ extends ActionBarActivity {
 		{
 
 		count=bun.getString("url");
-		vid=bun.getString("vid");
+			if(bun.containsKey("vid"))
+			{
+				vid=bun.getString("vid");
+			}
+		
+		
 			//strs=str.split("\\|");
 		}
 		}
@@ -81,17 +93,22 @@ public class Run_Video_ extends ActionBarActivity {
 			hideButtons=(RelativeLayout)this.findViewById(R.id.Run_Video_hide);
 			collect_star=(ImageView)this.findViewById(R.id.run_video_layoutImageView);
 			tcollect=(TextView)this.findViewById(R.id.run_video_layoutTextView);
-			
+			tprog=(ProgressBar)this.findViewById(R.id.tProgressBar1);
 			setSupportActionBar(toolbar);
 			ActionBar actionBar = getSupportActionBar();
 			actionBar.setHomeAsUpIndicator(R.drawable.back_purple);
 			actionBar.setDisplayHomeAsUpEnabled(true);
+			tprog.setVisibility(View.INVISIBLE);
+			//缓冲圈隐藏
 			collect_star.setOnClickListener(new OnClickListener()
 			{
 				public void onClick(View v)
 				{
+					if(vid!=null)
+					{
 						HashMap<String,Object> map=new HashMap<String,Object>();
 						map.put("context",Run_Video_.this);
+						map.put("vid",vid);
 						Http_UploadFile_ htt=new Http_UploadFile_("http://trying-video.herokuapp.com/user/collect/"+vid+"?token="+user.token, map,"12");
 						Thread x=new Thread(htt);
 						x.start();
@@ -102,6 +119,10 @@ public class Run_Video_ extends ActionBarActivity {
 						}
 //如果没有 cost 一般默认为0
 						>>  返回 message: '已添加进收藏'*/
+						}else
+						{
+							Toast.makeText(Run_Video_.this,"该视频无登陆id无法收藏",Toast.LENGTH_SHORT).show();
+						}
 				}
 			});
 		
@@ -150,6 +171,7 @@ public class Run_Video_ extends ActionBarActivity {
 
 				if (arg0 == surfaceView) {
 					hideButtons.setVisibility(View.VISIBLE);
+					btnPlayUrl.setVisibility(View.VISIBLE);
 					//延时３秒再隐藏布局
 					player.pause();
 					mHandler.sendEmptyMessageDelayed(0, 3000);
@@ -159,7 +181,10 @@ public class Run_Video_ extends ActionBarActivity {
 					{
 						Toast.makeText(Run_Video_.this,"目标url并不指向视频文件",Toast.LENGTH_LONG).show();
 					}else
-					{player.playUrl(count);}//user.maps.get(Integer.getInteger(count)).get("vdourl").toString());
+					{
+						btnPlayUrl.setVisibility(View.INVISIBLE);
+						tprog.setVisibility(View.VISIBLE);
+						player.playUrl(count);}//user.maps.get(Integer.getInteger(count)).get("vdourl").toString());
 				}
 
 		}
@@ -181,6 +206,22 @@ public class Run_Video_ extends ActionBarActivity {
 		public void onStopTrackingTouch(SeekBar seekBar) {
 			// seekTo()的参数是相对与影片时间的数字，而不是与seekBar.getMax()相对的数字
 			player.mediaPlayer.seekTo(progress);
+		}
+		
+		
+		public void delete_collect()
+		{
+			HashMap<String,Object> map=new HashMap<String,Object>();
+			
+			Http_UploadFile_ htt=new Http_UploadFile_(
+			"http://trying-video.herokuapp.com/user/collect/:_cid?token="
+			,map
+			,"14"
+			);
+			
+			Thread x=new Thread(htt);
+			x.start();
+			
 		}
 	}
 

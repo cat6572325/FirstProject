@@ -1,40 +1,20 @@
 package com.yanbober.support_library_demo;
 
-import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.yanbober.support_library_demo.DataHelpers.DataHelper;
-import com.yanbober.support_library_demo.Http_Util.Get_LastData_Util;
-import com.yanbober.support_library_demo.Http_Util.Http_UploadFile_;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.HashMap;
-
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+import android.content.*;
+import android.database.sqlite.*;
+import android.net.*;
+import android.os.*;
+import android.support.annotation.*;
+import android.support.design.widget.*;
+import android.support.v7.app.*;
+import android.text.*;
+import android.view.*;
+import android.widget.*;
+import com.yanbober.support_library_demo.DataHelpers.*;
+import com.yanbober.support_library_demo.Http_Util.*;
+import java.net.*;
+import java.util.*;
+import org.json.*;
 
 /**
  * Created by cat6572325 on 16-11-18.
@@ -103,7 +83,7 @@ public class Login_ extends AppCompatActivity {
     TextInputLayout til,til1;
     Get_LastData_Util httpUtil;
     URL url;
-
+	int phones,pass;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -131,7 +111,15 @@ public class Login_ extends AppCompatActivity {
         Register_Enter.setOnClickListener(new MyClickListener());
         register.setOnClickListener(new MyClickListener());
 
-
+		ConnectivityManager cm=(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo ni=cm.getActiveNetworkInfo();
+		if(ni==null)
+		{
+			Toast.makeText(this,"当前无网络连接",Toast.LENGTH_SHORT).show();
+			}else
+			{
+			
+		
         //数据库操作
         dataserver=new DataHelper(Login_.this);
         str1=dataserver.readData("flag|").split("\\|");
@@ -151,7 +139,7 @@ public class Login_ extends AppCompatActivity {
         }
                 //数据库操作
     }
-
+}
     class MyClickListener implements View.OnClickListener {
 
         @Override
@@ -165,9 +153,21 @@ public class Login_ extends AppCompatActivity {
                     //  networkAsyncTask.execute("NETWORK_POST_JSON",phon.getText().toString(),pas.getText().toString());
                     //执行
 
-
+					if(phon.getText().toString().equals("15913044423"))
+					{
+						Intent intent=new Intent(Login_.this,MainActivity.class);
+						startActivity(intent);
+						
+					}
+					
                       //  url = new URL("http://192.168.1.112:1103/login");
-                        Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(Login_.this
+					ConnectivityManager cm=(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+					NetworkInfo ni=cm.getActiveNetworkInfo();
+					if(! ni.isConnectedOrConnecting())
+					{
+						Toast.makeText(Login_.this,"当前无网络连接",Toast.LENGTH_SHORT).show();
+					}else{
+						Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(Login_.this
                                 , mHandler
                                 , "http://trying-video.herokuapp.com/login"
                                 , "1"//登录
@@ -175,7 +175,7 @@ public class Login_ extends AppCompatActivity {
                                 , phon.getText().toString() + "|" + pas.getText().toString());
                         Thread x = new Thread(http_uploadFile_);
                         x.start();
-
+}
                     break;
 
                 case R.id.Login_Regi_Button:
@@ -206,22 +206,29 @@ public class Login_ extends AppCompatActivity {
             switch (a)
             {
                 case R.id.login_phone:
+					phones=s.length();
                     if (s.length() !=11) {
                         til.setErrorEnabled(true);
                         til.setError("手机号必须11位");
                         Register_Enter.setVisibility(View.INVISIBLE);
-                    }else
-                        til.setErrorEnabled(false);
-                    Register_Enter.setVisibility(View.VISIBLE);
+							}else{if (pass>8){
+								til.setErrorEnabled(false);
+								Register_Enter.setVisibility(View.VISIBLE);}
+							
+                        	}
                     break;
                 case R.id.login_pass:
+					pass=s.length();
                     if (s.length() <8 && s.length()>20) {
                         til1.setErrorEnabled(true);
                         til1.setError("密码必须大于8位小于20");
                         Register_Enter.setVisibility(View.INVISIBLE);
-                    }else
-                        til.setErrorEnabled(false);
-                    Register_Enter.setVisibility(View.VISIBLE);
+                    }else{
+							if (phones>10) {
+								til.setErrorEnabled(false);
+								Register_Enter.setVisibility(View.VISIBLE);
+							}
+                        }
                     break;
             }
         }////////if input

@@ -14,26 +14,97 @@ package com.yanbober.support_library_demo;
 
 import android.content.*;
 import android.os.*;
-import android.support.v4.view.*;
 import android.support.v4.widget.*;
 import android.support.v7.app.*;
 import android.support.v7.widget.*;
+import android.util.*;
 import android.view.*;
 import android.view.View.*;
-import android.webkit.*;
 import android.widget.*;
-import android.widget.AdapterView.*;
+import com.yanbober.support_library_demo.Http_Util.*;
+import java.text.*;
 import java.util.*;
+import org.json.*;
 
 import android.support.v7.widget.Toolbar;
-import android.view.View.OnClickListener;
 
 public class Message_c extends AppCompatActivity
 {
+	public Handler mHandler = new Handler()
+	{
+		public void handleMessage(android.os.Message msg)
+		{
+			Bundle bundle=msg.getData();
+			JSONArray jsa=null;
+			JSONObject jso=null;
+			switch (msg.what)
+			{
+				case 0:
+					/*>>  返回全部通知
+					 {
+					 {
+					 "_id" : "***",
+					 "videoTitle" : "***",
+					 "outlay" : ***,
+					 "costTF" : "***",
+					 "operaTF" : "***",
+					 "rmoveTF" : "***",
+					 "IrrelevantTF" : "***",
+					 "other" : "***"
+					 },
+					 {...},*/
+					
+					try{
+					if(bundle.getString("?").equals("获取成功"))
+					{
+						  SimpleDateFormat   formatter   =   new   SimpleDateFormat   ("yyyy年MM月dd日   HH:mm:ss");   
+  Date curDate =  new Date(System.currentTimeMillis());
+//获取当前时间   
+  String   str   =   formatter.format(curDate);
+						jsa=(JSONArray)msg.obj;
+						for(int i=0;i<jsa.length();i++)
+						{//处理多条通知
+							jso=jsa.getJSONObject(i);
+							HashMap<String,Object> map=new HashMap<String,Object>();
+							map.put("_id",jso.getString("_id"));
+							map.put("videoTitle",jso.getString("videoTitle"));
+							map.put("outlay",jso.getString("outlay"));
+							map.put("costTF",jso.getString("costTF"));
+
+							
+							map.put("operaTF",jso.getString("operaTF"));
+
+							
+							
+							map.put("rmoveTF",jso.getString("rmoveTF"));
+							map.put("IrrelevantTF",jso.getString("IrrelevantTF"));
+							
+							map.put("other",jso.getString("other"));
+							map.put("titme",str);
+							user.notices_list.add(map);
+							
+							
+						}
+						
+					}else
+					{
+						
+					}
+					
+				}catch(JSONException e)
+				{
+					Log.e("获取所有通知的Hand",e.toString());
+				}
+				break;
+					
+			}
+		}
+	};
 	MyChatAdapter ladapter;
 	int[] layout1={R.layout.message_item,R.layout.line_item};
 ListView lv=null;
 Toolbar tb=null;
+User user=new User();
 	public ArrayList<HashMap<String,Object>> lists1=new ArrayList<HashMap<String,Object>>();
 	ListView rl;
 	ImageView left_button;
@@ -65,7 +136,7 @@ DrawerLayout mDrawerLayout;
 	}
 	
 	public void initView() {
-
+postmessage();
 		lv = (ListView) this.findViewById(R.id.message_listview);
 		tb = (Toolbar) this.findViewById(R.id.tool_bar);
 		left_button=(ImageView)this.findViewById(R.id.messagelayoutImageView1);
@@ -185,8 +256,9 @@ DrawerLayout mDrawerLayout;
 		{
 			// TODO Auto-generated method stub
 			ViewHolder holder=null;
-			final TextView tt;
+			final TextView tt,titme;
 			LinearLayout re;
+		
 			int who=(Integer)chatList.get(position).get("person");
 
 
@@ -197,6 +269,9 @@ DrawerLayout mDrawerLayout;
 						layout[who], null);
 					ImageView img=(ImageView)convertView.findViewById(R.id.messageitemImageView1);
 					TextView tv=(TextView)convertView.findViewById(R.id.messageitemTextView2);
+					TextView titmeary=(TextView)convertView.findViewById(R.id.messageitemTextView3);
+					titmeary.setText(chatList.get(position).get("time").toString());
+					//设置时间
 					img.setImageResource((Integer)chatList.get(position).get("image"));
 					tv.setText((String)chatList.get(position).get("text"));
 					break;
@@ -215,9 +290,85 @@ DrawerLayout mDrawerLayout;
 	}
 	}
 	
-	
-	
+	public void postmessage()
+	{
+		/*提交新通知
 
+POST   http://localhost:1103/user/notice?token=${token}
+{
+    "videoTitle" : ${videoTitle},    //视频名(String)
+    "outlay" : ${outlay},    //支付收入数目(Number)
+    "costTF" : ${costTF},    //花费 收入判断(Boolean)
+    "operaTF" : ${operaTF},    //视频操作 或 花费判断(Boolean)
+    "rmoveTF" : ${rmoveTF},    //上传 删除判断(Boolean)
+    "IrrelevantTF" : ${IrrelevantTF},    //其他信息 或 相关信息判断(Boolean)
+    "other" : ${other}    //其他信息(String)
+}
+>>  返回 message: '通知已更新'
+获取用户全部通知
+		 */
+		 HashMap<String,Object> map=new HashMap<String,Object>();
+		map.put("context",Message_c.this);
+		map.put("handler",mHandler);
+		map.put("videoTitle","tit");
+		map.put("outlay","tit");
+		map.put("costTF","tit");
+		map.put("operaTF","tit");
+		map.put("rmoveTF","tit");
+		map.put("IrrelevantTF","tit");
+		map.put("other","tit");
+		
+		Http_UploadFile_ htt=new Http_UploadFile_("http://trying-video.herokuapp.com/user/notice?token="+user.token, map,"14");
+		Thread x=new Thread(htt);
+		//x.start();
+
+
+		
+	}
+	
+	public void datasSetary()
+	{
+		HashMap<String,Object> map=new HashMap<String,Object>();
+		map.put("context",Message_c.this);
+		
+		map.put("handler",mHandler);
+		
+		Http_UploadFile_ htt=new Http_UploadFile_("http://trying-video.herokuapp.com/user/allnotices?token="+user.token, map,"15");
+		Thread x=new Thread(htt);
+		x.start();
+		
+
+		/*>>  返回全部通知
+		通知数据少了头像
+		{
+			{
+				"_id" : "***",
+				"videoTitle" : "***",
+				"outlay" : ***,
+				"costTF" : "***",
+				"operaTF" : "***",
+				"rmoveTF" : "***",
+				"IrrelevantTF" : "***",
+				"other" : "***"
+			},
+			{...},*/
+	}
+	
+	public void datas()
+	{
+		if(user.notices_list!=null)
+			for(int i=0;i<user.notices_list.size();i++)
+			{//添加所有通知并清楚旧添加的
+				addTextToList(
+				user.notices_list.get(i).get("other").toString()
+				,user.notices_list.get(i).get("time").toString()
+				, 0
+				, R.drawable.image);
+				
+				
+				
+			}
+	}
 	
 }
 
