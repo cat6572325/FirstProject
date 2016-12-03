@@ -99,7 +99,7 @@
 				android:layout_width="wrap_content"
 				android:layout_marginLeft="20dp"
 				android:background="#00000000"
-				android:id="@+id/set_new_pay_pwd_layoutEditText"
+				android:id="@+id/set_new_pay_pwd_layoutEditText1"
 				android:hint="再次填写支付密码"/>
 
 		</LinearLayout>

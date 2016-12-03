@@ -47,22 +47,23 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 					/*
 					视频列表缺少收藏者id支付者id
 					>>  返回全部视频信息
-{   
-    {
-        "_id" : "***",    //视频id
-        "uploader" : "***",    //上传者
-        "title" : "***",    //标题
-        "introduction" : "***",    //简介
-        "price" : ***,    //价格
-        "paidppnumber" : ***,    //付款人数
-        "concernednumber" : ***    //收藏人数
-    },
-    {...},*/
+                    {
+                        {
+                            "_id" : "***",    //视频id
+                            "uploader" : "***",    //上传者
+                            "title" : "***",    //标题
+                            "introduction" : "***",    //简介
+                            "price" : ***,    //价格
+                            "paidPerson" : "***",    //付款人ID
+                            "cocerPerson" : "***",    //收藏人名字
+                            "paidppnumber" : ***,    //付款人数
+                            "concernednumber" : ***    //收藏人数
+                        },
+                        {...},,*/
                     try {
                         //获取视频列表
                         if (bundle.getString("?").equals("获取失败")) {
-                            View_One vv=new View_One(MainActivity.this,"视频列表获取失败");
-							vv.viewcreate();
+
 							
                         }
 						else {
@@ -83,6 +84,8 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
                                 map.put("introduction", jsonObject.getString("introduction"));
                                 map.put("vdourl", jsonObject.getString("vdourl"));
                                 map.put("paidppnumber", jsonObject.getString("paidppnumber"));
+                                map.put("paidPerson", jsonObject.getString("paidPerson"));
+                                map.put("cocerPerson", jsonObject.getString("cocerPerson"));
 								try {
 									if (jsonObject.getString("vdoPhotourl") != null) {
 										map.put("concernednumber", jsonObject.getString("concernednumber"));
@@ -142,7 +145,20 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
                     break;
                 case 5:
                     //初始化信息
+                    /*
+                    >>  返回个人信息及id
+                    {
+                        "nickname" : "***",
+                        "headPortrait" : "***",
+                        "phone" : "***",
+                        "paypassword" : "***",
+                        "balance" : ***,
+                        "paidVideos" : "***",
+                        "collects" : "***",
+                        "notices" : "***"
+                    }
 
+                     */
                     try {
 
                         if (bundle.getString("?").equals("获取失败")) {
@@ -153,14 +169,14 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
                             HashMap<String, Object> map;
                             ArrayList<HashMap<String, Object>> maps = new ArrayList<HashMap<String, Object>>();
 							map = new HashMap<String, Object>();
-							map.put("__v", jsonObject.getString("__v"));
-							map.put("balance", jsonObject.getString("balance"));
+                            map.put("phone",jsonObject.getString("phone"));
 							map.put("_id", jsonObject.getString("_id"));
+							map.put("headPortrait", jsonObject.getString("headPortrait"));
 							map.put("nickname", jsonObject.getString("nickname"));
                             User_name.setText(jsonObject.getString("nickname"));
-							map.put("notices", jsonObject.getString("notices"));
-							map.put("collects", jsonObject.getString("collects"));
-							map.put("paypassword", jsonObject.getString("paypassword"));
+							map.put("notices", jsonObject.getString("notices"));//数组
+							map.put("collects", jsonObject.getString("collects"));//数组
+
 							maps.add(map);
                             user.mydata = map;
                          
@@ -177,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
                         }
                     }
 					catch (JSONException e) {
-
+                        Log.e("在获取个人信息的时候",e.toString());
                     }
                     break;
 
@@ -193,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
                         }
                     }
 					catch (JSONException e) {
-
+                        Log.e("在获取头像的时候",e.toString());
                     }
 
 
@@ -203,17 +219,16 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 					case 7:
 						//接收收藏列表
 					try{/*
-						 >>  返回全部收藏
-						 {
-						 {
-						 "_id" : "***",
-						 "collector" : "***",    // 收藏者
-						 "author" : "***",    //作者
-						 "videoTitle" : "***",    //视频名
-						 "cost" : ***,    //支付费用
-						 "vdo_id" : "***"    //视频id
-						 },
-						 {...},
+						>>  返回全部收藏
+                        {
+                            {
+                                "_id" : "***",
+                                "collector" : "***",    // 收藏者
+                                "author" : "***",    //作者
+                                "videoTitle" : "***",    //视频名
+                                "vdo_id" : "***"    //视频id
+                            },
+                            {...},
 						 ...*/
 						//获取列表等详细数据
 						Bundle bun=msg.getData();
@@ -230,7 +245,6 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 								map.put("collector",jso.getString("collector"));
 								map.put("author",jso.getString("author"));
 								map.put("videoTitle",jso.getString("videoTitle"));
-								map.put("cost",jso.getString("cost"));
 								map.put("vdo_id",jso.getString("vdo_id"));
 								listmap.add(map);
 
@@ -240,17 +254,23 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 
 					}catch(JSONException e)
 					{
-						View_One 
-						view_one= new View_One(MainActivity.this,e.toString());
-
-						view_one.viewcreate();
-						
+						Log.e("获取收藏的时候",e.toString());
 					}
 			
 					
 						
 						break;
-						//
+                case 8:
+                    //查余额
+                    try {
+                        JSONObject jsonObjec = (JSONObject) msg.obj;
+
+                        user.mydata.put("balance", jsonObjec.getString("balance"));
+                    }catch (JSONException e)
+                    {
+                        Log.e("在获取余额的时候",e.toString());
+                    }
+                    break;
             }
 
 
@@ -903,6 +923,20 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 		xx.start();
 
 	}
+    public void getbalance()
+    {
+
+        HashMap<String ,Object> map=new HashMap<String ,Object>();
+        map.put("context",MainActivity.this);
+        map.put("hanlder",mHandler);
+        String url="http://trying-video.herokuapp.com/user/allcollect?token="+user.token;
+        Http_UploadFile_ htt=new Http_UploadFile_
+                (
+                        "http://trying-video.herokuapp.com/user/balance?token="+user.token
+                        ,map
+                        ,"16");  Thread xx=new Thread(htt);
+        xx.start();
+    }
 //	public class threadEx implements Runnable
 //	{/////The get file from server of thread
 //		File name;

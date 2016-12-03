@@ -14,8 +14,13 @@ import android.graphics.*;
 import android.graphics.drawable.*;
 import android.os.*;
 import android.support.v7.widget.*;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -290,6 +295,7 @@ case 2:
 					}else
 					{
 						//显示
+
 					}
 				//collect是否许显示支付按钮
 
@@ -299,6 +305,7 @@ case 2:
 				}else
 				{
 					//显示
+					holder.collect_paid_button.setText("支付"+lists.get(position).get("$"));
 
 				}
 				holder.collect_paid_button.setOnClickListener(new View.OnClickListener() {
@@ -316,23 +323,26 @@ case 2:
 						{//否则弹出支付框
 							HashMap<String, Object> map = new HashMap<String, Object>();
 							map.put("isprogress", 0);
-							map.put("cost",user.Collect_List.get(count).get("cost").toString());
-							Pop_Img.Builder p = new Pop_Img.Builder((Collect_) context, map);
-							p.setPositiveButton("[潮汕揭]初版\n问题反馈:(qq) 1213965634\n\n", new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog, int which) {
-									//	dialog.dismiss();
-									//login
-									//Intent intent=new Intent((Paid_Video)Context,Set_Pay_pwd_.class);
-									//startActivity(intent);
-									//finish();
+							if (user.Collect_List.get(count)!=null) {
+								String cost = user.Collect_List.get(count).get("vdo_id").toString();
+								map.put("cost", cost);
+								Pop_Img.Builder p = new Pop_Img.Builder((Collect_) context, map);
+								p.setPositiveButton("[潮汕揭]初版\n问题反馈:(qq) 1213965634\n\n", new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog, int which) {
+										//	dialog.dismiss();
+										//login
+										//Intent intent=new Intent((Paid_Video)Context,Set_Pay_pwd_.class);
+										//startActivity(intent);
+										//finish();
 
-								}
-								//设置你的操作事项
+									}
+									//设置你的操作事项
 
 
-							});
+								});
 
-							p.create().show();
+								p.create().show();
+							}
 						}
 					}
 				});
@@ -538,7 +548,24 @@ case 2:
         notifyDataSetChanged();
     }
 
+	public int getVideoCost(String VideoId)
+	{
+		User user=new User();
+		if (user.maps!=null) {
+			int lent = user.maps.size();
 
+
+			for (int i = 0; i < lent; i++) {
+				if (VideoId.equals(user.maps.get(i).get("_id")))
+				{//配对成功
+
+					return  Integer.parseInt((String) user.maps.get(i).get("price"));
+				}
+			}
+
+		}
+		return 0;
+	}
 
 }//myrecleradapter
 class MyViewHolder2 extends RecyclerView.ViewHolder{
@@ -614,4 +641,7 @@ class MyViewHolderFirst extends RecyclerView.ViewHolder{
 
 
 	}//myviewholder1
+
+
+
 }

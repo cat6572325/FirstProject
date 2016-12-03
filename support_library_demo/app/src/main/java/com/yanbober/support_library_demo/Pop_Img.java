@@ -41,23 +41,23 @@ public class Pop_Img extends Dialog {
         HashMap<String, Object> map;
         private String title, acco, pas;
         private String message;
-        EditText loe, pae, Pay_pwd, round_title, round_money, round_ps,collect_enter;
-        RelativeLayout indelayout,error_RelativeLayout;
-        Button uploadbutton, Set_Pay_Pwd_sure, Set_Pay_Pwd_cancel,collect_button,collect_button2;
+        EditText loe, pae, Pay_pwd, round_title, round_money, round_ps, collect_enter;
+        RelativeLayout indelayout, error_RelativeLayout;
+        Button uploadbutton, Set_Pay_Pwd_sure, Set_Pay_Pwd_cancel, collect_button, collect_button2;
         RoundProgressBar bar;
         Handler mViewUpdateHandler;
         private String positiveButtonText;
         private String negativeButtonText;
         private View contentView;
         Bitmap btm;
-        String ERror=null;
-		
+        String ERror = null;
 
-        final User user=new User();
+
+        final User user = new User();
         boolean red = true;
         boolean green = true;
         ImageView miusic, voice;
-        TextView miusict, voicet,collect_paid_text,error_Text,Paid_pwd_text;
+        TextView miusict, voicet, collect_paid_text, error_Text, Paid_pwd_text;
         File_with_ file_with;
 
         private DialogInterface.OnClickListener positiveButtonClickListener;
@@ -89,17 +89,16 @@ public class Pop_Img extends Dialog {
         }
 
         public Builder(Collect_ collect_, HashMap<String, Object> map) {
-            this.collect_=collect_;
-            this.map=map;
+            this.collect_ = collect_;
+            this.map = map;
         }
 
 
-
-        public Builder(Context context,String ERror,HashMap<String, Object> map) {
+        public Builder(Context context, String ERror, HashMap<String, Object> map) {
             //错误提示框
-            this.context=context;
-            this.map=map;
-            this.ERror=ERror;
+            this.context = context;
+            this.map = map;
+            this.ERror = ERror;
 
         }
 
@@ -162,13 +161,15 @@ public class Pop_Img extends Dialog {
             this.upload_click = listener;
             return this;
         }
+
         public Builder setERorOnClick(int positiveButtonText,
                                       DialogInterface.OnClickListener listener) {
-            this.ERRor_Click=listener;
+            this.ERRor_Click = listener;
             return this;
 
         }
-            public Builder setPositiveButton(String positiveButtonText,
+
+        public Builder setPositiveButton(String positiveButtonText,
                                          DialogInterface.OnClickListener listener) {
             this.positiveButtonText = positiveButtonText;
             this.positiveButtonClickListener = listener;
@@ -254,8 +255,7 @@ public class Pop_Img extends Dialog {
 			 ((LinearLayout) layout.findViewById(R.id.content))
 			 .addView(contentView, new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
 			 }*/
-            if (ERror!=null)
-            {
+            if (ERror != null) {
                 LayoutInflater inflater = (LayoutInflater) context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 // instantiate the dialog with the custom Theme
@@ -264,29 +264,28 @@ public class Pop_Img extends Dialog {
 
                 dialog.addContentView(layout, new LayoutParams(
                         LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-                error_Text=(TextView)layout.findViewById(R.id.error_text);
-                error_RelativeLayout=(RelativeLayout)layout.findViewById(R.id.Error_RelativeLayout);
+                error_Text = (TextView) layout.findViewById(R.id.error_text);
+                error_RelativeLayout = (RelativeLayout) layout.findViewById(R.id.Error_RelativeLayout);
                 error_Text.setText(map.get("Message").toString());
-                if (ERRor_Click!=null)
-                {
+                if (ERRor_Click != null) {
                     error_RelativeLayout.setOnClickListener(new View.OnClickListener() {
 
-                    @Override
-                    public void onClick(View view) {
+                        @Override
+                        public void onClick(View view) {
 
-                        positiveButtonClickListener.onClick(dialog,
-                                DialogInterface.BUTTON_POSITIVE);
-                        //将点击事件传出去
+                            positiveButtonClickListener.onClick(dialog,
+                                    DialogInterface.BUTTON_POSITIVE);
+                            //将点击事件传出去
 
-                       // Snackbar.make(view, "you press key for sure  " + Pay_pwd.getText().toString(), Snackbar.LENGTH_SHORT).show();
-                    }
+                            // Snackbar.make(view, "you press key for sure  " + Pay_pwd.getText().toString(), Snackbar.LENGTH_SHORT).show();
+                        }
 
 
-                });
+                    });
                 }
                 return dialog;
             }
-                    if (setting_ != null) {
+            if (setting_ != null) {
                 if ((Integer) map.get("isprogress") == 0) {
                     LayoutInflater inflater = (LayoutInflater) setting_
                             .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -299,13 +298,12 @@ public class Pop_Img extends Dialog {
                     Set_Pay_Pwd_sure = (Button) layout.findViewById(R.id.enterpaypwddlgButton1);
                     Set_Pay_Pwd_cancel = (Button) layout.findViewById(R.id.enterpaypwddlgButton2);
                     Pay_pwd = (EditText) layout.findViewById(R.id.Pay_Pwd_Edit);
-					Paid_pwd_text=(TextView)layout.findViewById(R.id.paid_pwd_text);
-							if(user.mydata.get("paypassword").toString().equals(""))
-							{
-							Paid_pwd_text.setText("未设置支付密码");
-							Set_Pay_Pwd_sure.setText("马上填写");
-							Pay_pwd.setEnabled(false);
-							}
+                    Paid_pwd_text = (TextView) layout.findViewById(R.id.paid_pwd_text);
+                    if (user.mydata.get("paypassword").toString().equals("")) {
+                        Paid_pwd_text.setText("未设置支付密码");
+                        Set_Pay_Pwd_sure.setText("马上填写");
+                        Pay_pwd.setEnabled(false);
+                    }
                     Set_Pay_Pwd_sure.setOnClickListener(new View.OnClickListener() {
 
                         @Override
@@ -316,31 +314,25 @@ public class Pop_Img extends Dialog {
                             //将点击事件传出去
 
                             Log.e("PaidWord", user.mydata.get("paypassword").toString());//.equals("0"))
-							if(user.mydata.get("paypassword").toString()!=null)
-							{
-								if(Pay_pwd.getText().toString().equals(user.mydata.get("paypassword").toString()))
-								{//如果支付密码有且配对成功
-									Intent intent=new Intent(setting_,Set_Pay_pwd_.class);
-									setting_.startActivity(intent);
-									setting_.
-									finish();
-									dialog.dismiss();
-									
-								}else
-								{
-									
-									Snackbar.make(view, "you press key for sure  ,But it's error" + Pay_pwd.getText().toString(), Snackbar.LENGTH_SHORT).show();
-									
-								}
-								
-							}else
-							{//设置支付密码
-							
-								}
+                            if (user.mydata.get("paypassword").toString() != null) {
+                                if (Pay_pwd.getText().toString().equals(user.mydata.get("paypassword").toString())) {//如果支付密码有且配对成功
+                                    Intent intent = new Intent(setting_, Set_Pay_pwd_.class);
+                                    setting_.startActivity(intent);
+                                    setting_.
+                                            finish();
+                                    dialog.dismiss();
+
+                                } else {
+
+                                    Snackbar.make(view, "you press key for sure  ,But it's error" + Pay_pwd.getText().toString(), Snackbar.LENGTH_SHORT).show();
+
+                                }
+
+                            } else {//设置支付密码
+
+                            }
 
 
-
-                            
                         }
 
 
@@ -350,7 +342,7 @@ public class Pop_Img extends Dialog {
                         @Override
                         public void onClick(View view) {
                             Snackbar.make(view, "you press key for cancel  " + Pay_pwd.getText().toString(), Snackbar.LENGTH_SHORT).show();
-							dialog.dismiss();
+                            dialog.dismiss();
                         }
                     });
 
@@ -410,84 +402,58 @@ public class Pop_Img extends Dialog {
                 layout = inflater.inflate(R.layout.enter_pay_pwd_dlg, null);
                 dialog.addContentView(layout, new LayoutParams(
                         LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-                collect_enter=(EditText)layout.findViewById(R.id.Pay_Pwd_Edit);
-                collect_button=(Button)layout.findViewById(R.id.enterpaypwddlgButton1);
-                collect_button2=(Button)layout.findViewById(R.id.enterpaypwddlgButton2);
+                collect_enter = (EditText) layout.findViewById(R.id.Pay_Pwd_Edit);
+                collect_button = (Button) layout.findViewById(R.id.enterpaypwddlgButton1);
+                collect_button2 = (Button) layout.findViewById(R.id.enterpaypwddlgButton2);
 
-                collect_paid_text=(TextView)layout.findViewById(R.id.paid_pwd_text);
-                if (user.paidPwd.equals("null"))
-                {//支付密码为空，也就是没有设置过
-				//设置标题显示什么
-                    collect_paid_text.setText("未设置支付密码");
-					collect_button.setText("马上填写");
-                }else
-                {//
-				collect_paid_text.setText("验证支付密码");
-				collect_button.setText("支付");
+                collect_paid_text = (TextView) layout.findViewById(R.id.paid_pwd_text);
+                if (user.paidPwd.equals("null")) {//支付密码为空，也就是没有设置过
+                    //设置标题显示什么
+                    collect_paid_text.setText("设置支付密码");
+                    collect_button.setText("马上设置");
+                } else {//
+                    collect_paid_text.setText("验证支付密码");
+                    collect_button.setText("支付");
 
                 }
                 collect_button.setOnClickListener(new View.OnClickListener() {
-                                                      @Override
-                                                      public void onClick(View view) {
-                                                          dialog.dismiss();
-                                                      }
-                                                  });
-                        collect_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (collect_enter.getText().toString().equals(""))
-                        {
-							if(user.mydata.get("paypassword")==null)
-							{
-                            Toast.makeText(collect_,"未输入任何字符!!",Toast.LENGTH_LONG).show();
-							}else
-							{//已设置支付密码，所以判断
-								
-							}
-                        }
-                        if (user.paidPwd.equals("null"))
-                        {//支付密码为空，也就是验证吧
-						//设置点击按钮做什么动作
-                         //  Http_UploadFile_ http_uploadFile_=new Http_UploadFile_(collect_.mHandler,"http://localhost:1103/user/payword?token="+user.token
-                          //         ,"path","11修改支付密码");
-							Intent intent=new Intent(collect_,Set_Pay_pwd_.class);
-							collect_.startActivity(intent);
-							collect_.
-								finish();
-							
-								   
-                        }else
-                        {
-                            if (user.paidPwd.equals(collect_enter.getText().toString()))
-                            {//密码验证成功
-                                Toast.makeText(collect_,"支付密码验证成功，配对正确!!",Toast.LENGTH_LONG).show();
-								//那么接下来就是看余额是否足够扣除,如果足够则发送信息，扣除视频的要求金额，然后加入已支付列表了
-								if(judgepaypassword(collect_enter.getText().toString()))
-								{//验证为正确
-									HashMap<String, Object> maphttp = new HashMap<String, Object>();
-									maphttp.put("balance", ((Integer)user.mydata.get("balance"))- (Integer) map.get("cost"));
-									maphttp.put("handler",collect_.mHandler);
-									
-														Http_UploadFile_ htt=new Http_UploadFile_
-														(
-														"http://trying-video.herokuapp.com/user/balance?token="+user.token
-																	  ,maphttp
-																	  ,"16");
-									Thread c=new Thread(htt);
-									c.start();
-								}else
-								{//验证为错误
-									
-								}
-								
-                            }else
-                            {
-                                Toast.makeText(collect_,"支付密码验证成功，但是配对不正确!!",Toast.LENGTH_LONG).show();
-                            }
-                        }
+                        dialog.dismiss();
                     }
                 });
+                collect_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (collect_enter.getText().toString().equals("")) {
+                            if (user.mydata.get("paypassword") == null) {
+                                Toast.makeText(collect_, "未输入任何字符!!", Toast.LENGTH_LONG).show();
+                            } else {//已设置支付密码，所以判断
+                                judgepaypassword(collect_enter.getText().toString(),map.get("video_id").toString());
+                            }
+                        }
 
+                            //设置点击按钮做什么动作
+                            HashMap<String, Object> map2 = new HashMap<String, Object>();
+                            map2.put("context", collect_);
+
+                            map2.put("handler", collect_.mHandler);
+                        map2.put("video_id",map.get("cost").toString());
+                            map2.put("paypassword", collect_enter.getText().toString());
+                            String url = "http://trying-video.herokuapp.com/user/oldpayword?token=" + user.token;
+                            Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(url
+                                    , map2, "11");//直接验证
+
+                            Thread xx = new Thread(http_uploadFile_);
+                            xx.start();
+
+
+                            // Intent intent = new Intent(collect_, Pay_Complete_.class);
+                            //	startActivity(intent);
+
+
+                    }
+                });
 
 
                 return dialog;
@@ -559,14 +525,14 @@ public class Pop_Img extends Dialog {
                                 maphttp.put("price", round_money.getText().toString());
                                 maphttp.put("paidppnumber", "0");//购买人数
                                 maphttp.put("concernednumber", "0");//收藏人数
-								maphttp.put("uploader",user.name);
-								
-								http_thread_ htt=new http_thread_(round_video_,"http://trying-video.herokuapp.com/user/video?token="+user.token
-																  ,file_with.GetFile().getPath()
-																  ,round_video_.mHandler
-																  ,maphttp);
-								Thread c=new Thread(htt);
-								c.start();
+                                maphttp.put("uploader", user.name);
+
+                                http_thread_ htt = new http_thread_(round_video_, "http://trying-video.herokuapp.com/user/video?token=" + user.token
+                                        , file_with.GetFile().getPath()
+                                        , round_video_.mHandler
+                                        , maphttp);
+                                Thread c = new Thread(htt);
+                                c.start();
                              /*   URL url = null;
                                 try {
                                     url = new URL("http://192.168.1.112:1103/user/video/all/detail");
@@ -583,97 +549,105 @@ public class Pop_Img extends Dialog {
                             }
                         });
                     }
-                        if (add_miusicOnclick != null) {
-                            //TODO 添加音乐的按钮
-                            miusic.setOnClickListener(new View.OnClickListener() {
-                                public void onClick(View v) {
-                                    add_miusicOnclick.onClick(dialog,
-                                            DialogInterface.BUTTON_POSITIVE);
-                                    if (red == true) {
-                                        miusic.setBackgroundResource(R.drawable.add_music);
-                                        miusict.setTextColor(Color.rgb(160, 0, 250));
-                                        voice.setBackgroundResource(R.drawable.remove_voice_black);
-                                        red = false;
-                                        green = true;
-                                        //表示音乐不能再添加
-                                        //而消音可以点击
-                                    } else {
-                                        //已点击过就不会再做任何其他响应
-                                    }
+                    if (add_miusicOnclick != null) {
+                        //TODO 添加音乐的按钮
+                        miusic.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+                                add_miusicOnclick.onClick(dialog,
+                                        DialogInterface.BUTTON_POSITIVE);
+                                if (red == true) {
+                                    miusic.setBackgroundResource(R.drawable.add_music);
+                                    miusict.setTextColor(Color.rgb(160, 0, 250));
+                                    voice.setBackgroundResource(R.drawable.remove_voice_black);
+                                    red = false;
+                                    green = true;
+                                    //表示音乐不能再添加
+                                    //而消音可以点击
+                                } else {
+                                    //已点击过就不会再做任何其他响应
                                 }
-                            });
-
-                        }
-                        if (add_reviceOnclick != null) {
-                            //TODO 去除声音的按钮
-                            //.enterpaypwddlgButton1))
-                            voice.setOnClickListener(new View.OnClickListener() {
-                                public void onClick(View v) {
-                                    add_reviceOnclick.onClick(dialog,
-                                            DialogInterface.BUTTON_POSITIVE);
-                                    if (green == true) {
-                                        miusic.setBackgroundResource(R.drawable.add_music_black);
-                                        miusict.setTextColor(Color.rgb(100, 100, 100));
-                                        voice.setBackgroundResource(R.drawable.remove_voice);
-                                        red = true;
-                                        green = false;
-                                        //表示音乐可以再添加
-                                        //而消音不再可以点击
-                                    } else {
-                                        //已点击过就不会再做任何其他响应
-                                    }
-                                }
-                            });
-                        }
-                        Video_data_edit_close.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                dialog.dismiss();
                             }
                         });
-                        mViewUpdateHandler = new Handler() {
-                            @Override
-                            public void handleMessage(Message msg) {
-                                //接受请求设置Progressbar的进度
-                                super.handleMessage(msg);
-                                if (msg.arg1==101)
-                                {
-                                    dialog.dismiss();
+
+                    }
+                    if (add_reviceOnclick != null) {
+                        //TODO 去除声音的按钮
+                        //.enterpaypwddlgButton1))
+                        voice.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+                                add_reviceOnclick.onClick(dialog,
+                                        DialogInterface.BUTTON_POSITIVE);
+                                if (green == true) {
+                                    miusic.setBackgroundResource(R.drawable.add_music_black);
+                                    miusict.setTextColor(Color.rgb(100, 100, 100));
+                                    voice.setBackgroundResource(R.drawable.remove_voice);
+                                    red = true;
+                                    green = false;
+                                    //表示音乐可以再添加
+                                    //而消音不再可以点击
+                                } else {
+                                    //已点击过就不会再做任何其他响应
                                 }
-                                bar.setProgress(msg.arg1);
-                                bar.invalidate();
                             }
-                        };
-                    }// 不是进度圈而是编辑
+                        });
+                    }
+                    Video_data_edit_close.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+                        }
+                    });
+                    mViewUpdateHandler = new Handler() {
+                        @Override
+                        public void handleMessage(Message msg) {
+                            //接受请求设置Progressbar的进度
+                            super.handleMessage(msg);
+                            if (msg.arg1 == 101) {
+                                dialog.dismiss();
+                            }
+                            bar.setProgress(msg.arg1);
+                            bar.invalidate();
+                        }
+                    };
+                }// 不是进度圈而是编辑
 
 
-                    return dialog;
-                }//round_video_
+                return dialog;
+            }//round_video_
 
 
-                else{
-                    return null;
-                }
+            else {
+                return null;
+            }
 
 
-            }//onCreate
+        }//onCreate
 
         public void OnProgressChanged(int count) {
-            Message msg=new Message();
-            msg.arg1=count;
+            Message msg = new Message();
+            msg.arg1 = count;
             mViewUpdateHandler.sendMessage(msg);
 
         }
-		public boolean judgepaypassword(String str)
-		{
-			if(user.mydata.get("paypassword").toString().equals(str))
-			{
-				return true;
-			}else
-			{
-				return false;
-			}
-		}
-		
+
+        public void judgepaypassword(String str,String po) {
+            HashMap<String, Object> map = new HashMap<String, Object>();
+            map.put("context", collect_);
+
+            map.put("handler", collect_.mHandler);
+            map.put("video_id",po);
+            map.put("paypassword", "");
+            String url = "http://trying-video.herokuapp.com/user/oldpayword?token=" + user.token;
+            Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(url
+                    , map, "11");
+
+
+            Thread xx = new Thread(http_uploadFile_);
+            xx.start();
+        }
     }
+
+
+		
+
 }

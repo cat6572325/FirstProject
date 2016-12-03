@@ -220,6 +220,11 @@ public class http_thread_ extends Thread {
 			"concernednumber" : ${concernednumber}    //收藏人数(Number)
 		}
 		>>  返回 status: '信息已以相同id保存' */
+			Log.e("uploader", mapvideo.get("uploader").toString());
+					Log.e("title", mapvideo.get("title").toString());
+					Log.e("introduction", mapvideo.get("introduction").toString());
+					Log.e("price", mapvideo.get("price").toString());
+
 			RequestBody formBody = new FormBody.Builder()
 				.add("uploader", mapvideo.get("uploader").toString())
 				.add("title", mapvideo.get("title").toString())
@@ -248,7 +253,6 @@ Log.e("url",url);
 			jsonObject=new JSONObject(str);
 			if(jsonObject.getString("status").equals("信息已以相同id保存"))
 			{
-		
 				view_one=null;
 				view_one=new View_One((Context)mapvideo.get("context"),"上传成功");
 				view_one.viewcreate();
@@ -372,9 +376,9 @@ Log.e("url",url);
 	/**
 	 * Bitmap保存成File
 	 *
-	 * @param bitmap input bitmap
-	 * @param name output file's name
-	 * @return String output file's path
+	 *
+	 *
+	 *
 	 */
 	public static String bitmap2File(Bitmap bitmap,File f) {
 		//File f = new File(Environment.getExternalStorageDirectory() + name + ".jpg");

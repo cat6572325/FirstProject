@@ -57,14 +57,14 @@
 							android:layout_width="wrap_content"
 							android:layout_alignParentRight="true"
 							android:minWidth="10dp"
-							android:text="1"
-							android:textSize="4dp"
+							android:text="9"
+							android:textSize="10dp"
 							android:textColor="@android:color/white"
 							android:gravity="center_vertical|center_horizontal"
 							android:minHeight="10dp"
-							android:layout_height="9dp"
-							android:layout_marginTop="11dp"
-							android:layout_marginRight="18dp"/>
+							android:layout_height="wrap_content"
+							android:layout_marginTop="8dp"
+							android:layout_marginRight="15dp"/>
 					</RelativeLayout>
 
 				</RelativeLayout>
@@ -122,16 +122,23 @@
 			/>
 		<android.support.design.widget.FloatingActionButton
 			android:id="@+id/f1"
-
+			app:fabSize="normal"
+			app:borderWidth="0dp"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_margin="20dp"
 			android:src="@drawable/floating_main_button"
-
 			android:textSize="25dp"
+			app:backgroundTint="#ffffff"
 			android:textColor="#7f2bed"
 			android:layout_gravity="bottom|right"
-
+			
+			
+			app:elevation="5dp"
+			
+				app:pressedTranslationZ="10dp"
+			app:rippleColor="#ffffff"/>
+		
 			/>
 	</android.support.design.widget.CoordinatorLayout>
 
@@ -172,14 +179,7 @@
 					android:id="@+id/User_name"
 					android:text="UserName"/>
 
-				<TextView
-					android:layout_height="wrap_content"
-					android:text="Medium Text"
-					android:textAppearance="?android:attr/textAppearanceMedium"
-					android:layout_width="wrap_content"
-					android:textColor="#D8D4D3"
-					android:maxHeight="25dp"/>
-
+				
 			</LinearLayout>
 
 		</RelativeLayout>

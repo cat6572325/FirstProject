@@ -84,7 +84,12 @@
 					</LinearLayout>
 
 				</RelativeLayout>
-
+				<ProgressBar
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:layout_centerInParent="true"
+					android:id="@+id/tProgressBar1"/>
+				
 			</RelativeLayout>
 
 			<android.support.v7.widget.Toolbar
@@ -169,13 +174,16 @@
 					android:layout_centerVertical="true">
 
 					<ImageView
+						android:id="@+id/run_video_layoutImageView"
 						android:layout_height="wrap_content"
+						
 						android:layout_width="wrap_content"
 						android:background="@drawable/start_yellow"/>
 
 					<TextView
 						android:layout_height="wrap_content"
 						android:text="收藏"
+						android:id="@+id/run_video_layoutTextView"
 						android:textAppearance="?android:attr/textAppearanceMedium"
 						android:layout_width="wrap_content"
 						android:textColor="#F48B08"/>

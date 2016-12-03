@@ -41,10 +41,9 @@ public class Run_Video_ extends ActionBarActivity {
 						}else
 						{
 							collect_star.setBackgroundResource(R.drawable.star_gray);
-							tcollect.setTextColor(0xff88777777);
+							tcollect.setTextColor(0xff887777);
 							
-							View_One view_one=new View_One(Run_Video_.this,"收藏已取消");
-							view_one.viewcreate();
+
 							
 						}
 						break;

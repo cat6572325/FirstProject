@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ff171b19"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1">
+
+        <com.zcy.selectpicture.customwidget.ScrollViewPager
+            android:id="@+id/imagebrowser_svp_pager"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100px"
+            android:background="#66000000"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/yt_btn_back_normal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="返回"
+                    android:textColor="@android:color/white"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:layout_alignParentBottom="true"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:src="@drawable/ic_del"
+            android:visibility="gone" />
+
+        <com.zcy.selectpicture.customwidget.PhotoTextView
+            android:id="@+id/imagebrowser_ptv_page"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:text="11/11"
+            android:textColor="#ffcdcdcd"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+</LinearLayout>

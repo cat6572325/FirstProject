@@ -4,6 +4,10 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/menu/menu_main.xml"
     },
     {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/menu/menu_contextual_action_bar.xml",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.darsh.multipleimageselect/multipleimageselect/1.0.4/res/menu/menu_contextual_action_bar.xml"
+    },
+    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/menu/menu_drawer.xml",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/menu/menu_drawer.xml"
     }

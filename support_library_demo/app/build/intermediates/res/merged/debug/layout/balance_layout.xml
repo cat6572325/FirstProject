@@ -31,7 +31,7 @@
 
 					<TextView
 						android:layout_width="wrap_content"
-						android:text="我的视频"
+						android:text="余额"
 						android:layout_height="wrap_content"
 						android:layout_marginTop="10dp"
 						android:textSize="23sp"
@@ -94,6 +94,7 @@
 					android:layout_centerInParent="true"
 					android:textSize="50sp"
 					android:text="5,000.00"
+					android:id="@+id/balance_layoutTextView"
 					android:inputType="textImeMultiLine"
 					android:layout_height="wrap_content"
 					android:layout_width="wrap_content"/>
@@ -152,14 +153,7 @@
 					android:textSize="15sp"
 					android:text="UserName"/>
 
-				<TextView
-					android:layout_height="wrap_content"
-					android:text="Medium Text"
-					android:textAppearance="?android:attr/textAppearanceMedium"
-					android:layout_width="wrap_content"
-					android:textColor="#D8D4D3"
-					android:maxHeight="25dp"/>
-
+				
 			</LinearLayout>
 
 		</RelativeLayout>

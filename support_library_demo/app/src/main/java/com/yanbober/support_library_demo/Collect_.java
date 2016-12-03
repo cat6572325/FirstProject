@@ -45,7 +45,6 @@ public class Collect_ extends AppCompatActivity {
 					{
 						JSONObject jso=jsa.getJSONObject(y);
 						Log.e("colllllll",jso.toString());
-						addTextToList(jso.getString("videoTitle"),3,R.drawable.qq,"901人付款",1,1);
 						HashMap<String,Object> map=new HashMap<String,Object>();
 						map.put("_id",jso.getString("_id"));
 						map.put("collector",jso.getString("collector"));
@@ -57,7 +56,7 @@ public class Collect_ extends AppCompatActivity {
 						
 					}
 					user.Collect_List=listmap;
-						addTextToList("无任何收藏",3,R.drawable.qq,"901人付款",1,1);
+
 						
 					}catch(JSONException e)
 					{
@@ -73,21 +72,51 @@ public class Collect_ extends AppCompatActivity {
 					case 4:
 						//验证支付密码成功
 					Bundle bun=msg.getData();
-					
-						if(bun.getString("?").equals("继续下一步"))
-						{
-							if(user.mydata.get("paypassword").equals(""))
-							{//跳转至设置支付密码界面
-								Intent intent=new Intent(Collect_.this,Set_Pay_pwd_.class);
-								startActivity(intent);
-								
-								
-							}else
-							{//跳转至支付界面
-								
-							}
+
+						if(bun.getString("?").equals("继续下一步")) {
+
+								//那么接下来就是看余额是否足够扣除,如果足够则发送信息，扣除视频的要求金额，然后加入已支付列表了
+								//一系列动作获取了余额，然后减去cost
+
+									//如果足够发送数据
+									HashMap<String, Object> maphttp = new HashMap<String, Object>();
+									ArrayList<HashMap<String, Object>> videos = user.maps;
+									String video_id=bun.getString("video_id");
+									String cost=null;
+									for (int i=0;i<videos.size();i++)
+									{
+										if (video_id.equals(videos.get(i).get("_id")))
+										{
+												cost=videos.get(i).get("price").toString();
+										}
+									}
+									maphttp.put("balance",Integer.parseInt( cost));
+									maphttp.put("handler", mHandler);
+									maphttp.put("price",cost);
+									Http_UploadFile_ htt = new Http_UploadFile_
+											(
+													"http://trying-video.herokuapp.com/user/pay/"+video_id+"?token=" + user.token
+													, maphttp
+													, "16");
+									Thread c = new Thread(htt);
+									c.start();
+
+
+
+
+
 						}
 						
+						break;
+
+				case 5:
+
+					Bundle bundle=msg.getData();
+					if (bundle.getString("?").equals("paidVideos change"))
+				{
+
+				}
+
 						break;
 
 			}
@@ -153,10 +182,6 @@ public class Collect_ extends AppCompatActivity {
 
 			rv.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
 			//设置RecyclerView布局管理器为1列垂直排布
-			addTextToList("本 拉登教你打仗",3,R.drawable.qq,"901人付款",0,0);
-			addTextToList("King arthur",3,R.drawable.qq,"901人付款",1,0);
-			addTextToList("高文",3,R.drawable.qq,"901人付款",0,1);
-			addTextToList("lancelot",3,R.drawable.qq,"901人付款",1,1);
 			adapter = new FirstAdapter(Collect_.this, lists);
 			rv.setAdapter(adapter);
 			adapter.setOnClickListener(new FirstAdapter.OnItemClickListener() {
@@ -182,7 +207,7 @@ public class Collect_ extends AppCompatActivity {
 
 			addTextToList("设置", 0, R.drawable.fab_bg_normal);
 			addTextToList("反馈", 0, R.drawable.feedback);
-
+			setData();
 			
 			ladapter = new MyChatAdapter(Collect_.this, lists1, layout);
 			rl.setAdapter(ladapter);
@@ -246,17 +271,18 @@ public class Collect_ extends AppCompatActivity {
 			e.printStackTrace();
 		}
 		
-		
+
 		//getcollect();
 	}
-	public void addTextToList(String text, int who, int id, String data, int isspot, int ispay) {
+	public void addTextToList(String text, int who, int id, String data, int isspot, int ispay,int s) {
 		HashMap<String,Object> map=new HashMap<String,Object>();
 		map.put("image", id);
 		map.put("text", text);
-		map.put("isspot", isspot);
-		map.put("ispay", ispay);
+		map.put("isspot", isspot);//是否显示最新
+		map.put("ispay", ispay);//是否显示支付按钮
 		map.put("data", data);
 		map.put("layout", who);
+		map.put("$",s); //这个视频多少钱？
 		lists.add(map);
     }
 	public void addTextToList(String text, int who, int id) {
@@ -381,6 +407,41 @@ public class Collect_ extends AppCompatActivity {
 		Http_UploadFile_ http=new Http_UploadFile_(url,map,"16");
 		Thread xx=new Thread(http);
 		xx.start();
+
+	}
+	public  void setData()
+	{
+	/*	>>  返回全部收藏
+		{
+			{
+				"_id" : "***",
+					"collector" : "***",    // 收藏者
+					"author" : "***",    //作者
+					"videoTitle" : "***",    //视频名
+					"vdo_id" : "***"    //视频id
+			},
+			{...},
+			...*/
+			//获取列表等详细数据
+		//如果收藏表不为空则加载
+		ArrayList<HashMap<String,Object>> listmap=user.Collect_List;
+		if (listmap!=null) {
+			for (int i=0;i<listmap.size();i++)
+			{
+				//判断是否已付费，设置已购买人数，设置金额
+				addTextToList(listmap.get(i).get("videoTitle").toString(),3,R.drawable.qq
+						,"购买人数"//listmap.get(i).get("购买人数？")+"付款"
+						,0,0
+				,10);
+
+			}
+		}
+
+
+		/*addTextToList("本 拉登教你打仗",3,R.drawable.qq,"901人付款",0,0);
+		addTextToList("King arthur",3,R.drawable.qq,"901人付款",1,0);
+		addTextToList("高文",3,R.drawable.qq,"901人付款",0,1);
+		addTextToList("lancelot",3,R.drawable.qq,"901人付款",1,1);*/
 
 	}
 	

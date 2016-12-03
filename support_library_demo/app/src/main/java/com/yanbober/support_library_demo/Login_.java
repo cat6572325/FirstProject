@@ -224,10 +224,10 @@ public class Login_ extends AppCompatActivity {
                         til1.setError("密码必须大于8位小于20");
                         Register_Enter.setVisibility(View.INVISIBLE);
                     }else{
-							if (phones>10) {
+						//	if (phones>10) {
 								til.setErrorEnabled(false);
 								Register_Enter.setVisibility(View.VISIBLE);
-							}
+							//}
                         }
                     break;
             }

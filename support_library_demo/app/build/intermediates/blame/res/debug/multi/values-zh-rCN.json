@@ -6,12 +6,12 @@
                 "to": {
                     "startLine": 2,
                     "startColumn": 4,
-                    "startOffset": 55,
+                    "startOffset": 100,
                     "endColumn": 95,
-                    "endOffset": 146
+                    "endOffset": 191
                 },
                 "from": {
-                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/values-zh-rCN/values-zh-rCN.xml",
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-zh-rCN/values-zh-rCN.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -25,12 +25,12 @@
                 "to": {
                     "startLine": 3,
                     "startColumn": 4,
-                    "startOffset": 151,
+                    "startOffset": 196,
                     "endColumn": 106,
-                    "endOffset": 253
+                    "endOffset": 298
                 },
                 "from": {
-                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/values-zh-rCN/values-zh-rCN.xml",
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-zh-rCN/values-zh-rCN.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -44,12 +44,12 @@
                 "to": {
                     "startLine": 4,
                     "startColumn": 4,
-                    "startOffset": 258,
+                    "startOffset": 303,
                     "endColumn": 122,
-                    "endOffset": 376
+                    "endOffset": 421
                 },
                 "from": {
-                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/values-zh-rCN/values-zh-rCN.xml",
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-zh-rCN/values-zh-rCN.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -63,12 +63,12 @@
                 "to": {
                     "startLine": 5,
                     "startColumn": 4,
-                    "startOffset": 381,
+                    "startOffset": 426,
                     "endColumn": 94,
-                    "endOffset": 471
+                    "endOffset": 516
                 },
                 "from": {
-                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/values-zh-rCN/values-zh-rCN.xml",
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-zh-rCN/values-zh-rCN.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -82,12 +82,12 @@
                 "to": {
                     "startLine": 6,
                     "startColumn": 4,
-                    "startOffset": 476,
+                    "startOffset": 521,
                     "endColumn": 99,
-                    "endOffset": 571
+                    "endOffset": 616
                 },
                 "from": {
-                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/values-zh-rCN/values-zh-rCN.xml",
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-zh-rCN/values-zh-rCN.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
@@ -101,12 +101,12 @@
                 "to": {
                     "startLine": 7,
                     "startColumn": 4,
-                    "startOffset": 576,
+                    "startOffset": 621,
                     "endColumn": 81,
-                    "endOffset": 653
+                    "endOffset": 698
                 },
                 "from": {
-                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/values-zh-rCN/values-zh-rCN.xml",
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-zh-rCN/values-zh-rCN.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
@@ -120,12 +120,12 @@
                 "to": {
                     "startLine": 8,
                     "startColumn": 4,
-                    "startOffset": 658,
+                    "startOffset": 703,
                     "endColumn": 96,
-                    "endOffset": 750
+                    "endOffset": 795
                 },
                 "from": {
-                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/values-zh-rCN/values-zh-rCN.xml",
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-zh-rCN/values-zh-rCN.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
@@ -139,12 +139,12 @@
                 "to": {
                     "startLine": 9,
                     "startColumn": 4,
-                    "startOffset": 755,
+                    "startOffset": 800,
                     "endColumn": 105,
-                    "endOffset": 856
+                    "endOffset": 901
                 },
                 "from": {
-                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/values-zh-rCN/values-zh-rCN.xml",
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-zh-rCN/values-zh-rCN.xml",
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,
@@ -158,12 +158,12 @@
                 "to": {
                     "startLine": 10,
                     "startColumn": 4,
-                    "startOffset": 861,
+                    "startOffset": 906,
                     "endColumn": 75,
-                    "endOffset": 932
+                    "endOffset": 977
                 },
                 "from": {
-                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/values-zh-rCN/values-zh-rCN.xml",
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-zh-rCN/values-zh-rCN.xml",
                     "position": {
                         "startLine": 10,
                         "startColumn": 4,
@@ -177,12 +177,12 @@
                 "to": {
                     "startLine": 11,
                     "startColumn": 4,
-                    "startOffset": 937,
+                    "startOffset": 982,
                     "endColumn": 75,
-                    "endOffset": 1008
+                    "endOffset": 1053
                 },
                 "from": {
-                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/values-zh-rCN/values-zh-rCN.xml",
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-zh-rCN/values-zh-rCN.xml",
                     "position": {
                         "startLine": 11,
                         "startColumn": 4,
@@ -196,12 +196,12 @@
                 "to": {
                     "startLine": 12,
                     "startColumn": 4,
-                    "startOffset": 1013,
+                    "startOffset": 1058,
                     "endColumn": 77,
-                    "endOffset": 1086
+                    "endOffset": 1131
                 },
                 "from": {
-                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/values-zh-rCN/values-zh-rCN.xml",
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-zh-rCN/values-zh-rCN.xml",
                     "position": {
                         "startLine": 12,
                         "startColumn": 4,
@@ -215,12 +215,12 @@
                 "to": {
                     "startLine": 13,
                     "startColumn": 4,
-                    "startOffset": 1091,
+                    "startOffset": 1136,
                     "endColumn": 95,
-                    "endOffset": 1182
+                    "endOffset": 1227
                 },
                 "from": {
-                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/values-zh-rCN/values-zh-rCN.xml",
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-zh-rCN/values-zh-rCN.xml",
                     "position": {
                         "startLine": 13,
                         "startColumn": 4,
@@ -234,12 +234,12 @@
                 "to": {
                     "startLine": 14,
                     "startColumn": 4,
-                    "startOffset": 1187,
+                    "startOffset": 1232,
                     "endColumn": 95,
-                    "endOffset": 1278
+                    "endOffset": 1323
                 },
                 "from": {
-                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/values-zh-rCN/values-zh-rCN.xml",
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-zh-rCN/values-zh-rCN.xml",
                     "position": {
                         "startLine": 14,
                         "startColumn": 4,
@@ -253,12 +253,12 @@
                 "to": {
                     "startLine": 15,
                     "startColumn": 4,
-                    "startOffset": 1283,
+                    "startOffset": 1328,
                     "endColumn": 94,
-                    "endOffset": 1373
+                    "endOffset": 1418
                 },
                 "from": {
-                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/values-zh-rCN/values-zh-rCN.xml",
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-zh-rCN/values-zh-rCN.xml",
                     "position": {
                         "startLine": 15,
                         "startColumn": 4,
@@ -272,12 +272,12 @@
                 "to": {
                     "startLine": 16,
                     "startColumn": 4,
-                    "startOffset": 1378,
+                    "startOffset": 1423,
                     "endColumn": 96,
-                    "endOffset": 1470
+                    "endOffset": 1515
                 },
                 "from": {
-                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/values-zh-rCN/values-zh-rCN.xml",
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-zh-rCN/values-zh-rCN.xml",
                     "position": {
                         "startLine": 16,
                         "startColumn": 4,
@@ -291,12 +291,12 @@
                 "to": {
                     "startLine": 17,
                     "startColumn": 4,
-                    "startOffset": 1475,
+                    "startOffset": 1520,
                     "endColumn": 94,
-                    "endOffset": 1565
+                    "endOffset": 1610
                 },
                 "from": {
-                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/values-zh-rCN/values-zh-rCN.xml",
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-zh-rCN/values-zh-rCN.xml",
                     "position": {
                         "startLine": 17,
                         "startColumn": 4,
@@ -310,12 +310,12 @@
                 "to": {
                     "startLine": 18,
                     "startColumn": 4,
-                    "startOffset": 1570,
+                    "startOffset": 1615,
                     "endColumn": 97,
-                    "endOffset": 1663
+                    "endOffset": 1708
                 },
                 "from": {
-                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/values-zh-rCN/values-zh-rCN.xml",
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-zh-rCN/values-zh-rCN.xml",
                     "position": {
                         "startLine": 18,
                         "startColumn": 4,
@@ -329,12 +329,12 @@
                 "to": {
                     "startLine": 19,
                     "startColumn": 4,
-                    "startOffset": 1668,
+                    "startOffset": 1713,
                     "endColumn": 111,
-                    "endOffset": 1775
+                    "endOffset": 1820
                 },
                 "from": {
-                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/values-zh-rCN/values-zh-rCN.xml",
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-zh-rCN/values-zh-rCN.xml",
                     "position": {
                         "startLine": 19,
                         "startColumn": 4,
@@ -348,12 +348,12 @@
                 "to": {
                     "startLine": 20,
                     "startColumn": 4,
-                    "startOffset": 1780,
+                    "startOffset": 1825,
                     "endColumn": 93,
-                    "endOffset": 1869
+                    "endOffset": 1914
                 },
                 "from": {
-                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/values-zh-rCN/values-zh-rCN.xml",
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-zh-rCN/values-zh-rCN.xml",
                     "position": {
                         "startLine": 20,
                         "startColumn": 4,
@@ -367,18 +367,132 @@
                 "to": {
                     "startLine": 21,
                     "startColumn": 4,
-                    "startOffset": 1874,
-                    "endColumn": 100,
-                    "endOffset": 1970
+                    "startOffset": 1919,
+                    "endColumn": 67,
+                    "endOffset": 1982
                 },
                 "from": {
-                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/res/values-zh-rCN/values-zh-rCN.xml",
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.soundcloud.android.crop/lib_crop/1.0.0/res/values-zh-rCN/values-zh-rCN.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 100,
+                        "endColumn": 67,
+                        "endOffset": 163
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 22,
+                    "startColumn": 4,
+                    "startOffset": 1987,
+                    "endColumn": 41,
+                    "endOffset": 2024
+                },
+                "from": {
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.soundcloud.android.crop/lib_crop/1.0.0/res/values-zh-rCN/values-zh-rCN.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 168,
+                        "endColumn": 41,
+                        "endOffset": 205
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 23,
+                    "startColumn": 4,
+                    "startOffset": 2029,
+                    "endColumn": 50,
+                    "endOffset": 2075
+                },
+                "from": {
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.soundcloud.android.crop/lib_crop/1.0.0/res/values-zh-rCN/values-zh-rCN.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 210,
+                        "endColumn": 50,
+                        "endOffset": 256
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 24,
+                    "startColumn": 4,
+                    "startOffset": 2080,
+                    "endColumn": 48,
+                    "endOffset": 2124
+                },
+                "from": {
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.soundcloud.android.crop/lib_crop/1.0.0/res/values-zh-rCN/values-zh-rCN.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 261,
+                        "endColumn": 48,
+                        "endOffset": 305
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 25,
+                    "startColumn": 4,
+                    "startOffset": 2129,
+                    "endColumn": 43,
+                    "endOffset": 2168
+                },
+                "from": {
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.soundcloud.android.crop/lib_crop/1.0.0/res/values-zh-rCN/values-zh-rCN.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 310,
+                        "endColumn": 43,
+                        "endOffset": 349
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 26,
+                    "startColumn": 4,
+                    "startOffset": 2173,
+                    "endColumn": 77,
+                    "endOffset": 2246
+                },
+                "from": {
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-zh-rCN/values-zh-rCN.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 4,
                         "startOffset": 1874,
+                        "endColumn": 77,
+                        "endOffset": 1947
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 27,
+                    "startColumn": 4,
+                    "startOffset": 2251,
+                    "endColumn": 100,
+                    "endOffset": 2347
+                },
+                "from": {
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-zh-rCN/values-zh-rCN.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 1952,
                         "endColumn": 100,
-                        "endOffset": 1970
+                        "endOffset": 2048
                     }
                 }
             }

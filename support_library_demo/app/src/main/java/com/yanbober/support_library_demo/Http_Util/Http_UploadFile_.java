@@ -211,7 +211,8 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
 
                 break;
             case 10:
-               
+               //修改支付密码
+				newpaypassword();
                 break;
             case 11:
                 //验证支付密码
@@ -240,10 +241,90 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
 								break;
 								
 								case 16:
-									//更改余额
+									//支付视频
+									payVideo();
 									break;
+			case 17:
+				//查余额
+
+				break;
         }
     }
+	/*
+	支付视频
+	 */
+	public void payVideo()
+	{
+		if ((Integer)maphttp.get("balance")>0) {
+			if (maphttp.get("handler") != null)
+				handler = (Handler) maphttp.get("handler");
+			JSONObject jsonObject = null;
+			JSONArray jsonArray = null;
+			String str = null, datas = null;
+			Response response = null;
+			RequestBody formBody = new FormBody.Builder()
+					.add("cost", maphttp.get("price").toString())
+					.build();
+			Request request = new Request.Builder()
+					.url(url)
+					.post(formBody)
+					.build();
+			try {
+				response = client.newCall(request).execute();
+			} catch (IOException er) {
+
+				Log.e("支付视频", er.toString());
+
+			}
+			try {
+				if (!response.isSuccessful()) throw new IOException();
+				str = response.body().string();
+				//如果返回的是error
+				jsonObject = new JSONObject(str);
+				if (jsonObject.getString("message").equals("paidVideos change")) {
+					Bundle bundle = new Bundle();
+					Message msg = new Message();
+					bundle.putString("?", "paidVideos change");
+					msg.arg1 = (Integer) maphttp.get("cost");
+					msg.what = 5;
+					msg.setData(bundle);
+					handler.sendMessage(msg);
+
+					view_one = null;
+					view_one = new View_One((Context) maphttp.get("context"), "paidVideos change");
+					view_one.viewcreate();
+
+
+				}
+				if (jsonObject.getString("message").equals("验证错误")) {
+					view_one = null;
+					view_one = new View_One((Context) maphttp.get("context"), "验证密码错误");
+					view_one.viewcreate();
+
+				}
+				Log.e("支付视频", str);
+
+			} catch (JSONException e) {
+				e.printStackTrace();
+				Log.e("支付视频", e.toString());
+
+			} catch (IOException e) {
+				Log.e("支付视频", e.toString());
+			}
+		}else
+		{
+			view_one = null;
+			view_one = new View_One((Context)maphttp.get("context"), "余额不够");
+			view_one.viewcreate();
+
+		}
+
+	}
+
+
+
+
+
 	/*
 	修改支付密码
 	
@@ -281,8 +362,8 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
 				Bundle bundle = new Bundle();
 				Message msg = new Message();
 				bundle.putString("?", "继续下一步");
-				
-				msg.what = 0;
+				bundle.putString("video_id",maphttp.get("video_id").toString());
+				msg.what = 4;
 				msg.setData(bundle);
 				handler.sendMessage(msg);
 				
@@ -303,7 +384,17 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
 			Log.e("在提交旧支付密码",str);
 
         } catch (JSONException e) {
-            e.printStackTrace();
+			try {
+				e.printStackTrace();
+
+				view_one = null;
+				view_one = new View_One((Context) maphttp.get("context"), jsonObject.getString("error"));
+				view_one.viewcreate();
+			}catch (JSONException er)
+			{
+
+			}
+
 			Log.e("在提交旧支付密码的时候",e.toString());
 
         }catch( IOException e)
@@ -348,7 +439,12 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
             jsonObject = new JSONObject(str);
 			if(jsonObject.getString("message").equals("已更改支付密码"))
 			{
-
+				Message msg=new Message();
+				Bundle bundle=new Bundle();
+				msg.obj=jsonObject;
+				msg.what=0;
+				bundle.putString("?","成功");
+				handler.sendMessage(msg);
 
 
 
@@ -374,7 +470,67 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
 
 	}
 	
-	
+	/*
+	改余额
+
+
+	 */
+	public void changebalance()
+	{
+
+		if(maphttp.get("handler")!=null)
+			handler=(Handler)maphttp.get("handler");
+		JSONObject jsonObject = null;
+		JSONArray jsonArray = null;
+		String str = null, datas = null;
+		Response response = null;
+		RequestBody formBody = new FormBody.Builder()
+				.add("balance", maphttp.get("paypassword").toString())
+				.build();
+		Request request = new Request.Builder()
+				.url(url)
+				.patch(formBody)
+				.build();
+		try {
+			response = client.newCall(request).execute();
+		} catch (IOException er) {
+
+			Log.e("更改余额时",er.toString());
+
+		}
+		try {
+			if (!response.isSuccessful()) throw new IOException();
+			str = response.body().string();
+			//如果返回的是error
+			jsonObject = new JSONObject(str);
+			if(jsonObject.getString("message").equals("已更改余额"))
+			{
+
+
+
+
+			}
+			if(jsonObject.getString("message").equals("验证错误"))
+			{
+				view_one=null;
+				view_one=new View_One((Context)maphttp.get("context"),"验证密码错误");
+				view_one.viewcreate();
+
+			}
+			Log.e("更改余额时",str);
+
+		} catch (JSONException e) {
+			e.printStackTrace();
+			Log.e("在更改余额的时候",e.toString());
+
+		}catch( IOException e)
+		{
+			Log.e("在更改余额时候",e.toString());
+		}
+
+
+	}
+
 	
 	/*
 	获取所有通知
@@ -441,8 +597,43 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
 
 		}
 	}
-	
-	
+
+	public void GetBalance()
+	{
+
+		JSONObject jsonObject = null;
+		JSONArray jsonArray = null;
+		String str = null;
+		try {
+			Request request = new Request.Builder().url(url).build();
+
+			if(maphttp.get("handler")!=null)
+				handler=(Handler)maphttp.get("handler");
+			Response response = client.newCall(request).execute();
+			if (!response.isSuccessful()) throw new IOException();
+			str = response.body().string();
+			Bundle bundle;
+			Message msg = null;
+
+				jsonObject = new JSONObject(str);
+				bundle = new Bundle();
+				msg = new Message();
+				bundle.putString("?", "获取成功");
+				msg.obj = jsonObject;
+				msg.what = 8;
+				msg.setData(bundle);
+				handler.sendMessage(msg);
+
+
+
+		} catch (JSONException e) {
+
+		}
+		catch(IOException e)
+		{
+
+		}
+	}
 	
 	
 	
@@ -1053,6 +1244,7 @@ run.mHandler.sendMessage(msg);
 			}
 				
 				Log.e("添加个人信息",str);
+				view_one=null;
 				view_one=new View_One(login,str);
 				
 			}

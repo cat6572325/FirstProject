@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="checkedutils-1.0.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.zcy/checkedutils/1.0.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.zcy/checkedutils/1.0.0/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.zcy/checkedutils/1.0.0/129bd5a40b8104c27116bd0a052fb4247986cbe1/checkedutils-1.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
