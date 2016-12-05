@@ -260,12 +260,12 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/design/25.0.0/res/layout/design_menu_item_action_area.xml"
     },
     {
-        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/balance_group_item.xml",
-        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/layout/balance_group_item.xml"
-    },
-    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/round_video_sucess_progres.xml",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/layout/round_video_sucess_progres.xml"
+    },
+    {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/balance_group_item.xml",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/layout/balance_group_item.xml"
     },
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/the_picture_selection_item.xml",

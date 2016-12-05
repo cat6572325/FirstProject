@@ -1,58 +1,58 @@
 package com.yanbober.support_library_demo;
 
-import android.annotation.*;
-import android.app.*;
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.*;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.*;
 import android.support.annotation.*;
 import android.support.v4.app.*;
 import android.support.v7.widget.*;
+import android.util.Base64;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
-import com.yanbober.support_library_demo.Http_Util.*;
+
+import com.yanbober.support_library_demo.Http_Util.Http_UploadFile_;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
 
-import android.support.v4.app.Fragment;
 
-/**
- * Author       : yanbo
- * Date         : 2015-06-01
- * Time         : 15:09
- * Description  :
- */
 public class AgendaFragment extends Fragment {
-    private Handler mHandler = new Handler() {
-        public void handleMessage(android.os.Message msg) {
-            Bundle bundle=new Bundle();
-            bundle=msg.getData();
-            switch (msg.what) {
-                case 0:
-                    break;
-            }
-        }
-    };
+
     private RecyclerView mRecyclerView, rv;
     View v;
-    public ArrayList<HashMap<String, Object>> lists = new ArrayList<HashMap<String, Object>>(), lists2 = new ArrayList<HashMap<String, Object>>();
-    FirstAdapter adapter, adapter2;
+    public ArrayList<HashMap<String, Object>> lists = new ArrayList<HashMap<String, Object>>(), lists2 = new ArrayList<HashMap<String, Object>>(),lists3;
+    FirstAdapter2 adapter, adapter2;
+    Bitmap bitmap;
     MainActivity activity;
-    User user = new User();
+
     private List<Integer> counttype = new ArrayList<>();
     private List<String> data = new ArrayList<>();
     LinearLayoutManager lm;
     int lastVisibleItem;
     Http_UploadFile_ http_uploadFile_=null;
-    OnActivityebent ebent;
+    OnActivityebent2 ebent;
+    long itemCount=0;
+    Context context;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.info_details_fragment, container, false);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
-        //rv=(RecyclerView)v.findViewById(R.id.groupRecyclerView2);
+
 
         return v;
     }
-
 
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -60,36 +60,37 @@ public class AgendaFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        adapter = new FirstAdapter(getActivity(), lists);
+        Toast.makeText(activity,"ss",Toast.LENGTH_LONG).show();
+          adapter = new FirstAdapter2(getActivity(), lists);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
 
         mRecyclerView.setAdapter(adapter);
         // ebent.Onebent("aaaaaaaaaaaaaaaa");
-        initView();
-        adapter.setOnClickListener(new FirstAdapter.OnItemClickListener() {
-				@Override
-				public void onItemClickListener(View view, int position) {
-					Toast.makeText(getActivity(), position + "========Click:", Toast.LENGTH_SHORT).show();
-					//跳往Run_Video_播放视频
-					Intent intent =new Intent(getContext(),Run_Video_.class);
-					Bundle bundle=new Bundle();
-					bundle.putString("count",String.valueOf(position));
-					bundle.putString("vid",user.maps.get(position).get("_id").toString());
-					//由于目前有一项内容是没有视频id所以会出错
-					bundle.putString("url",user.maps.get(position).get("vdourl").toString());
-					//count是为了定位到一开始时保存的视频列表中某一个视频的数据
-					intent.putExtras(bundle);
-					startActivity(intent);
-					
-				}
+        adapter.setOnClickListener(new FirstAdapter2.OnItemClickListener() {
+            @Override
+            public void onItemClickListener(View view, int position) {
+                Toast.makeText(getActivity(), position + "========Click:", Toast.LENGTH_SHORT).show();
+                User user=new User();
+                //跳往Run_Video_播放视频
+                Intent intent =new Intent(getContext(),Run_Video_.class);
+                Bundle bundle=new Bundle();
+                bundle.putString("count",String.valueOf(position));
+                bundle.putString("vid",user.maps.get(position).get("_id").toString());
+                //由于目前有一项内容是没有视频id所以会出错
+                bundle.putString("url",user.maps.get(position).get("vdourl").toString());
+                //count是为了定位到一开始时保存的视频列表中某一个视频的数据
+                intent.putExtras(bundle);
+                startActivity(intent);
 
-				@Override
-				public void onItemLongClickListener(View view, int position) {
-					Toast.makeText(getActivity(), position + "+++++++++LongClick:", Toast.LENGTH_LONG).show();
+            }
 
-				}
-			});
+            @Override
+            public void onItemLongClickListener(View view, int position) {
+                Toast.makeText(getActivity(), position + "+++++++++LongClick:", Toast.LENGTH_LONG).show();
+
+            }
+        });
         //TODO 上拉加载更多
 
 	/*	mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -135,7 +136,7 @@ public class AgendaFragment extends Fragment {
 
     }
 
-    public void addTextToList(String text, int who, String id, int count, String name,String url) {
+    public void addTextToList(String text, int who, String id, int count, String name,Bitmap url) {
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("person", who);
         map.put("image", id);
@@ -143,12 +144,12 @@ public class AgendaFragment extends Fragment {
         map.put("count", count);
         map.put("layout", who);
         map.put("name", name);
-		map.put("vdoPhotourl",url);
+        map.put("vdoPhotourl",url);
         lists.add(map);
 
     }
 
-    public void addTextToList2(String text, int who, String id, int count, String name) {
+    public void addTextToList2(String text, int who, String id, int count, String name,String url) {
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("person", who);
         map.put("image", id);
@@ -156,52 +157,43 @@ public class AgendaFragment extends Fragment {
         map.put("count", count);
         map.put("layout", who);
         map.put("name", name);
-
+        map.put("vdoPhoto",url);
         lists2.add(map);
     }
     private void initView()
     {
+        User user=new User();
 
-      /*  ArrayList<HashMap<String, Object>> map=user.maps;
-        for (int i = 0; i <map.size(); i++) {
+        Bitmap bitmap2;
+        for (int i = 0; i <user.maps.size(); i++) {
             if (i==10) {return ;}
+            try {
+                URL url = new URL(user.maps.get(i).get("vdoPhotourl").toString());
+
+                HttpURLConnection conn = (HttpURLConnection) url
+                        .openConnection();
+                conn.setDoInput(true);
+                conn.connect();
+                InputStream is = conn.getInputStream();
+                bitmap2 = BitmapFactory.decodeStream(is);
+                is.close();
+                conn.disconnect();
+            }catch (IOException e )
+            {
+
+                 bitmap2=BitmapFactory.decodeResource(activity.getResources(), R.drawable.down);
+
+
+
+            }
             //addTextToList("广东",1,android.R.drawable.ic_lock_lock,"ps","data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊");
-            addTextToList(map.get(i).get("paidppnumber").toString()
+            addTextToList(user.maps.get(i).get("paidppnumber").toString()
                     , 1
-                    ,map.get(i).get("vdourl").toString()
+                    ,user.maps.get(i).get("vdourl").toString()
                     , 0
-                    ,map.get(i).get("title").toString()
-						  ,map.get(i).get("vdoPhotourl").toString()
-					);
-
-            //暂定内容，参数....购买人数,布局,头像,是否显示红点,标题
-            //头像和内容壁纸需要在适配器以二进制转为图片
-        }
-        adapter.notifyDataSetChanged();
-        //  addTextToList("uuu", 1, "android.R.drawable.ic_lock_lock", 0, "name");
-        // Toast.makeText(getContext(),str1,Toast.LENGTH_LONG).show();
-*/
-
-    }
-
-    public interface OnActivityebent
-    {
-        public void Onebent(String str);
-
-    }
-    public void Onebent(ArrayList<HashMap<String, Object>> maps)
-    {//MainActivity接口
-        ArrayList<HashMap<String, Object>> map=maps;
-        for (int i = 0; i <map.size(); i++) {
-            if (i==10) {return ;}
-            //addTextToList("广东",1,android.R.drawable.ic_lock_lock,"ps","data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊");
-            addTextToList(map.get(i).get("paidppnumber").toString()
-                    , 1
-                    ,map.get(i).get("vdourl").toString()
-                    , 0
-                    ,map.get(i).get("title").toString()
-						  ,map.get(i).get("vdoPhotourl").toString()
-					);
+                    ,user.maps.get(i).get("title").toString()
+                    ,bitmap2
+            );
 
             //暂定内容，参数....购买人数,布局,头像,是否显示红点,标题
             //头像和内容壁纸需要在适配器以二进制转为图片
@@ -210,41 +202,48 @@ public class AgendaFragment extends Fragment {
         //  addTextToList("uuu", 1, "android.R.drawable.ic_lock_lock", 0, "name");
         // Toast.makeText(getContext(),str1,Toast.LENGTH_LONG).show();
 
+
     }
+
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            ebent = (OnActivityebent) activity;
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        //当切换到这个碎片时为true，没有viewpeger不会执行
+        if (isVisibleToUser)
+        {
+            if (itemCount==0)
+            {
+             initView();
+                itemCount++;
+            }else {
+
+            }
 
 
-        }catch (ClassCastException e)
+        }else
         {
 
         }
     }
 
-    public void setgroup(Context con, String[] group, String[] phones) {
-
-        //  group | ps | imaheString ~ ...# phone | ps | imageString ~
-        //split"\\
-        String[] items;
-        if (group != null)
-            for (int i = 0; i < group.length; i++) {
-                items = null;
-                items = group[i].split("\\#");
-                //group[i] =  "name # ps # imageString
-               // addTextToList(items[0], 0, "android.R.drawable.ic_lock_lock", 0, "name");
-            }
-
-        if (phones != null)
-            for (int i = 0; i < phones.length; i++) {
-                items = null;
-                items = group[i].split("\\#");
-
-                //addTextToList(items[0], 0, "android.R.drawable.ic_lock_lock", 0, "name");
-            }
+    public interface OnActivityebent2
+    {
+        public void Onebent2(String str);
 
     }
+    public void Onebent2(ArrayList<HashMap<String, Object>> maps,Bitmap bitmap)  {//MainActivity接口
+
+
+
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.activity=(MainActivity)activity;
+
+    }
+
+
 
 }

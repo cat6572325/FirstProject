@@ -118,8 +118,8 @@ public class Login_ extends AppCompatActivity {
 			Toast.makeText(this,"当前无网络连接",Toast.LENGTH_SHORT).show();
 			}else
 			{
-			
-		
+
+
         //数据库操作
         dataserver=new DataHelper(Login_.this);
         str1=dataserver.readData("flag|").split("\\|");
@@ -127,6 +127,42 @@ public class Login_ extends AppCompatActivity {
         {//如果已经登录且没有正常退出
         }else {
             if (str1[5].equals("1")) {
+                ArrayList<HashMap<String,Object>> maps=new ArrayList<HashMap<String,Object>>();
+
+                final String[] items = new String[]{
+                        "地球地心",
+                        "火星",
+                        "黑洞",
+                        "大山",
+                        "花果山"
+                };
+                HashMap<String,Object> map=new HashMap<>();
+                map.put("title","请选择你的故乡");
+                map.put("items",items);
+                maps.add(map);
+                final String[] items1 = new String[]{
+                        "AK_47",
+                        "格林炮",
+                        "全能塑料枪",
+                        "嘴炮",
+                        "阿木斯特狼螺旋机关牛啊姆斯特狼螺旋机关冲天炮"
+                };
+                HashMap<String,Object> map1=new HashMap<>();
+                map1.put("title","请选择你的武器");
+                map1.put("items",items1);
+                maps.add(map1);
+                final String[] items2 = new String[]{
+                        "太阳",
+                        "黑洞",
+                        "神",
+                        "美国总统",
+                        "猫"
+                };
+                HashMap<String,Object> map2=new HashMap<>();
+                map2.put("title","那么你准备要攻击谁");
+                map2.put("items",items2);
+                maps.add(map2);
+                showADialog(maps,0);
                 Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(Login_.this
                         , mHandler
                         , "http://trying-video.herokuapp.com/login"
@@ -140,6 +176,55 @@ public class Login_ extends AppCompatActivity {
                 //数据库操作
     }
 }
+    public void showADialog(ArrayList<HashMap<String,Object>> maps1,int count)
+    {
+        final ArrayList<HashMap<String,Object>> maps=maps1;
+        final int counts=count+1;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setIcon(android.R.drawable.ic_dialog_alert);
+        String[] items=null;
+        switch (count)
+        {
+            case 0:
+                builder.setTitle(maps.get(0).get("title").toString());
+                //定义列表中的选项
+                items =(String[])maps.get(0).get("items");
+
+                break;
+            case 1:
+                builder.setTitle(maps.get(1).get("title").toString());
+                //定义列表中的选项
+                items =(String[])maps.get(1).get("items");
+
+                break;
+            case 2:
+                builder.setTitle(maps.get(2).get("title").toString());
+                //定义列表中的选项
+                items =(String[])maps.get(2).get("items");
+
+                break;
+        }
+        if (items!=null) {
+
+            //设置列表选项
+            builder.setItems(items, new DialogInterface.OnClickListener() {
+                //点击任何一个列表选项都会触发这个方法
+                //arg1：点击的是哪一个选项
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    showADialog(maps, counts);
+                }
+            });
+            // 取消选择
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            builder.show();
+        }
+    }
     class MyClickListener implements View.OnClickListener {
 
         @Override
@@ -157,9 +242,9 @@ public class Login_ extends AppCompatActivity {
 					{
 						Intent intent=new Intent(Login_.this,MainActivity.class);
 						startActivity(intent);
-						
+
 					}
-					
+
                       //  url = new URL("http://192.168.1.112:1103/login");
 					ConnectivityManager cm=(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
 					NetworkInfo ni=cm.getActiveNetworkInfo();
@@ -214,7 +299,7 @@ public class Login_ extends AppCompatActivity {
 							}else{if (pass>8){
 								til.setErrorEnabled(false);
 								Register_Enter.setVisibility(View.VISIBLE);}
-							
+
                         	}
                     break;
                 case R.id.login_pass:

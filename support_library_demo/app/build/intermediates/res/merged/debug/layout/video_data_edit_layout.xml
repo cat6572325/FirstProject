@@ -213,7 +213,7 @@
 
 				<Button
 					android:layout_height="45dp"
-					android:text="上传"
+					android:text="保存"
 					android:layout_width="wrap_content"
 					android:paddingRight="45dp"
 					android:paddingLeft="45dp"

@@ -78,8 +78,55 @@ import org.json.JSONObject;
 public class Round_Video_ extends Activity implements http_thread_.OnInvalitorProgress
 
 {
-    
-    User user=new User();
+    public Handler mHandler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            Bundle bundle = msg.getData();
+            switch (msg.what) {
+                case 0:
+                    try {
+
+                        if (bundle.getString("?").equals("success")) {
+                            //  View_One view_one = new View_One(Round_Video_.this,bundle.getString("!"));
+                            p.OnProgressChanged(101);
+                            //101代表退出
+                        }
+                        if (bundle.getString("?").equals("ing")) {
+                            // bundle = msg.getData();
+                            //   p.OnProgressChanged(msg.arg1);
+                            Log.e("iiii",String.valueOf( msg.arg1));
+                            //错误提示：
+                        }
+                        if (bundle.getString("?").equals("error")) {
+                            JSONObject jsonObject = new JSONObject(bundle.getString("!"));
+                            //  View_One view_one = new View_One(Round_Video_.this,bundle.getString("!"));
+                        }
+                    }catch (JSONException e)
+                    {
+
+                    }
+                    break;
+                case 1:
+
+                    start();
+                    break;
+                case 2:
+                    String url = "http://trying-video.herokuapp.com/user/video/detail/" + bundle.getString("vdo_id") + "?token=" + user.token;
+                    HashMap<String, Object> map1 = (HashMap<String, Object>) msg.obj;
+                    map1.put("count", 1);
+
+                    http_thread_ htt = new http_thread_(Round_Video_.this, url
+                            , file_with.GetFile().getPath()
+                            , mHandler
+                            , map1);
+                    Thread c = new Thread(htt);
+                    c.start();
+                    break;
+
+            }
+            }
+        };
+
+        User user=new User();
     RoundProgressBar bar;
     static int message = 0;
     private Button startButton, stopButton, playButton;
@@ -566,28 +613,34 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
                 paidppnumber: Number,　 　//付费人数
         concernednumber: Number,   //收藏人数
                 time: {                   // 创建时间*/
-        HashMap<String, Object> map1 = new HashMap<String, Object>();
-        map1.put("isprogress", 1);
-        map1.put("progress", 25);
-        map1.put("max", 100);
-        map1.put("textsize", 25);
-        map1.put("upload", 0);
-        map1.put("color", Color.rgb(555, 333, 333));
-        //对话框
-            //    http_uploadFile_.post();
-            Pop_Img.Builder p = new Pop_Img.Builder(Round_Video_.this, map1,file_with);
-            p.setPositiveButton("[潮汕揭]初版\n问题反馈:(qq) 1213965634\n\n", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                    //需要将数据传给对话框然后实时更新进度条
+        User u=new User();
+        if (u.notLoadforVideo_list!=null) {
+            for (int i=0;i<u.notLoadforVideo_list.size();i++)
+            {
 
-                }
-                // 设置你的操作事项
+            }
+            HashMap<String, Object> map1 = new HashMap<String, Object>();
+            map1.put("isprogress", 1);
+            map1.put("progress", 0);
+            map1.put("max", 100);
+            map1.put("textsize", 25);
+            map1.put("upload", 0);//０表示显示一个进度
+            map1.put("color", Color.rgb(555, 333, 333));
 
+            p = new Pop_Img.Builder(Round_Video_.this, map1,file_with);
 
-            });
             p.create().show();
 
+            http_thread_ htt = new http_thread_(Round_Video_.this, "http://trying-video.herokuapp.com/user/video?token=" + user.token
+                    , file_with.GetFile().getPath()
+                    , mHandler
+                    , user.notLoadforVideo_list.get(0));
+            Thread c = new Thread(htt);
+            c.start();
+        }else
+        {
+            Toast.makeText(Round_Video_.this,"未填写视频信息，请先编辑",Toast.LENGTH_LONG).show();
+        }
           /* WebView wv=new WebView(this);
             wv.getSettings().setJavaScriptEnabled(true);
             //设置可操作js
@@ -891,76 +944,34 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
     //TODO 视频处理　　AAAAAAAAAAAAAA
     //TODO 上传视频   VVVVVVVVVVVVVVVVVVV 　差上传成功与否检测，待研究
     private void doUploadImg(String url,String filePath) {
-        OkHttpUtilInterface okHttpUtil = OkHttpUtil.Builder()
-                .setCacheLevel(CacheLevel.FIRST_LEVEL)
-                .setConnectTimeout(25).build(this);
-//一个okHttpUtil即为一个网络连接
-        HttpInfo info = HttpInfo.Builder()
-                .setUrl(url)
-                .addUploadFile("file",filePath, new ProgressCallback() {
-                    @Override
-                    public void onProgressMain(int percent, long bytesWritten, long contentLength, boolean done) {
-                        // uploadProgress.setProgress(percent);
-                        Log.e("ssss", "上传进度：" + percent);
+        User u=new User();
+        if (u.notLoadforVideo_list.size()>0) {
+            HashMap<String, Object> map1 = new HashMap<String, Object>();
+            map1.put("isprogress", 1);
+            map1.put("progress", 0);
+            map1.put("max", 100);
+            map1.put("textsize", 25);
+            map1.put("upload", 0);//０表示显示一个进度
+            map1.put("color", Color.rgb(555, 333, 333));
 
-                        p.OnProgressChanged(percent);
-                        if (percent == 100)
-                        {
-                            p.OnProgressChanged(101);
-                        Toast.makeText(Round_Video_.this, "上传结束，原视频保存在本地的:" + file_with.GetFile().getPath(), Toast.LENGTH_LONG).show();
-                        //超过100则结束对话框并提示成功
-                        }
-                    }
-                    @Override
-                    public void onResponseMain(String filePath,HttpInfo info)
-                    {
-                        String str=info.getRetDetail();
-                        Log.e("上传信息",str);
-                    }
-                })
-                .build();
-        OkHttpUtil.getDefault(this).doUploadFileAsync(info);
+            p = new Pop_Img.Builder(Round_Video_.this, map1,file_with);
+
+            p.create().show();
+
+            http_thread_ htt = new http_thread_(Round_Video_.this, "http://trying-video.herokuapp.com/user/video?token=" + user.token
+                    , file_with.GetFile().getPath()
+                    , mHandler
+                    , user.notLoadforVideo_list.get(0));
+            Thread c = new Thread(htt);
+            c.start();
+        }else
+        {
+            Toast.makeText(Round_Video_.this,"未填写视频信息，请先编辑",Toast.LENGTH_LONG).show();
+        }
     }
 
     //TODO 上传视频　　AAAAAAAAAAAAAAAAAA
-	public Handler mHandler = new Handler() {
-        public void handleMessage(android.os.Message msg) {
-			Bundle bundle=msg.getData();
 
-			switch (msg.what) {
-
-
-                case 0:
-                    try {
-
-                        if (bundle.getString("?").equals("success")) {
-							//  View_One view_one = new View_One(Round_Video_.this,bundle.getString("!"));
-                            p.OnProgressChanged(101);
-                            //101代表退出
-                        }
-                        if (bundle.getString("?").equals("ing")) {
-							// bundle = msg.getData();
-                         //   p.OnProgressChanged(msg.arg1);
-							Log.e("iiii",String.valueOf( msg.arg1));
-                            //错误提示：
-                        }
-                        if (bundle.getString("?").equals("error")) {
-                            JSONObject jsonObject = new JSONObject(bundle.getString("!"));
-							//  View_One view_one = new View_One(Round_Video_.this,bundle.getString("!"));
-                        }
-                    }catch (JSONException e)
-                    {
-
-                    }
-                    break;
-                case 1:
-
-                    start();
-                    break;
-
-            }
-        }
-    };
 	/**
 	 * 获取视频文件截图
 	 *

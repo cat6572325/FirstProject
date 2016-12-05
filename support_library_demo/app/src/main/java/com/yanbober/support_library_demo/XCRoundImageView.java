@@ -183,7 +183,7 @@ import android.widget.*;
 		int radius = (int) (centre - mBitmap.getWidth()/2-2); //圆环的半径
 		paint.setColor(0xff00ff00); //设置圆环的颜色
 		paint.setStyle(Paint.Style.STROKE); //设置空心
-		paint.setStrokeWidth(10); //设置圆环的宽度
+		paint.setStrokeWidth(5); //设置圆环的宽度
 		paint.setAntiAlias(true);  //消除锯齿 
 	canvas.drawCircle(centre, centre, radius, paint); //画出圆环
 	   }

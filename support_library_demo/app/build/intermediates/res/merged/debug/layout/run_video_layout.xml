@@ -125,6 +125,7 @@
 				<TextView
 					android:layout_height="wrap_content"
 					android:text="看视频的方法"
+					android:id="@+id/Run_Video_vdoTitle"
 					android:textAppearance="?android:attr/textAppearanceLarge"
 					android:layout_width="wrap_content"/>
 
@@ -140,18 +141,30 @@
 					android:layout_height="wrap_content"
 					android:layout_width="wrap_content"
 					android:layout_marginLeft="20dp"
+					android:id="@+id/Run_Video_upder_ll"
 					android:gravity="center_vertical">
 
-					<ImageView
-						android:layout_height="35dp"
+					<com.yanbober.support_library_demo.XCRoundImageView
 						android:layout_width="35dp"
-						android:background="@drawable/image"/>
+						android:id="@+id/Run_Video_upder_Img"
+						android:layout_height="35dp"
+						android:layout_marginLeft="8dp"
+						android:src="#ff0000"
+						android:layout_centerHorizontal="true"
+						android:layout_centerInParent="true"
+						android:background="@drawable/roundbuttoning"/>
+
 
 					<TextView
 						android:layout_height="wrap_content"
-						android:text="夜愿"
+						android:text="夜愿kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+						android:id="@+id/Run_Video_upder_name"
 						android:textAppearance="?android:attr/textAppearanceMedium"
-						android:layout_width="wrap_content"/>
+						android:layout_width="wrap_content"
+						android:ellipsize="end"
+						android:singleLine="true"
+						android:maxWidth="100dp"
+						android:layout_marginLeft="2dp" />
 
 				</LinearLayout>
 
@@ -161,6 +174,7 @@
 					android:textAppearance="?android:attr/textAppearanceMedium"
 					android:layout_width="wrap_content"
 					android:textColor="#88939393"
+					android:id="@+id/paid_count"
 					android:layout_centerHorizontal="true"
 					android:layout_centerVertical="true"
 					android:textSize="16sp"/>

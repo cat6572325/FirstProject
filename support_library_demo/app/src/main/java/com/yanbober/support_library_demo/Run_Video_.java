@@ -1,5 +1,8 @@
 package com.yanbober.support_library_demo;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.*;
 import android.support.design.widget.*;
 import android.support.v4.view.GravityCompat;
@@ -14,8 +17,12 @@ import android.support.v7.widget.Toolbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.TimerTask;
 import android.widget.SearchView.*;
 import com.yanbober.support_library_demo.Http_Util.*;
@@ -27,6 +34,7 @@ public class Run_Video_ extends ActionBarActivity {
 	{
 		public void handleMessage(android.os.Message msg)
 		{
+			Bundle bundle=msg.getData();
 			switch (msg.what)
 			{
 				case 0:
@@ -36,7 +44,7 @@ public class Run_Video_ extends ActionBarActivity {
 						if(msg.arg1==0)
 						{//是收藏还是取消
 							collect_star.setBackgroundResource(R.drawable.start_yellow);
-						tcollect.setBackgroundColor(0xff999999);
+						tcollect.setTextColor(Color.YELLOW);
 						
 						}else
 						{
@@ -48,6 +56,45 @@ public class Run_Video_ extends ActionBarActivity {
 						}
 						break;
 
+
+
+
+				case 5:
+					//获取上传者信息
+					try {
+						JSONObject jsonObject = null;
+						Bitmap bitmap2=null;
+						if (msg.obj != null) {
+							jsonObject = (JSONObject) msg.obj;
+							try {
+								URL url = new URL(jsonObject.getString("headPortrait").toString());
+
+								HttpURLConnection conn = (HttpURLConnection) url
+										.openConnection();
+								conn.setDoInput(true);
+								conn.connect();
+								InputStream is = conn.getInputStream();
+								bitmap2 = BitmapFactory.decodeStream(is);
+								is.close();
+								conn.disconnect();
+							} catch (IOException e) {
+							}
+							if (bitmap2!=null)
+							{
+								uploader_img.setImageBitmap(bitmap2);
+							}
+							//----------//
+							upload_name.setText(jsonObject.getString("nickname"));
+
+
+
+						}
+					}catch (JSONException e)
+					{
+
+					}
+					break;
+
 			}
 		}
 	};
@@ -55,15 +102,16 @@ public class Run_Video_ extends ActionBarActivity {
 	ProgressBar tprog;//进度圈
 	
 	private Button btnPause, btnStop;
-	ImageView btnPlayUrl,collect_star;
+	ImageView btnPlayUrl,collect_star,uploader_img;
 	private SeekBar skbProgress;
 	private Player player;
 	RelativeLayout hideButtons;
 	CollapsingToolbarLayout collapsingToolbar;
-	String count=null,vid=null;
+	String count=null,vid=null,upLoader_id=null;
 	final User user=new User();
 	JSONObject jsonObject=null;
-	TextView tcollect;
+	TextView tcollect,paid_count,vdoTitle,upload_name;
+	LinearLayout upder_ll;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -79,9 +127,39 @@ public class Run_Video_ extends ActionBarActivity {
 			{
 				vid=bun.getString("vid");
 			}
-		
-		
-			//strs=str.split("\\|");
+			if (bun.containsKey("iscollect")) {
+				if (bun.getString("iscollect").equals("0")) {//是收藏还是取消
+					collect_star.setBackgroundResource(R.drawable.start_yellow);
+					tcollect.setTextColor(Color.YELLOW);
+
+				} else {
+					collect_star.setBackgroundResource(R.drawable.star_gray);
+					tcollect.setTextColor(0xff887777);
+				}
+			}
+				if (bun.containsKey("title"))
+				{
+					vdoTitle.setText(bun.getString("title"));
+				}else
+				{
+					vdoTitle.setText("数据错误");
+					vdoTitle.setTextColor(Color.RED);
+				}
+			if (bun.containsKey("paidppnumber"))
+			{
+				paid_count.setText(bun.getString("paidppnumber")+" 人付款");
+			}else
+			{
+				paid_count.setText(bun.getString("数据错误"));
+				paid_count.setTextColor(Color.RED);
+			}
+			if (bun.containsKey("uploader"))
+			{
+				upLoader_id=bun.getString("uploader");
+			}
+
+			getandsetUploaderData();
+				//strs=str.split("\\|");
 		}
 		}
 		
@@ -93,6 +171,11 @@ public class Run_Video_ extends ActionBarActivity {
 			collect_star=(ImageView)this.findViewById(R.id.run_video_layoutImageView);
 			tcollect=(TextView)this.findViewById(R.id.run_video_layoutTextView);
 			tprog=(ProgressBar)this.findViewById(R.id.tProgressBar1);
+			upder_ll=(LinearLayout)this.findViewById(R.id.Run_Video_upder_ll);
+			paid_count=(TextView)this.findViewById(R.id.paid_count);
+			vdoTitle=(TextView)this.findViewById(R.id.Run_Video_vdoTitle);
+			uploader_img=(ImageView)this.findViewById(R.id.Run_Video_upder_Img);
+			upload_name=(TextView)this.findViewById(R.id.Run_Video_upder_name);
 			setSupportActionBar(toolbar);
 			ActionBar actionBar = getSupportActionBar();
 			actionBar.setHomeAsUpIndicator(R.drawable.back_purple);
@@ -144,6 +227,7 @@ public class Run_Video_ extends ActionBarActivity {
 		skbProgress = (SeekBar) this.findViewById(R.id.skbProgress);
 		skbProgress.setOnSeekBarChangeListener(new SeekBarChangeEvent());
 		player = new Player(surfaceView, skbProgress);
+
 	}
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -183,7 +267,8 @@ public class Run_Video_ extends ActionBarActivity {
 					{
 						btnPlayUrl.setVisibility(View.INVISIBLE);
 						tprog.setVisibility(View.VISIBLE);
-						player.playUrl(count);}//user.maps.get(Integer.getInteger(count)).get("vdourl").toString());
+						player.playUrl(count);//user.maps.get(Integer.getInteger(count)).get("vdourl").toString());
+					}
 				}
 
 		}
@@ -224,6 +309,22 @@ public class Run_Video_ extends ActionBarActivity {
 		}
 	}
 
+	public void getandsetUploaderData()
+	{
+		if (upLoader_id!=null)
+		{
+			HashMap<String,Object> map=new HashMap<String,Object>();
+			map.put("handler",mHandler);
+			map.put("Context",Run_Video_.this);
+			Http_UploadFile_ htt=new Http_UploadFile_(
+					"http://trying-video.herokuapp.com/user/information/" + upLoader_id
+					,map
+					,"8"
+			);
 
+			Thread x=new Thread(htt);
+			x.start();
+		}
+	}
 }
 

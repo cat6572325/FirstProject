@@ -291,7 +291,7 @@ public Http_UploadFile_(String url,HashMap<String ,Object> map,String cont)
 					handler.sendMessage(msg);
 
 					view_one = null;
-					view_one = new View_One((Context) maphttp.get("context"), "paidVideos change");
+					view_one = new View_One((Context) maphttp.get("context"), "支付成功");
 					view_one.viewcreate();
 
 
@@ -735,8 +735,12 @@ Log.e("在提交通知的时候",e.toString());
             Response response = client.newCall(request).execute();
             if (!response.isSuccessful()) throw new IOException();
 			str = response.body().string();
+			JSONObject jsonObject=new JSONObject(str);
 			Log.e("删除收藏",str);
 			Log.e("删除收藏url",url);
+			view_one=null;
+			view_one=new View_One((Run_Video_)maphttp.get("context"),jsonObject.getString("status"));
+			view_one.viewcreate();
 			
 
 		}catch(IOException e)
@@ -746,6 +750,13 @@ Log.e("在提交通知的时候",e.toString());
 			view_one=new View_One((Run_Video_)maphttp.get("context"),e.toString());
 			view_one.viewcreate();
 			
+		}catch (JSONException e)
+		{
+			Log.e("videodata1",e.toString());
+			view_one=null;
+			view_one=new View_One((Run_Video_)maphttp.get("context"),e.toString());
+			view_one.viewcreate();
+
 		}
 	}
 	
@@ -812,9 +823,7 @@ JSONObject jso=new JSONObject(str);
 if(jso.getString("message").equals("已添加进收藏"))
 {
 msg.arg1=0;
-	view_one=null;
-	view_one=new View_One((Run_Video_)maphttp.get("context"),jso.getString("message"));
-	view_one.viewcreate();
+
 	
 }else
 {
@@ -854,6 +863,9 @@ msg.arg1=0;
 }
 msg.what=1;
 run.mHandler.sendMessage(msg);
+			view_one=null;
+			view_one=new View_One((Run_Video_)maphttp.get("context"),jso.getString("message"));
+			view_one.viewcreate();
         } catch (IOException e) {
             e.printStackTrace();
 			view_one=new View_One((Run_Video_)maphttp.get("context"),e.toString());
@@ -1376,6 +1388,10 @@ run.mHandler.sendMessage(msg);
         JSONObject jsonObject = null;
         JSONArray jsonArray = null;
         String str1 = null;
+		if (handler==null)
+		{
+			handler=(Handler)maphttp.get("handler");
+		}
 		try{
 
         Request request = new Request.Builder().url(url).build();
@@ -1397,17 +1413,14 @@ run.mHandler.sendMessage(msg);
 				
                jsonObject = new JSONObject(str1);
 			   if(jsonObject.getString("error").equals("个人信息获取失败"))
-				  
 				   {
-					   
-					   
+
+					   view_one=null;
+					   view_one=new View_One((Context)maphttp.get("context"),jsonObject.getString("error"));
+					   view_one.viewcreate();
+
 				   }
-                if(jsonObject.getString("error").equals("个人信息已存在，保存失败"))
 
-				{
-
-
-				}
 				   
 				}
            } catch (JSONException e) {

@@ -51,14 +51,17 @@ public class http_thread_ extends Thread {
     @Override
     public void run() {
         super.run();
-		/*switch((Integer)mapvideo.get("count"))
+		switch((Integer)mapvideo.get("count"))
 		{
-			case 1:  
-				loadvideopng();
+			case 0:
+				pul();
+				break;
+			case 1:
+				videodata("s");
 				break;
 				
-		}*/
-       pul();
+		}
+
 	   
     }
     private void doUploadImg() {
@@ -220,18 +223,47 @@ public class http_thread_ extends Thread {
 			"concernednumber" : ${concernednumber}    //收藏人数(Number)
 		}
 		>>  返回 status: '信息已以相同id保存' */
+
+
+			/*
+			    "uploader" : ${uploader},    //上传者(string)
+    "title" : ${title},    //标题(string)
+    "introduction" : ${introduction},    //简介(string)
+    "price" : ${price},    //价格(Number)
+    "paidPerson" : ${paidPerson},    //付款人ID(Array)
+    "cocerPerson" : ${cocerPerson},    //收藏人ID(Array)
+    "paidppnumber" : ${paidppnumber},    //付款人数(Number)
+    "concernednumber" : ${concernednumber}    //收藏人数(Number)
+}
+>>  返回 status: '信息已以相同id保存'
+			 */
 			Log.e("uploader", mapvideo.get("uploader").toString());
 					Log.e("title", mapvideo.get("title").toString());
 					Log.e("introduction", mapvideo.get("introduction").toString());
 					Log.e("price", mapvideo.get("price").toString());
 
+			   /*POST   http://localhost:1103/user/video/detail/:_vid?token=${token}    /_vid为视频的id/
+
+                                    {
+                                        "uploader" : ${uploader},    //上传者(string)
+                                        "title" : ${title},    //标题(string)
+                                        "introduction" : ${introduction},    //简介(string)
+                                        "price" : ${price},    //价格(Number)
+                                        "paidPerson" : ${paidPerson},    //付款人ID(string)
+                                        "cocerPerson" : ${cocerPerson},    //收藏人名字(string)
+                                        "paidppnumber" : ${paidppnumber},    //付款人数(Number)
+                                        "concernednumber" : ${concernednumber}    //收藏人数(Number)
+                                    }
+                                    >>  返回 status: '信息已以相同id保存'
+                                    */
+
 			RequestBody formBody = new FormBody.Builder()
 				.add("uploader", mapvideo.get("uploader").toString())
 				.add("title", mapvideo.get("title").toString())
 				.add("introduction", mapvideo.get("introduction").toString())
-				.add("price", mapvideo.get("price").toString())
-				.add("paidppnumber", "0")
-				.add("concernednumber", "0")
+				.add("price", mapvideo.get("price").toString()+"aa")
+				.add("paidppnumber", mapvideo.get("paidppnumber").toString())
+				.add("concernednumber", mapvideo.get("concernednumber").toString())
 				
 				
 				.build();
@@ -324,9 +356,16 @@ Log.e("url",url);
 					Http_UploadFile_ http=new Http_UploadFile_(url,mapvideo,"3");
 					Thread x=new Thread(http);
 					x.start();
-					
-					
+
+					Message msg1=new Message();
+					msg1.obj=mapvideo;
+					msg1.what=2;
+				Bundle	bundle1=new Bundle();
+					bundle1.putString("vdo_id",v_id);
+					msg1.setData(bundle1);
 					Log.e("返回的视频id",v_id);
+					//handler=(Handler) mapvideo.get("handler");
+					handler.sendMessage(msg1);
 						//videodata("i");
 						
 				}

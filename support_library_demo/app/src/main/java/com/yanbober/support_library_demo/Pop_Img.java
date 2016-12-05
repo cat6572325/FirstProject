@@ -17,6 +17,8 @@ import android.util.*;
 import android.view.*;
 import android.view.ViewGroup.*;
 import android.widget.*;
+
+import com.google.gson.internal.bind.ArrayTypeAdapter;
 import com.yanbober.support_library_demo.Http_Util.*;
 import java.util.*;
 
@@ -471,11 +473,23 @@ public class Pop_Img extends Dialog {
                     dialog.addContentView(layout, new LayoutParams(
                             LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
                     dialog.setContentView(layout);
-                    RoundProgressBar bar = (RoundProgressBar) layout.findViewById(R.id.round_bar);
+                     bar = (RoundProgressBar) layout.findViewById(R.id.round_bar);
                     bar.setMax((Integer) map.get("max"));
                     bar.setTextSize((Integer) map.get("textsize"));
                     bar.setProgress((Integer) map.get("progress"));
                     bar.setCricleColor((Integer) map.get("color"));
+                    mViewUpdateHandler = new Handler() {
+                        @Override
+                        public void handleMessage(Message msg) {
+                            //接受请求设置Progressbar的进度
+                            super.handleMessage(msg);
+                            if (msg.arg1 == 101) {
+                                dialog.dismiss();
+                            }
+                            bar.setProgress(msg.arg1);
+                            bar.invalidate();
+                        }
+                    };
                 } else {
                     //TODO 是一个编辑信息的对话框
                     LayoutInflater inflater = (LayoutInflater) round_video_
@@ -514,26 +528,39 @@ public class Pop_Img extends Dialog {
                             public void onClick(View v) {
                                 upload_click.onClick(dialog,
                                         DialogInterface.BUTTON_POSITIVE);
-                                indelayout.setVisibility(View.VISIBLE);
-                                //解除隐藏布局的隐藏
-                                //mViewUpdateHandler.sendEmptyMessage(0);
-                                // 每次调用增加max for %1
+                                /*POST   http://localhost:1103/user/video/detail/:_vid?token=${token}    /_vid为视频的id/
+
+                                    {
+                                        "uploader" : ${uploader},    //上传者(string)
+                                        "title" : ${title},    //标题(string)
+                                        "introduction" : ${introduction},    //简介(string)
+                                        "price" : ${price},    //价格(Number)
+                                        "paidPerson" : ${paidPerson},    //付款人ID(string)
+                                        "cocerPerson" : ${cocerPerson},    //收藏人名字(string)
+                                        "paidppnumber" : ${paidppnumber},    //付款人数(Number)
+                                        "concernednumber" : ${concernednumber}    //收藏人数(Number)
+                                    }
+                                    >>  返回 status: '信息已以相同id保存'
+                                    */
+                                User u=new User();
                                 HashMap<String, Object> maphttp = new HashMap<String, Object>();
+                                maphttp.put("uploader", u.mydata.get("_id").toString());
                                 maphttp.put("title", round_title.getText().toString());
-                                maphttp.put("vdourl", file_with.GetFile().getPath().toString());
                                 maphttp.put("introduction", round_ps.getText().toString());
                                 maphttp.put("price", round_money.getText().toString());
+                                maphttp.put("paidPerson","");
+                                maphttp.put("cocerPerson",u.mydata.get("_id").toString());//
                                 maphttp.put("paidppnumber", "0");//购买人数
                                 maphttp.put("concernednumber", "0");//收藏人数
-                                maphttp.put("uploader", user.name);
-
-                                http_thread_ htt = new http_thread_(round_video_, "http://trying-video.herokuapp.com/user/video?token=" + user.token
-                                        , file_with.GetFile().getPath()
-                                        , round_video_.mHandler
-                                        , maphttp);
-                                Thread c = new Thread(htt);
-                                c.start();
-                             /*   URL url = null;
+                                maphttp.put("handler",round_video_.mHandler);
+                                maphttp.put("count",0);
+                                ArrayList<HashMap<String,Object>> datamaps=new ArrayList<HashMap<String, Object>>();
+                                datamaps.add(maphttp);
+                                 u.notLoadforVideo_list=datamaps;
+                               // indelayout.setVisibility(View.VISIBLE);
+                                //解除隐藏布局的隐藏
+                                //mViewUpdateHandler.sendEmptyMessage(0);
+                              /*   URL url = null;
                                 try {
                                     url = new URL("http://192.168.1.112:1103/user/video/all/detail");
                                 } catch (MalformedURLException e) {

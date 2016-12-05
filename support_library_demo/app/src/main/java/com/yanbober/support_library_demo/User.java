@@ -15,7 +15,7 @@ public class User
 	;
 
 
-	public static ArrayList<HashMap<String,Object>> Collect_List,notices_list;
+	public static ArrayList<HashMap<String,Object>> Collect_List,notices_list,notLoadforVideo_list;
 	public static HashMap<String,Object> mydata;
 	public static MainActivity mainActivity;
 	public static My_Video_ my_video_;

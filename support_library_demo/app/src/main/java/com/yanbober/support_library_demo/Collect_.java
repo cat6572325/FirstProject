@@ -90,7 +90,7 @@ public class Collect_ extends AppCompatActivity {
 												cost=videos.get(i).get("price").toString();
 										}
 									}
-									maphttp.put("balance",Integer.parseInt( cost));
+									maphttp.put("cost",Integer.parseInt( cost));
 									maphttp.put("handler", mHandler);
 									maphttp.put("price",cost);
 									Http_UploadFile_ htt = new Http_UploadFile_

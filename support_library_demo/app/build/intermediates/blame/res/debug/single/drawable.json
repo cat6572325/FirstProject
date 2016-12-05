@@ -4,12 +4,12 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/ic_action_chat.png"
     },
     {
-        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_track_material.xml",
-        "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_seekbar_track_material.xml"
-    },
-    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/button_action_blue_selector.xml",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/button_action_blue_selector.xml"
+    },
+    {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_track_material.xml",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_seekbar_track_material.xml"
     },
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/bottom_bar_background.xml",
@@ -116,12 +116,12 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/button_action_blue_touch.png"
     },
     {
-        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/fab_bg_normal.png",
-        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/fab_bg_normal.png"
-    },
-    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/abc_spinner_textfield_background_material.xml",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_spinner_textfield_background_material.xml"
+    },
+    {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/fab_bg_normal.png",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/fab_bg_normal.png"
     },
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_background_transition_holo_light.xml",
@@ -482,6 +482,10 @@
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/random_style.xml",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/random_style.xml"
+    },
+    {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/add.png",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/add.png"
     },
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/capture_photo_button.xml",

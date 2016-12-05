@@ -221,25 +221,8 @@ case 2:
 					//Bitmap bitmap1= BitmapFactory.decodeByteArray(bitmapArray1, 0,
 					//		bitmapArray1.length);
 					//以url解析图片
-					Bitmap bitmap2=null;
-				URL url;
-					try {
-						//lists.get(position).get("vdoPhotourl").toString();
-						url=new URL(lists.get(position).get("vdoPhotourl").toString());
-						
-						HttpURLConnection conn = (HttpURLConnection) url
-								.openConnection();
-						conn.setDoInput(true);
-						conn.connect();
-						InputStream is = conn.getInputStream();
-						bitmap2 = BitmapFactory.decodeStream(is);
-						is.close();
-						conn.disconnect();
-					} catch (IOException e) {
-						//e.printStackTrace();
-						bitmap2=BitmapFactory.decodeResource(context.getResources(), R.drawable.down);
-						}
-					Drawable drawable=new BitmapDrawable(bitmap2);
+
+			Drawable drawable=new BitmapDrawable((Bitmap)lists.get(position).get("vdoPhoto"));
 					//以url解析图片　
 
 					holder.infoDetails_relativelayout.setBackground(drawable);

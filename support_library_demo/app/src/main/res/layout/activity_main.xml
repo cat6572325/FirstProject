@@ -124,17 +124,18 @@
 			android:id="@+id/f1"
 			app:fabSize="normal"
 			app:borderWidth="0dp"
+
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_margin="20dp"
-			android:src="@drawable/floating_main_button"
+			android:src="@drawable/add"
 			android:textSize="25dp"
 			app:backgroundTint="#ffffff"
 			android:textColor="#7f2bed"
 			android:layout_gravity="bottom|right"
 			
 			
-			app:elevation="5dp"
+			app:elevation="1dp"
 			
 				app:pressedTranslationZ="10dp"
 			app:rippleColor="#ffffff"/>

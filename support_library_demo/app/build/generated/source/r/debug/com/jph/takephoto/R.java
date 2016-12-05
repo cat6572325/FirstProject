@@ -462,16 +462,16 @@ public final class R {
 		public static final int abc_textfield_search_activated_mtrl_alpha = 0x7f02004f;
 		public static final int abc_textfield_search_default_mtrl_alpha = 0x7f020050;
 		public static final int abc_textfield_search_material = 0x7f020051;
-		public static final int crop__divider = 0x7f020079;
-		public static final int crop__ic_cancel = 0x7f02007a;
-		public static final int crop__ic_done = 0x7f02007b;
-		public static final int crop__selectable_background = 0x7f02007c;
-		public static final int crop__texture = 0x7f02007d;
-		public static final int crop__tile = 0x7f02007e;
-		public static final int ic_arrow_back = 0x7f0200aa;
-		public static final int ic_done_white = 0x7f0200ae;
-		public static final int image_placeholder = 0x7f0200c8;
-		public static final int notification_template_icon_bg = 0x7f020122;
+		public static final int crop__divider = 0x7f02007a;
+		public static final int crop__ic_cancel = 0x7f02007b;
+		public static final int crop__ic_done = 0x7f02007c;
+		public static final int crop__selectable_background = 0x7f02007d;
+		public static final int crop__texture = 0x7f02007e;
+		public static final int crop__tile = 0x7f02007f;
+		public static final int ic_arrow_back = 0x7f0200ab;
+		public static final int ic_done_white = 0x7f0200af;
+		public static final int image_placeholder = 0x7f0200c9;
+		public static final int notification_template_icon_bg = 0x7f020123;
 	}
 	public static final class id {
 		public static final int action0 = 0x7f0d014d;
@@ -531,7 +531,7 @@ public final class R {
 		public static final int listMode = 0x7f0d0010;
 		public static final int list_item = 0x7f0d0050;
 		public static final int media_actions = 0x7f0d0150;
-		public static final int menu_item_add_image = 0x7f0d01b4;
+		public static final int menu_item_add_image = 0x7f0d01b9;
 		public static final int middle = 0x7f0d003e;
 		public static final int multiply = 0x7f0d0020;
 		public static final int never = 0x7f0d003a;

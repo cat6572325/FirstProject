@@ -17,15 +17,18 @@ import android.view.View.*;
 import android.view.animation.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
+
 import com.okhttplib.*;
 import com.okhttplib.annotation.*;
 import com.okhttplib.callback.*;
 import com.yanbober.support_library_demo.DataHelpers.*;
 import com.yanbober.support_library_demo.Http_Util.*;
 import com.yanbober.support_library_demo.Message_S.*;
+
 import java.io.*;
 import java.net.*;
 import java.util.*;
+
 import org.json.*;
 
 import android.support.design.widget.FloatingActionButton;
@@ -41,10 +44,10 @@ import android.view.View.OnClickListener;
 public class MainActivity extends AppCompatActivity implements InfoDetailsFragment.OnActivityebent {
     public Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
-            Bundle bundle=msg.getData();
+            Bundle bundle = msg.getData();
             switch (msg.what) {
                 case 0:
-					/*
+                    /*
 					视频列表缺少收藏者id支付者id
 					>>  返回全部视频信息
                     {
@@ -64,9 +67,8 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
                         //获取视频列表
                         if (bundle.getString("?").equals("获取失败")) {
 
-							
-                        }
-						else {
+
+                        } else {
                             JSONArray jsonArray = (JSONArray) msg.obj;
                             HashMap<String, Object> map;
                             ArrayList<HashMap<String, Object>> maps = new ArrayList<HashMap<String, Object>>();
@@ -78,41 +80,43 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
                                 map.put("title", jsonObject.getString("title"));
                                 map.put("price", jsonObject.getString("price"));
                                 map.put("_id", jsonObject.getString("_id"));
-								user.vid=null;
-								user.vid=jsonObject.getString("_id");
+                                user.vid = null;
+                                user.vid = jsonObject.getString("_id");
                                 map.put("uploader", jsonObject.getString("uploader"));
                                 map.put("introduction", jsonObject.getString("introduction"));
                                 map.put("vdourl", jsonObject.getString("vdourl"));
                                 map.put("paidppnumber", jsonObject.getString("paidppnumber"));
-                                map.put("paidPerson", jsonObject.getString("paidPerson"));
-                                map.put("cocerPerson", jsonObject.getString("cocerPerson"));
-								try {
-									if (jsonObject.getString("vdoPhotourl") != null) {
-										map.put("concernednumber", jsonObject.getString("concernednumber"));
-										map.put("vdoPhotourl", jsonObject.getString("vdoPhotourl"));
-										
-									}
+                                map.put("paidPerson", jsonObject.getJSONArray("paidPerson"));
+                                map.put("cocerPerson", jsonObject.getJSONArray("cocerPerson"));
+                                try {
+                                    if (jsonObject.getString("vdoPhotourl") != null) {
+                                        map.put("concernednumber", jsonObject.getString("concernednumber"));
+                                        map.put("vdoPhotourl", jsonObject.getString("vdoPhotourl"));
+
+                                    }
 
 
-								}
-								catch (JSONException e) {
-									String str=jsonObject.getString("concernednumber");
+                                } catch (JSONException e) {
+                                    String str = jsonObject.getString("concernednumber");
 
 
-
-									map.put("vdoPhotourl", jsonObject.getString("vdourl"));
-								}
+                                    map.put("vdoPhotourl", jsonObject.getString("vdourl"));
+                                }
 
                                 maps.add(map);
 
                             }
+
                             user.maps = maps;
+                            videos_list=maps;
                             idf.Onebent(maps);
-                            sf.Onebent(maps);
+
+
+
+
 
                         }
-                    }
-					catch (JSONException e) {
+                    } catch (JSONException e) {
 
                     }
 
@@ -133,12 +137,12 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 
                     break;
                 case 3:
-					//更新ui
+                    //更新ui
 
-                  //  UpUI("null", (HashMap<String,Object>)msg.obj, "6");
-					break;
+                    //  UpUI("null", (HashMap<String,Object>)msg.obj, "6");
+                    break;
                 case 4:
-					ImageMessage(bundle.getString("?"));
+                    ImageMessage(bundle.getString("?"));
                     if (bundle.getString("?").equals("修改成功")) {
                         User_name.setText(user.name);
                     }
@@ -163,37 +167,36 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 
                         if (bundle.getString("?").equals("获取失败")) {
 
-                        }
-						else {
+                        } else {
                             JSONObject jsonObject = (JSONObject) msg.obj;
                             HashMap<String, Object> map;
                             ArrayList<HashMap<String, Object>> maps = new ArrayList<HashMap<String, Object>>();
-							map = new HashMap<String, Object>();
-                            map.put("phone",jsonObject.getString("phone"));
-							map.put("_id", jsonObject.getString("_id"));
-							map.put("headPortrait", jsonObject.getString("headPortrait"));
-							map.put("nickname", jsonObject.getString("nickname"));
+                            map = new HashMap<String, Object>();
+                            map.put("phone", jsonObject.getString("phone"));
+                            map.put("_id", jsonObject.getString("_id"));
+                            map.put("headPortrait", jsonObject.getString("headPortrait"));
+                            map.put("nickname", jsonObject.getString("nickname"));
+                            map.put("balance",jsonObject.getString("balance"));
+                            map.put("paypassword",jsonObject.getString("paypassword"));
                             User_name.setText(jsonObject.getString("nickname"));
-							map.put("notices", jsonObject.getString("notices"));//数组
-							map.put("collects", jsonObject.getString("collects"));//数组
+                            map.put("notices", jsonObject.getString("notices"));//数组
+                            map.put("collects", jsonObject.getString("collects"));//数组
 
-							maps.add(map);
+                            maps.add(map);
                             user.mydata = map;
-                         
-                                if (jsonObject.getJSONArray("notices").length() >  0) {
-									
-									
-									Message_point.setText(String.valueOf(jsonObject.getJSONArray("notices").length()));
-									}
-								else {
-                                    Message_point.setVisibility(View.INVISIBLE);
-                                }
-                            
+
+                            if (jsonObject.getJSONArray("notices").length() > 0) {
+
+
+                                Message_point.setText(String.valueOf(jsonObject.getJSONArray("notices").length()));
+                            } else {
+                                Message_point.setVisibility(View.INVISIBLE);
+                            }
+
 
                         }
-                    }
-					catch (JSONException e) {
-                        Log.e("在获取个人信息的时候",e.toString());
+                    } catch (JSONException e) {
+                        Log.e("在获取个人信息的时候", e.toString());
                     }
                     break;
 
@@ -201,24 +204,22 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 
                     try {
                         if (bundle.getString("?").equals("获取失败")) {
-                        }
-						else {
+                        } else {
                             JSONObject jsonObject = (JSONObject) msg.obj;
                             user.picture = jsonObject.get("").toString();
 
                         }
-                    }
-					catch (JSONException e) {
-                        Log.e("在获取头像的时候",e.toString());
+                    } catch (JSONException e) {
+                        Log.e("在获取头像的时候", e.toString());
                     }
 
 
                     break;
-					
-					
-					case 7:
-						//接收收藏列表
-					try{/*
+
+
+                case 7:
+                    //接收收藏列表
+                    try {/*
 						>>  返回全部收藏
                         {
                             {
@@ -230,45 +231,41 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
                             },
                             {...},
 						 ...*/
-						//获取列表等详细数据
-						Bundle bun=msg.getData();
-						JSONArray jsa=(JSONArray)msg.obj;
-						ArrayList<HashMap<String,Object>> listmap=new ArrayList<HashMap<String,Object>>();
-						if(jsa.length()>0)
-							for(int y=0;y<jsa.length();y++)
-							{
-								JSONObject jso=jsa.getJSONObject(y);
-								Log.e("colllllll",jso.toString());
-								//addTextToList(jso.getString("videoTitle"),3,R.drawable.qq,"901人付款",1,1);
-								HashMap<String,Object> map=new HashMap<String,Object>();
-								map.put("_id",jso.getString("_id"));
-								map.put("collector",jso.getString("collector"));
-								map.put("author",jso.getString("author"));
-								map.put("videoTitle",jso.getString("videoTitle"));
-								map.put("vdo_id",jso.getString("vdo_id"));
-								listmap.add(map);
+                        //获取列表等详细数据
+                        Bundle bun = msg.getData();
+                        JSONArray jsa = (JSONArray) msg.obj;
+                        ArrayList<HashMap<String, Object>> listmap = new ArrayList<HashMap<String, Object>>();
+                        if (jsa.length() > 0)
+                            for (int y = 0; y < jsa.length(); y++) {
+                                JSONObject jso = jsa.getJSONObject(y);
+                                Log.e("colllllll", jso.toString());
+                                //addTextToList(jso.getString("videoTitle"),3,R.drawable.qq,"901人付款",1,1);
+                                HashMap<String, Object> map = new HashMap<String, Object>();
+                                map.put("_id", jso.getString("_id"));
+                                map.put("collector", jso.getString("collector"));
+                                map.put("author", jso.getString("author"));
+                                map.put("videoTitle", jso.getString("videoTitle"));
+                                map.put("vdo_id", jso.getString("vdo_id"));
+                                listmap.add(map);
 
-							}
-						user.Collect_List=listmap;
-						//addTextToList("无任何收藏",3,R.drawable.qq,"901人付款",1,1);
+                            }
+                        user.Collect_List = listmap;
+                        //addTextToList("无任何收藏",3,R.drawable.qq,"901人付款",1,1);
 
-					}catch(JSONException e)
-					{
-						Log.e("获取收藏的时候",e.toString());
-					}
-			
-					
-						
-						break;
+                    } catch (JSONException e) {
+                        Log.e("获取收藏的时候", e.toString());
+                    }
+
+
+                    break;
                 case 8:
                     //查余额
                     try {
                         JSONObject jsonObjec = (JSONObject) msg.obj;
 
                         user.mydata.put("balance", jsonObjec.getString("balance"));
-                    }catch (JSONException e)
-                    {
-                        Log.e("在获取余额的时候",e.toString());
+                    } catch (JSONException e) {
+                        Log.e("在获取余额的时候", e.toString());
                     }
                     break;
             }
@@ -278,7 +275,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
     };
     RotateAnimation animation;
     String[] str1;
-    SQLiteDatabase db=null;
+    SQLiteDatabase db = null;
     DataHelper dataserver;
     private static Boolean isExit = false;
     InfoDetailsFragment idf = new InfoDetailsFragment();
@@ -288,7 +285,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
     private DataOutputStream out;
     private Socket socketClien;
     User user = new User();
-	int count=0;
+    int count = 0;
     //将ToolBar与TabLayout结合放入AppBarLayout
     private Toolbar mToolbar;
     //DrawerLayout中的左侧菜单控件
@@ -300,15 +297,16 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
     //v4中的ViewPager控件
     private ViewPager mViewPager;
 
+
     //右上角新消息提示红点
-    TextView Message_point,User_name;
+    TextView Message_point, User_name;
 
     ListView rl;
     MyChatAdapter ladapter;
     int[] layout = {R.layout.left_list_item, R.layout.line_item};
 
 
-    public ArrayList<HashMap<String, Object>> lists = new ArrayList<HashMap<String, Object>>();
+    public ArrayList<HashMap<String, Object>> lists = new ArrayList<HashMap<String, Object>>(),videos_list;
 
     LinearLayout ll;
     public ImageView heard, left_head;
@@ -316,16 +314,16 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
     ImageView message;
     Button button2 = null, button3 = null;
 
-    FloatingActionButton  button1 = null;
-  
+    FloatingActionButton button1 = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (Build.VERSION.SDK_INT >= 11) {
-			StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build());
-			StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectLeakedSqlLiteObjects().detectLeakedClosableObjects().penaltyLog().penaltyDeath().build());
-		}
+            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build());
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectLeakedSqlLiteObjects().detectLeakedClosableObjects().penaltyLog().penaltyDeath().build());
+        }
         //初始化控件及布局
         initView();
         //上面请求主线程可以使用http
@@ -384,6 +382,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 		 }
 		 });*/
     }
+
     private void exitBy2Click() {
         Timer tExit = null;
         if (isExit == false) {
@@ -391,18 +390,18 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
             Toast.makeText(MainActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
             tExit = new Timer();
             tExit.schedule(new TimerTask() {
-					@Override
-					public void run() {
-						isExit = false; // 取消退出
-					}
-				}, 2000); // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
+                @Override
+                public void run() {
+                    isExit = false; // 取消退出
+                }
+            }, 2000); // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
 
-        }
-		else {
+        } else {
             finish();
             //System.exit(0);
         }
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
@@ -411,6 +410,11 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
         }
         return false;
     }
+
+    public ArrayList<HashMap<String, Object>> gethash() {
+        return user.maps;
+    }
+
     public void setdate() {
         //设置头像,将序列化的图片反序列化
         byte[] bitmapArray;
@@ -430,7 +434,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 
     private void initView() {
         animation = new RotateAnimation(0f, 90f, Animation.RELATIVE_TO_SELF,
-										0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 
         user.mainActivity = null;
         user.mainActivity = MainActivity.this;
@@ -446,14 +450,14 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
         Message_point = (TextView) findViewById(R.id.tTextView);
         message = (ImageView) this.findViewById(R.id.activitymainTextView1);
         left_head = (ImageView) this.findViewById(R.id.drawer_headerImageView);
-        loginout = (TextView)this.findViewById(R.id.leftlistitemTextView1);
-        User_name = (TextView)this.findViewById(R.id.User_name);
+        loginout = (TextView) this.findViewById(R.id.leftlistitemTextView1);
+        User_name = (TextView) this.findViewById(R.id.User_name);
         button1 = (FloatingActionButton) this.findViewById(R.id.f1);
         button2 = (Button) this.findViewById(R.id.f2);
         button3 = (Button) this.findViewById(R.id.f3);
         button2.setVisibility(View.INVISIBLE);
         button3.setVisibility(View.INVISIBLE);
-		//  if (user.)
+        //  if (user.)
         Message_point.setText("1");
         ThreadEx c1 = new ThreadEx(MainActivity.this, "loginAndPass");
         Thread x1 = new Thread(c1);
@@ -466,8 +470,8 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
         //  rl.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         //设置RecyclerView布局管理器为2列垂直排布
 
-		// addData();
-		// addTextToList("首页", 0, R.drawable.home);
+        // addData();
+        // addTextToList("首页", 0, R.drawable.home);
         addTextToList("已付", 0, R.drawable.paid);
 
         addTextToList("我的", 0, R.drawable.my_video);
@@ -482,46 +486,46 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
         rl.setAdapter(ladapter);
 
         left_head.setOnClickListener(new OnClickListener() {
-				public void onClick(View v) {
-					Intent intent = new Intent(MainActivity.this, Personal_.class);
-					startActivity(intent);
-				}
-			});
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Personal_.class);
+                startActivity(intent);
+            }
+        });
         rl.setOnItemClickListener(new OnItemClickListener() {
-				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					TextView tv = (TextView) view.findViewById(R.id.leftlistitemTextView1);
-					if (tv != null) {
-						String str = tv.getText().toString();
-						if (str.equals("首页")) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView tv = (TextView) view.findViewById(R.id.leftlistitemTextView1);
+                if (tv != null) {
+                    String str = tv.getText().toString();
+                    if (str.equals("首页")) {
 
-						}
-						if (str.equals("已付")) {
-							Intent intent = new Intent(MainActivity.this, Paid_Video.class);
-							startActivity(intent);
-						}
+                    }
+                    if (str.equals("已付")) {
+                        Intent intent = new Intent(MainActivity.this, Paid_Video.class);
+                        startActivity(intent);
+                    }
 
-						if (str.equals("收藏")) {
-							Intent intent = new Intent(MainActivity.this, Collect_.class);
-							startActivity(intent);
-						}
-						if (str.equals("我的")) {
-							Intent intent = new Intent(MainActivity.this, My_Video_.class);
-							startActivity(intent);
-						}
+                    if (str.equals("收藏")) {
+                        Intent intent = new Intent(MainActivity.this, Collect_.class);
+                        startActivity(intent);
+                    }
+                    if (str.equals("我的")) {
+                        Intent intent = new Intent(MainActivity.this, My_Video_.class);
+                        startActivity(intent);
+                    }
 
-						if (str.equals("余额")) {
-							Intent intent = new Intent(MainActivity.this, Balance_.class);
-							startActivity(intent);
-						}
+                    if (str.equals("余额")) {
+                        Intent intent = new Intent(MainActivity.this, Balance_.class);
+                        startActivity(intent);
+                    }
 
-						if (str.equals("设置")) {
-							Intent intent = new Intent(MainActivity.this, Setting_.class);
-							startActivity(intent);
-						}
-					}
+                    if (str.equals("设置")) {
+                        Intent intent = new Intent(MainActivity.this, Setting_.class);
+                        startActivity(intent);
+                    }
+                }
 
-				}
-			});
+            }
+        });
 
         //初始化ToolBar
         setSupportActionBar(mToolbar);
@@ -530,14 +534,14 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
         actionBar.setDisplayHomeAsUpEnabled(true);
         message.setOnClickListener(new View.OnClickListener() {
 
-				public void onClick(View v) {
-					Message_point.setVisibility(View.INVISIBLE);
-					//不管怎么样都直接设置隐藏
-					Intent intent = new Intent(MainActivity.this, Message_c.class);
-					startActivity(intent);
+            public void onClick(View v) {
+                Message_point.setVisibility(View.INVISIBLE);
+                //不管怎么样都直接设置隐藏
+                Intent intent = new Intent(MainActivity.this, Message_c.class);
+                startActivity(intent);
 
-				}
-			});
+            }
+        });
         //对NavigationView添加item的监听事件
         // mNavigationView.setNavigationItemSelectedListener(naviListener);
         //开启应用默认打开DrawerLayout
@@ -555,12 +559,12 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
         mTabLayout.addTab(mTabLayout.newTab().setText(titles.get(1)));
         mTabLayout.addTab(mTabLayout.newTab().setText(titles.get(2)));
         //初始化ViewPager的数据集
-
         List<Fragment> fragments = new ArrayList<>();
 
         fragments.add(idf);
-        fragments.add(sf);
         fragments.add(af);
+        fragments.add(sf);
+
         //创建ViewPager的adapter
         FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager(), fragments, titles);
         mViewPager.setAdapter(adapter);
@@ -569,120 +573,202 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabsFromPagerAdapter(adapter);
         POpFloag();
-		loginout.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View view) {
-					//Onebent("sssssssssssssssssssssssssssss");
-					try {
-						dataserver = new DataHelper(MainActivity.this);
-						dataserver.inst(db, user.phone
-										+ "|" + user.pas
-										+ "|" + user.phone
-										+ "|null|"
-										+ user.token
-										+ "|0", MainActivity.this);
-						Intent intent = new Intent(MainActivity.this, Login_.class);
-						startActivity(intent);
-						finish();
-					}
-					catch (SQLException e) {
+        loginout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Onebent("sssssssssssssssssssssssssssss");
+                try {
+                    dataserver = new DataHelper(MainActivity.this);
+                    dataserver.inst(db, user.phone
+                            + "|" + user.pas
+                            + "|" + user.phone
+                            + "|null|"
+                            + user.token
+                            + "|0", MainActivity.this);
+                    Intent intent = new Intent(MainActivity.this, Login_.class);
+                    startActivity(intent);
+                    finish();
+                } catch (SQLException e) {
 
-					}
-				}
-			});
-			if(user.phone.equals("15913044423"))
-			{
-				
-			}else
-			{
-		Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(MainActivity.this
-																 , mHandler
-																 , "http://trying-video.herokuapp.com/user/video/all/detail"
-																 , "4"
-																 , "POST"
-																 , "getvideos");
-        Thread t=new Thread(http_uploadFile_);
-		t.start();
-		
-		Bundle bun=this.getIntent().getExtras();
-		//if (bun != null && bun.containsKey("isfirst"))
-		
-		http_uploadFile_=new Http_UploadFile_(
-			MainActivity.this
-		, mHandler
-				, "http://trying-video.herokuapp.com/user/information?token=" +user.token
-				, "7"
-		, "POST"
-				,  "新用户"+System.currentTimeMillis() + "||0|0|0"
-			);
-        Thread te=new Thread(http_uploadFile_);
-		te.start();
-			//暂时没有用户填写资料的界面就先设置默认了
-		
-		
-			//String str=bun.getString("isfirst");
-			//if(str.equals("0"))
-				CheckData();
-				getcollect();
-				}
-		//
-		
-		
-		//  CheckHead();
-		// http_thread_ htt=new http_thread_("http://trying-video.herokuapp.com/user/image?token=","/sdcard/DCIM/Camera/IMG_20160926_183708.jpg",mHandler);
-		// Thread b=new Thread(htt);
-		// b.start();
+                }
+            }
+        });
+        if (user.phone.equals("15913044423")) {
+
+        } else {
+            Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(MainActivity.this
+                    , mHandler
+                    , "http://trying-video.herokuapp.com/user/video/all/detail"
+                    , "4"
+                    , "POST"
+                    , "getvideos");
+            Thread t = new Thread(http_uploadFile_);
+            t.start();
+
+            Bundle bun = this.getIntent().getExtras();
+            //if (bun != null && bun.containsKey("isfirst"))
+
+            http_uploadFile_ = new Http_UploadFile_(
+                    MainActivity.this
+                    , mHandler
+                    , "http://trying-video.herokuapp.com/user/information?token=" + user.token
+                    , "7"
+                    , "POST"
+                    , "新用户" + System.currentTimeMillis() + "||0|0|0"
+            );
+            Thread te = new Thread(http_uploadFile_);
+            te.start();
+            //暂时没有用户填写资料的界面就先设置默认了
+
+
+            //String str=bun.getString("isfirst");
+            //if(str.equals("0"))
+            CheckData();
+            getcollect();
+            ArrayList<HashMap<String,Object>> maps=new ArrayList<HashMap<String,Object>>();
+
+            final String[] items = new String[]{
+                    "地球地心",
+                    "火星",
+                    "黑洞",
+                    "大山",
+                    "花果山"
+            };
+            HashMap<String,Object> map=new HashMap<>();
+            map.put("title","请选择你的故乡");
+            map.put("items",items);
+            maps.add(map);
+            final String[] items1 = new String[]{
+                    "AK_47",
+                    "格林炮",
+                    "全能塑料枪",
+                    "嘴炮",
+                    "阿木斯特狼螺旋机关牛啊姆斯特狼螺旋机关冲天炮"
+            };
+            HashMap<String,Object> map1=new HashMap<>();
+            map1.put("title","请选择你的武器");
+            map1.put("items",items1);
+            maps.add(map1);
+            final String[] items2 = new String[]{
+                    "太阳",
+                    "黑洞",
+                    "神",
+                    "美国总统",
+                    "猫"
+            };
+            HashMap<String,Object> map2=new HashMap<>();
+            map2.put("title","那么你准备要攻击谁");
+            map2.put("items",items2);
+            maps.add(map2);
+            showADialog(maps,0);
+        }
+        //
+
+
+        //  CheckHead();
+        // http_thread_ htt=new http_thread_("http://trying-video.herokuapp.com/user/image?token=","/sdcard/DCIM/Camera/IMG_20160926_183708.jpg",mHandler);
+        // Thread b=new Thread(htt);
+        // b.start();
     }//initView
+    public void showADialog(ArrayList<HashMap<String,Object>> maps1,int count)
+    {
+        final ArrayList<HashMap<String,Object>> maps=maps1;
+        final int counts=count+1;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setIcon(android.R.drawable.ic_dialog_alert);
+        String[] items=null;
+        switch (count)
+        {
+            case 0:
+                builder.setTitle(maps.get(0).get("title").toString());
+                //定义列表中的选项
+                items =(String[])maps.get(0).get("items");
+
+                break;
+            case 1:
+                builder.setTitle(maps.get(1).get("title").toString());
+                //定义列表中的选项
+                items =(String[])maps.get(1).get("items");
+
+                break;
+            case 2:
+                builder.setTitle(maps.get(2).get("title").toString());
+                //定义列表中的选项
+                items =(String[])maps.get(2).get("items");
+
+                break;
+        }
+        if (items!=null) {
+
+            //设置列表选项
+            builder.setItems(items, new DialogInterface.OnClickListener() {
+                //点击任何一个列表选项都会触发这个方法
+                //arg1：点击的是哪一个选项
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    showADialog(maps, counts);
+                }
+            });
+            // 取消选择
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            builder.show();
+        }
+    }
     public void POpFloag() {
         //// TODO: 右下角按钮点击事件
         button1.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View view) {
-					animation.setDuration(500);//设置动画持续时间
-					/** 常用方法 */
-					//  animation.setRepeatCount(500);//设置重复次数
-					animation.setFillAfter(true);//动画执行完后是否停留在执行完的状态
+            @Override
+            public void onClick(View view) {
+                view.clearAnimation();
+                animation.setDuration(500);//设置动画持续时间
+                /** 常用方法 */
+                //  animation.setRepeatCount(500);//设置重复次数
+                animation.setFillAfter(true);//动画执行完后是否停留在执行完的状态
 //animation.setStartOffset(long startOffset);//执行前的等待时间
-					view.setAnimation(animation);
-					//iv_drag.setAnimation(animation);
-					//	/** 开始动画 */
-					//	animation.startNow();
-					// 结束动画
-					//animation.cancel();
-					if (count == 100) {
-						new Thread(new ThreadShowback()).start();
-					}
-					else {
-						button2.setVisibility(View.VISIBLE);
-						button3.setVisibility(View.VISIBLE);
-						new Thread(new ThreadShow()).start();
+                view.startAnimation(animation);
+                //iv_drag.setAnimation(animation);
+                //	/** 开始动画 */
+                //	animation.startNow();
+                // 结束动画
+                //animation.cancel();
+                if (count == 100) {
+                    new Thread(new ThreadShowback()).start();
+                } else {
+                    button2.setVisibility(View.VISIBLE);
+                    button3.setVisibility(View.VISIBLE);
+                    new Thread(new ThreadShow()).start();
 
-					}
-				}
-			});
+                }
+            }
+        });
         button2.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View view) {
-					//TODO 开始录像
-					Intent intent = new Intent(MainActivity.this, Round_Video_.class);
-					startActivity(intent);
-				}
+            @Override
+            public void onClick(View view) {
+                //TODO 开始录像
+                Intent intent = new Intent(MainActivity.this, Round_Video_.class);
+                startActivity(intent);
+            }
 
-			});
+        });
 
         button3.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View view) {
-					doUploadImg("http://trying-video.herokuapp.com/user/image?token=", "/sdcard/DCIM/Camera/IMG_20160926_183708.jpg");
-				}
+            @Override
+            public void onClick(View view) {
+                doUploadImg("http://trying-video.herokuapp.com/user/image?token=", "/sdcard/DCIM/Camera/IMG_20160926_183708.jpg");
+            }
 
-			});
+        });
     }
 
     @Override
     public void Onebent(String str) {
-		//  idf.Onebent("sssss");
-		// String str1=str;
+        //  idf.Onebent("sssss");
+        // String str1=str;
     }
 
     class OnclickListener implements OnClickListener {
@@ -755,12 +841,10 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
                     if (count < 100) {
                         Thread.sleep(1);
                         mHandler.sendEmptyMessage(1);
-                    }
-					else {
+                    } else {
                         break;
                     }
-                }
-				catch (Exception e) {
+                } catch (Exception e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                     System.out.println("thread error...");
@@ -779,14 +863,12 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
                     if (count > 0) {
                         Thread.sleep(1);
                         mHandler.sendEmptyMessage(2);
-                    }
-					else {
+                    } else {
                         button2.setVisibility(View.INVISIBLE);
                         button3.setVisibility(View.INVISIBLE);
                         break;
                     }
-                }
-				catch (Exception e) {
+                } catch (Exception e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                     System.out.println("thread error...");
@@ -794,30 +876,31 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
             }
         }
     }
+
     private void ImageMessage(String message) {
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
     }
+
     //更新数据
-    private void UpUI(String url, HashMap<String,Object> data, String count) {
+    private void UpUI(String url, HashMap<String, Object> data, String count) {
 
         //数据库操作
         dataserver = new DataHelper(MainActivity.this);
         str1 = dataserver.readData("flag|").split("\\|");
 
 
-		user.phone = str1[0];
-		user.pas = str1[1];
-		user.name = user.mydata.get("nickname").toString();
-		Log.e("main",user.mydata.get("nickname").toString());
-		Log.e("main",user.name);
-		
+        user.phone = str1[0];
+        user.pas = str1[1];
+        user.name = user.mydata.get("nickname").toString();
+        Log.e("main", user.mydata.get("nickname").toString());
+        Log.e("main", user.name);
 
 
         //数据库操作
-                             //                         MainActivity,       handler,  url,connectType,token,data) {
-        Http_UploadFile_ http_uploadFile_=new Http_UploadFile_(MainActivity.this, mHandler, url, count, str1[4], user.name);
-        Thread x=new Thread(http_uploadFile_);
-		  x.start();
+        //                         MainActivity,       handler,  url,connectType,token,data) {
+        Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(MainActivity.this, mHandler, url, count, str1[4], user.name);
+        Thread x = new Thread(http_uploadFile_);
+        x.start();
     }
 
 
@@ -831,31 +914,32 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
         //"notices" : ${notices},    //通知(String)  [存的只是通知id]
         //"collects" : ${collects}    //收藏(String)  [存的只是收藏id]
         //                                                   MainActivity,       handler,  url,connectType,token,data) {
-        Http_UploadFile_ http_uploadFile_=new Http_UploadFile_(MainActivity.this
-															   , mHandler
-															   , "http://trying-video.herokuapp.com/user/information/" + user._id
-															   , "8"
-															   , str1[4]
-															   , str1[1] + "||0|0|0"
-															   
-															   );
-        Thread x=new Thread(http_uploadFile_);
+        Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(MainActivity.this
+                , mHandler
+                , "http://trying-video.herokuapp.com/user/information/" + user._id
+                , "8"
+                , str1[4]
+                , str1[1] + "||0|0|0"
+
+        );
+        Thread x = new Thread(http_uploadFile_);
         x.start();
 
     }
+
     public void CheckHead() {
         //数据库操作
         dataserver = new DataHelper(MainActivity.this);
         str1 = dataserver.readData("flag|").split("\\|");
-		//    MainActivity,       handler,  url,connectType,token,data) {
-        Http_UploadFile_ http_uploadFile_=new Http_UploadFile_(MainActivity.this
-															   , mHandler
-															   , "http://trying-video.herokuapp.com/user/image?token=" + user.token
-															   , "10"
-															   , str1[4]
-															   , str1[1] + "||0|0|0");
-        Thread x=new Thread(http_uploadFile_);
-    //    x.start();
+        //    MainActivity,       handler,  url,connectType,token,data) {
+        Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(MainActivity.this
+                , mHandler
+                , "http://trying-video.herokuapp.com/user/image?token=" + user.token
+                , "10"
+                , str1[4]
+                , str1[1] + "||0|0|0");
+        Thread x = new Thread(http_uploadFile_);
+        //    x.start();
 
     }
 
@@ -869,72 +953,71 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
         //"notices" : ${notices},    //通知(String)  [存的只是通知id]
         //"collects" : ${collects}    //收藏(String)  [存的只是收藏id]
         //                                                   MainActivity,       handler,  url,connectType,token,data) {
-        Http_UploadFile_ http_uploadFile_=new Http_UploadFile_(MainActivity.this
-															   , mHandler
-															   , "http://trying-video.herokuapp.com/user/image?token=" + user.token
-															   , "10"
-															   , str1[4]
-															   , str1[1] + "||0|0|0");
-        Thread x=new Thread(http_uploadFile_);
+        Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(MainActivity.this
+                , mHandler
+                , "http://trying-video.herokuapp.com/user/image?token=" + user.token
+                , "10"
+                , str1[4]
+                , str1[1] + "||0|0|0");
+        Thread x = new Thread(http_uploadFile_);
         x.start();
 
 
-
-
     }
-
 
 
     public void doUploadImg(String url, String path) {
         OkHttpUtilInterface okHttpUtil = OkHttpUtil.Builder()
-			.setCacheLevel(CacheLevel.FIRST_LEVEL)
-			.setConnectTimeout(25).build(this);
+                .setCacheLevel(CacheLevel.FIRST_LEVEL)
+                .setConnectTimeout(25).build(this);
 //一个okHttpUtil即为一个网络连接
 
         HttpInfo info = HttpInfo.Builder()
-			.setUrl(url + user.token)
-			.addUploadFile("file", path, new ProgressCallback() {
-				@Override
+                .setUrl(url + user.token)
+                .addUploadFile("file", path, new ProgressCallback() {
+                    @Override
 
-				public void onProgressMain(int percent, long bytesWritten, long contentLength, boolean done) {
-					// uploadProgress.setProgress(percent);
-					Log.e("ssss", "上传进度：" + percent);
-					int i=percent;
-				}
-				@Override
-				public void onResponseMain(String filePath, HttpInfo info) {
-					String str=info.getRetDetail();
-					Log.e("上传信息", str);
-				}
-			})
-			.build();
+                    public void onProgressMain(int percent, long bytesWritten, long contentLength, boolean done) {
+                        // uploadProgress.setProgress(percent);
+                        Log.e("ssss", "上传进度：" + percent);
+                        int i = percent;
+                    }
+
+                    @Override
+                    public void onResponseMain(String filePath, HttpInfo info) {
+                        String str = info.getRetDetail();
+                        Log.e("上传信息", str);
+                    }
+                })
+                .build();
         OkHttpUtil.getDefault(this).doUploadFileAsync(info);
     }
-	public void getcollect()
-	{
+
+    public void getcollect() {
 
 
-		HashMap<String ,Object> map=new HashMap<String ,Object>();
-		map.put("context",MainActivity.this);
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("context", MainActivity.this);
 
-		String url="http://trying-video.herokuapp.com/user/allcollect?token="+user.token;
-		Http_UploadFile_ http=new Http_UploadFile_(url,map,"13");
-		Thread xx=new Thread(http);
-		xx.start();
+        String url = "http://trying-video.herokuapp.com/user/allcollect?token=" + user.token;
+        Http_UploadFile_ http = new Http_UploadFile_(url, map, "13");
+        Thread xx = new Thread(http);
+        xx.start();
 
-	}
-    public void getbalance()
-    {
+    }
 
-        HashMap<String ,Object> map=new HashMap<String ,Object>();
-        map.put("context",MainActivity.this);
-        map.put("hanlder",mHandler);
-        String url="http://trying-video.herokuapp.com/user/allcollect?token="+user.token;
-        Http_UploadFile_ htt=new Http_UploadFile_
+    public void getbalance() {
+
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("context", MainActivity.this);
+        map.put("hanlder", mHandler);
+        String url = "http://trying-video.herokuapp.com/user/allcollect?token=" + user.token;
+        Http_UploadFile_ htt = new Http_UploadFile_
                 (
-                        "http://trying-video.herokuapp.com/user/balance?token="+user.token
-                        ,map
-                        ,"16");  Thread xx=new Thread(htt);
+                        "http://trying-video.herokuapp.com/user/balance?token=" + user.token
+                        , map
+                        , "16");
+        Thread xx = new Thread(htt);
         xx.start();
     }
 //	public class threadEx implements Runnable
@@ -1014,7 +1097,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 
         public MyChatAdapter(Context context,
                              ArrayList<HashMap<String, Object>> chatList, int[] layout
-							 ) {
+        ) {
             super();
             this.context = context;
             this.chatList = chatList;
@@ -1062,7 +1145,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
             switch (who) {
                 case 0:
                     convertView = LayoutInflater.from(context).inflate(
-						layout[who], null);
+                            layout[who], null);
                     ImageView img = (ImageView) convertView.findViewById(R.id.left_list_itemImageView);
                     TextView tv = (TextView) convertView.findViewById(R.id.leftlistitemTextView1);
                     img.setImageResource((Integer) chatList.get(position).get("image"));
@@ -1073,14 +1156,14 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
                 case 1:
                     isEnabled(position);
                     convertView = LayoutInflater.from(context).inflate(
-						layout[who], null);
-					convertView.setClickable(false);
+                            layout[who], null);
+                    convertView.setClickable(false);
                     View v = (View) convertView.findViewById(R.id.lineitemView1);
                     v.setOnClickListener(new OnClickListener() {
-							public void onClick(View view) {
+                        public void onClick(View view) {
 
-							}
-						});
+                        }
+                    });
 
                     break;
 
