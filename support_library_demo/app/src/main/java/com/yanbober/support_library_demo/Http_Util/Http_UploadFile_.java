@@ -738,10 +738,7 @@ Log.e("在提交通知的时候",e.toString());
 			JSONObject jsonObject=new JSONObject(str);
 			Log.e("删除收藏",str);
 			Log.e("删除收藏url",url);
-			view_one=null;
-			view_one=new View_One((Run_Video_)maphttp.get("context"),jsonObject.getString("status"));
-			view_one.viewcreate();
-			
+
 
 		}catch(IOException e)
 		{
@@ -855,18 +852,15 @@ msg.arg1=0;
 		Delete_Collect("http://trying-video.herokuapp.com/user/collect/"+cid+"?token="+user.token);
 		}else
 		{
-			view_one=null;
-			view_one=new View_One((Run_Video_)maphttp.get("context"),"Collect_List==null");
-			view_one.viewcreate();
+			//view_one=null;
+			//view_one=new View_One((Run_Video_)maphttp.get("context"),"Collect_List==null");
+			//view_one.viewcreate();
 		}
 	}
 }
 msg.what=1;
 run.mHandler.sendMessage(msg);
-			view_one=null;
-			view_one=new View_One((Run_Video_)maphttp.get("context"),jso.getString("message"));
-			view_one.viewcreate();
-        } catch (IOException e) {
+		     } catch (IOException e) {
             e.printStackTrace();
 			view_one=new View_One((Run_Video_)maphttp.get("context"),e.toString());
 			view_one.viewcreate();
@@ -875,7 +869,8 @@ run.mHandler.sendMessage(msg);
 			view_one=new View_One((Run_Video_)maphttp.get("context"),e.toString());
 			view_one.viewcreate();
 		}
-        return str;
+
+		return str;
 
     }
     public void Modify_paidPWD_PATCH() {
@@ -1416,7 +1411,7 @@ run.mHandler.sendMessage(msg);
 				   {
 
 					   view_one=null;
-					   view_one=new View_One((Context)maphttp.get("context"),jsonObject.getString("error"));
+					   view_one=new View_One((Context)maphttp.get("Context"),jsonObject.getString("error"));
 					   view_one.viewcreate();
 
 				   }

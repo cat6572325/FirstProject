@@ -24,6 +24,13 @@
     <string name="crop__pick_error">Tidak ada sumber gambar yang tersedia</string>
     <string name="crop__saving">Menyimpan gambar…</string>
     <string name="crop__wait">Silakan tunggu…</string>
+    <string name="exo_controls_fastforward_description">"Maju cepat"</string>
+    <string name="exo_controls_next_description">"Lagu berikutnya"</string>
+    <string name="exo_controls_pause_description">"Jeda"</string>
+    <string name="exo_controls_play_description">"Putar"</string>
+    <string name="exo_controls_previous_description">"Lagu sebelumnya"</string>
+    <string name="exo_controls_rewind_description">"Putar Ulang"</string>
+    <string name="exo_controls_stop_description">"Berhenti"</string>
     <string msgid="146198913615257606" name="search_menu_title">"Telusuri"</string>
     <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"999+"</string>
 </resources>

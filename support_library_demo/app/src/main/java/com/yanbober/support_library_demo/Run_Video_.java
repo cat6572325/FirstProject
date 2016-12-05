@@ -25,9 +25,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.TimerTask;
 import android.widget.SearchView.*;
+
+import com.bumptech.glide.Glide;
 import com.yanbober.support_library_demo.Http_Util.*;
 import java.util.*;
 import com.yanbober.support_library_demo.Message_S.*;
+
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 public class Run_Video_ extends ActionBarActivity {
 	public Handler mHandler = new Handler()
@@ -44,7 +49,7 @@ public class Run_Video_ extends ActionBarActivity {
 						if(msg.arg1==0)
 						{//是收藏还是取消
 							collect_star.setBackgroundResource(R.drawable.start_yellow);
-						tcollect.setTextColor(Color.YELLOW);
+						tcollect.setTextColor(Color.rgb(244,139,8));
 						
 						}else
 						{
@@ -98,13 +103,11 @@ public class Run_Video_ extends ActionBarActivity {
 			}
 		}
 	};
-	private SurfaceView surfaceView;
-	ProgressBar tprog;//进度圈
+
 	
-	private Button btnPause, btnStop;
-	ImageView btnPlayUrl,collect_star,uploader_img;
-	private SeekBar skbProgress;
-	private Player player;
+
+	ImageView collect_star,uploader_img;
+
 	RelativeLayout hideButtons;
 	CollapsingToolbarLayout collapsingToolbar;
 	String count=null,vid=null,upLoader_id=null;
@@ -112,11 +115,15 @@ public class Run_Video_ extends ActionBarActivity {
 	JSONObject jsonObject=null;
 	TextView tcollect,paid_count,vdoTitle,upload_name;
 	LinearLayout upder_ll;
+	JCVideoPlayerStandard jcVideoPlayerStandard;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.run_video_layout);
+		jcVideoPlayerStandard = (JCVideoPlayerStandard) findViewById(R.id.custom_videoplayer_standard);
+		//jcVideoPlayerStandard.thumbImageView.setThumbInCustomProject("http://p.qpic.cn/videoyun/0/2449_43b6f696980311e59ed467f22794e792_1/640");
+
 			initView();
 		Bundle bun=this.getIntent().getExtras();
 		if (bun != null && bun.containsKey("count"))
@@ -130,7 +137,7 @@ public class Run_Video_ extends ActionBarActivity {
 			if (bun.containsKey("iscollect")) {
 				if (bun.getString("iscollect").equals("0")) {//是收藏还是取消
 					collect_star.setBackgroundResource(R.drawable.start_yellow);
-					tcollect.setTextColor(Color.YELLOW);
+					tcollect.setTextColor(Color.rgb(244,139,8));
 
 				} else {
 					collect_star.setBackgroundResource(R.drawable.star_gray);
@@ -157,20 +164,46 @@ public class Run_Video_ extends ActionBarActivity {
 			{
 				upLoader_id=bun.getString("uploader");
 			}
+			if (bun.containsKey("url"))
+			{
+
+					jcVideoPlayerStandard.setUp(bun.getString("url")
+							, JCVideoPlayerStandard.SCREEN_LAYOUT_LIST, "");
+
+
+			}
+			if (bun.containsKey("vdoPhotourl"))
+			{
+				Glide.with(this)
+						.load(bun.getString("vdoPhotourl"))
+						.into(jcVideoPlayerStandard.thumbImageView);
+
+			}
 
 			getandsetUploaderData();
 				//strs=str.split("\\|");
 		}
 		}
-		
-		
+
+	@Override
+	public void onBackPressed() {
+		if (JCVideoPlayer.backPress()) {
+			return;
+		}
+		super.onBackPressed();
+	}
+	@Override
+	protected void onPause() {
+		super.onPause();
+		JCVideoPlayer.releaseAllVideos();
+	}
 		public void initView()
 		{
 			Toolbar toolbar = (Toolbar) this.findViewById(R.id.tool_bar);
-			hideButtons=(RelativeLayout)this.findViewById(R.id.Run_Video_hide);
+
 			collect_star=(ImageView)this.findViewById(R.id.run_video_layoutImageView);
 			tcollect=(TextView)this.findViewById(R.id.run_video_layoutTextView);
-			tprog=(ProgressBar)this.findViewById(R.id.tProgressBar1);
+
 			upder_ll=(LinearLayout)this.findViewById(R.id.Run_Video_upder_ll);
 			paid_count=(TextView)this.findViewById(R.id.paid_count);
 			vdoTitle=(TextView)this.findViewById(R.id.Run_Video_vdoTitle);
@@ -180,7 +213,7 @@ public class Run_Video_ extends ActionBarActivity {
 			ActionBar actionBar = getSupportActionBar();
 			actionBar.setHomeAsUpIndicator(R.drawable.back_purple);
 			actionBar.setDisplayHomeAsUpEnabled(true);
-			tprog.setVisibility(View.INVISIBLE);
+
 			//缓冲圈隐藏
 			collect_star.setOnClickListener(new OnClickListener()
 			{
@@ -199,7 +232,7 @@ public class Run_Video_ extends ActionBarActivity {
 						/*{
 							"cost" : ${cost}    //支付费用(Number)
 						}
-//如果没有 cost 一般默认为0
+						//如果没有 cost 一般默认为0
 						>>  返回 message: '已添加进收藏'*/
 						}else
 						{
@@ -213,20 +246,7 @@ public class Run_Video_ extends ActionBarActivity {
        // collapsingToolbar.setTitle("this s Run Video Pager !!");
 		
 		
-		//down is full scrren
-		///setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-		surfaceView = (SurfaceView) this.findViewById(R.id.surfaceView1);
 
-		btnPlayUrl = (ImageView) this.findViewById(R.id.btnPlayUrl);
-		btnPlayUrl.setOnClickListener(new ClickEvent());
-
-		//btnPause = (Button) this.findViewById(R.id.btnPause);
-		surfaceView.setOnClickListener(new ClickEvent());
-
-
-		skbProgress = (SeekBar) this.findViewById(R.id.skbProgress);
-		skbProgress.setOnSeekBarChangeListener(new SeekBarChangeEvent());
-		player = new Player(surfaceView, skbProgress);
 
 	}
 	@Override
@@ -248,50 +268,8 @@ public class Run_Video_ extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	class ClickEvent implements OnClickListener {
-		@Override
-		public void onClick(View arg0) {
 
-				if (arg0 == surfaceView) {
-					hideButtons.setVisibility(View.VISIBLE);
-					btnPlayUrl.setVisibility(View.VISIBLE);
-					//延时３秒再隐藏布局
-					player.pause();
-					mHandler.sendEmptyMessageDelayed(0, 3000);
 
-				} else if (arg0 == btnPlayUrl) {
-					if(!count.substring(count.lastIndexOf(".")+1).equals("3gp"))
-					{
-						Toast.makeText(Run_Video_.this,"目标url并不指向视频文件",Toast.LENGTH_LONG).show();
-					}else
-					{
-						btnPlayUrl.setVisibility(View.INVISIBLE);
-						tprog.setVisibility(View.VISIBLE);
-						player.playUrl(count);//user.maps.get(Integer.getInteger(count)).get("vdourl").toString());
-					}
-				}
-
-		}
-	}
-	class SeekBarChangeEvent implements SeekBar.OnSeekBarChangeListener {
-		int progress;
-		@Override
-		public void onProgressChanged(SeekBar seekBar, int progress,
-									  boolean fromUser) {
-			// 原本是(progress/seekBar.getMax())*player.mediaPlayer.getDuration()
-			this.progress = progress * player.mediaPlayer.getDuration()
-				/ seekBar.getMax();
-		}
-		@Override
-		public void onStartTrackingTouch(SeekBar seekBar) {
-
-		}
-		@Override
-		public void onStopTrackingTouch(SeekBar seekBar) {
-			// seekTo()的参数是相对与影片时间的数字，而不是与seekBar.getMax()相对的数字
-			player.mediaPlayer.seekTo(progress);
-		}
-		
 		
 		public void delete_collect()
 		{
@@ -307,7 +285,7 @@ public class Run_Video_ extends ActionBarActivity {
 			x.start();
 			
 		}
-	}
+
 
 	public void getandsetUploaderData()
 	{

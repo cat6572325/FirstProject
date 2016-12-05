@@ -115,22 +115,10 @@ public class FirstAdapter2 extends RecyclerView.Adapter<MyViewHolder3> {
                 //以url解析图片
                 Bitmap bitmap2=null;
                 URL url;
-                try {
+               
                     //lists.get(position).get("vdoPhotourl").toString();
-                    url=new URL(lists.get(position).get("vdoPhotourl").toString());
+                    bitmap2=(Bitmap)lists.get(position).get("vdoPhotourl");
 
-                    HttpURLConnection conn = (HttpURLConnection) url
-                            .openConnection();
-                    conn.setDoInput(true);
-                    conn.connect();
-                    InputStream is = conn.getInputStream();
-                    bitmap2 = BitmapFactory.decodeStream(is);
-                    is.close();
-                    conn.disconnect();
-                } catch (IOException e) {
-                    //e.printStackTrace();
-                    bitmap2=BitmapFactory.decodeResource(context.getResources(), R.drawable.down);
-                }
                 Drawable drawable=new BitmapDrawable(bitmap2);
                 //以url解析图片　
 

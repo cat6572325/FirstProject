@@ -24,6 +24,13 @@
     <string name="crop__pick_error">تصویری در دسترس نیست</string>
     <string name="crop__saving">در حال ذخیره سازی</string>
     <string name="crop__wait">لطفاً صبر کنید ...</string>
+    <string name="exo_controls_fastforward_description">"جلو بردن سریع"</string>
+    <string name="exo_controls_next_description">"آهنگ بعدی"</string>
+    <string name="exo_controls_pause_description">"مکث"</string>
+    <string name="exo_controls_play_description">"پخش"</string>
+    <string name="exo_controls_previous_description">"آهنگ قبلی"</string>
+    <string name="exo_controls_rewind_description">"عقب بردن"</string>
+    <string name="exo_controls_stop_description">"توقف"</string>
     <string msgid="146198913615257606" name="search_menu_title">"جستجو"</string>
     <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"۹۹۹+"</string>
 </resources>

@@ -205,13 +205,14 @@ public class http_thread_ extends Thread {
 				
 				
     }
-	public void videodata(String json)
+	public void videodata(String url)
 	{
 		OkHttpClient htt=new OkHttpClient();
        // String[] strs = json.split("\\|");
         JSONObject jsonObject = null;
         JSONArray jsonArray = null;
         String str = null;
+		this.url=url;
 		Response response = null;
 		
         try {
@@ -258,12 +259,12 @@ public class http_thread_ extends Thread {
                                     */
 
 			RequestBody formBody = new FormBody.Builder()
-				.add("uploader", mapvideo.get("uploader").toString())
-				.add("title", mapvideo.get("title").toString())
-				.add("introduction", mapvideo.get("introduction").toString())
-				.add("price", mapvideo.get("price").toString()+"aa")
-				.add("paidppnumber", mapvideo.get("paidppnumber").toString())
-				.add("concernednumber", mapvideo.get("concernednumber").toString())
+				.add("uploader","")// mapvideo.get("uploader").toString())
+				.add("title", "")//mapvideo.get("title").toString())
+				.add("introduction", "")//mapvideo.get("introduction").toString())
+				.add("price", "")//mapvideo.get("price").toString())
+				.add("paidppnumber","")// mapvideo.get("paidppnumber").toString())
+				.add("concernednumber", "")//mapvideo.get("concernednumber").toString())
 				
 				
 				.build();
@@ -285,9 +286,9 @@ Log.e("url",url);
 			jsonObject=new JSONObject(str);
 			if(jsonObject.getString("status").equals("信息已以相同id保存"))
 			{
-				view_one=null;
-				view_one=new View_One((Context)mapvideo.get("context"),"上传成功");
-				view_one.viewcreate();
+				//view_one=null;
+				//view_one=new View_One((Context)mapvideo.get("context"),"上传成功");
+			//	view_one.viewcreate();
 			}
 
             
@@ -355,7 +356,7 @@ Log.e("url",url);
 					
 					Http_UploadFile_ http=new Http_UploadFile_(url,mapvideo,"3");
 					Thread x=new Thread(http);
-					x.start();
+				//	x.start();
 
 					Message msg1=new Message();
 					msg1.obj=mapvideo;
@@ -365,8 +366,10 @@ Log.e("url",url);
 					msg1.setData(bundle1);
 					Log.e("返回的视频id",v_id);
 					//handler=(Handler) mapvideo.get("handler");
-					handler.sendMessage(msg1);
-						//videodata("i");
+				//	handler.sendMessage(msg1);
+					String url = "http://trying-video.herokuapp.com/user/video/detail/" + v_id + "?token=" + user.token;
+
+					videodata(url);
 						
 				}
 

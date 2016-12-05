@@ -87,7 +87,7 @@ initView();
                     JSONObject jsonObject;
                     Bundle bundle = new Bundle();
 
-                    JSONArray jsonArraycollect = (JSONArray)user.maps.get(position).get("paidPerson");
+                    JSONArray jsonArraycollect = (JSONArray)user.maps.get(position).get("cocerPerson");
                     String iscollect="1";
                     bundle.putString("iscollect","1");//显示未收藏的星星
                     for (int i=0;i<jsonArraycollect.length();i++)
@@ -102,7 +102,7 @@ initView();
                         Log.e("付款人id",str);
                     }
                        /*
-					视频列表缺少收藏者id支付者id
+
 					>>  返回全部视频信息
                     {
                         {
@@ -126,6 +126,7 @@ initView();
                     bundle.putString("introduction",user.maps.get(position).get("introduction").toString());
                     bundle.putString("uploader",user.maps.get(position).get("uploader").toString());
                     bundle.putString("url", user.maps.get(position).get("vdourl").toString());
+                    bundle.putString("vdoPhotourl",user.maps.get(position).get("vdoPhotourl").toString());
                     //count是为了定位到一开始时保存的视频列表中某一个视频的数据
                     intent.putExtras(bundle);
                     startActivity(intent);
