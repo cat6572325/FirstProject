@@ -1,6 +1,8 @@
 package com.yanbober.support_library_demo.Http_Util;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.Handler;
 import android.os.Looper;
 import android.util.*;
 import android.widget.Toast;
@@ -136,14 +138,18 @@ Log.e("头像",file.getPath());
 
 	final Request request = new Request.Builder().url(url).patch(requestBody).build(); //.patch(requestBody)/*  (ProgressHelper.addProgressRequestListener(requestBody, uiProgressRequestListener))*/.build();
 	//开始请求
-		if (key!=null)
+			if (key!=null)
 	client.newCall(request).enqueue(new Callback() {
 		@Override
 		public void onResponse(okhttp3.Call p1, okhttp3.Response r2) {
 			try {
 
 				final String str = r2.body().string();
+				Handler handler=(Handler)map.get("handler");
+				handler.sendEmptyMessage(0);
+			//	dialog.cancel();
 				if (context != null) {
+
 					new Thread(new Runnable() {
 						@Override
 						public void run() {
@@ -158,16 +164,12 @@ Log.e("头像",file.getPath());
 
 				if (context != null) {
 					final String exception = e.toString();
-					new Thread(new Runnable() {
-						@Override
-						public void run() {
-							Looper.prepare();
-							Toast.makeText(context, exception, Toast.LENGTH_LONG).show();
-							Looper.loop();
-						}
-					});
+
+				//	dialog.cancel();
+
 				}
 				Log.e("错误1", e.toString());
+				//dialog.cancel();
 			}
 
 

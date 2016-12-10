@@ -295,17 +295,6 @@ Log.e("url",url);
 			handler.sendMessage(msg);
 
 
-			new Thread() {
-
-				@Override
-				public void run() {
-					super.run();
-					view_one=null;
-					view_one=new View_One((Context)mapvideo.get("Context"),str1);
-					view_one.viewcreate();
-				}
-			}.start();
-
 
 
 
@@ -366,16 +355,7 @@ Log.e("url",url);
                         Log.e("videophonto",str);
                         Log.e("完成", String.valueOf(response.isSuccessful()));
 					HashMap<String,Object> map =new HashMap<String,Object>();
-
-					Message msg1=new Message();
-					msg1.obj=mapvideo;
-					msg1.what=0;
-					Bundle	bundle1=new Bundle();
-					bundle1.putString("vdo_id",v_id);
-					msg1.setData(bundle1);
-					//Log.e("返回的视频id",v_id);
 					handler=(Handler) mapvideo.get("handler");
-					handler.sendMessage(msg1);
 
 					 url = "http://trying-video.herokuapp.com/user/video/detail/" + v_id + "?token=" + user.token;
 					if((Integer)mapvideo.get("count")!=2)
@@ -386,35 +366,19 @@ Log.e("url",url);
 
 
 				@Override
-				public void onSuccess(okhttp3.Response response) {
-					try {
-
-						String str=response.body().string();
-
-
-						
-						Log.e("完成", str);
-						
-
-					} catch (IOException e) {
-						e.printStackTrace();
-						Log.e("完成", e.toString());
-
-
-					}
+				public void onSuccess(Response response) {
+					Log.e("上传视频截图成功的时候","这个success可以用");
 				}
 
 				@Override
 				public void onFailure(Exception e) {
-					//  tv_response.setText(e.getMessage());
-					Log.e("bbbb",String.valueOf(e));
-					
+					Log.e("上传视频截图的时候",e.toString());
 				}
 
 				@Override
 				public void onUIProgress(Progress progress) {
 					int pro = (int) ((progress.getCurrentBytes() + 0.0) / progress.getTotalBytes() * 100);
-					Log.e("videophoto",String.valueOf(pro));
+					Log.e("上传视频截图进度",String.valueOf(pro));
 						}
 				});
 				

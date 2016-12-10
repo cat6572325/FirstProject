@@ -458,6 +458,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 
 
     private void initView() {
+        Log.e("返回如果由输出则由是bug","--------------------------------");
         animation = new RotateAnimation(0f, 90f, Animation.RELATIVE_TO_SELF,
                 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 
@@ -651,7 +652,10 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
                 }
             }
         });
-        if (!user.phone.equals("null"))
+        if (user.phone.equals("null"))
+        {
+            getAllvideos();
+        }else {
             if (user.phone.equals("15913044423")) {
                 getAllvideos();
             } else {
@@ -688,6 +692,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 
             p.create().show();*/
             }
+        }
         //
 
 
@@ -751,12 +756,14 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case 0://设置头像
+        switch (resultCode) {
+            case 1://设置头像
                 //把setting_返回的图片设置给头像，但是并不联网，联网环图只在setting_中
                 User u = new User();
                 left_head.setImageBitmap((Bitmap) u.headBitmap);
-
+                Log.e("User中的phone",u.phone);
+                Log.e("User中的headPicture",u.picture);
+                Log.e("User中的notices列表",String.valueOf(u.notices_list.size()));
                 break;
         }
     }

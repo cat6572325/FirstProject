@@ -39,6 +39,12 @@ public class SimpleActivity extends TakePhotoActivity {
         showImg(result.getImages());
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+    }
+
     private void showImg(ArrayList<TImage> images) {
         Intent intent = this.getIntent();
         intent.putExtra("images",images);

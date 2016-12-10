@@ -116,7 +116,8 @@
 				<LinearLayout
 					android:layout_height="wrap_content"
 					android:layout_width="wrap_content"
-					android:layout_marginLeft="20dp"
+					android:layout_marginLeft="10dp"
+					android:layout_centerVertical="true"
 					android:id="@+id/Run_Video_upder_ll"
 					android:gravity="center_vertical">
 
@@ -139,7 +140,7 @@
 						android:layout_width="wrap_content"
 						android:ellipsize="end"
 						android:singleLine="true"
-						android:maxWidth="100dp"
+						android:maxWidth="80dp"
 						android:layout_marginLeft="2dp" />
 
 				</LinearLayout>
@@ -155,30 +156,44 @@
 					android:layout_centerVertical="true"
 					android:textSize="16sp"/>
 
-				<LinearLayout
+				<RelativeLayout
 					android:layout_height="wrap_content"
-					android:layout_width="wrap_content"
+					android:layout_width="80dp"
+					android:minWidth="80dp"
+
 					android:layout_alignParentRight="true"
 					android:layout_marginRight="20dp"
 					android:gravity="center_vertical"
+
 					android:layout_centerVertical="true">
+					<ProgressBar
+						android:layout_height="40dp"
+
+						android:layout_width="40dp"
+						android:layout_margin="8dp"
+						android:id="@+id/runvideoisProgress_img"
+						/>
 
 					<ImageView
 						android:id="@+id/run_video_layoutImageView"
 						android:layout_height="wrap_content"
-						
 						android:layout_width="wrap_content"
+						android:layout_centerVertical="true"
 						android:background="@drawable/start_yellow"/>
 
 					<TextView
 						android:layout_height="wrap_content"
 						android:text="收藏"
+						android:layout_toRightOf="@id/run_video_layoutImageView"
+						android:layout_alignParentRight="true"
 						android:id="@+id/run_video_layoutTextView"
+						android:layout_centerVertical="true"
+
 						android:textAppearance="?android:attr/textAppearanceMedium"
 						android:layout_width="wrap_content"
 						android:textColor="#F48B08"/>
 
-				</LinearLayout>
+				</RelativeLayout>
 
 			</RelativeLayout>
 

@@ -881,7 +881,11 @@ Log.e("获取所有通知时",e.toString());
             JSONObject jsonObject = new JSONObject(str);
             Log.e("删除收藏", str);
             Log.e("删除收藏url", url);
-
+            handler=(Handler)maphttp.get("handler");
+            Message msg=new Message();
+            msg.what=1;
+            msg.arg1=1;
+            handler.sendMessage(msg);
 
         } catch (IOException e) {
             Log.e("videodata1", e.toString());
@@ -958,13 +962,19 @@ Log.e("获取所有通知时",e.toString());
             Run_Video_ run = (Run_Video_) maphttp.get("context");
             Message msg = new Message();
             JSONObject jso = new JSONObject(str);
-            if (jso.getString("message").equals("已添加进收藏")) {
+            if (jso.getString("message").equals("已添加收藏")) {
                 msg.arg1 = 0;
+                msg.what = 1;
+                run.mHandler.sendMessage(msg);
             } else {
+                /* {"message":"此收藏已存在","collectId":"584bbb4f721da600114d7a99"}*/
+                if (jso.getString("message").equals("此收藏已存在")) {
 
+                        Delete_Collect("http://trying-video.herokuapp.com/user/collect/" + jso.getString("collectId") + "?token=" + user.token);
+
+                }
             }
-            msg.what = 1;
-            run.mHandler.sendMessage(msg);
+
         } catch (IOException e) {
             e.printStackTrace();
 
@@ -992,8 +1002,6 @@ Log.e("获取所有通知时",e.toString());
                             }
 
                         }*/
-                        if (cid != null)
-                            Delete_Collect("http://trying-video.herokuapp.com/user/collect/" + cid + "?token=" + user.token);
 
 
             }catch (JSONException er)

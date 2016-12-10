@@ -110,25 +110,25 @@ Toolbar tb;
 
 				}
 			});
-		
+
 		try {
-			JSONObject jsonObject=null;
-			JSONArray jss= new JSONArray(user.mydata.get("notices").toString());
+			//JSONObject jsonObject=(JSONObject)
+			JSONArray jss = new JSONArray(user.mydata.get("notices").toString());
 
 			if (jss.length() < 2) {
 				Message_point.setVisibility(View.INVISIBLE);
-			}
-			else {
+			} else {
 
 
 				Message_point.setText(String.valueOf(jss.length()));
 
 
 			}
+		}catch (JSONException e)
+		{
+
 		}
-		catch (JSONException e) {
-			e.printStackTrace();
-		}
+
 
 	}
 	public void addTextToList(String text, int who, int id,String data)

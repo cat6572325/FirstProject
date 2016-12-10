@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.v4.widget.DrawerLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:id="@+id/drawer_layout"
 	android:orientation="vertical">
+	<android.support.design.widget.CoordinatorLayout
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		android:id="@+id/main_content"
+
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
 
 	<android.support.v7.widget.Toolbar
 		android:id="@+id/paidToolbar"
@@ -60,14 +67,115 @@
 		</RelativeLayout>
 		
 	</android.support.v7.widget.Toolbar>
+		<android.support.v7.widget.RecyclerView
+			android:layout_height="match_parent"
+			android:layout_width="wrap_content"
+			android:divider="@drawable/listview_line"
+			android:dividerHeight="1dp"
+			android:id="@+id/paidvideorv"
+			android:layout_marginTop="10dp"/>
+</android.support.design.widget.CoordinatorLayout>
 
-	<android.support.v7.widget.RecyclerView
+
+	<LinearLayout
+		android:clickable="false"
 		android:layout_height="match_parent"
-		android:layout_width="wrap_content"
-		android:divider="@drawable/listview_line"
-		android:dividerHeight="1dp"
-		android:id="@+id/paidvideorv"
-		android:layout_marginTop="10dp"/>
+		android:layout_width="260dp"
+		android:layout_gravity="left"
+		android:background="#ffffff"
+		android:orientation="vertical"
+		android:id="@+id/activitymainLinearLayout1">
 
-</LinearLayout>
+		<RelativeLayout
+			android:layout_height="200dp"
+			android:layout_width="match_parent">
+
+			<com.yanbober.support_library_demo.XCRoundImageView
+				android:layout_width="100dp"
+				android:id="@+id/drawer_headerImageView"
+				android:layout_height="100dp"
+				android:layout_marginLeft="10dp"
+				android:src="#ff0000"
+				android:layout_centerHorizontal="true"
+				android:layout_centerInParent="true"
+				android:background="@drawable/roundbuttoning"/>
+
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:orientation="vertical"
+				android:layout_below="@id/drawer_headerImageView"
+				android:layout_centerHorizontal="true">
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textSize="15sp"
+					android:id="@+id/User_name"
+					android:text="UserName"/>
+
+			</LinearLayout>
+
+		</RelativeLayout>
+
+		<View
+			android:layout_height="1dp"
+			android:background="?android:attr/dividerVertical"
+			android:layout_width="match_parent"
+			android:layout_margin="10dp"/>
+
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+			<RelativeLayout
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:layout_marginLeft="15dp"
+				android:layout_marginTop="30dp">
+
+				<ListView
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:divider="@null"
+					android:dividerHeight="0dp"
+					android:id="@+id/tRecyclerView1"/>
+
+			</RelativeLayout>
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_alignParentBottom="true"
+				android:id="@+id/tLinearLayout1"
+				android:layout_marginLeft="15dp"
+				android:layout_marginBottom="15dp">
+
+				<ImageView
+					android:layout_height="23dp"
+					android:layout_width="23dp"
+					android:minHeight="23dp"
+					android:id="@+id/left_list_itemImageView"
+					android:layout_marginRight="35dp"
+					android:layout_marginTop="9dp"
+					android:background="@drawable/login_up"
+					android:layout_marginLeft="10dp"/>
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:text="退出登陆"
+					android:textAppearance="?android:attr/textAppearanceLarge"
+					android:layout_width="wrap_content"
+					android:id="@+id/leftlistitemTextView1"
+					android:layout_marginTop="9dp"
+					android:textSize="17sp"
+					android:textColor="#757575"/>
+
+			</LinearLayout>
+
+		</RelativeLayout>
+
+	</LinearLayout>
+
+</android.support.v4.widget.DrawerLayout>
 

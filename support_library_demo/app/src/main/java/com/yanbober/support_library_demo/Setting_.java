@@ -9,6 +9,7 @@ package com.yanbober.support_library_demo;
  ***/
 
 
+import android.app.ProgressDialog;
 import android.content.*;
 import android.graphics.*;
 import android.net.*;
@@ -43,12 +44,13 @@ public class Setting_ extends AppCompatActivity {
                     //setResult(0, intent);//返回页面1
 
                     //finish();
+                    dialog.cancel();
                     break;
             }
         }
     };
     ListView rl;
-
+     ProgressDialog dialog=null;
 Bitmap bitmap;
     MyChatAdapter ladapter;
     XCRoundImageView headImg = null;
@@ -156,7 +158,7 @@ Bitmap bitmap;
         super.onActivityResult(requestCode, resultCode, data);
         User u = new User();
         String str = null;
-        if (requestCode == 1) {//
+        if (resultCode == 1) {//
             Bundle bundle = data.getExtras();
             if (bundle.containsKey("images")) {
                 ArrayList<TImage> images;
@@ -168,48 +170,51 @@ Bitmap bitmap;
                 //Glide.with(this).load(new File(images.get(images.size() - 1).getPath())).asBitmap(b);
                 File f = new File(images.get(images.size() - 1).getPath());
                 ContentResolver cr = this.getContentResolver();
-
+ Log.e("File",String .valueOf(f.length()));
                 File dirFile;
-
-                try {
-                    bitmap = BitmapFactory.decodeStream(cr.openInputStream(Uri.fromFile(f)));
-                    dirFile = new File("/sdcard/180s/headpicture/" + randomProdoction()+".png");
-                    File file1 = new File("/sdcard/180s");
-                    if (!file1.exists()) {
-                        file1.mkdirs();
-                    }
-                    File file2 = new File("/sdcard/180s/headpicture");
-                    if (!file2.exists()) {
-                        file2.mkdirs();
-                    }
-                    if (!dirFile.exists()) {
-
-
-                        dirFile.createNewFile();
-
-
-                    } else {
-                        dirFile.delete();
-                        dirFile.createNewFile();
-                    }
-                    //	File myCaptureFile = new File(path + fileName);
-                    BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(dirFile));
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 80, bos);
+                if (f.length()>50000)
+                {
+                    Toast.makeText(Setting_.this,"文件过大",Toast.LENGTH_LONG).show();
+                }else {
+                    try {
+                        bitmap = BitmapFactory.decodeStream(cr.openInputStream(Uri.fromFile(f)));
+                        dirFile = new File("/sdcard/180s/headpicture/" + randomProdoction() + ".png");
+                        File file1 = new File("/sdcard/180s");
+                        if (!file1.exists()) {
+                            file1.mkdirs();
+                        }
+                        File file2 = new File("/sdcard/180s/headpicture");
+                        if (!file2.exists()) {
+                            file2.mkdirs();
+                        }
+                        if (!dirFile.exists()) {
 
 
-                    bos.flush();
-                    bos.close();
-                    //Bitmap b= toRoundBitmap(bitmap);
-                    headImg.setImageBitmap(bitmap);
-                    user.headBitmap=bitmap;
+                            dirFile.createNewFile();
+
+
+                        } else {
+                            dirFile.delete();
+                            dirFile.createNewFile();
+                        }
+                        //	File myCaptureFile = new File(path + fileName);
+                        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(dirFile));
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 80, bos);
+
+
+                        bos.flush();
+                        bos.close();
+                        //Bitmap b= toRoundBitmap(bitmap);
+                        headImg.setImageBitmap(bitmap);
+                        user.headBitmap = bitmap;
 				/*上传文件
 				 PATCH方法
 				 */
-                    HashMap<String, Object> map = new HashMap<String, Object>();
-                    map.put("handler", mHandler);
-                    map.put("Context", Setting_.this);
-                    map.put("key", "photofile");
-                    map.put("count", 1);
+                        HashMap<String, Object> map = new HashMap<String, Object>();
+                        map.put("handler", mHandler);
+                        map.put("Context", Setting_.this);
+                        map.put("key", "photofile");
+                        map.put("count", 1);
                   /*  http_thread_ htt = new http_thread_(Setting_.this, "http://trying-video.herokuapp.com/user/image?token=" + user.token
                             , dirFile.getPath()
                             , mHandler
@@ -217,17 +222,22 @@ Bitmap bitmap;
                     Thread c = new Thread(htt);
                     c.start();
                     */
-                    NewOkhttp n=new NewOkhttp("http://trying-video.herokuapp.com/user/image/replace?token=" + user.token
-                            ,dirFile
-                            ,map
-                    );
+                        dialog=new ProgressDialog(Setting_.this);
+                        dialog.setTitle("上传中..");
+                        dialog.show();
 
-                    Thread x=new Thread(n);
-                    x.start();
+                        NewOkhttp n = new NewOkhttp("http://trying-video.herokuapp.com/user/image/replace?token=" + user.token
+                                , dirFile
+                                , map
+                        );
 
-                } catch (IOException e) {
-                    Toast.makeText(Setting_.this, e.toString(), Toast.LENGTH_LONG).show();
+                        Thread x = new Thread(n);
+                        x.start();
 
+                    } catch (IOException e) {
+                        Toast.makeText(Setting_.this, e.toString(), Toast.LENGTH_LONG).show();
+
+                    }
                 }
             }
 
@@ -239,54 +249,62 @@ Bitmap bitmap;
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
         Intent intent = getIntent();
-
-
-        setResult(0, intent);//返回页面1
-
+        setResult(1, intent);//返回页面1
         finish();
 
     }
     private String randomProdoction()
     {
-        int random=(int)Math.random()*10;
+        int random=0;
         String str=null;
-        switch (random)
+        Random ran=new Random(System.currentTimeMillis());
+        for (int i=0;i<20;i++)
         {
-            case 0:
-                str+="a";
-                break;
 
-            case 1:
-                str+="b";
-                break;
+                    random=ran.nextInt(10);
+            str+=String.valueOf(random);
+            //数字加一个字母
+            switch (random)
+            {
+                case 0:
+                    str+="a";
+                    break;
 
-            case 2:
-                str+="c";
-                break;
+                case 1:
+                    str+="b";
+                    break;
 
-            case 3:
-                str+="e";
-                break;
+                case 2:
+                    str+="c";
+                    break;
 
-            case 4:
-                str+="f";
-                break;
+                case 3:
+                    str+="e";
+                    break;
 
-            case 5:
-                str+="g";
-                break;
+                case 4:
+                    str+="f";
+                    break;
 
-            case 6:
-                str+="h";
-                break;
+                case 5:
+                    str+="g";
+                    break;
 
-            case 7:
-                str+="i";
-                break;
+                case 6:
+                    str+="h";
+                    break;
+
+                case 7:
+                    str+="i";
+                    break;
+            }
+
         }
-        return str+String.valueOf(random);
+
+
+
+        return str;
     }
     public void addTextToList(String text, String name, int who, int id, int isarrow) {
         HashMap<String, Object> map = new HashMap<String, Object>();

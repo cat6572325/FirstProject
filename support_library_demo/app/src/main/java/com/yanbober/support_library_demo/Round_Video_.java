@@ -84,45 +84,27 @@ public class Round_Video_ extends Activity
             Bundle bundle = msg.getData();
             switch (msg.what) {
                 case 0:
-                    try {
+
 
                         if (bundle.getString("?").equals("success")) {
-                            //  View_One view_one = new View_One(Round_Video_.this,bundle.getString("!"));
-                         //   p.OnProgressChanged(101);
-                            //101代表退出
+
                         }
                         if (bundle.getString("?").equals("ing")) {
-                            // bundle = msg.getData();
-                            //   p.OnProgressChanged(msg.arg1);
-                            Log.e("iiii",String.valueOf( msg.arg1));
-                            //错误提示：
-                        }
+                               }
                         if (bundle.getString("?").equals("error")) {
-                            JSONObject jsonObject = new JSONObject(bundle.getString("!"));
-                            //  View_One view_one = new View_One(Round_Video_.this,bundle.getString("!"));
                         }
-                    }catch (JSONException e)
-                    {
 
-                    }
-                    break;
+
+                  break;
+
+
                 case 1:
 
                    ResetCamera();
                     break;
-                case 2:
-                    String url = "http://trying-video.herokuapp.com/user/video/detail/" + bundle.getString("vdo_id") + "?token=" + user.token;
-                    HashMap<String, Object> map1 = (HashMap<String, Object>) msg.obj;
-                    map1.put("count", 1);
 
-                    http_thread_ htt = new http_thread_(Round_Video_.this, url
-                            , file_with.GetFile().getPath()+((int)(1+Math.random()*(10-1+1)))+".png"
-                            , mHandler
-                            , map1);
-                    Thread c = new Thread(htt);
-                    c.start();
-                    break;
-                case 3:
+
+                  case 3:
 
                     if (bundle!=null)
                         if (bundle.getString("?").equals("已保存"))
@@ -242,50 +224,56 @@ private String randomProdoction()
 {
     int random=(int)Math.random()*10;
     String str=null;
-    switch (random)
+    Random ran=new Random(System.currentTimeMillis());
+    for (int i=0;i<20;i++)
     {
-        case 0:
-            str+="a";
-             break;
 
-        case 1:
-            str+="b";
-            break;
+        random=ran.nextInt(10);
+        str+=String.valueOf(random);
+        //数字加一个字母
+        switch (random)
+        {
+            case 0:
+                str+="a";
+                break;
 
-        case 2:
-            str+="c";
-            break;
+            case 1:
+                str+="b";
+                break;
 
-        case 3:
-            str+="e";
-            break;
+            case 2:
+                str+="c";
+                break;
 
-        case 4:
-            str+="f";
-            break;
+            case 3:
+                str+="e";
+                break;
 
-        case 5:
-            str+="g";
-            break;
+            case 4:
+                str+="f";
+                break;
 
-        case 6:
-            str+="h";
-            break;
+            case 5:
+                str+="g";
+                break;
 
-        case 7:
-            str+="i";
-            break;
+            case 6:
+                str+="h";
+                break;
+
+            case 7:
+                str+="i";
+                break;
+        }
+
     }
-    return str+String.valueOf(random);
+    return str;
 }
     public void setprog() {
         Prog_task = new task(count, bar);
         //新建一个方法
         mTimer.schedule(Prog_task, 2000, 1000);
         //设每一秒调用一次
-
-
-
     }
 
 

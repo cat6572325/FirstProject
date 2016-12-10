@@ -27,6 +27,7 @@ import java.util.TimerTask;
 import android.widget.SearchView.*;
 
 import com.bumptech.glide.Glide;
+import com.socks.okhttp.plus.model.Progress;
 import com.yanbober.support_library_demo.Http_Util.*;
 import java.util.*;
 import com.yanbober.support_library_demo.Message_S.*;
@@ -48,16 +49,15 @@ public class Run_Video_ extends ActionBarActivity {
 					case 1:
 						if(msg.arg1==0)
 						{//是收藏还是取消
+							collect_Progress.setVisibility(View.INVISIBLE);
 							collect_star.setBackgroundResource(R.drawable.start_yellow);
 						tcollect.setTextColor(Color.rgb(244,139,8));
 						
 						}else
 						{
+							collect_Progress.setVisibility(View.INVISIBLE);
 							collect_star.setBackgroundResource(R.drawable.star_gray);
 							tcollect.setTextColor(0xff887777);
-							
-
-							
 						}
 						break;
 
@@ -107,6 +107,7 @@ public class Run_Video_ extends ActionBarActivity {
 	
 
 	ImageView collect_star,uploader_img;
+	ProgressBar collect_Progress;
 
 	RelativeLayout hideButtons;
 	CollapsingToolbarLayout collapsingToolbar;
@@ -136,7 +137,7 @@ public class Run_Video_ extends ActionBarActivity {
 
 			}else
 			{
-				run_video_introduction.setText("/r/n/r/n/r简介错误/r/n/r/n/r/n");
+				run_video_introduction.setText("\r\n\r\n/r简介错误/r/n/r/n/r/n");
 				run_video_introduction.setTextColor(Color.RED);
 			}
 
@@ -205,12 +206,12 @@ public class Run_Video_ extends ActionBarActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		JCVideoPlayer.releaseAllVideos();
+		//JCVideoPlayer.releaseAllVideos();
 	}
 		public void initView()
 		{
 			Toolbar toolbar = (Toolbar) this.findViewById(R.id.tool_bar);
-
+			collect_Progress=(ProgressBar)this.findViewById(R.id.runvideoisProgress_img);
 			collect_star=(ImageView)this.findViewById(R.id.run_video_layoutImageView);
 			tcollect=(TextView)this.findViewById(R.id.run_video_layoutTextView);
 
@@ -220,6 +221,8 @@ public class Run_Video_ extends ActionBarActivity {
 			uploader_img=(ImageView)this.findViewById(R.id.Run_Video_upder_Img);
 			upload_name=(TextView)this.findViewById(R.id.Run_Video_upder_name);
 			run_video_introduction=(TextView)this.findViewById(R.id.introduction_text);
+			collect_Progress.setVisibility(View.INVISIBLE);
+			//点击收藏后显示的进度圈
 			setSupportActionBar(toolbar);
 			ActionBar actionBar = getSupportActionBar();
 			actionBar.setHomeAsUpIndicator(R.drawable.back_purple);
@@ -232,8 +235,10 @@ public class Run_Video_ extends ActionBarActivity {
 				{
 					if(vid!=null)
 					{
+						collect_Progress.setVisibility(View.VISIBLE);
 						HashMap<String,Object> map=new HashMap<String,Object>();
 						map.put("context",Run_Video_.this);
+						map.put("handler",mHandler);
 						map.put("vid",vid);
 						Http_UploadFile_ htt=new Http_UploadFile_("http://trying-video.herokuapp.com/user/collect/"+vid+"?token="+user.token, map,"12");
 						Thread x=new Thread(htt);

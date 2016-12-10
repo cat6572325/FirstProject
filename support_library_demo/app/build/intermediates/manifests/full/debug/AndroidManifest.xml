@@ -38,6 +38,7 @@
         android:allowBackup="true"
         android:icon="@drawable/official"
         android:label="180s"
+        android:persistent="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
 

@@ -242,30 +242,38 @@ public interface OnActivityebent
 
     }
 public void Onebent(ArrayList<HashMap<String, Object>> maps)  {//MainActivity接口
-map=maps;
+    User u=new User();
+    if (u.phone.equals("null")&&u.phone==null)
+    {
 
-    for (int i = 0; i <map.size(); i++) {
-        urlbitmap=map.get(i).get("vdoPhotourl").toString();
-        str1=map.get(i).get("paidppnumber").toString();
-        str2=map.get(i).get("vdourl").toString();
-        str3=map.get(i).get("title").toString();
-        if (i==10) {return ;}
-        addTextToList(str1
-                , 1
-                , str2
-                , 0
-                , str3
-                , urlbitmap
-        );
+    }else {
+        map = maps;
 
-        mHandler.sendEmptyMessage(2);
+        for (int i = 0; i < map.size(); i++) {
+            urlbitmap = map.get(i).get("vdoPhotourl").toString();
+            str1 = map.get(i).get("paidppnumber").toString();
+            str2 = map.get(i).get("vdourl").toString();
+            str3 = map.get(i).get("title").toString();
+            if (i == 10) {
+                return;
+            }
+            addTextToList(str1
+                    , 1
+                    , str2
+                    , 0
+                    , str3
+                    , urlbitmap
+            );
+
+            mHandler.sendEmptyMessage(2);
 
 
         }
-    adapter.notifyDataSetChanged();
-    //  addTextToList("uuu", 1, "android.R.drawable.ic_lock_lock", 0, "name");
-   // Toast.makeText(getContext(),str1,Toast.LENGTH_LONG).show();
-    linearLayouthide1.setVisibility(View.INVISIBLE);
+        adapter.notifyDataSetChanged();
+        //  addTextToList("uuu", 1, "android.R.drawable.ic_lock_lock", 0, "name");
+        // Toast.makeText(getContext(),str1,Toast.LENGTH_LONG).show();
+        linearLayouthide1.setVisibility(View.INVISIBLE);
+    }
 }
     public class thread implements Runnable
     {/////chat socket
