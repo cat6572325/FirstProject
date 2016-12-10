@@ -217,6 +217,7 @@
 
 				<TextView
 					android:layout_height="match_parent"
+					android:id="@+id/introduction_text"
 					android:text="提示：长按视频区域全屏。在线播放，实时下载，网络优化，你看，只要点一下收藏就可以随时看，当然这要视频是免费的，希望观看愉快！/n应用作者记"
 					android:textAppearance="?android:attr/textAppearanceMedium"
 					android:layout_width="wrap_content"/>

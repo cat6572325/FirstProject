@@ -18,6 +18,8 @@ import org.json.*;
 
 import android.support.v7.widget.Toolbar;
 
+import com.yanbober.support_library_demo.Http_Util.Http_UploadFile_;
+
 /**
  * 一个中文版Demo App搞定所有Android的Support Library新增所有兼容控件
  * 支持最新2015 Google I/O大会Android Design Support Library
@@ -67,7 +69,7 @@ public class My_Video_ extends ActionBarActivity {
 	public ArrayList<HashMap<String,Object>> lists=new ArrayList<HashMap<String,Object>>();
 
 	LinearLayout ll;
-	public ImageView heard;
+	public ImageView head;
 	//右上角新消息提示红点
 	TextView Message_point,User_name;
 
@@ -84,199 +86,179 @@ public class My_Video_ extends ActionBarActivity {
 		}
 
 
-	/*	final ImageView fabIconNew = new ImageView(this);
-        fabIconNew.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_new_light));
-        final Popup_Button rightLowerButton = new Popup_Button.Builder(this)
-			.setContentView(fabIconNew)
-			.build();
 
-		SubActionButton.Builder rLSubBuilder = new SubActionButton.Builder(this);
-        ImageView rlIcon1 = new ImageView(this);
-        ImageView rlIcon2 = new ImageView(this);
-        ImageView rlIcon3 = new ImageView(this);
-        ImageView rlIcon4 = new ImageView(this);
-
-        rlIcon1.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_chat_light));
-        rlIcon2.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_camera_light));
-        rlIcon3.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_video_light));
-        rlIcon4.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_place_light));
-
-        // Build the menu with default options: light theme, 90 degrees, 72dp radius.
-        // Set 4 default SubActionButtons
-        final FloatingActionMenu rightLowerMenu = new FloatingActionMenu.Builder(this)
-			.addSubActionView(rLSubBuilder.setContentView(rlIcon1).build(),new OnclickListener())
-			.addSubActionView(rLSubBuilder.setContentView(rlIcon2).build(),new OnclickListener())
-			.addSubActionView(rLSubBuilder.setContentView(rlIcon3).build(),new OnclickListener())
-			.addSubActionView(rLSubBuilder.setContentView(rlIcon4).build(),new OnclickListener())
-			.attachTo(rightLowerButton)
-			.build();
-
-        // Listen menu open and close events to animate the button content view
-        rightLowerMenu.setStateChangeListener(new FloatingActionMenu.MenuStateChangeListener() {
-				@Override
-				public void onMenuOpened(FloatingActionMenu menu) {
-					// Rotate the icon of rightLowerButton 45 degrees clockwise
-					fabIconNew.setRotation(0);
-					PropertyValuesHolder pvhR = PropertyValuesHolder.ofFloat(View.ROTATION, 45);
-					ObjectAnimator animation = ObjectAnimator.ofPropertyValuesHolder(fabIconNew, pvhR);
-					animation.start();
-				}
-
-				@Override
-				public void onMenuClosed(FloatingActionMenu menu) {
-					// Rotate the icon of rightLowerButton 45 degrees counter-clockwise
-					fabIconNew.setRotation(45);
-					PropertyValuesHolder pvhR = PropertyValuesHolder.ofFloat(View.ROTATION, 0);
-					ObjectAnimator animation = ObjectAnimator.ofPropertyValuesHolder(fabIconNew, pvhR);
-					animation.start();
-				}
-			});
-        // Set up the large red button on the center right side
-        // With custom button and content sizes and margins
-		
-
-*/
 
 
 
     }
 	    private void initView() throws JSONException {
-			user.my_video_=null;
-			user.my_video_=My_Video_.this;
+			user.my_video_ = null;
+			user.my_video_ = My_Video_.this;
 			mHandler.sendEmptyMessage(3);
-        //MainActivity的布局文件中的主要控件初始化
-        mToolbar = (Toolbar) this.findViewById(R.id.myvideotoolbar);
-        mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
-		//   mNavigationView = (NavigationView) this.findViewById(R.id.navigation_view);
-        mTabLayout = (TabLayout) this.findViewById(R.id.myvideotab);
-        mViewPager = (ViewPager) this.findViewById(R.id.view_pager);
-		rl=(ListView)this.findViewById(R.id.tRecyclerView1);
-			Message_point=(TextView)findViewById(R.id.tTextView);
-			message=(ImageView)this.findViewById(R.id.activitymainTextView1);
-			User_name=(TextView)this.findViewById(R.id.User_name);
+			//MainActivity的布局文件中的主要控件初始化
+			mToolbar = (Toolbar) this.findViewById(R.id.myvideotoolbar);
+			mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
+			//   mNavigationView = (NavigationView) this.findViewById(R.id.navigation_view);
+			mTabLayout = (TabLayout) this.findViewById(R.id.myvideotab);
+			mViewPager = (ViewPager) this.findViewById(R.id.view_pager);
+			rl = (ListView) this.findViewById(R.id.tRecyclerView1);
+			Message_point = (TextView) findViewById(R.id.tTextView);
+			message = (ImageView) this.findViewById(R.id.activitymainTextView1);
+			User_name = (TextView) this.findViewById(R.id.User_name);
+			head = (ImageView) this.findViewById(R.id.drawer_headerImageView);
 
-		
+			User u = new User();
+			if (u.headBitmap != null) {
+				head.setImageBitmap(u.headBitmap);
 
-		  //初始化ToolBar
-        setSupportActionBar(mToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeAsUpIndicator(R.drawable.menu);//android.R.drawable.ic_dialog_alert);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-		message.setOnClickListener(new View.OnClickListener()
+			}
+			if (u.mydata.get("nickname")!="")
 			{
+				User_name.setText(u.mydata.get("nickname").toString());
+			}
+			head.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					User u = new User();
+					if (u._id != "null") {
+						Intent intent = new Intent(My_Video_.this, Personal_.class);
+						startActivity(intent);
+					} else {
+						Intent intent = new Intent(My_Video_.this, Login_.class);
+						startActivity(intent);
+					}
+				}
+			});
 
-				public void onClick(View v)
-				{
+
+			//初始化ToolBar
+			setSupportActionBar(mToolbar);
+			ActionBar actionBar = getSupportActionBar();
+			actionBar.setHomeAsUpIndicator(R.drawable.menu);//android.R.drawable.ic_dialog_alert);
+			actionBar.setDisplayHomeAsUpEnabled(true);
+			message.setOnClickListener(new View.OnClickListener() {
+
+				public void onClick(View v) {
 					Message_point.setVisibility(View.INVISIBLE);
-					Intent intent=new Intent(My_Video_.this,Message_c.class);
+					Intent intent = new Intent(My_Video_.this, Message_c.class);
 					startActivity(intent);
 
 
 				}
 			});
-        //对NavigationView添加item的监听事件
-		// mNavigationView.setNavigationItemSelectedListener(naviListener);
-        //开启应用默认打开DrawerLayout
-		//  mDrawerLayout.openDrawer(ll);
+			//对NavigationView添加item的监听事件
+			// mNavigationView.setNavigationItemSelectedListener(naviListener);
+			//开启应用默认打开DrawerLayout
+			//  mDrawerLayout.openDrawer(ll);
 		/*	View v=mNavigationView.getHeaderView(0);
 		 heard=(ImageView)v.findViewById(R.id.drawer_headerImageView);
 		 heard.setBackgroundResource(android.R.drawable.dark_header);*/
-        //初始化TabLayout的title数据集
-        List<String> titles = new ArrayList<>();
-        titles.add("已上传");
-        titles.add("未上传");
-        
-        //初始化TabLayout的title
-        mTabLayout.addTab(mTabLayout.newTab().setText(titles.get(0)));
-       mTabLayout.addTab(mTabLayout.newTab().setText(titles.get(1)));
-           //初始化ViewPager的数据集
+			//初始化TabLayout的title数据集
+			List<String> titles = new ArrayList<>();
+			titles.add("已上传");
+			titles.add("未上传");
 
-        List<Fragment> fragments = new ArrayList<>();
+			//初始化TabLayout的title
+			mTabLayout.addTab(mTabLayout.newTab().setText(titles.get(0)));
+			mTabLayout.addTab(mTabLayout.newTab().setText(titles.get(1)));
+			//初始化ViewPager的数据集
 
-        fragments.add(idf);
-       fragments.add(sf);
-      
-		//创建ViewPager的adapter
-        FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager(), fragments, titles);
-        mViewPager.setAdapter(adapter);
-        //千万别忘了，关联TabLayout与ViewPager
-        //同时也要覆写PagerAdapter的getPageTitle方法，否则Tab没有title
-        mTabLayout.setupWithViewPager(mViewPager);
-        mTabLayout.setTabsFromPagerAdapter(adapter);
-			addTextToList("首页",0,R.drawable.home);
-			addTextToList("已付",0,R.drawable.paid);
+			List<Fragment> fragments = new ArrayList<>();
+
+			fragments.add(idf);
+			fragments.add(sf);
+
+			//创建ViewPager的adapter
+			FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager(), fragments, titles);
+			mViewPager.setAdapter(adapter);
+			//千万别忘了，关联TabLayout与ViewPager
+			//同时也要覆写PagerAdapter的getPageTitle方法，否则Tab没有title
+			mTabLayout.setupWithViewPager(mViewPager);
+			mTabLayout.setTabsFromPagerAdapter(adapter);
+			addTextToList("首页", 0, R.drawable.home);
+			addTextToList("已付", 0, R.drawable.paid);
 
 			//addTextToList("我的",0,R.drawable.fab_bg_normal);
-			addTextToList("收藏",0,R.drawable.collect);
-			addTextToList("余额",0,R.drawable.balance);
-			addTextToList("分割贱",1,R.drawable.fab_bg_normal);
+			addTextToList("收藏", 0, R.drawable.collect);
+			addTextToList("余额", 0, R.drawable.balance);
+			addTextToList("分割贱", 1, R.drawable.fab_bg_normal);
 
-			addTextToList("设置",0,R.drawable.fab_bg_normal);
-			addTextToList("反馈",0,R.drawable.feedback);
+			addTextToList("设置", 0, R.drawable.fab_bg_normal);
+			addTextToList("反馈", 0, R.drawable.feedback);
 
 
-			ladapter=new MyChatAdapter(My_Video_.this,lists,layout);
+			ladapter = new MyChatAdapter(My_Video_.this, lists, layout);
 			rl.setAdapter(ladapter);
 			rl.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					TextView tv = (TextView) view.findViewById(R.id.leftlistitemTextView1);
-					
-						if(tv!=null)
-						{
-							
-					String str = tv.getText().toString();
-					
-					if (str.equals("首页")) {
-						Intent intent = new Intent(My_Video_.this, MainActivity.class);
-						startActivity(intent);
 
-					}
-					if (str.equals("已付")) {
-						Intent intent = new Intent(My_Video_.this, Paid_Video.class);
-						startActivity(intent);
-					}
+					if (tv != null) {
 
-					if (str.equals("收藏")) {
-						Intent intent = new Intent(My_Video_.this, Collect_.class);
-						startActivity(intent);
-					}
-					if (str.equals("我的")) {
-						Intent intent = new Intent(My_Video_.this, My_Video_.class);
-						startActivity(intent);
-					}
+						String str = tv.getText().toString();
 
-					if (str.equals("余额")) {
-						Intent intent = new Intent(My_Video_.this, Balance_.class);
-						startActivity(intent);
-					}
+						if (str.equals("首页")) {
+							Intent intent = new Intent(My_Video_.this, MainActivity.class);
+							startActivity(intent);
 
-					if (str.equals("设置")) {
-						Intent intent = new Intent(My_Video_.this, Setting_.class);
-						startActivity(intent);
-					}
+						}
+						if (str.equals("已付")) {
+							Intent intent = new Intent(My_Video_.this, Paid_Video.class);
+							startActivity(intent);
+						}
+
+						if (str.equals("收藏")) {
+							Intent intent = new Intent(My_Video_.this, Collect_.class);
+							startActivity(intent);
+						}
+						if (str.equals("我的")) {
+							Intent intent = new Intent(My_Video_.this, My_Video_.class);
+							startActivity(intent);
+						}
+
+						if (str.equals("余额")) {
+							Intent intent = new Intent(My_Video_.this, Balance_.class);
+							startActivity(intent);
+						}
+
+						if (str.equals("设置")) {
+							Intent intent = new Intent(My_Video_.this, Setting_.class);
+							startActivity(intent);
+						}
 					}
 
 				}
 			});
 			try {
-				JSONObject jsonObject=null;
-				JSONArray jss= new JSONArray(user.mydata.get("notices").toString());
+				JSONObject jsonObject = null;
+				JSONArray jss = new JSONArray(user.mydata.get("notices").toString());
 
 				if (jss.length() < 2) {
 					Message_point.setVisibility(View.INVISIBLE);
-				}
-				else {
+				} else {
 
 
 					Message_point.setText(String.valueOf(jss.length()));
 
 
 				}
-			}
-			catch (JSONException e) {
+			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-    }
+		}
+	private void getvideo()
+	{
+
+		HashMap<String ,Object> map=new HashMap<String ,Object>();
+		map.put("Context",My_Video_.this);
+
+		map.put("handler",mHandler);
+		//map.put("paypassword",u.mydata.get("paypassword").toString());
+		String url="http://trying-video.herokuapp.com/user/oldpayword?token="+user.token;
+		Http_UploadFile_ http=new Http_UploadFile_(url,map,"16");
+		Thread xx=new Thread(http);
+		//xx.start();
+	}
 	public void addTextToList(String text, int who,int id)
 	{
 		HashMap<String,Object> map=new HashMap<String,Object>();

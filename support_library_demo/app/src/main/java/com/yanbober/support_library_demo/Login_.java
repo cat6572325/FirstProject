@@ -2,14 +2,18 @@ package com.yanbober.support_library_demo;
 
 import android.content.*;
 import android.database.sqlite.*;
+import android.graphics.BitmapFactory;
 import android.net.*;
 import android.os.*;
 import android.support.annotation.*;
 import android.support.design.widget.*;
 import android.support.v7.app.*;
 import android.text.*;
+import android.util.Base64;
 import android.view.*;
 import android.widget.*;
+
+import com.yanbober.support_library_demo.Custom.appLication_;
 import com.yanbober.support_library_demo.DataHelpers.*;
 import com.yanbober.support_library_demo.Http_Util.*;
 import java.net.*;
@@ -32,25 +36,49 @@ public class Login_ extends AppCompatActivity {
                         {
                             JSONArray array=(JSONArray)msg.obj;
                             JSONObject token_=array.getJSONObject(0);
-
-                          JSONObject  phoneone=array.getJSONObject(1);
-
-                            user.phone=phoneone.getString("phone");
-                            user.name=phoneone.getString("phone");
                             user.token=token_.getString("token");
+                          JSONObject  phoneone=array.getJSONObject(1);
+                            //    "__v":0,
+                           // "_id":"5832b4615f4ca62f6f205bc0",
+                           //     "userpassword":"aceenglish",
+                             //   "phone":110
+                            user.phone=phoneone.getString("phone");
                             User._id=phoneone.getString("_id");
                             user.pas=phoneone.getString("userpassword");
+                            JSONObject jsonObject2=array.getJSONObject(2);
+                                        /* "balance":15,
+                    "phone":110,
+                    "_id":"5832b4615f4ca62f6f205bc0",
+                    "nickname":"话",
+                    "notices":Array[0],
+                    "paypassword":"c",
+                    "__v":32,
+                    "paidVideos":Array[4],
+                    "headPortrait":"http://trying-video.herokuapp.com/public/images/newbitmap.png",
+                    "collects":Array[4]*/
+
+                            user.name=jsonObject2.getString("nickname");
+
+
+
+
                             Intent intent = new Intent(Login_.this, MainActivity.class);
                             dataserver.inst(db,user.phone
                                     +"|"+user.pas
                                     +"|"+user.phone
                                     +"|null|"
                                     + user.token
-                                    +"|1",Login_.this);
-
-                            //手机　密码　名字　头像序列　token　是否登录状态
-                            user.pas=pas.getText().toString();
-                            startActivity(intent);
+                                    +"|1|"
+                                    +user._id,Login_.this);
+                       /*     appLication_ app=(appLication_)getApplication();
+                            //保存登录状态
+                            app.setshreprenceString("phone",phoneone.getString("phone"));
+                            app.setshreprenceString("nickname",phoneone.getString("nickname"));
+                            app.setshreprenceString("_id",phoneone.getString("_id"));
+                            app.setshreprenceString("token",token_.getString("token"));
+                            app.setshreprenceString("userpassword",phoneone.getString("userpassword"));
+                            //手机　密码　名字　头像序列　token　是否登录状态*/
+                                startActivity(intent);
                              finish();
                         }else
                         {
@@ -103,7 +131,7 @@ public class Login_ extends AppCompatActivity {
         findpass=(Button)findViewById(R.id.Login_findPassword_Button);
         phon=til.getEditText();
         pas=til1.getEditText();
-
+        phon.requestFocus();
 
         phon.addTextChangedListener(new Mytextwatcher());
         pas.addTextChangedListener(new Mytextwatcher());
@@ -118,59 +146,54 @@ public class Login_ extends AppCompatActivity {
 			Toast.makeText(this,"当前无网络连接",Toast.LENGTH_SHORT).show();
 			}else
 			{
-
-
         //数据库操作
-        dataserver=new DataHelper(Login_.this);
-        str1=dataserver.readData("flag|").split("\\|");
-        if(str1[0].equals("flag"))
-        {//如果已经登录且没有正常退出
-        }else {
-            if (str1[5].equals("1")) {
+                dataserver=new DataHelper(Login_.this);
+                str1=dataserver.readData("flag|").split("\\|");
+                if(str1[0].equals("flag"))
+                {//如果已经登录且没有正常退出
+                }else {
+                    if (str1[5].equals("1")) {
                 ArrayList<HashMap<String,Object>> maps=new ArrayList<HashMap<String,Object>>();
 
-                final String[] items = new String[]{
-                        "地球地心",
-                        "火星",
-                        "黑洞",
-                        "大山",
-                        "花果山"
-                };
-                HashMap<String,Object> map=new HashMap<>();
-                map.put("title","请选择你的故乡");
-                map.put("items",items);
-                maps.add(map);
-                final String[] items1 = new String[]{
-                        "AK_47",
-                        "格林炮",
-                        "全能塑料枪",
-                        "嘴炮",
-                        "阿木斯特狼螺旋机关牛啊姆斯特狼螺旋机关冲天炮"
-                };
-                HashMap<String,Object> map1=new HashMap<>();
-                map1.put("title","请选择你的武器");
-                map1.put("items",items1);
-                maps.add(map1);
-                final String[] items2 = new String[]{
-                        "太阳",
-                        "黑洞",
-                        "神",
-                        "美国总统",
-                        "猫"
-                };
-                HashMap<String,Object> map2=new HashMap<>();
-                map2.put("title","那么你准备要攻击谁");
-                map2.put("items",items2);
-                maps.add(map2);
-                showADialog(maps,0);
+
                 Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(Login_.this
                         , mHandler
                         , "http://trying-video.herokuapp.com/login"
                         , "1"//登录
                         , "POST"
                         , str1[0] + "|"+str1[1]);
+                HashMap<String, Object> log_map = new HashMap<String, Object>();
+                log_map.put("isprogress", 0);
+
+                Pop_Img.Builder p = new Pop_Img.Builder(Login_.this, log_map);
+                p.setPositiveButton("[潮汕揭]初版\n问题反馈:(qq) 1213965634\n\n", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //	dialog.dismiss();
+                        //login
+
+
+                    }
+                    //设置你的操作事项
+
+
+                });
+
+             //   p.create().show();
                 Thread x = new Thread(http_uploadFile_);
-                x.start();
+              //  x.start();
+                        byte[] bytebitmap;
+                        bytebitmap= Base64.decode(str1[3],Base64.DEFAULT);
+                user.phone=str1[0];//phone
+                         user.pas=str1[1];
+                user.name=str1[2];
+                        user.headBitmap= BitmapFactory.decodeByteArray(bytebitmap,0,bytebitmap.length);
+                        //头像反序列化
+                user.token=str1[4];
+                        //str1[5]  flag＝０
+                User._id=str1[6];
+                Intent intent = new Intent(Login_.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
             }
         }
                 //数据库操作
@@ -241,26 +264,27 @@ public class Login_ extends AppCompatActivity {
 					if(phon.getText().toString().equals("15913044423"))
 					{
 						Intent intent=new Intent(Login_.this,MainActivity.class);
+                        user.phone="15913044423";
 						startActivity(intent);
 
-					}
+					}else {
 
-                      //  url = new URL("http://192.168.1.112:1103/login");
-					ConnectivityManager cm=(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-					NetworkInfo ni=cm.getActiveNetworkInfo();
-					if(! ni.isConnectedOrConnecting())
-					{
-						Toast.makeText(Login_.this,"当前无网络连接",Toast.LENGTH_SHORT).show();
-					}else{
-						Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(Login_.this
-                                , mHandler
-                                , "http://trying-video.herokuapp.com/login"
-                                , "1"//登录
-                                , "POST"
-                                , phon.getText().toString() + "|" + pas.getText().toString());
-                        Thread x = new Thread(http_uploadFile_);
-                        x.start();
-}
+                        //  url = new URL("http://192.168.1.112:1103/login");
+                        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                        NetworkInfo ni = cm.getActiveNetworkInfo();
+                        if (!ni.isConnectedOrConnecting()) {
+                            Toast.makeText(Login_.this, "当前无网络连接", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(Login_.this
+                                    , mHandler
+                                    , "http://trying-video.herokuapp.com/login"
+                                    , "1"//登录
+                                    , "POST"
+                                    , phon.getText().toString() + "|" + pas.getText().toString());
+                            Thread x = new Thread(http_uploadFile_);
+                            x.start();
+                        }
+                    }
                     break;
 
                 case R.id.Login_Regi_Button:

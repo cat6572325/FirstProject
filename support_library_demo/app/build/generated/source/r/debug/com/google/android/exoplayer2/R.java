@@ -12,8 +12,8 @@ public final class R {
 		public static final int resize_mode = 0x7f010007;
 		public static final int rewind_increment = 0x7f010008;
 		public static final int show_timeout = 0x7f010009;
-		public static final int use_controller = 0x7f010135;
-		public static final int use_texture_view = 0x7f010136;
+		public static final int use_controller = 0x7f01012c;
+		public static final int use_texture_view = 0x7f01012d;
 	}
 	public static final class drawable {
 		public static final int exo_controls_fastforward = 0x7f02008d;
@@ -24,25 +24,25 @@ public final class R {
 		public static final int exo_controls_rewind = 0x7f020092;
 	}
 	public static final class id {
-		public static final int control = 0x7f0e011c;
-		public static final int ffwd = 0x7f0e0114;
+		public static final int control = 0x7f0e011b;
+		public static final int ffwd = 0x7f0e0113;
 		public static final int fit = 0x7f0e0010;
 		public static final int fixed_height = 0x7f0e0011;
 		public static final int fixed_width = 0x7f0e0012;
-		public static final int mediacontroller_progress = 0x7f0e0117;
-		public static final int next = 0x7f0e0115;
-		public static final int play = 0x7f0e0113;
-		public static final int prev = 0x7f0e0111;
-		public static final int rew = 0x7f0e0112;
-		public static final int shutter = 0x7f0e011a;
-		public static final int subtitles = 0x7f0e011b;
-		public static final int time = 0x7f0e0118;
-		public static final int time_current = 0x7f0e0116;
-		public static final int video_frame = 0x7f0e0119;
+		public static final int mediacontroller_progress = 0x7f0e0116;
+		public static final int next = 0x7f0e0114;
+		public static final int play = 0x7f0e0112;
+		public static final int prev = 0x7f0e0110;
+		public static final int rew = 0x7f0e0111;
+		public static final int shutter = 0x7f0e0119;
+		public static final int subtitles = 0x7f0e011a;
+		public static final int time = 0x7f0e0117;
+		public static final int time_current = 0x7f0e0115;
+		public static final int video_frame = 0x7f0e0118;
 	}
 	public static final class layout {
-		public static final int exo_playback_control_view = 0x7f040043;
-		public static final int exo_simple_player_view = 0x7f040044;
+		public static final int exo_playback_control_view = 0x7f040044;
+		public static final int exo_simple_player_view = 0x7f040045;
 	}
 	public static final class string {
 		public static final int exo_controls_fastforward_description = 0x7f080013;
@@ -67,7 +67,7 @@ public final class R {
 		public static final int PlaybackControlView_fastforward_increment = 0;
 		public static final int PlaybackControlView_rewind_increment = 1;
 		public static final int PlaybackControlView_show_timeout = 2;
-		public static final int[] SimpleExoPlayerView = { 0x7f010003, 0x7f010007, 0x7f010008, 0x7f010009, 0x7f010135, 0x7f010136 };
+		public static final int[] SimpleExoPlayerView = { 0x7f010003, 0x7f010007, 0x7f010008, 0x7f010009, 0x7f01012c, 0x7f01012d };
 		public static final int SimpleExoPlayerView_fastforward_increment = 0;
 		public static final int SimpleExoPlayerView_resize_mode = 1;
 		public static final int SimpleExoPlayerView_rewind_increment = 2;

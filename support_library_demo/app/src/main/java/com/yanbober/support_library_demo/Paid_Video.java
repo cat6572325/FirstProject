@@ -22,7 +22,7 @@ Toolbar tb;
 	//右上角新消息提示红点
 	TextView Message_point;
 	User user=new User();
-	ImageView message;
+	ImageView message,head;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -53,6 +53,25 @@ Toolbar tb;
 		});
 		rv.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
 		//设置RecyclerView布局管理器为1列垂直排布
+		head = (ImageView) this.findViewById(R.id.drawer_headerImageView);
+		User u = new User();
+		if (u.headBitmap != null) {
+			head.setImageBitmap(u.headBitmap);
+
+		}
+		head.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				User u = new User();
+				if (u._id != "null") {
+					Intent intent = new Intent(Paid_Video.this, Personal_.class);
+					startActivity(intent);
+				} else {
+					Intent intent = new Intent(Paid_Video.this, Login_.class);
+					startActivity(intent);
+				}
+			}
+		});
 		addTextToList("本 拉登教你打仗",2,R.drawable.qq,"901人付款");
 		message.setOnClickListener(new View.OnClickListener()
 		{

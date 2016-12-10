@@ -3,6 +3,8 @@ package com.yanbober.support_library_demo;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -13,6 +15,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +32,8 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -86,17 +91,21 @@ public class Register_ extends AppCompatActivity {
     Get_LastData_Util httpUtil;
     URL url;
     int phones=0,pass=0;
-
-
+    BufferedOutputStream bos;
+    File dirFile = new File("/sdcard/180s/headpicture/" + randomProdoction() + ".png");
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_layout);
-        initView();
+        try {
+            initView();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
-    protected void initView() {
+    protected void initView() throws IOException {
         Register_Enter = (ImageView) findViewById(R.id.Register_Button);
         backbtn = (Button) findViewById(R.id.Register_back);
         phon = (EditText) findViewById(R.id.phone_key);
@@ -111,11 +120,81 @@ public class Register_ extends AppCompatActivity {
         pas.addTextChangedListener(new Mytextwatcher());
         Register_Enter.setVisibility(View.INVISIBLE);
         Register_Enter.setOnClickListener(new MyClickListener());
-
+////刚进注册页面就判断头像文件路径是否存在，不存在就创建并保存一张预置图片
+        //注册的同时发送预置头像
+        Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.ic_launcher);
         backbtn.setOnClickListener(new MyClickListener());
+        try {
+
+            //创建一个头像本地路径
+            File file1 = new File("/sdcard/180s");
+            if (!file1.exists()) {
+                file1.mkdirs();
+            }
+            File file2 = new File("/sdcard/180s/headpicture");
+            if (!file2.exists()) {
+                file2.mkdirs();
+            }
+            if (!dirFile.exists()) {
+                dirFile.createNewFile();
+            } else {
+                dirFile.delete();
+                dirFile.createNewFile();
+            }
+            bos = new BufferedOutputStream(new FileOutputStream(dirFile));
+            bitmap.compress(Bitmap.CompressFormat.PNG, 80, bos);
+            //将一个预置图片作为头像
+        }catch (IOException e)
+        {
+            Log.e("在创建预置头像时",e.toString());
+        }finally {
+            bos.flush();
+            bos.close();
+        }
+
 
     }
+    private String randomProdoction()
+    {
+        int random=(int)Math.random()*10;
+        String str=null;
+        for (int i=0;i<10;i++) {
+            switch (random) {
+                case 0:
+                    str += "a";
+                    break;
 
+                case 1:
+                    str += "b";
+                    break;
+
+                case 2:
+                    str += "c";
+                    break;
+
+                case 3:
+                    str += "e";
+                    break;
+
+                case 4:
+                    str += "f";
+                    break;
+
+                case 5:
+                    str += "g";
+                    break;
+
+                case 6:
+                    str += "h";
+                    break;
+
+                case 7:
+                    str += "i";
+                    break;
+            }
+        }
+        return str+String.valueOf(random);
+    }
     class MyClickListener implements View.OnClickListener {
 
         @Override
@@ -123,20 +202,18 @@ public class Register_ extends AppCompatActivity {
             // TODO:注册后跳往
             switch (v.getId()) {
                 case R.id.Register_Button:
-                    //首先执行写入手机号
-                    //  networkAsyncTask = new NetworkAsyncTask();
-                    //新建一个发送POST的class
-                    //  networkAsyncTask.execute("NETWORK_POST_JSON",phon.getText().toString(),pas.getText().toString());
-                    //执行
+                    HashMap<String,Object> map=new HashMap<>();
+                    map.put("handler",mHandler);
+                    map.put("Context",Register_.this);
+                    map.put("headfile",dirFile);
+                    map.put("count",0);
+                    map.put("phone",phon.getText().toString());
+                    map.put("password",pas.getText().toString());
 
-
-
-                        Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(Register_.this
-                                , mHandler
-                                , "http://trying-video.herokuapp.com/reg/user"
-                                , "0"//注册
-                                , "POST"
-                                , phon.getText().toString() + "|" + pas.getText().toString());
+                        Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(
+                                "http://trying-video.herokuapp.com/reg/user"
+                                ,map
+                                , "0");
                         Thread x = new Thread(http_uploadFile_);
                          x.start();
 

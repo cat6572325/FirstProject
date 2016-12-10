@@ -15,6 +15,7 @@ import android.widget.*;
 
 import com.yanbober.support_library_demo.Http_Util.Http_UploadFile_;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -50,7 +51,7 @@ public class ShareFragment extends Fragment {
 	int lastVisibleItem;
 	Http_UploadFile_ http_uploadFile_=null;
 	OnActivityebent2 ebent;
-
+	LinearLayout linearLayouthide1;
 	Context context;
 	public static final AgendaFragment newInstance(String title,int resImageId)
 	{
@@ -65,7 +66,7 @@ public class ShareFragment extends Fragment {
 		mRecyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
 		//rv=(RecyclerView)v.findViewById(R.id.groupRecyclerView2);
 		//initView();
-
+		linearLayouthide1=(LinearLayout)v.findViewById(R.id.HideLayout1);
 		return v;
 	}
 
@@ -150,7 +151,7 @@ public class ShareFragment extends Fragment {
 
 	}
 
-	public void addTextToList(String text, int who, String id, int count, String name,Bitmap url) {
+	public void addTextToList(String text, int who, String id, int count, String name,String url) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("person", who);
 		map.put("image", id);
@@ -174,48 +175,30 @@ public class ShareFragment extends Fragment {
 		map.put("vdoPhoto",url);
 		lists2.add(map);
 	}
+	Bitmap bitmap2;
+	String str1,str2,str3,biturl;User user=new User();
 	private void initView()
 	{
 
-		User user=new User();
 
-		Bitmap bitmap2;
-		for (int i = 0; i <user.maps.size(); i++) {
-			if (i==10) {return ;}
-			try {
-				URL url = new URL(user.maps.get(i).get("vdoPhotourl").toString());
+				for (int i = 0; i < user.maps.size(); i++) {
+					if (i == 10) {
+						return;
+					}
+					//addTextToList("广东",1,android.R.drawable.ic_lock_lock,"ps","data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊");
+					addTextToList(user.maps.get(i).get("paidppnumber").toString()
+							, 1
+							, user.maps.get(i).get("vdourl").toString()
+							, 0
+							, user.maps.get(i).get("title").toString()
+							, user.maps.get(i).get("vdoPhotourl").toString()
+					);
 
-				HttpURLConnection conn = (HttpURLConnection) url
-						.openConnection();
-				conn.setDoInput(true);
-				conn.connect();
-				InputStream is = conn.getInputStream();
-				bitmap2 = BitmapFactory.decodeStream(is);
-				is.close();
-				conn.disconnect();
-			}catch (IOException e )
-			{
-
-				bitmap2=BitmapFactory.decodeResource(activity.getResources(), R.drawable.down);
-
-
-			}
-			//addTextToList("广东",1,android.R.drawable.ic_lock_lock,"ps","data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊");
-			addTextToList(user.maps.get(i).get("paidppnumber").toString()
-					, 1
-					,user.maps.get(i).get("vdourl").toString()
-					, 0
-					,user.maps.get(i).get("title").toString()
-					,bitmap2
-			);
-
-			//暂定内容，参数....购买人数,布局,头像,是否显示红点,标题
-			//头像和内容壁纸需要在适配器以二进制转为图片
-		}
-		adapter.notifyDataSetChanged();
+				}
+				adapter.notifyDataSetChanged();
 		//  addTextToList("uuu", 1, "android.R.drawable.ic_lock_lock", 0, "name");
 		// Toast.makeText(getContext(),str1,Toast.LENGTH_LONG).show();
-
+		linearLayouthide1.setVisibility(View.INVISIBLE);
 
 	}
 	@Override

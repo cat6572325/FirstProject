@@ -1,5 +1,7 @@
 package com.yanbober.support_library_demo;
 
+import android.graphics.Bitmap;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,9 +15,8 @@ public class User
 	,vid="null",
 	chatdata="null",city="null",sex="null",old="null",_id="null",token="null",paidPwd="null";
 	;
-
-
-	public static ArrayList<HashMap<String,Object>> Collect_List,notices_list,notLoadforVideo_list;
+	public static Bitmap headBitmap=null;
+	public static ArrayList<HashMap<String,Object>> Collect_List,notices_list,notLoadforVideo_list,AlreadyLoadforVideo_list=null;
 	public static HashMap<String,Object> mydata;
 	public static MainActivity mainActivity;
 	public static My_Video_ my_video_;

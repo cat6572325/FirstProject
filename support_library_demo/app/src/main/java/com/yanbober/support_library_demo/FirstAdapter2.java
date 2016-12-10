@@ -115,14 +115,15 @@ public class FirstAdapter2 extends RecyclerView.Adapter<MyViewHolder3> {
                 //以url解析图片
                 Bitmap bitmap2=null;
                 URL url;
-               
-                    //lists.get(position).get("vdoPhotourl").toString();
-                    bitmap2=(Bitmap)lists.get(position).get("vdoPhotourl");
 
-                Drawable drawable=new BitmapDrawable(bitmap2);
+
+                 holder.infoDetails_relativelayout.setTag(lists.get(position).get("vdoPhotourl").toString());
+                GetBitmapurl getBitmapurl=new GetBitmapurl();
+                getBitmapurl.loadurl(lists.get(position).get("vdoPhotourl").toString(),holder.infoDetails_relativelayout);
+               // Drawable drawable=new BitmapDrawable(bitmap2);
                 //以url解析图片　
 
-                holder.infoDetails_relativelayout.setBackground(drawable);
+                //holder.infoDetails_relativelayout.setBackground(drawable);
                 //设置内容背景图
                 if(mListener!=null){//如果设置了监听那么它就不为空，然后回调相应的方法
                     holder.itemView.setOnClickListener(new View.OnClickListener() {

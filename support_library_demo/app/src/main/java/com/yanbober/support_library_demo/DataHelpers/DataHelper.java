@@ -44,7 +44,8 @@ public class DataHelper extends SQLiteOpenHelper
                 ",itName text" +
                 ",itHeadPictrue text" +
                 ",itToken"+
-                ",flag text)";
+                ",flag text" +
+                ",id)";
         //执行创建数据库操作
         db.execSQL(sql);
     }
@@ -72,6 +73,7 @@ public class DataHelper extends SQLiteOpenHelper
             contentValues.put("itToken", data[4]);
 
             contentValues.put("flag", data[5]);
+            contentValues.put("id",data[6]);
             //db.execSQL("insert into tb_test(_id,tname,tage,ttle) values(3,'h','h','f')");
         }catch (SQLiteDiskIOException e)
         {
@@ -98,7 +100,8 @@ public class DataHelper extends SQLiteOpenHelper
                 name += cursor.getString(4)+"|";
                 name+=cursor.getString(5)+"|";
 
-                name+=cursor.getString(6);
+                name+=cursor.getString(6)+"|";
+                name+=cursor.getString(7);
 
             }
             cursor.close();

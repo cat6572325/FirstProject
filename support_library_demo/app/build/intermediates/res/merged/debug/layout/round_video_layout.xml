@@ -14,9 +14,10 @@
 		<ImageView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:src="@drawable/back_purple"
 			android:layout_centerVertical="true"
-			android:layout_marginLeft="25dp"/>
+			android:layout_marginLeft="25dp"
+			android:id="@+id/round_back"
+			android:background="@drawable/back_press" />
 <LinearLayout
 	android:layout_width="wrap_content"
 
@@ -28,6 +29,7 @@
 			android:background="@drawable/timer"
 			android:adjustViewBounds="true"
 			android:layout_marginTop="7dp"
+			android:id="@+id/rounding_time_img"
 			android:layout_marginRight="5dp" />
 		<TextView
 			android:layout_height="wrap_content"
@@ -111,9 +113,9 @@
 
 		android:background="#88555555"
 	>
-		<LinearLayout
+		<RelativeLayout
 			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
+			android:layout_width="match_parent"
 
 			android:orientation="horizontal"
 
@@ -127,14 +129,14 @@
 
 				android:background="@drawable/delete"
 				android:layout_marginTop="40dp"
-				android:layout_marginRight="20dp"
+				android:layout_marginLeft="10dp"
 				android:id="@+id/round_delete"
 				android:onClick="delete" />
 
 			<ImageView
-				android:layout_height="120dp"
-				android:layout_width="115dp"
-
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:layout_centerHorizontal="true"
 				android:layout_margin="10dp"
 				android:background="@drawable/upload"
 				android:id="@+id/round_upload"
@@ -145,12 +147,13 @@
 				android:layout_width="wrap_content"
 				android:background="@drawable/edit"
 				android:layout_marginTop="40dp"
-				android:layout_marginLeft="20dp"
+				android:layout_alignParentRight="true"
+				android:layout_marginRight="10dp"
 				android:id="@+id/round_edit"
 				android:nestedScrollingEnabled="false"
 				android:onClick="edit" />
 
-		</LinearLayout>
+		</RelativeLayout>
 		</RelativeLayout>
 	</RelativeLayout>
 

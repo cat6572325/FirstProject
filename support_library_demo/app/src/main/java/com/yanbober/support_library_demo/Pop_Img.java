@@ -39,6 +39,8 @@ public class Pop_Img extends Dialog {
         Round_Video_ round_video_;
         Setting_ setting_;
         Collect_ collect_;
+        Login_ login;
+        MainActivity main;
         TimerTask http_uploadFile_;
         HashMap<String, Object> map;
         private String title, acco, pas;
@@ -102,6 +104,16 @@ public class Pop_Img extends Dialog {
             this.map = map;
             this.ERror = ERror;
 
+        }
+
+        public Builder(Login_ login_, HashMap<String, Object> log_map) {
+            login=login_;
+            map=log_map;
+        }
+
+        public Builder(MainActivity mainActivity, HashMap<String, Object> main_map) {
+            main=mainActivity;
+            map=main_map;
         }
 
 
@@ -257,34 +269,29 @@ public class Pop_Img extends Dialog {
 			 ((LinearLayout) layout.findViewById(R.id.content))
 			 .addView(contentView, new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
 			 }*/
-            if (ERror != null) {
-                LayoutInflater inflater = (LayoutInflater) context
+            if (main!=null)
+            {
+                LayoutInflater inflater = (LayoutInflater) main
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 // instantiate the dialog with the custom Theme
-                dialog = new Pop_Img(context, R.style.Dialog1);
-                layout = inflater.inflate(R.layout.error_dialog, null);
-
+                dialog = new Pop_Img(main, R.style.Dialog);
+                layout = inflater.inflate(R.layout.login_wait_dialog, null);
                 dialog.addContentView(layout, new LayoutParams(
                         LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-                error_Text = (TextView) layout.findViewById(R.id.error_text);
-                error_RelativeLayout = (RelativeLayout) layout.findViewById(R.id.Error_RelativeLayout);
-                error_Text.setText(map.get("Message").toString());
-                if (ERRor_Click != null) {
-                    error_RelativeLayout.setOnClickListener(new View.OnClickListener() {
+                error_Text=(TextView)layout.findViewById(R.id.text_dialog);
+                error_Text.setText("正在加载中..");
+                return dialog;
 
-                        @Override
-                        public void onClick(View view) {
+            }
+            if (login != null) {
+                LayoutInflater inflater = (LayoutInflater) login
+                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                // instantiate the dialog with the custom Theme
+                dialog = new Pop_Img(login, R.style.Dialog);
+                layout = inflater.inflate(R.layout.login_wait_dialog, null);
+                dialog.addContentView(layout, new LayoutParams(
+                        LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 
-                            positiveButtonClickListener.onClick(dialog,
-                                    DialogInterface.BUTTON_POSITIVE);
-                            //将点击事件传出去
-
-                            // Snackbar.make(view, "you press key for sure  " + Pay_pwd.getText().toString(), Snackbar.LENGTH_SHORT).show();
-                        }
-
-
-                    });
-                }
                 return dialog;
             }
             if (setting_ != null) {
@@ -554,9 +561,12 @@ public class Pop_Img extends Dialog {
                                 maphttp.put("concernednumber", "0");//收藏人数
                                 maphttp.put("handler",round_video_.mHandler);
                                 maphttp.put("count",0);
+                                maphttp.put("Context",round_video_);
                                 ArrayList<HashMap<String,Object>> datamaps=new ArrayList<HashMap<String, Object>>();
                                 datamaps.add(maphttp);
                                  u.notLoadforVideo_list=datamaps;
+                                Toast.makeText(round_video_,"已保存此信息",Toast.LENGTH_LONG).show();
+                                dialog.dismiss();
                                // indelayout.setVisibility(View.VISIBLE);
                                 //解除隐藏布局的隐藏
                                 //mViewUpdateHandler.sendEmptyMessage(0);

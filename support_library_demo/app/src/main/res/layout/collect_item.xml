@@ -57,7 +57,8 @@
 				android:layout_centerInParent="true"
 				android:id="@+id/collect_paid_button"
 				android:paddingLeft="25dp"
-				android:paddingRight="25dp"/>
+				android:paddingRight="25dp"
+				android:onClick="paythisVideoButton" />
 
 		</RelativeLayout>
 

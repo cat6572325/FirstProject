@@ -113,7 +113,7 @@ public class Run_Video_ extends ActionBarActivity {
 	String count=null,vid=null,upLoader_id=null;
 	final User user=new User();
 	JSONObject jsonObject=null;
-	TextView tcollect,paid_count,vdoTitle,upload_name;
+	TextView tcollect,paid_count,vdoTitle,upload_name,run_video_introduction;
 	LinearLayout upder_ll;
 	JCVideoPlayerStandard jcVideoPlayerStandard;
 	/** Called when the activity is first created. */
@@ -130,7 +130,17 @@ public class Run_Video_ extends ActionBarActivity {
 		{
 
 		count=bun.getString("url");
-			if(bun.containsKey("vid"))
+			if (bun.containsKey("introduction")) {
+				//简介
+				run_video_introduction.setText(bun.getString("introduction"));
+
+			}else
+			{
+				run_video_introduction.setText("/r/n/r/n/r简介错误/r/n/r/n/r/n");
+				run_video_introduction.setTextColor(Color.RED);
+			}
+
+					if(bun.containsKey("vid"))
 			{
 				vid=bun.getString("vid");
 			}
@@ -209,12 +219,13 @@ public class Run_Video_ extends ActionBarActivity {
 			vdoTitle=(TextView)this.findViewById(R.id.Run_Video_vdoTitle);
 			uploader_img=(ImageView)this.findViewById(R.id.Run_Video_upder_Img);
 			upload_name=(TextView)this.findViewById(R.id.Run_Video_upder_name);
+			run_video_introduction=(TextView)this.findViewById(R.id.introduction_text);
 			setSupportActionBar(toolbar);
 			ActionBar actionBar = getSupportActionBar();
 			actionBar.setHomeAsUpIndicator(R.drawable.back_purple);
 			actionBar.setDisplayHomeAsUpEnabled(true);
 
-			//缓冲圈隐藏
+
 			collect_star.setOnClickListener(new OnClickListener()
 			{
 				public void onClick(View v)

@@ -22,7 +22,7 @@ public class File_with_ {
             }
             if (file.exists()) {//如果文件存在，则追加编号
                 String[] Path = file.getPath().split("\\.");
-                String path = Path[0] + "1.3gp";//((int)(1+Math.random()*(10-1+1)));
+                String path = Path[0] +((int)(1+Math.random()*(10-1+1)))+".3gp";
                 fi=new File(path);
                 fi.createNewFile();
                 //给真正的file附上路径

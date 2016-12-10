@@ -1,6 +1,10 @@
 package com.example.cat6572325.myapplication;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -12,18 +16,60 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        {
+    Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            img.setImageBitmap((Bitmap) msg.obj);
+        }
+    };
+    ImageView img;
+    Bitmap bitmap2 = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        img = (ImageView) findViewById(R.id.img);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL("http://www.myexception.cn/img/2014/07/25/191310145.jpg");
+
+                    HttpURLConnection conn = (HttpURLConnection) url
+                            .openConnection();
+                    conn.setDoInput(true);
+                    conn.connect();
+                    InputStream is = new BufferedInputStream(conn.getInputStream());
+                    bitmap2 = BitmapFactory.decodeStream(is);// BitmapFactory.decodeStream(is);
+                    is.close();
+                    conn.disconnect();
+                    Message msg = new Message();
+                    msg.obj = bitmap2;
+                    mHandler.sendMessage(msg);
+                } catch (IOException e) {
+                }
+
+            }
+        });
+    }
+}
+
+     /*       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,3 +145,4 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 }
+*/

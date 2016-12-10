@@ -9,10 +9,10 @@ package com.soundcloud.android.crop;
 public final class R {
 	public static final class attr {
 		public static final int cropImageStyle = 0x7f010001;
-		public static final int highlightColor = 0x7f0100d5;
-		public static final int showCircle = 0x7f0100d7;
-		public static final int showHandles = 0x7f0100d8;
-		public static final int showThirds = 0x7f0100d6;
+		public static final int highlightColor = 0x7f0100d4;
+		public static final int showCircle = 0x7f0100d6;
+		public static final int showHandles = 0x7f0100d7;
+		public static final int showThirds = 0x7f0100d5;
 	}
 	public static final class color {
 		public static final int crop__button_bar = 0x7f0d002b;
@@ -33,11 +33,11 @@ public final class R {
 	}
 	public static final class id {
 		public static final int always = 0x7f0e003b;
-		public static final int btn_cancel = 0x7f0e00c3;
-		public static final int btn_done = 0x7f0e00c4;
+		public static final int btn_cancel = 0x7f0e00c2;
+		public static final int btn_done = 0x7f0e00c3;
 		public static final int changing = 0x7f0e003c;
-		public static final int crop_image = 0x7f0e00c1;
-		public static final int done_cancel_bar = 0x7f0e00c2;
+		public static final int crop_image = 0x7f0e00c0;
+		public static final int done_cancel_bar = 0x7f0e00c1;
 		public static final int never = 0x7f0e003d;
 	}
 	public static final class layout {
@@ -60,7 +60,7 @@ public final class R {
 		public static final int Crop_DoneCancelBar = 0x7f0a00df;
 	}
 	public static final class styleable {
-		public static final int[] CropImageView = { 0x7f0100d5, 0x7f0100d6, 0x7f0100d7, 0x7f0100d8 };
+		public static final int[] CropImageView = { 0x7f0100d4, 0x7f0100d5, 0x7f0100d6, 0x7f0100d7 };
 		public static final int CropImageView_highlightColor = 0;
 		public static final int CropImageView_showCircle = 2;
 		public static final int CropImageView_showHandles = 3;

@@ -139,6 +139,7 @@ public class Collect_ extends AppCompatActivity {
 	private DrawerLayout mDrawerLayout;
 	User user=new User();
 
+	ImageView xDheadImage;
 	public ArrayList<HashMap<String,Object>> lists=new ArrayList<HashMap<String,Object>>();
 	public FirstAdapter adapter;
 
@@ -160,7 +161,28 @@ public class Collect_ extends AppCompatActivity {
 			mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
 			User_name = (TextView)this.findViewById(R.id.User_name);
 			menu_img = (ImageView)this.findViewById(R.id.Collect_menu);
-			
+			xDheadImage=(ImageView)this.findViewById(R.id.drawer_headerImageView);
+			User u=new User();
+			if (u.headBitmap!=null)
+			{
+				xDheadImage.setImageBitmap(u.headBitmap);
+
+			}
+			xDheadImage.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					User u=new User();
+					if (u._id!="null")
+					{
+						Intent intent = new Intent(Collect_.this, Personal_.class);
+						startActivity(intent);
+					}else
+					{
+						Intent intent = new Intent(Collect_.this, Login_.class);
+						startActivity(intent);
+					}
+				}
+			});
 			menu_img.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View view) {
@@ -383,12 +405,17 @@ public class Collect_ extends AppCompatActivity {
 
 		}
 	}
+	public void paythisVideoButton(View view)
+	{//支付按钮
+
+
+	}
 	public void getcollect()
 	{
 		
 		
 		HashMap<String ,Object> map=new HashMap<String ,Object>();
-		map.put("context",Collect_.this);
+		map.put("Context",Collect_.this);
 		
 		String url="http://trying-video.herokuapp.com/user/allcollect?token="+user.token;
 		Http_UploadFile_ http=new Http_UploadFile_(url,map,"13");

@@ -1,5 +1,6 @@
 package com.yanbober.support_library_demo;
 
+import android.annotation.TargetApi;
 import android.app.*;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -75,7 +76,7 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Round_Video_ extends Activity implements http_thread_.OnInvalitorProgress
+public class Round_Video_ extends Activity
 
 {
     public Handler mHandler = new Handler() {
@@ -87,7 +88,7 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
 
                         if (bundle.getString("?").equals("success")) {
                             //  View_One view_one = new View_One(Round_Video_.this,bundle.getString("!"));
-                            p.OnProgressChanged(101);
+                         //   p.OnProgressChanged(101);
                             //101代表退出
                         }
                         if (bundle.getString("?").equals("ing")) {
@@ -107,7 +108,7 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
                     break;
                 case 1:
 
-                    start();
+                   ResetCamera();
                     break;
                 case 2:
                     String url = "http://trying-video.herokuapp.com/user/video/detail/" + bundle.getString("vdo_id") + "?token=" + user.token;
@@ -115,18 +116,26 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
                     map1.put("count", 1);
 
                     http_thread_ htt = new http_thread_(Round_Video_.this, url
-                            , file_with.GetFile().getPath()
+                            , file_with.GetFile().getPath()+((int)(1+Math.random()*(10-1+1)))+".png"
                             , mHandler
                             , map1);
                     Thread c = new Thread(htt);
                     c.start();
                     break;
+                case 3:
+
+                    if (bundle!=null)
+                        if (bundle.getString("?").equals("已保存"))
+                        {
+                            finish();
+                        }
+                    break;
 
             }
-            }
-        };
+        }
+    };
 
-        User user=new User();
+    User user=new User();
     RoundProgressBar bar;
     static int message = 0;
     private Button startButton, stopButton, playButton;
@@ -136,21 +145,21 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
     private Camera camera;
     private SurfaceHolder surfaceHolder1;
     public RelativeLayout HideLayout, bottom_hide_layout;
-    static int flag = 0, recordarl = 0, turncamera = 1;
+    static int flag = 0, recordarl = 0, turncamera = 0;
     int count = 0;
     Timer mTimer = new Timer();
     TimeUnit t;
-    File file = new File("/sdcard/RoundVideo/video.3gp");
+    File file = new File("/sdcard/RoundVideo/RoudVideos"+randomProdoction()+".3gp");
     File_with_ file_with;
     String COMMA_PATTERN = ",";
     TextView top_time;
     int minute, min;
     Size size;
     task Prog_task;
-    ImageView sound,turnC;
+    ImageView sound,turnC,round_back_img,rounding_time_img;
 
 
-   public Pop_Img.Builder p;
+    public Pop_Img.Builder p;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,9 +173,7 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
         // 声明Surface不维护自己的缓冲区，针对Android3.0以下设备支持
         mSurfaceView.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         initView();
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.roundbutton);
 
-        //bar.setBitmap(bitmap,0);
 
         bar.setOnClickListener(new OnClickListener() {
             public void onClick(View v)
@@ -178,7 +185,12 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
                     if (camera!=null)
                         sound.setVisibility(View.INVISIBLE);
                     turnC.setVisibility(View.INVISIBLE);
-                        stop();
+                    if(camera!=null)
+                    {
+                        camera.stopPreview();
+                        camera.release();
+                        camera=null;
+                    }
                     bar.setBackgroundResource(R.drawable.roundbuttoning);
                     start();
                     flag = 1;
@@ -211,14 +223,61 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
         bottom_hide_layout = (RelativeLayout) this.findViewById(R.id.bottom_hide_layout);
         sound=(ImageView)this.findViewById(R.id.Round_sound);
         turnC=(ImageView)this.findViewById(R.id.Round_turn);
+        round_back_img=(ImageView)this.findViewById(R.id.round_back);
+        rounding_time_img=(ImageView)this.findViewById(R.id.rounding_time_img);
+        round_back_img.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         //初始隐藏这个布局
         HideLayout.setVisibility(View.INVISIBLE);
         //隐藏(不可见)
-       mHandler.sendEmptyMessage(1);
+        mHandler.sendEmptyMessage(1);
 
 
     }//initView
+private String randomProdoction()
+{
+    int random=(int)Math.random()*10;
+    String str=null;
+    switch (random)
+    {
+        case 0:
+            str+="a";
+             break;
 
+        case 1:
+            str+="b";
+            break;
+
+        case 2:
+            str+="c";
+            break;
+
+        case 3:
+            str+="e";
+            break;
+
+        case 4:
+            str+="f";
+            break;
+
+        case 5:
+            str+="g";
+            break;
+
+        case 6:
+            str+="h";
+            break;
+
+        case 7:
+            str+="i";
+            break;
+    }
+    return str+String.valueOf(random);
+}
     public void setprog() {
         Prog_task = new task(count, bar);
         //新建一个方法
@@ -284,7 +343,7 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
     }
 
     protected void start() {
-        //
+        rounding_time_img.setBackgroundResource(R.drawable.times);
         try {
 
             if (file_with!=null) {//如果先前已经申请过一个文件
@@ -386,6 +445,7 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
     }
 
     protected void stop() {
+        rounding_time_img.setBackgroundResource(R.drawable.timer);
         if (isRecording) {
             // 如果正在录制，停止并释放资源
             mediaRecorder.stop();
@@ -415,27 +475,16 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
     }
     public void ResetCamera()
     {
-        camera=null;
-        mediaRecorder=null;
-        if (turncamera==0)
-        { turncamera=1;}
-        else
-        { turncamera=0;}
-        mSurfaceView.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+
+
+      //  mSurfaceView.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         try {
-            file_with = new File_with_();
-            //新建对象
-            DisplayMetrics dm = new DisplayMetrics();
-            getWindowManager().getDefaultDisplay().getMetrics(dm);
-            mediaRecorder = new MediaRecorder();// 创建mediarecorder对象
-            //摄像头旋转90度
-            WindowManager wm = (WindowManager) Round_Video_.this
-                    .getSystemService(Context.WINDOW_SERVICE);
-
-            int width = wm.getDefaultDisplay().getWidth();
-            int height = wm.getDefaultDisplay().getHeight();
-            Camera.Size bestSize = null;
-
+            if (camera!=null)
+            {
+                camera.stopPreview();
+                camera.release();
+                camera=null;
+            }
             if (turncamera==0)
             {
                 camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
@@ -443,81 +492,26 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
             {
                 camera=Camera.open(CameraInfo.CAMERA_FACING_FRONT);
             }
+            camera.setDisplayOrientation(90);
+            camera.setPreviewDisplay(mSurfaceView.getHolder());
+            camera.startPreview();
 
-            Camera.Parameters mParams = camera.getParameters();
-            List<Camera.Size> sizeList = camera.getParameters().getSupportedPreviewSizes();
-            bestSize = sizeList.get(0);
 
-            for (int i = 1; i < sizeList.size(); i++) {
-                if ((sizeList.get(i).width * sizeList.get(i).height) >
-                        (bestSize.width * bestSize.height)) {
-                    bestSize = sizeList.get(i);
-                }
-            }
-            //	mParams.setPreviewSize(mSurfaceView.getWidth(),mSurfaceView.getHeight());
-            //camera.setParameters(mParams);
-            //camera.startPreview();
-            camera.setDisplayOrientation(280);
-            camera.unlock();
             //	Size pictureS = MyCampara.getInstance().getPictureSize(pictureSizes, 800);
             //	mParams.setPictureSize(pictureS.width, pictureS.height);
-            mediaRecorder.setCamera(camera);
-            // 设置录制视频源为Camera(相机)
-            if (recordarl == 0) {
-                //等于0则设置录音
-                mediaRecorder.setVideoSource(Camera.CameraInfo.CAMERA_FACING_BACK);
-                //设置音频采集方式
-                mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-                //设置输出格式
-                mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-                //设置audio编码方式
-            }
-            mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-            //设置最大限时
-            //mediaRecorder.setMaxDuration(60*1000);
-            //录像旋转90度
-            //mediaRecorder.setOrientationHint(90);
-            // 设置录制完成后视频的封装格式THREE_GPP为3gp.MPEG_4为mp4
-            //mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-            // 设置录制的视频编码h263 h264
-            mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
-            //设置高质量录制,改变码率
-            mediaRecorder.setVideoEncodingBitRate(5 * 1024 * 1024);
-            //设置视频录制的分辨率。必须放在设置编码和格式的后面，否则报错
-            mediaRecorder.setVideoSize(640, 480);
-            // 设置录制的视频帧率。必须放在设置编码和格式的后面，否则报错
-            mediaRecorder.setVideoFrameRate(20);
-            // 设置视频文件输出的路径
-            mediaRecorder.setOutputFile(file_with.TestFile(file).getPath());
-            // 设置捕获视频图像的预览界面
-            mediaRecorder.setPreviewDisplay(mSurfaceView.getHolder().getSurface());
-            mediaRecorder.setOnErrorListener(new OnErrorListener() {
-                @Override
-                public void onError(MediaRecorder mr, int what, int extra) {
-                    // 发生错误，停止录制
-                    mediaRecorder.stop();
-                    mediaRecorder.release();
-                    mediaRecorder = null;
-                    isRecording = false;
-                    startButton.setEnabled(true);
-                    stopButton.setEnabled(false);
-                    playButton.setEnabled(false);
-                }
-            });
-            // 准备、开始
-            mediaRecorder.prepare();
-            mediaRecorder.start();
-            //startButton.setEnabled(false);
-            //stopButton.setEnabled(true);
-            isRecording = true;
-        } catch (Exception e) {
+          } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     //////////////////sucess Onclick
     public void Turncamera(View v) {
-        stop();
+        if(camera!=null)
+        {
+            camera.stopPreview();
+            camera.release();
+            camera=null;
+        }
         //先停下当前摄像
         if (turncamera==0)
         {
@@ -526,20 +520,17 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
         {
             turncamera=0;
         }
-        start();
-       // ResetCamera();
+        ResetCamera();
+        // ResetCamera();
         //再重新开始
        /* int cameraCount = 0;
         CameraInfo cameraInfo = new CameraInfo();
         cameraCount = Camera.getNumberOfCameras();//得到摄像头的个数
-
         for (int i = 0; i < cameraCount; i++) {
-
             Camera.getCameraInfo(i, cameraInfo);//得到每一个摄像头的信息
             if (turncamera == 0) {
                 //现在是后置，变更为前置
                 if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {//代表摄像头的方位，CAMERA_FACING_FRONT前置      CAMERA_FACING_BACK后置
-
                     camera.stopPreview();//停掉原来摄像头的预览
                     camera.release();//释放资源
                     camera = null;//取消原来摄像头
@@ -574,10 +565,6 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
                     break;
                 }
             }
-
-
-
-
 }*/
     }
 
@@ -588,11 +575,11 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
             recordarl = 0;
         }
     }
-	
-	public void onInvalitorProgress(int counttime)
-	{
-		int y=counttime;
-	}
+
+    public void onInvalitorProgress(int counttime)
+    {
+        int y=counttime;
+    }
 
     public void delete(View v) {
         //TODO 删除按钮
@@ -626,7 +613,8 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
             map1.put("textsize", 25);
             map1.put("upload", 0);//０表示显示一个进度
             map1.put("color", Color.rgb(555, 333, 333));
-
+            map1.put("count",0);
+            map1.put("key","photofile");
             p = new Pop_Img.Builder(Round_Video_.this, map1,file_with);
 
             p.create().show();
@@ -650,6 +638,28 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
         */
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //首先按钮保存数据，未上传时按下返回键就会开始联网发送未上传视频的信息，发送保存成功后收到一个handler的message然后直接finish
+        //大多需要的参数都在User的对象里了，一旦上传则清空
+        User u=new User();
+        if (u.notLoadforVideo_list!=null)
+        {
+            HashMap<String, Object> map =u.notLoadforVideo_list.get(0);
+            map.put("handler",mHandler);
+            map.put("Context",Round_Video_.this);
+            map.put("count",20);
+            map.put("vdoPath",file_with.GetFile().getPath());
+
+            Http_UploadFile_ http_uploadFile_=new Http_UploadFile_("http://trying-video.herokuapp.com/user/video/unput?token="+u.token
+            ,map
+            ,"20");
+            Thread c=new Thread(http_uploadFile_);
+            c.start();
+        }
+    }
+
     public void edit(View v) {
         //TODO 编辑按钮
         try {
@@ -661,8 +671,8 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
             map1.put("upload", 1);
             map1.put("color", Color.rgb(555, 333, 333));
 
-           p = new Pop_Img.Builder(Round_Video_.this, map1,file_with);
-          p.setaddMiusic(new DialogInterface.OnClickListener() {
+            p = new Pop_Img.Builder(Round_Video_.this, map1,file_with);
+            p.setaddMiusic(new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     //dialog.dismiss();
                     //设置你的操作事项
@@ -676,23 +686,23 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
             });//setaddvioce()
             p.setUploadclick(0, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                  //  Toast.makeText(Round_Video_.this,"click",Toast.LENGTH_SHORT).show();
+                    //  Toast.makeText(Round_Video_.this,"click",Toast.LENGTH_SHORT).show();
                     //发送http请求，上传视频
-					
-                    
+
+
                 }
             });
-                  p.create().show();
+            p.create().show();
             int count = 100;
-          //    task1 t = new task1(count);
+            //    task1 t = new task1(count);
             //新建一个方法
-          //   mTimer.schedule(t, 0, 1000);
+            //   mTimer.schedule(t, 0, 1000);
             //设每一秒调用一次
         }catch (Error e2)
         {
         }
     }
-//////////////////sucess Onclick
+    //////////////////sucess Onclick
     class task1 extends TimerTask {
         public View v;
         int x, y;
@@ -711,7 +721,7 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
             runOnUiThread(new Runnable() {      // UI thread
                 @Override
                 public void run() {
-                  //  bar.OnProgressChanged(10);
+                    //  bar.OnProgressChanged(10);
                 }
             });
         }
@@ -798,7 +808,7 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
 
 
         }
-      catch (UnknownError e4)
+        catch (UnknownError e4)
         {
 
         }
@@ -815,9 +825,10 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     @SuppressWarnings("WrongConstant")
     private void muxerAudio(String fromPath,String toPath) {
-       MediaExtractor mediaExtractor = new MediaExtractor();
+        MediaExtractor mediaExtractor = new MediaExtractor();
         int audioIndex = -1;
         try {
             mediaExtractor.setDataSource(fromPath);
@@ -830,7 +841,7 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
             }
             mediaExtractor.selectTrack(audioIndex);
             MediaFormat trackFormat = mediaExtractor.getTrackFormat(audioIndex);
-           MediaMuxer mediaMuxer = new MediaMuxer(toPath, MediaMuxer.OutputFormat.MUXER_OUTPUT_MPEG_4);
+            MediaMuxer mediaMuxer = new MediaMuxer(toPath, MediaMuxer.OutputFormat.MUXER_OUTPUT_MPEG_4);
             int writeAudioIndex = mediaMuxer.addTrack(trackFormat);
             mediaMuxer.start();
             ByteBuffer byteBuffer = ByteBuffer.allocate(500 * 1024);
@@ -849,7 +860,7 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
                 mediaExtractor.readSampleData(byteBuffer, 0);
                 long thirdTime = mediaExtractor.getSampleTime();
                 stampTime = Math.abs(thirdTime - secondTime);
-           ///     Log.e("fuck", stampTime + "");
+                ///     Log.e("fuck", stampTime + "");
             }
 
             mediaExtractor.unselectTrack(audioIndex);
@@ -871,11 +882,12 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
             mediaMuxer.stop();
             mediaMuxer.release();
             mediaExtractor.release();
-           // Log.e("fuck", "finish");
+            // Log.e("fuck", "finish");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     @SuppressWarnings("WrongConstant")
     private void muxerMedia(String fromPath,String toPath) {
         MediaExtractor mediaExtractor1 = new MediaExtractor();
@@ -942,61 +954,29 @@ public class Round_Video_ extends Activity implements http_thread_.OnInvalitorPr
         }
     }
     //TODO 视频处理　　AAAAAAAAAAAAAA
-    //TODO 上传视频   VVVVVVVVVVVVVVVVVVV 　差上传成功与否检测，待研究
-    private void doUploadImg(String url,String filePath) {
-        User u=new User();
-        if (u.notLoadforVideo_list.size()>0) {
-            HashMap<String, Object> map1 = new HashMap<String, Object>();
-            map1.put("isprogress", 1);
-            map1.put("progress", 0);
-            map1.put("max", 100);
-            map1.put("textsize", 25);
-            map1.put("upload", 0);//０表示显示一个进度
-            map1.put("color", Color.rgb(555, 333, 333));
 
-            p = new Pop_Img.Builder(Round_Video_.this, map1,file_with);
-
-            p.create().show();
-
-            http_thread_ htt = new http_thread_(Round_Video_.this, "http://trying-video.herokuapp.com/user/video?token=" + user.token
-                    , file_with.GetFile().getPath()
-                    , mHandler
-                    , user.notLoadforVideo_list.get(0));
-            Thread c = new Thread(htt);
-            c.start();
-        }else
-        {
-            Toast.makeText(Round_Video_.this,"未填写视频信息，请先编辑",Toast.LENGTH_LONG).show();
-        }
+    /**
+     * 获取视频文件截图
+     *
+     * @param path 视频文件的路径
+     * @return Bitmap 返回获取的Bitmap
+     */
+    public static Bitmap getVideoThumb(String path) {
+        MediaMetadataRetriever media = new MediaMetadataRetriever();
+        media.setDataSource(path);
+        return media.getFrameAtTime();
     }
-
-    //TODO 上传视频　　AAAAAAAAAAAAAAAAAA
-
-	/**
-	 * 获取视频文件截图
-	 *
-	 * @param path 视频文件的路径
-	 * @return Bitmap 返回获取的Bitmap
-	 */
-	public static Bitmap getVideoThumb(String path) {
-		MediaMetadataRetriever media = new MediaMetadataRetriever();
-		media.setDataSource(path);
-		return media.getFrameAtTime();
-	}
-	/**
-	 * 获取视频文件缩略图 API>=8(2.2)
-	 *
-	 * @param path 视频文件的路径
-	 * @param kind 缩略图的分辨率：MINI_KIND、MICRO_KIND、FULL_SCREEN_KIND
-	 * @return Bitmap 返回获取的Bitmap
-	 */
-	public static Bitmap getVideoThumb2(String path, int kind) {
-		return ThumbnailUtils.createVideoThumbnail(path, kind);
-	}
-	public static Bitmap getVideoThumb2(String path) {
-		return getVideoThumb2(path, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
-	}
+    /**
+     * 获取视频文件缩略图 API>=8(2.2)
+     *
+     * @param path 视频文件的路径
+     * @param kind 缩略图的分辨率：MINI_KIND、MICRO_KIND、FULL_SCREEN_KIND
+     * @return Bitmap 返回获取的Bitmap
+     */
+    public static Bitmap getVideoThumb2(String path, int kind) {
+        return ThumbnailUtils.createVideoThumbnail(path, kind);
+    }
+    public static Bitmap getVideoThumb2(String path) {
+        return getVideoThumb2(path, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
+    }
 }
-
-
-

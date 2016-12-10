@@ -57,9 +57,11 @@ public class http_thread_ extends Thread {
 				pul();
 				break;
 			case 1:
-				videodata("s");
+				videodata();
 				break;
-				
+			case 2:
+				loadvideopng("s");
+				break;
 		}
 
 	   
@@ -104,8 +106,14 @@ public class http_thread_ extends Thread {
           //  Toast.makeText(con.this, "File not exits！", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        Map<String, String> param = new HashMap<>();
+		String str=path.substring(0,path.lastIndexOf(".")-1);
+		File f=new File(str+((int)(1+Math.random()*(10-1+1)))+".png");
+	//	compressImage(getVideoThumb(file.getPath()),f.getPath());
+		//改后缀名
+		bitmap2File(getVideoThumb(file.getPath()),f);
+		//创建截图
+		path=f.getPath();
+		Map<String, String> param = new HashMap<>();
         param.put("file","videofile");
         Pair<String, File> pair = new Pair(key, file);
         OkHttpProxy
@@ -125,19 +133,12 @@ public class http_thread_ extends Thread {
                         String str=response.body().string();
 						try{
 						JSONObject js=new JSONObject(str);
-						
-						
                         Log.e("video",str);
                         Log.e("完成", String.valueOf(response.isSuccessful()));
-                        bundle.putString("?","success");
-                        bundle.putString("!",str);
-                        msg.what=0;
-						msg.setData(bundle);
-                        handler.sendMessage(msg);
-						
-						
-						_videoid=js.getString("_id");
+                   		_videoid=js.getString("_id");
 					url="http://trying-video.herokuapp.com/user/videophoto/"+js.getString("_id")+"?token="+user.token;
+							mapvideo.put("key","vidphotofile");//改key上传视频截图
+
 							loadvideopng(js.getString("_id"));
 						//开始上传截图
 						}catch(JSONException e)
@@ -205,14 +206,12 @@ public class http_thread_ extends Thread {
 				
 				
     }
-	public void videodata(String url)
+	public void videodata()
 	{
-		OkHttpClient htt=new OkHttpClient();
-       // String[] strs = json.split("\\|");
-        JSONObject jsonObject = null;
+		JSONObject jsonObject = null;
         JSONArray jsonArray = null;
         String str = null;
-		this.url=url;
+
 		Response response = null;
 		
         try {
@@ -238,7 +237,7 @@ public class http_thread_ extends Thread {
 }
 >>  返回 status: '信息已以相同id保存'
 			 */
-			Log.e("uploader", mapvideo.get("uploader").toString());
+			//Log.e("uploader", mapvideo.get("uploader").toString());
 					Log.e("title", mapvideo.get("title").toString());
 					Log.e("introduction", mapvideo.get("introduction").toString());
 					Log.e("price", mapvideo.get("price").toString());
@@ -257,12 +256,14 @@ public class http_thread_ extends Thread {
                                     }
                                     >>  返回 status: '信息已以相同id保存'
                                     */
+			JSONObject jsonObject1=new JSONObject();
+			jsonObject1.put("introduction","");
 
 			RequestBody formBody = new FormBody.Builder()
 				.add("uploader","")// mapvideo.get("uploader").toString())
-				.add("title", "")//mapvideo.get("title").toString())
-				.add("introduction", "")//mapvideo.get("introduction").toString())
-				.add("price", "")//mapvideo.get("price").toString())
+				.add("title", mapvideo.get("title").toString())
+				.add("introduction", new JSONObject().put("introduction",mapvideo.get("introduction").toString()).toString())
+				.add("price", mapvideo.get("price").toString())
 				.add("paidppnumber","")// mapvideo.get("paidppnumber").toString())
 				.add("concernednumber", "")//mapvideo.get("concernednumber").toString())
 				
@@ -281,20 +282,35 @@ Log.e("url",url);
 			catch (IOException e)
 			{}
 			//if (!response.isSuccessful())
-            str = response.body().string();
+          final String  str1 = response.body().string();
 			Log.e("发送视频信息时返回了",str);
 			jsonObject=new JSONObject(str);
-			if(jsonObject.getString("status").equals("信息已以相同id保存"))
-			{
-				//view_one=null;
-				//view_one=new View_One((Context)mapvideo.get("context"),"上传成功");
-			//	view_one.viewcreate();
-			}
+		Bundle bundle=new Bundle();
+			Message msg=new Message();
+			bundle.putString("?","success");
+			bundle.putString("!",str);
+			msg.what=0;
+			msg.setData(bundle);
+			user.notLoadforVideo_list=null;//清空未上传视频信息,表示已上传
+			handler.sendMessage(msg);
 
-            
+
+			new Thread() {
+
+				@Override
+				public void run() {
+					super.run();
+					view_one=null;
+					view_one=new View_One((Context)mapvideo.get("Context"),str1);
+					view_one.viewcreate();
+				}
+			}.start();
 
 
-        } catch (IOException e) {
+
+
+
+		} catch (IOException e) {
             e.printStackTrace();
 			Log.e("videodata",e.toString());
 			
@@ -316,13 +332,9 @@ Log.e("url",url);
         final Bundle bundle=new Bundle();
 		final File file = new File(path);//Environment.getExternalStorageDirectory(), "jiandan02.jpg");
         //视频地址
-		key="vidphotofile";
-		File f=new File("/sdcard/RoundVideo/RoundImage1.png");
-		//暂时创建一个没有内容的视频截图路口
-
-		bitmap2File(getVideoThumb(file.getPath()),f);
-		//创建截图
-		
+			//暂时创建一个没有内容的视频截图路口
+//		Log.e("截图路径",str);
+		Log.e("文件路径",file.getPath());
 		if (!file.exists()) {
 			//  Toast.makeText(con.this, "File not exits！", Toast.LENGTH_SHORT).show();
 			
@@ -330,14 +342,16 @@ Log.e("url",url);
         }
 
         Map<String, String> param = new HashMap<>();
-        param.put("file","videofile");
-        Pair<String, File> pair = new Pair(key, f);
+       // param.put("file","videofile");
+        Pair<String, File> pair = new Pair(mapvideo.get("key").toString(), file);
         OkHttpProxy
 			.upload()
 			.url(url)
+
 			.file(pair)
 			.setParams(param)
 			.setWriteTimeOut(20)
+
 			.start(new UploadListener() {
 			@Override
 			public void onFailure(Call call, IOException e) {
@@ -351,25 +365,22 @@ Log.e("url",url);
 
                         Log.e("videophonto",str);
                         Log.e("完成", String.valueOf(response.isSuccessful()));
-					url="http://trying-video.herokuapp.com/user/video/detail/"+v_id+"?token="+user.token;
 					HashMap<String,Object> map =new HashMap<String,Object>();
-					
-					Http_UploadFile_ http=new Http_UploadFile_(url,mapvideo,"3");
-					Thread x=new Thread(http);
-				//	x.start();
 
 					Message msg1=new Message();
 					msg1.obj=mapvideo;
-					msg1.what=2;
-				Bundle	bundle1=new Bundle();
+					msg1.what=0;
+					Bundle	bundle1=new Bundle();
 					bundle1.putString("vdo_id",v_id);
 					msg1.setData(bundle1);
-					Log.e("返回的视频id",v_id);
-					//handler=(Handler) mapvideo.get("handler");
-				//	handler.sendMessage(msg1);
-					String url = "http://trying-video.herokuapp.com/user/video/detail/" + v_id + "?token=" + user.token;
+					//Log.e("返回的视频id",v_id);
+					handler=(Handler) mapvideo.get("handler");
+					handler.sendMessage(msg1);
 
-					videodata(url);
+					 url = "http://trying-video.herokuapp.com/user/video/detail/" + v_id + "?token=" + user.token;
+					if((Integer)mapvideo.get("count")!=2)
+					videodata();
+
 						
 				}
 
@@ -380,19 +391,16 @@ Log.e("url",url);
 
 						String str=response.body().string();
 
-						JSONObject js=new JSONObject(str);
 
 						
-						Log.e("完成", String.valueOf(response.isSuccessful()));
+						Log.e("完成", str);
 						
 
 					} catch (IOException e) {
 						e.printStackTrace();
 						Log.e("完成", e.toString());
-						
-						
-					}catch (JSONException er) {
-					Log.e("完成", er.toString());
+
+
 					}
 				}
 
@@ -436,7 +444,7 @@ Log.e("url",url);
 		}
 		return f.getAbsolutePath();
 	}
-	
+
 /*
 	*
 	* @param path 视频文件的路径
@@ -460,8 +468,23 @@ Log.e("url",url);
 	public static Bitmap getVideoThumb2(String path) {
 		return getVideoThumb2(path, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
 	}
-	public interface OnInvalitorProgress
-    {
-       // public void Onebent(String str);
-    }
+/*
+压缩
+ */
+private Bitmap decodeSampleBitmapFromStream(Bitmap bitmap)
+{
+	ByteArrayOutputStream baos=new ByteArrayOutputStream();
+	int options =80;
+	bitmap.compress(Bitmap.CompressFormat.PNG,100,baos);
+	while (baos.toByteArray().length/1024>100)
+	{
+		baos.reset();
+		options-=10;
+		bitmap.compress(Bitmap.CompressFormat.PNG,100,baos);
+	}
+	ByteArrayInputStream isBm=new ByteArrayInputStream(baos.toByteArray());
+	Bitmap bitmap1=BitmapFactory.decodeStream(isBm,null,null);
+
+	return bitmap1;
 }
+	}

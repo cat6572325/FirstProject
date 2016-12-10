@@ -60,12 +60,12 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable-xhdpi/ahead.png"
     },
     {
-        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/jc_loading_bg.png",
-        "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/fm.jiecao/jiecaovideoplayer/5.0_preview/res/drawable-xhdpi-v4/jc_loading_bg.png"
-    },
-    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/abc_ic_star_half_black_36dp.png",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/res/drawable-xhdpi-v4/abc_ic_star_half_black_36dp.png"
+    },
+    {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/jc_loading_bg.png",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/fm.jiecao/jiecaovideoplayer/5.0_preview/res/drawable-xhdpi-v4/jc_loading_bg.png"
     },
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/left_line.png",

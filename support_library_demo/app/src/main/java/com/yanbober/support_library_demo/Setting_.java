@@ -19,9 +19,11 @@ import android.view.*;
 import android.view.View.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
+
 import com.bumptech.glide.*;
 import com.jph.takephoto.model.*;
 import com.yanbober.support_library_demo.Http_Util.*;
+
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -29,19 +31,28 @@ import java.util.*;
 import android.view.View.OnClickListener;
 
 public class Setting_ extends AppCompatActivity {
-	
-	public Handler mHandler = new Handler() {
-		public void handleMessage(android.os.Message msg) {
-			switch (msg.what) {
-					}
-					}
-					};
+
+    public Handler mHandler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            switch (msg.what) {
+                case 0:
+                    //user.headBitmap=bitmap;
+                  //  Intent intent = getIntent();
+                    //intent.putExtra("head",bitmap);
+
+                    //setResult(0, intent);//返回页面1
+
+                    //finish();
+                    break;
+            }
+        }
+    };
     ListView rl;
-	
-	
+
+Bitmap bitmap;
     MyChatAdapter ladapter;
-	XCRoundImageView headImg=null;
-    User user=new User();
+    XCRoundImageView headImg = null;
+    User user = new User();
     int[] layout = {R.layout.setting_list_item, R.layout.line_item};
 
 
@@ -53,21 +64,24 @@ public class Setting_ extends AppCompatActivity {
         // TODO: Implement this method
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setting_);
-      //  initView();
-	
+        initView();
+
     }/////onCreate
 
     public void initView() {
         rl = (ListView) this.findViewById(R.id.tRecyclerView1);
-		headImg=(XCRoundImageView)this.findViewById(R.id.drawer_headerImageView);
-		headImg.setOnClickListener(new OnClickListener()
-		{
-			public void onClick(View v)
-			{
-					Intent intent=new Intent(Setting_.this,SimpleActivity.class);
-				startActivity(intent);
+        headImg = (XCRoundImageView) this.findViewById(R.id.drawer_headerImageView);
+        headImg.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(Setting_.this, SimpleActivity.class);
+                startActivityForResult(intent, 1);
+
+
+
+
+
 				/*Intent intent = new Intent();
-				if (Build.VERSION.SDK_INT < 19) {//因为Android SDK在4.4版本后图片action变化了 所以在这里先判断一下
+                if (Build.VERSION.SDK_INT < 19) {//因为Android SDK在4.4版本后图片action变化了 所以在这里先判断一下
 					intent.setAction(Intent.ACTION_GET_CONTENT);
 				} else {
 					intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
@@ -77,67 +91,16 @@ public class Setting_ extends AppCompatActivity {
 				startActivityForResult(intent, 1);
 				
 			}*/
-			}
-			});
-			Bundle bun=this.getIntent().getExtras();
-		if(bun!=null&&bun.containsKey("images"))
-		{
-			ArrayList<TImage>images;
-			//String str=bun.getString("image");
-			HashMap<String,Object> data=new HashMap<String,Object>();
-			data.put("count",1);
-			images= (ArrayList<TImage>) getIntent().getSerializableExtra("images");
-			Bitmap b=null;//(Bitmap)images.get(0);
-			
-			//Glide.with(this).load(new File(images.get(images.size() - 1).getPath())).asBitmap(b);
-			File f=new File(images.get(images.size() - 1).getPath());
-			ContentResolver cr = this.getContentResolver();
-			
-File dirFile;
+            }
+        });
+        User u = new User();
+        if (u.headBitmap != null)
+            headImg.setImageBitmap(u.headBitmap);
+        Bundle bun = this.getIntent().getExtras();
+        if (bun != null && bun.containsKey("images")) {
 
-			try
-			{
-				Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(Uri.fromFile(f)));
-			dirFile = new File("/sdcard/newbitmap.png");  
-				if(!dirFile.exists()){  
-					try
-					{
-						dirFile.createNewFile();
-					}
-					catch (IOException e)
-					{}
 
-				}  
-			//	File myCaptureFile = new File(path + fileName);  
-				BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(dirFile));  
-				bitmap.compress(Bitmap.CompressFormat.JPEG, 80, bos);  
-				
-				
-				try
-				{
-					bos.flush();
-				
-				
-				bos.close(); 
-				}
-				catch (IOException e)
-				{}  
-			//Bitmap b= toRoundBitmap(bitmap);
-			headImg.setImageBitmap(bitmap);
-			
-				/*上传文件
-				 PATCH方法
-				 */
-				//NewOkhttp v=new NewOkhttp();
-				//Thread cc=new Thread(v);
-				//cc.start();
-			}
-			
-			
-			catch (FileNotFoundException e)
-			{}
-			
-		}
+        }
         addTextToList(user.mydata.get("nickname").toString(), "昵称", 0, R.drawable.home, 0);
 
         addTextToList("分割贱", "没有", 1, R.drawable.fab_bg_normal, 0);
@@ -171,7 +134,7 @@ File dirFile;
                         public void onClick(DialogInterface dialog, int which) {
                             //	dialog.dismiss();
                             //login
-						
+
 
                         }
                         //设置你的操作事项
@@ -186,56 +149,145 @@ File dirFile;
         });
 
     }
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data)
-	{   
-		// TODO: Implement this method
-		super.onActivityResult(requestCode, resultCode, data);
 
-		String str=null;
-			if(requestCode==1)
-			{//file
-			if(data!=null)
-			{
-				str = data.getDataString();
-				Uri uri=data.getData();
-					String pathimg = FileUtils.getUriPath(this, uri); //（因为4.4以后图片uri发生了变化）通过文件工具类 对uri进行解析得到图片路径
-					Log.e("pathimg",pathimg);
-				try{
-					String datasfile = URLDecoder.decode(str,"UTF-8");   //因为Linux编码为utf-8,这样以后可以得到正确的路径
-					Log.e("选择头像",str);
-				String sg=datasfile.substring(datasfile.lastIndexOf("0/") + 1,datasfile.length());
-				File f=new File(pathimg);//"/sdcard"+sg);
-				//File[] fl=f.listFiles();
-				ContentResolver cr = this.getContentResolver();
-					//headImg.setImageURI(Uri.fromFile(f));
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO: Implement this method
+        super.onActivityResult(requestCode, resultCode, data);
+        User u = new User();
+        String str = null;
+        if (requestCode == 1) {//
+            Bundle bundle = data.getExtras();
+            if (bundle.containsKey("images")) {
+                ArrayList<TImage> images;
 
-					//headImg.setScaleType(ScaleType.FIT_XY);
+                //String str=bun.getString("image");
+                images = (ArrayList<TImage>) data.getExtras().get("images");
+                Bitmap b = null;//(Bitmap)images.get(0);
 
-				
-				
-					Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(Uri.fromFile(f)));
-				//Bitmap b= toRoundBitmap(bitmap);
-					headImg.setImageBitmap(bitmap);
-					
-					
-					//fb.setImageBitmap(bitmap);
-					//ByteArrayOutputStream baos = new ByteArrayOutputStream(); //读取图片到ByteArrayOutputStream 
-					//bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos); 
-					//byte[] bytes = baos.toByteArray();
-					//String str=Base64.encodeToString(bytes, Base64.DEFAULT);
-					
+                //Glide.with(this).load(new File(images.get(images.size() - 1).getPath())).asBitmap(b);
+                File f = new File(images.get(images.size() - 1).getPath());
+                ContentResolver cr = this.getContentResolver();
 
-				}
-				catch (FileNotFoundException e)
-				{
-					Log.e("Setting",e.toString());
-				}
-			catch (UnsupportedEncodingException e) {}   //因为Linux编码为utf-8,这样以后可以得到正确的路径
-			}
-	}
-	}
-	
+                File dirFile;
+
+                try {
+                    bitmap = BitmapFactory.decodeStream(cr.openInputStream(Uri.fromFile(f)));
+                    dirFile = new File("/sdcard/180s/headpicture/" + randomProdoction()+".png");
+                    File file1 = new File("/sdcard/180s");
+                    if (!file1.exists()) {
+                        file1.mkdirs();
+                    }
+                    File file2 = new File("/sdcard/180s/headpicture");
+                    if (!file2.exists()) {
+                        file2.mkdirs();
+                    }
+                    if (!dirFile.exists()) {
+
+
+                        dirFile.createNewFile();
+
+
+                    } else {
+                        dirFile.delete();
+                        dirFile.createNewFile();
+                    }
+                    //	File myCaptureFile = new File(path + fileName);
+                    BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(dirFile));
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 80, bos);
+
+
+                    bos.flush();
+                    bos.close();
+                    //Bitmap b= toRoundBitmap(bitmap);
+                    headImg.setImageBitmap(bitmap);
+                    user.headBitmap=bitmap;
+				/*上传文件
+				 PATCH方法
+				 */
+                    HashMap<String, Object> map = new HashMap<String, Object>();
+                    map.put("handler", mHandler);
+                    map.put("Context", Setting_.this);
+                    map.put("key", "photofile");
+                    map.put("count", 1);
+                  /*  http_thread_ htt = new http_thread_(Setting_.this, "http://trying-video.herokuapp.com/user/image?token=" + user.token
+                            , dirFile.getPath()
+                            , mHandler
+                            , map);
+                    Thread c = new Thread(htt);
+                    c.start();
+                    */
+                    NewOkhttp n=new NewOkhttp("http://trying-video.herokuapp.com/user/image/replace?token=" + user.token
+                            ,dirFile
+                            ,map
+                    );
+
+                    Thread x=new Thread(n);
+                    x.start();
+
+                } catch (IOException e) {
+                    Toast.makeText(Setting_.this, e.toString(), Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+
+        }
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent intent = getIntent();
+
+
+        setResult(0, intent);//返回页面1
+
+        finish();
+
+    }
+    private String randomProdoction()
+    {
+        int random=(int)Math.random()*10;
+        String str=null;
+        switch (random)
+        {
+            case 0:
+                str+="a";
+                break;
+
+            case 1:
+                str+="b";
+                break;
+
+            case 2:
+                str+="c";
+                break;
+
+            case 3:
+                str+="e";
+                break;
+
+            case 4:
+                str+="f";
+                break;
+
+            case 5:
+                str+="g";
+                break;
+
+            case 6:
+                str+="h";
+                break;
+
+            case 7:
+                str+="i";
+                break;
+        }
+        return str+String.valueOf(random);
+    }
     public void addTextToList(String text, String name, int who, int id, int isarrow) {
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("who", who);
@@ -292,7 +344,7 @@ File dirFile;
             public ImageView imageView = null;
             public TextView textView = null;
             public String title;
-            private ImageView i_icon, i_icon2,flag;
+            private ImageView i_icon, i_icon2, flag;
             public TextView name = null, data = null;
         }
         ////////////

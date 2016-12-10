@@ -20,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -37,6 +38,9 @@ public class InfoDetailsFragment extends Fragment {
             bundle=msg.getData();
             switch (msg.what) {
                 case 0:
+                    //更新
+                adapter.notifyDataSetChanged();
+
                     break;
             }
         }
@@ -54,13 +58,14 @@ public class InfoDetailsFragment extends Fragment {
     int lastVisibleItem;
     Http_UploadFile_ http_uploadFile_=null;
     OnActivityebent ebent;
+    LinearLayout linearLayouthide1;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.info_details_fragment, container, false);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
         //rv=(RecyclerView)v.findViewById(R.id.groupRecyclerView2);
-
+        linearLayouthide1=(LinearLayout)v.findViewById(R.id.HideLayout1);
         return v;
     }
 
@@ -187,7 +192,7 @@ initView();
 
     }
 
-    public void addTextToList(String text, int who, String id, int count, String name,Bitmap url) {
+    public void addTextToList(String text, int who, String id, int count, String name,String url) {
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("person", who);
         map.put("image", id);
@@ -226,6 +231,10 @@ initView();
      //   t.start();
 
         }
+    ArrayList<HashMap<String, Object>> map;
+    Bitmap bitmap2=null;
+    public String urlbitmap=null;
+    String str1,str2,str3;
 
 public interface OnActivityebent
     {
@@ -233,46 +242,99 @@ public interface OnActivityebent
 
     }
 public void Onebent(ArrayList<HashMap<String, Object>> maps)  {//MainActivity接口
-
-    ArrayList<HashMap<String, Object>> map=maps;
-    Bitmap bitmap2=null;
+map=maps;
 
     for (int i = 0; i <map.size(); i++) {
+        urlbitmap=map.get(i).get("vdoPhotourl").toString();
+        str1=map.get(i).get("paidppnumber").toString();
+        str2=map.get(i).get("vdourl").toString();
+        str3=map.get(i).get("title").toString();
         if (i==10) {return ;}
-        try {
-            URL url = new URL(map.get(i).get("vdoPhotourl").toString());
+        addTextToList(str1
+                , 1
+                , str2
+                , 0
+                , str3
+                , urlbitmap
+        );
 
-            HttpURLConnection conn = (HttpURLConnection) url
-                    .openConnection();
-            conn.setDoInput(true);
-            conn.connect();
-            InputStream is = conn.getInputStream();
-            bitmap2 = BitmapFactory.decodeStream(is);
-            is.close();
-            conn.disconnect();
-        }catch (IOException e )
-        {
-            bitmap2=BitmapFactory.decodeResource(getContext().getResources(), R.drawable.down);
+        mHandler.sendEmptyMessage(2);
 
 
         }
-        //addTextToList("广东",1,android.R.drawable.ic_lock_lock,"ps","data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊");
-        addTextToList(map.get(i).get("paidppnumber").toString()
-                , 1
-                ,map.get(i).get("vdourl").toString()
-                , 0
-                ,map.get(i).get("title").toString()
-				,bitmap2
-				);
-
-        //暂定内容，参数....购买人数,布局,头像,是否显示红点,标题
-        //头像和内容壁纸需要在适配器以二进制转为图片
-    }
     adapter.notifyDataSetChanged();
     //  addTextToList("uuu", 1, "android.R.drawable.ic_lock_lock", 0, "name");
    // Toast.makeText(getContext(),str1,Toast.LENGTH_LONG).show();
-
+    linearLayouthide1.setVisibility(View.INVISIBLE);
 }
+    public class thread implements Runnable
+    {/////chat socket
+
+        String str;
+        public thread(String str)
+        {
+
+            this.str=str;
+
+        }
+
+        public void run()
+        {
+            try {
+
+                    URL url = new URL(str);
+
+                    HttpURLConnection conn = (HttpURLConnection) url
+                            .openConnection();
+                    conn.setDoInput(true);
+                    conn.connect();
+                    InputStream is = new BufferedInputStream(conn.getInputStream());
+                    bitmap2=BitmapFactory.decodeStream(is);// BitmapFactory.decodeStream(is);
+                    is.close();
+                    conn.disconnect();
+                }catch(IOException e)
+                {
+                    bitmap2 = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.down);
+
+
+                }
+                //addTextToList("广东",1,android.R.drawable.ic_lock_lock,"ps","data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊");
+
+
+            mHandler.sendEmptyMessage(2);
+
+            }
+
+
+
+
+        //暂定内容，参数....购买人数,布局,头像,是否显示红点,标题
+        //头像和内容壁纸需要在适配器以二进制转为图片
+
+    }
+    private Bitmap decodeSampleBitmapFromStream(InputStream in,int with,int height)
+    {
+        final BitmapFactory.Options options=new BitmapFactory.Options();
+        options.inJustDecodeBounds=true;
+        BitmapFactory.decodeStream(in,null,options);
+        options.inSampleSize=caluSize(options,with,height);
+        options.inJustDecodeBounds=false;
+        return BitmapFactory.decodeStream(in,null,options);
+    }
+    private static int caluSize(BitmapFactory.Options options,int width,int height)
+    {
+        final int with=options.outWidth;
+        final int heih=options.outHeight;
+        int size=1;
+        if(heih>height || with>width)
+        {
+            final int hetgRatio=Math.round((float)heih/(float)height);
+            final int widthRatio=Math.round((float)with/(float)width);
+            size=hetgRatio < widthRatio ? hetgRatio : widthRatio;
+        }
+        return size;
+
+    }
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);

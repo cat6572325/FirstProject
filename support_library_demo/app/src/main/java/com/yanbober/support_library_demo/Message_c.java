@@ -13,6 +13,7 @@ package com.yanbober.support_library_demo;
 
 
 import android.content.*;
+import android.graphics.Bitmap;
 import android.os.*;
 import android.support.v4.widget.*;
 import android.support.v7.app.*;
@@ -40,20 +41,24 @@ public class Message_c extends AppCompatActivity
 			switch (msg.what)
 			{
 				case 0:
-					/*>>  返回全部通知
-					 {
-					 {
-					 "_id" : "***",
-					 "videoTitle" : "***",
-					 "outlay" : ***,
-					 "costTF" : "***",
-					 "operaTF" : "***",
-					 "rmoveTF" : "***",
-					 "IrrelevantTF" : "***",
-					 "other" : "***"
-					 },
-					 {...},*/
-					
+					    /*
+                    [{
+                    "noticetime":"2016-12-09T00:44:38.876Z"
+                    ,"other":"2016年12月09日   08:56:57"
+                    ,"_id":"584a016ebc2fce00115c54de"
+                    ,"kinds":1
+                    ,"videoTitle":null
+                    ,"videoId":""
+                    ,"__v":0
+                    ,"payorId":null
+                    ,"owner":"话"
+                    ,"payor":null //付款人
+                    ,"IrrelevantTF":false
+                    ,"outlay":0
+                    }]
+                     */
+
+
 					try{
 					if(bundle.getString("?").equals("获取成功"))
 					{
@@ -70,15 +75,9 @@ public class Message_c extends AppCompatActivity
 							map.put("videoTitle",jso.getString("videoTitle"));
 							map.put("outlay",jso.getString("outlay"));
 							map.put("costTF",jso.getString("costTF"));
-
-							
 							map.put("operaTF",jso.getString("operaTF"));
-
-							
-							
 							map.put("rmoveTF",jso.getString("rmoveTF"));
 							map.put("IrrelevantTF",jso.getString("IrrelevantTF"));
-							
 							map.put("other",jso.getString("other"));
 							map.put("titme",str);
 							user.notices_list.add(map);
@@ -96,7 +95,16 @@ public class Message_c extends AppCompatActivity
 					Log.e("获取所有通知的Hand",e.toString());
 				}
 				break;
-					
+				case 1:
+					//更新
+					lists1.clear();
+					lists1.addAll(lists);
+					lists.clear();
+					lists.addAll(lists1);
+					ladapter.notifyDataSetChanged();
+					//lv.setAdapter(ladapter);
+					break;
+
 			}
 		}
 	};
@@ -136,15 +144,17 @@ DrawerLayout mDrawerLayout;
 	}
 	
 	public void initView() {
-postmessage();
+//postmessage();
 		lv = (ListView) this.findViewById(R.id.message_listview);
 		tb = (Toolbar) this.findViewById(R.id.tool_bar);
 		left_button=(ImageView)this.findViewById(R.id.messagelayoutImageView1);
 		
 		mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
 		addTextToList("King arthur payment $3 to your of video", "september13", 0, R.drawable.image);
+		addTextToList("King arthur payment $3 to your of video", "september13", 0, R.drawable.image);
 		ladapter = new MyChatAdapter(Message_c.this, lists, layout);
 		lv.setAdapter(ladapter);
+		LoadthisMessage();
 //初始化ToolBar
 		setSupportActionBar(tb);
 		ActionBar actionBar = getSupportActionBar();
@@ -158,6 +168,10 @@ postmessage();
 			}
 			
 		});
+
+		//datas();
+
+
 	}
 	public void onItemClick(AdapterView<?> parent,View view,int position,long id)
 	{
@@ -177,6 +191,120 @@ postmessage();
 
 		lists.add(map);
     }
+	private void LoadthisMessage()
+	{
+		   /*
+                    [{
+                    "noticetime":"2016-12-09T00:44:38.876Z"
+                    ,"other":"2016年12月09日   08:56:57"
+                    ,"_id":"584a016ebc2fce00115c54de"
+                    ,"kinds":1
+                    ,"videoTitle":null
+                    ,"videoId":""
+                    ,"__v":0
+                    ,"payorId":null
+                    ,"owner":"话"
+                    ,"payor":null //付款人
+                    ,"IrrelevantTF":false
+                    ,"outlay":0
+                    }]
+                     */
+
+		User u=new User();
+		ArrayList<HashMap<String,Object>> map=u.notices_list;
+		Http_UploadFile_ http_uploadFile_;
+
+
+		if (map.size()>0)
+		{
+			for (int i=0;i<map.size();i++)
+			{
+				switch (Integer.parseInt(map.get(i).get("kinds").toString()))
+				{
+					case 1:
+						//收入
+						addTextToList(
+								map.get(i).get("payor").toString()
+										+"购买了你的"+map.get(i).get("videoTitle").toString()
+										+"视频花费了"+map.get(i).get("outlay").toString()
+										+"元"
+								,map.get(i).get("noticetime").toString()
+								,0
+								,R.drawable.image
+
+						);
+
+						break;
+
+					case 2:
+						//支
+						addTextToList(
+								"你购买了"+map.get(i).get("videoTitle").toString()
+										+"视频花费"
+										+map.get(i).get("outlay").toString()
+										+"元"
+								,map.get(i).get("noticetime").toString()
+								,0
+								,R.drawable.image
+
+						);
+
+					case 3:
+						//上传
+						addTextToList(
+								"你上传了视频"+map.get(i).get("videoTitle").toString()
+
+
+
+								,map.get(i).get("noticetime").toString()
+								,0
+								,R.drawable.image
+
+						);
+						break;
+
+					case 4:
+						//删除
+						addTextToList(
+								"你删除了视频"+map.get(i).get("videoTitle").toString()
+										,map.get(i).get("noticetime").toString()
+								,0
+								,R.drawable.image
+
+						);
+
+					case 5:
+						//系统
+						addTextToList(
+								map.get(i).get("other").toString()
+								,map.get(i).get("noticetime").toString()
+								,0
+								,R.drawable.image
+
+						);
+
+
+				}
+			}
+			mHandler.sendEmptyMessage(1);
+		}
+	}
+	private Bitmap getPayorhead(String id)
+	{
+		if (id!=null) {
+			HashMap<String,Object> map=new HashMap<>();
+			map.put("handler",mHandler);
+			map.put("Context",Message_c.this);
+			Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(
+					"http://trying-video.herokuapp.com/user/information/" + id
+					,map
+					, "8"
+			);
+			Thread x = new Thread(http_uploadFile_);
+			x.start();
+		}
+		return  null;
+	}
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -290,7 +418,7 @@ postmessage();
 	}
 	}
 	
-	public void postmessage()
+	public void postmessage(View view)
 	{
 		/*提交新通知
 
@@ -308,28 +436,188 @@ POST   http://localhost:1103/user/notice?token=${token}
 获取用户全部通知
 		 */
 		 HashMap<String,Object> map=new HashMap<String,Object>();
-		map.put("context",Message_c.this);
+		map.put("Context",Message_c.this);
 		map.put("handler",mHandler);
-		map.put("videoTitle","tit");
-		map.put("outlay","tit");
-		map.put("costTF","tit");
-		map.put("operaTF","tit");
-		map.put("rmoveTF","tit");
-		map.put("IrrelevantTF","tit");
-		map.put("other","tit");
+		map.put("videoId",user.maps.get(0).get("_id"));
+		map.put("outlay","100");
+		map.put("kinds","1");//收入 支
+		map.put("IrrelevantTF","0");
+		map.put("other","nothing");
+		SimpleDateFormat formatter   =   new   SimpleDateFormat   ("yyyy年MM月dd日   HH:mm:ss");
+		Date curDate =  new Date(System.currentTimeMillis());
+//获取当前时间
+		String   str   =   formatter.format(curDate);
+
+		map.put("other",str);
 		
 		Http_UploadFile_ htt=new Http_UploadFile_("http://trying-video.herokuapp.com/user/notice?token="+user.token, map,"14");
 		Thread x=new Thread(htt);
-		//x.start();
+		x.start();
 
 
 		
 	}
-	
+	public void pay(View view)
+	{
+		/*提交新通知
+
+POST   http://localhost:1103/user/notice?token=${token}
+{
+    "videoTitle" : ${videoTitle},    //视频名(String)
+    "outlay" : ${outlay},    //支付收入数目(Number)
+    "costTF" : ${costTF},    //花费 收入判断(Boolean)
+    "operaTF" : ${operaTF},    //视频操作 或 花费判断(Boolean)
+    "rmoveTF" : ${rmoveTF},    //上传 删除判断(Boolean)
+    "IrrelevantTF" : ${IrrelevantTF},    //其他信息 或 相关信息判断(Boolean)
+    "other" : ${other}    //其他信息(String)
+}
+>>  返回 message: '通知已更新'
+获取用户全部通知
+		 */
+		HashMap<String,Object> map=new HashMap<String,Object>();
+		map.put("Context",Message_c.this);
+		map.put("handler",mHandler);
+		map.put("videoId",user.maps.get(0).get("_id"));
+		map.put("outlay","100");
+		map.put("kinds","2");//收入 支
+		map.put("IrrelevantTF","0");
+		map.put("other","nothing");
+		SimpleDateFormat formatter   =   new   SimpleDateFormat   ("yyyy年MM月dd日   HH:mm:ss");
+		Date curDate =  new Date(System.currentTimeMillis());
+//获取当前时间
+		String   str   =   formatter.format(curDate);
+
+		map.put("other",str);
+
+		Http_UploadFile_ htt=new Http_UploadFile_("http://trying-video.herokuapp.com/user/notice?token="+user.token, map,"14");
+		Thread x=new Thread(htt);
+		x.start();
+
+
+
+	}
+	public void load(View view)
+	{
+		/*提交新通知
+
+POST   http://localhost:1103/user/notice?token=${token}
+{
+    "videoTitle" : ${videoTitle},    //视频名(String)
+    "outlay" : ${outlay},    //支付收入数目(Number)
+    "costTF" : ${costTF},    //花费 收入判断(Boolean)
+    "operaTF" : ${operaTF},    //视频操作 或 花费判断(Boolean)
+    "rmoveTF" : ${rmoveTF},    //上传 删除判断(Boolean)
+    "IrrelevantTF" : ${IrrelevantTF},    //其他信息 或 相关信息判断(Boolean)
+    "other" : ${other}    //其他信息(String)
+}
+>>  返回 message: '通知已更新'
+获取用户全部通知
+		 */
+		HashMap<String,Object> map=new HashMap<String,Object>();
+		map.put("Context",Message_c.this);
+		map.put("handler",mHandler);
+		map.put("videoId",user.maps.get(0).get("_id"));
+		map.put("outlay","100");
+		map.put("kinds","3");//收入 支
+		map.put("IrrelevantTF","0");
+		map.put("other","nothing");
+		SimpleDateFormat formatter   =   new   SimpleDateFormat   ("yyyy年MM月dd日   HH:mm:ss");
+		Date curDate =  new Date(System.currentTimeMillis());
+//获取当前时间
+		String   str   =   formatter.format(curDate);
+
+		map.put("other",str);
+
+		Http_UploadFile_ htt=new Http_UploadFile_("http://trying-video.herokuapp.com/user/notice?token="+user.token, map,"14");
+		Thread x=new Thread(htt);
+		x.start();
+
+
+
+	}
+	public void delete1(View view)
+	{
+		/*提交新通知
+
+POST   http://localhost:1103/user/notice?token=${token}
+{
+    "videoTitle" : ${videoTitle},    //视频名(String)
+    "outlay" : ${outlay},    //支付收入数目(Number)
+    "costTF" : ${costTF},    //花费 收入判断(Boolean)
+    "operaTF" : ${operaTF},    //视频操作 或 花费判断(Boolean)
+    "rmoveTF" : ${rmoveTF},    //上传 删除判断(Boolean)
+    "IrrelevantTF" : ${IrrelevantTF},    //其他信息 或 相关信息判断(Boolean)
+    "other" : ${other}    //其他信息(String)
+}
+>>  返回 message: '通知已更新'
+获取用户全部通知
+		 */
+		HashMap<String,Object> map=new HashMap<String,Object>();
+		map.put("Context",Message_c.this);
+		map.put("handler",mHandler);
+		map.put("videoId",user.maps.get(0).get("_id"));
+		map.put("outlay","100");
+		map.put("kinds","4");//收入 支
+		map.put("IrrelevantTF","0");
+		map.put("other","nothing");
+		SimpleDateFormat formatter   =   new   SimpleDateFormat   ("yyyy年MM月dd日   HH:mm:ss");
+		Date curDate =  new Date(System.currentTimeMillis());
+//获取当前时间
+		String   str   =   formatter.format(curDate);
+
+		map.put("other",str);
+
+		Http_UploadFile_ htt=new Http_UploadFile_("http://trying-video.herokuapp.com/user/notice?token="+user.token, map,"14");
+		Thread x=new Thread(htt);
+		x.start();
+
+
+
+	}
+	public void system(View view)
+	{
+		/*提交新通知
+
+POST   http://localhost:1103/user/notice?token=${token}
+{
+    "videoTitle" : ${videoTitle},    //视频名(String)
+    "outlay" : ${outlay},    //支付收入数目(Number)
+    "costTF" : ${costTF},    //花费 收入判断(Boolean)
+    "operaTF" : ${operaTF},    //视频操作 或 花费判断(Boolean)
+    "rmoveTF" : ${rmoveTF},    //上传 删除判断(Boolean)
+    "IrrelevantTF" : ${IrrelevantTF},    //其他信息 或 相关信息判断(Boolean)
+    "other" : ${other}    //其他信息(String)
+}
+>>  返回 message: '通知已更新'
+获取用户全部通知
+		 */
+		HashMap<String,Object> map=new HashMap<String,Object>();
+		map.put("Context",Message_c.this);
+		map.put("handler",mHandler);
+		map.put("videoId",user.maps.get(0).get("_id"));
+		map.put("outlay","100");
+		map.put("kinds","2");//收入 支
+		map.put("IrrelevantTF","0");
+		map.put("other","nothing");
+		SimpleDateFormat formatter   =   new   SimpleDateFormat   ("yyyy年MM月dd日   HH:mm:ss");
+		Date curDate =  new Date(System.currentTimeMillis());
+//获取当前时间
+		String   str   =   formatter.format(curDate);
+
+		map.put("other",str);
+
+		Http_UploadFile_ htt=new Http_UploadFile_("http://trying-video.herokuapp.com/user/notice?token="+user.token, map,"14");
+		Thread x=new Thread(htt);
+		x.start();
+
+
+
+	}
+
 	public void datasSetary()
 	{
 		HashMap<String,Object> map=new HashMap<String,Object>();
-		map.put("context",Message_c.this);
+		map.put("Context",Message_c.this);
 		
 		map.put("handler",mHandler);
 		
@@ -355,13 +643,14 @@ POST   http://localhost:1103/user/notice?token=${token}
 	}
 	
 	public void datas()
-	{
-		if(user.notices_list!=null)
-			for(int i=0;i<user.notices_list.size();i++)
+	{//通过判断user.notices_list是否为空来加载数据
+		User u=new User();
+		if(u.notices_list!=null)
+			for(int i=0;i<u.notices_list.size();i++)
 			{//添加所有通知并清楚旧添加的
 				addTextToList(
-				user.notices_list.get(i).get("other").toString()
-				,user.notices_list.get(i).get("time").toString()
+				u.notices_list.get(i).get("other").toString()
+				,u.notices_list.get(i).get("time").toString()
 				, 0
 				, R.drawable.image);
 				

@@ -4,17 +4,11 @@ import android.content.*;
 import android.os.*;
 import android.support.design.widget.*;
 import android.support.v7.app.*;
-import android.support.v7.widget.*;
-import android.view.*;
 import android.view.View.*;
 import android.widget.*;
-import android.animation.ObjectAnimator;
-import android.animation.PropertyValuesHolder;
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
+
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -27,7 +21,7 @@ public class Home extends ActionBarActivity
 	
 Button card1;
 User user=new User();
-FloatingActionButton fab;
+
 public Handler mHandler = new Handler()
 	{
 		public void handleMessage(android.os.Message msg)
@@ -63,48 +57,11 @@ public Handler mHandler = new Handler()
 		Pop_Img.Builder p=new Pop_Img.Builder(Home.this);
 		p.create().show();
 		card1=(Button)findViewById(R.id.home_pagecard1);
-		fab=(FloatingActionButton)findViewById(R.id.home_pageFloatingActionButt);
 		final ImageView fabIconNew = new ImageView(this);
         fabIconNew.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_new_light));
-        final Popup_Button rightLowerButton = new Popup_Button.Builder(this)
-			.setContentView(fabIconNew)
-			.build();
-		
-		
-		
-		fab.setOnClickListener(new OnClickListener() {
-				/////////login
-				public void onClick(View v) {
-					Pop_Img.Builder p=new Pop_Img.Builder(Home.this);
-					p.setPositiveButton("[潮汕揭]初版\n问题反馈:(qq) 1213965634\n\n", new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int which)
-							{
-								dialog.dismiss();
-								//login
-								
-							}
-							//设置你的操作事项
-							
 
-						});
-				
-					p.create().show();
-					
-					}});//fab.click
 		
-					
-					fab.setImageResource(android.R.drawable.ic_popup_reminder);
-		card1.setOnClickListener(new OnClickListener() {
-				/////////login
-				public void onClick(View v) {
-					Intent intent =new Intent(Home.this,MainActivity.class);
-					Bundle bundle=new Bundle();
-					bundle.putString("title","i");
-					intent.putExtras(bundle);
-					startActivityForResult(intent,9);
-					//Uri u=Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+"://"+r.getResourcePackageName(R.drawable.intent)+"/"+r.getResourceTypeName(R.drawable.ic_launcher)+"/"+r.getResourceEntryName(R.drawable.ic_launcher));
-					
-					}});
+
 		Toolbar toolbar = (Toolbar) this.findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();

@@ -1,5 +1,6 @@
 package com.yanbober.support_library_demo;
 
+import android.app.Activity;
 import android.content.*;
 import android.os.*;
 import android.view.*;
@@ -39,8 +40,11 @@ public class SimpleActivity extends TakePhotoActivity {
     }
 
     private void showImg(ArrayList<TImage> images) {
-        Intent intent=new Intent(this,Setting_.class);
+        Intent intent = this.getIntent();
         intent.putExtra("images",images);
-        startActivity(intent);
+
+        this.setResult(1, intent);//返回页面1
+        finish();
+
     }
 }

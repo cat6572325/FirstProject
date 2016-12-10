@@ -157,14 +157,15 @@
 			android:layout_height="200dp"
 			android:layout_width="match_parent">
 
-			<ImageView
+			<com.yanbober.support_library_demo.XCRoundImageView
 				android:layout_width="100dp"
 				android:id="@+id/drawer_headerImageView"
 				android:layout_height="100dp"
-				android:background="@drawable/image"
 				android:layout_marginLeft="10dp"
+				android:src="#ff0000"
 				android:layout_centerHorizontal="true"
-				android:layout_centerInParent="true"/>
+				android:layout_centerInParent="true"
+				android:background="@drawable/roundbuttoning"/>
 
 			<LinearLayout
 				android:layout_height="wrap_content"

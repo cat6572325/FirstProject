@@ -12,6 +12,7 @@ import android.os.*;
 import android.support.annotation.*;
 import android.support.v4.app.*;
 import android.support.v7.widget.*;
+import android.util.Log;
 import android.view.*;
 import java.util.*;
 import android.widget.*;
@@ -25,6 +26,19 @@ public class My_Video_tabs_item_already extends Fragment {
 	public FirstAdapter adapter;
 	RelativeLayout rv;
     private RecyclerView mRecyclerView;
+	public Handler mHandler=new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			switch (msg.what)
+			{
+				case 0:
+					//获取列表
+					Log.e("获取列表成功","");
+					break;
+			}
+		}
+	};
 
     @Nullable
     @Override
@@ -51,17 +65,6 @@ public class My_Video_tabs_item_already extends Fragment {
 		addTextToList2("广东",4,android.R.drawable.ic_lock_lock,"ps","data",0,"这点略大，颜色不一样，标题栏缺少图标和点击效果，",1);
 
 
-		for(int i=0;i<10;i++)
-		{
-			addTextToList2("广东"
-						   ,4
-						   ,android.R.drawable.ic_lock_lock,"ps"
-						   ,"data",0
-						   ,"这点略大，颜色不一样，标题栏缺少图标和点击效果，"
-						   ,1
-						   );
-			
-		}
 		String str;
 		adapter = new FirstAdapter(getActivity(),lists);
 
@@ -81,7 +84,37 @@ public class My_Video_tabs_item_already extends Fragment {
 
     }
 
-	public void addTextToList2(String text, int who, int id,String ps,String data,int person,String name,int is)
+	@Override
+	public void setUserVisibleHint(boolean isVisibleToUser) {
+		super.setUserVisibleHint(isVisibleToUser);
+		if (isVisibleToUser)
+		{
+			User u=new User();
+			if (u.AlreadyLoadforVideo_list!=null)
+			{
+				ArrayList<HashMap<String,Object>> maps=u.AlreadyLoadforVideo_list;
+				for(int i=0;i<u.AlreadyLoadforVideo_list.size();i++)
+				{
+					addTextToList2(maps.get(i).get("title").toString()
+							,4
+							,android.R.drawable.ic_lock_lock
+							,maps.get(i).get("price").toString()
+							,"data",0
+							,"这点略大，颜色不一样，标题栏缺少图标和点击效果，"
+							,1
+					);
+
+				}
+
+			}else
+			{
+				//获取一次已上传视频列表
+
+			}
+		}
+	}
+
+	public void addTextToList2(String text, int who, int id, String ps, String data, int person, String name, int is)
 	{
 		HashMap<String,Object> map=new HashMap<String,Object>();
 		map.put("person", person);
