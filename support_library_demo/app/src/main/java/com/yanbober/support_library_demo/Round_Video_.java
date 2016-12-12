@@ -591,15 +591,14 @@ private String randomProdoction()
                 paidppnumber: Number,　 　//付费人数
         concernednumber: Number,   //收藏人数
                 time: {                   // 创建时间*/
-        round_delete.setClickable(false);
-        round_upload.setClickable(false);
-        round_edit.setClickable(false);
-        User u=new User();
-        if (u.notLoadforVideo_list!=null) {
-            for (int i=0;i<u.notLoadforVideo_list.size();i++)
-            {
 
-            }
+          User u=new User();
+        if (u.notLoadforVideo_list!=null) {
+
+            round_delete.setClickable(false);
+            round_upload.setClickable(false);
+            round_edit.setClickable(false);
+
             HashMap<String, Object> map1 = new HashMap<String, Object>();
             map1.put("isprogress", 1);
             map1.put("progress", 0);

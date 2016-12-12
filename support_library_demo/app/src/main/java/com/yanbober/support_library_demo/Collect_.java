@@ -125,6 +125,7 @@ public class Collect_ extends AppCompatActivity {
 
 	MyChatAdapter ladapter;
 	ListView rl;
+
 	//Tab菜单，主界面上面的tab切换菜单
 	int[] layout={R.layout.left_list_item,R.layout.line_item};
 	ImageView menu_img;
@@ -153,18 +154,12 @@ public class Collect_ extends AppCompatActivity {
 		user.collect_ = Collect_.this;
 		try {
 			rv = (RecyclerView)findViewById(R.id.collectrv);
+			tb = (Toolbar) findViewById(R.id.paidToolbar);
+
 			Message_point = (TextView)findViewById(R.id.tTextView);
 			message = (ImageView)this.findViewById(R.id.activitymainTextView1);
 			mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
-			menu_img = (ImageView)this.findViewById(R.id.Collect_menu);
 			User u=new User();
-			menu_img.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						//TODO 点击左上角打开侧边栏
-
-					}
-				});
 
 			message.setOnClickListener(new View.OnClickListener()
 				{
@@ -176,6 +171,16 @@ public class Collect_ extends AppCompatActivity {
 
 					}
 				});
+			//初始化ToolBar
+			setSupportActionBar(tb);
+			tb.setNavigationIcon(R.drawable.back_purple);
+			tb.setNavigationOnClickListener(new OnClickListener() {//返回监听，按钮返回，不过不知道会回哪里
+				public void onClick(View v) {
+					onBackPressed();
+
+				}
+
+			});
 
 			rv.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
 			//设置RecyclerView布局管理器为1列垂直排布
@@ -215,8 +220,8 @@ public class Collect_ extends AppCompatActivity {
 		catch (JSONException e) {
 			e.printStackTrace();
 		}
-		
 
+		setData();
 		//getcollect();
 	}
 	public void addTextToList(String text, int who, int id, String data, int isspot, int ispay,int s) {

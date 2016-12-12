@@ -38,7 +38,7 @@ public class Setting_ extends AppCompatActivity {
             switch (msg.what) {
                 case 0:
                     //user.headBitmap=bitmap;
-                  //  Intent intent = getIntent();
+                    //  Intent intent = getIntent();
                     //intent.putExtra("head",bitmap);
 
                     //setResult(0, intent);//返回页面1
@@ -50,8 +50,8 @@ public class Setting_ extends AppCompatActivity {
         }
     };
     ListView rl;
-     ProgressDialog dialog=null;
-Bitmap bitmap;
+    ProgressDialog dialog = null;
+    Bitmap bitmap;
     MyChatAdapter ladapter;
     XCRoundImageView headImg = null;
     User user = new User();
@@ -96,8 +96,8 @@ Bitmap bitmap;
             }
         });
         User u = new User();
-            if (u.getBitmapurl != null && u.mydata.size() > 2)
-                u.getBitmapurl.loadImageViewurl(u.mydata.get("headprturl").toString(), headImg, u.mydata);
+        if (u.getBitmapurl != null && u.mydata.size() > 2)
+            u.getBitmapurl.loadImageViewurl(u.mydata.get("headprturl").toString(), headImg, u.mydata);
 
         Bundle bun = this.getIntent().getExtras();
         if (bun != null && bun.containsKey("images")) {
@@ -171,12 +171,11 @@ Bitmap bitmap;
                 //Glide.with(this).load(new File(images.get(images.size() - 1).getPath())).asBitmap(b);
                 File f = new File(images.get(images.size() - 1).getPath());
                 ContentResolver cr = this.getContentResolver();
- Log.e("File",String .valueOf(f.length()));
+                Log.e("File", String.valueOf(f.length()));
                 File dirFile;
-                if (f.length()>50000)
-                {
-                    Toast.makeText(Setting_.this,"文件过大",Toast.LENGTH_LONG).show();
-                }else {
+                if (f.length() > 50000) {
+                    Toast.makeText(Setting_.this, "文件过大", Toast.LENGTH_LONG).show();
+                } else {
                     try {
                         bitmap = BitmapFactory.decodeStream(cr.openInputStream(Uri.fromFile(f)));
                         dirFile = new File("/sdcard/180s/headpicture/" + randomProdoction() + ".png");
@@ -208,7 +207,7 @@ Bitmap bitmap;
                         //Bitmap b= toRoundBitmap(bitmap);
                         headImg.setImageBitmap(bitmap);
                         user.headBitmap = bitmap;
-				/*上传文件
+                /*上传文件
 				 PATCH方法
 				 */
                         HashMap<String, Object> map = new HashMap<String, Object>();
@@ -223,7 +222,7 @@ Bitmap bitmap;
                     Thread c = new Thread(htt);
                     c.start();
                     */
-                        dialog=new ProgressDialog(Setting_.this);
+                        dialog = new ProgressDialog(Setting_.this);
                         dialog.setTitle("上传中..");
                         dialog.show();
 
@@ -255,58 +254,56 @@ Bitmap bitmap;
         finish();
 
     }
-    private String randomProdoction()
-    {
-        int random=0;
-        String str=null;
-        Random ran=new Random(System.currentTimeMillis());
-        for (int i=0;i<20;i++)
-        {
 
-                    random=ran.nextInt(10);
-            str+=String.valueOf(random);
+    private String randomProdoction() {
+        int random = 0;
+        String str = null;
+        Random ran = new Random(System.currentTimeMillis());
+        for (int i = 0; i < 20; i++) {
+
+            random = ran.nextInt(10);
+            str += String.valueOf(random);
             //数字加一个字母
-            switch (random)
-            {
+            switch (random) {
                 case 0:
-                    str+="a";
+                    str += "a";
                     break;
 
                 case 1:
-                    str+="b";
+                    str += "b";
                     break;
 
                 case 2:
-                    str+="c";
+                    str += "c";
                     break;
 
                 case 3:
-                    str+="e";
+                    str += "e";
                     break;
 
                 case 4:
-                    str+="f";
+                    str += "f";
                     break;
 
                 case 5:
-                    str+="g";
+                    str += "g";
                     break;
 
                 case 6:
-                    str+="h";
+                    str += "h";
                     break;
 
                 case 7:
-                    str+="i";
+                    str += "i";
                     break;
             }
 
         }
 
 
-
         return str;
     }
+
     public void addTextToList(String text, String name, int who, int id, int isarrow) {
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("who", who);

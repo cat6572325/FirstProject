@@ -1,6 +1,7 @@
 package com.yanbober.support_library_demo;
 
 import android.content.*;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.*;
 import android.support.v7.app.*;
 import android.support.v7.widget.*;
@@ -14,6 +15,8 @@ import org.json.*;
 
 import android.support.v7.widget.Toolbar;
 
+import com.yanbober.support_library_demo.DataHelpers.DataHelper;
+
 public class Paid_Video extends AppCompatActivity
 
 {
@@ -24,7 +27,7 @@ public class Paid_Video extends AppCompatActivity
     //右上角新消息提示红点
     TextView Message_point;
     User user = new User();
-    ImageView message, head;
+    ImageView message;
     LinearLayoutManager lm;
 
     @Override
@@ -40,7 +43,6 @@ public class Paid_Video extends AppCompatActivity
         tb = (Toolbar) findViewById(R.id.paidToolbar);
         Message_point = (TextView) findViewById(R.id.tTextView);
         message = (ImageView) this.findViewById(R.id.activitymainTextView1);
-        head = (ImageView) this.findViewById(R.id.drawer_headerImageView);
 
         //初始化ToolBar
         setSupportActionBar(tb);
@@ -56,24 +58,8 @@ public class Paid_Video extends AppCompatActivity
         //设置RecyclerView布局管理器为1列垂直排布
 
         User u = new User();
-        if (u.getBitmapurl != null && u.mydata.size() > 2)
-            u.getBitmapurl.loadImageViewurl(u.mydata.get("headprturl").toString(), head, u.mydata);
 
-
-        head.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                User u = new User();
-                if (u._id != "null") {
-                    Intent intent = new Intent(Paid_Video.this, Personal_.class);
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(Paid_Video.this, Login_.class);
-                    startActivity(intent);
-                }
-            }
-        });
-        //addTextToList("本 拉登教你打仗",2,R.drawable.qq,"901人付款");
+           //addTextToList("本 拉登教你打仗",2,R.drawable.qq,"901人付款");
         message.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -145,24 +131,32 @@ SetAllVideo();
     }
 private void SetAllVideo()
 {
+    //通过所有视频的信息里的购买者id 对比
     User u=new User();
-    if (u.maps.size()>2&&u.paid_Videos.size()>2)
+    DataHelper dataHelper=new DataHelper(Paid_Video.this);
+    SQLiteDatabase db;
+
+
+
+
+    if (u.maps.size()>2)
     {
+
+
+
         for (int i = 0; i <u.maps.size() ; i++) {
+            //从数据库获取id而不是User类
+
+
             //拿出第i个maps中的_id
             String videoID=u.maps.get(i).get("_id").toString();
-
-            for(int y=0;y<u.paid_Videos.size();y++) {
-                //与y个paid_Videos中的_id进行比较
-                //并且便利整个paid_Videos
-                if (videoID.equals(u.paid_Videos.get(y))) {
-                    //如果匹配正确，则获取这个视频的所有信息
-                    HashMap<String,Object> map=new HashMap<>();
-                    map=u.maps.get(i);
-                    u.paid_Videos_List.add(map);
-                    //最终一个个保存到这个list中
-                }
+            if (dataHelper.ispaidVideosID(videoID)) {//如果是则添加到列表，并显示出来
+                HashMap<String,Object> map=new HashMap<String,Object>();
+                map=u.maps.get(i);//将这个视频的所有信息加到map
+                u.paid_Videos_List.add(map);//将map 加到List
+                //最终一个个保存到这个list中
             }
+
         }
         //所有视频遍历完毕后开始加载
         if (u.paid_Videos_List.size()>2)

@@ -56,6 +56,10 @@ public class DataHelper extends SQLiteOpenHelper
                 " integer primary key" +
                 ",id text)"
               );
+        db.execSQL("create table paiVideos(_id" +
+                " integer primary key" +
+                ",id text)");
+
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -63,7 +67,56 @@ public class DataHelper extends SQLiteOpenHelper
         Log.i(SWORD,"update a Database");
         db.execSQL("drop if table exists Flag");
         db.execSQL("drop if table exists isRead");
+        db.execSQL("drop if table exists paidVideos");
         onCreate(db);
+    }
+    public void addpaid_Videos_SQL(HashMap<String, Object> map)
+    {
+
+        SQLiteDatabase db=null;
+        try{
+
+
+            db = this.getWritableDatabase();//获取可写数据库实例
+            ContentValues values = new ContentValues();
+            values.put("id", map.get("_id").toString());
+            db.insert("paidVideos",null,values);
+
+        }catch (Exception e)
+        {
+            Log.e("在数据库中加入已购买视频id",e.toString());
+        }finally {
+
+            db.close();
+        }
+    }
+    public boolean ispaidVideosID(String id)
+    {//判断有无这个id
+        SQLiteDatabase db=null;
+        Cursor cursor=null;//数据库遍历类
+
+        try
+        {
+            db=getReadableDatabase();
+            cursor=db.query("paidVideos",null,null,null,null,null,null);
+            while (cursor.moveToNext())//遍历下一个为标准遍历
+            {
+                if (id.equals(cursor.getString(cursor.getColumnIndex("id")))) {
+                    cursor.close();
+                    db.close();
+                    return true;
+                }
+            }
+        }catch (Exception e)
+        {
+            Log.e("在判断是否加入paidVideos表中",e.toString());
+        }
+        if (cursor!=null)
+        cursor.close();
+        if (db!=null)
+        db.close();
+
+        return false;
     }
     public void addisReadSQL(HashMap<String, Object> map)
     {
@@ -81,6 +134,7 @@ public class DataHelper extends SQLiteOpenHelper
         {
             Log.e("在数据库中加入已读",e.toString());
         }finally {
+            if (db!=null)
             db.close();
         }
     }
@@ -95,14 +149,20 @@ public class DataHelper extends SQLiteOpenHelper
             cursor=db.query("isRead",null,null,null,null,null,null);
             while (cursor.moveToNext())//遍历下一个为标准遍历
             {
-                if (id.equals(cursor.getString(cursor.getColumnIndex("id"))))
-                return true;
+                if (id.equals(cursor.getString(cursor.getColumnIndex("id")))) {
+                    cursor.close();
+                    db.close();
+                    return true;
+                }
             }
            }catch (Exception e)
         {
             Log.e("在判断是否加入isRead表中",e.toString());
         }
-
+        if (cursor!=null)
+        cursor.close();
+        if (db!=null)
+        db.close();
 
         return false;
     }
@@ -130,7 +190,10 @@ public class DataHelper extends SQLiteOpenHelper
         {
 
         }finally {
-            return db.insert("Flag", null, contentValues);
+
+             db.insert("Flag", null, contentValues);
+            db.close();
+            return 0;
         }
 
 
@@ -155,14 +218,18 @@ public class DataHelper extends SQLiteOpenHelper
                 name+=cursor.getString(7);
 
             }
+            if (cursor!=null)
             cursor.close();
+            if (db!=null)
             db.close();
+
 
         }else{
             //s="insert into user4(id, name) values(3,'g')";
             //db.execSQL(s);
 
         }
+
         return name;
     }
     // * 更新记录的，跟插入的很像

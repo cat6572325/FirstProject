@@ -66,6 +66,7 @@
     <color name="crop__button_text">#666666</color>
     <color name="crop__selector_focused">#77000000</color>
     <color name="crop__selector_pressed">#1a000000</color>
+    <color name="design_bottom_navigation_shadow_color">#14000000</color>
     <color name="design_fab_shadow_end_color">@android:color/transparent</color>
     <color name="design_fab_shadow_mid_color">#14000000</color>
     <color name="design_fab_shadow_start_color">#44000000</color>
@@ -162,7 +163,7 @@
     <declare-styleable name="ArcLayout"><attr name="fromDegrees"/><attr name="toDegrees"/><attr name="childSize"/></declare-styleable>
     <declare-styleable name="ArcMenu"><attr name="fromDegrees"/><attr name="toDegrees"/><attr name="childSize"/></declare-styleable>
     <declare-styleable name="AspectRatioFrameLayout"><attr name="resize_mode"/></declare-styleable>
-    <declare-styleable name="BottomNavigationView"><attr name="menu"/><attr name="itemIconTint"/><attr name="itemTextColor"/><attr name="itemBackground"/></declare-styleable>
+    <declare-styleable name="BottomNavigationView"><attr name="menu"/><attr name="itemIconTint"/><attr name="itemTextColor"/><attr name="itemBackground"/><attr name="elevation"/></declare-styleable>
     <declare-styleable name="BottomSheetBehavior_Layout"><attr format="dimension" name="behavior_peekHeight"><enum name="auto" value="-1"/></attr><attr format="boolean" name="behavior_hideable"/><attr format="boolean" name="behavior_skipCollapsed"/></declare-styleable>
     <declare-styleable name="ButtonBarLayout"><attr format="boolean" name="allowStacking"/></declare-styleable>
     <declare-styleable name="CardView"><attr format="color" name="cardBackgroundColor"/><attr format="dimension" name="cardCornerRadius"/><attr format="dimension" name="cardElevation"/><attr format="dimension" name="cardMaxElevation"/><attr format="boolean" name="cardUseCompatPadding"/><attr format="boolean" name="cardPreventCornerOverlap"/><attr format="dimension" name="contentPadding"/><attr format="dimension" name="contentPaddingLeft"/><attr format="dimension" name="contentPaddingRight"/><attr format="dimension" name="contentPaddingTop"/><attr format="dimension" name="contentPaddingBottom"/><attr name="android:minWidth"/><attr name="android:minHeight"/></declare-styleable>
@@ -298,10 +299,12 @@
     <dimen name="design_appbar_elevation">4dp</dimen>
     <dimen name="design_bottom_navigation_active_item_max_width">168dp</dimen>
     <dimen name="design_bottom_navigation_active_text_size">14sp</dimen>
+    <dimen name="design_bottom_navigation_elevation">8dp</dimen>
     <dimen name="design_bottom_navigation_height">56dp</dimen>
     <dimen name="design_bottom_navigation_item_max_width">96dp</dimen>
     <dimen name="design_bottom_navigation_item_min_width">56dp</dimen>
     <dimen name="design_bottom_navigation_margin">8dp</dimen>
+    <dimen name="design_bottom_navigation_shadow_height">1dp</dimen>
     <dimen name="design_bottom_navigation_text_size">12sp</dimen>
     <dimen name="design_bottom_sheet_modal_elevation">16dp</dimen>
     <dimen name="design_bottom_sheet_peek_height_min">64dp</dimen>
@@ -2047,6 +2050,7 @@
     </style>
     <style name="Widget.Design.BottomNavigationView" parent="">
         <item name="itemBackground">?attr/selectableItemBackgroundBorderless</item>
+        <item name="elevation">@dimen/design_bottom_navigation_elevation</item>
     </style>
     <style name="Widget.Design.BottomSheet.Modal" parent="android:Widget">
         <item name="android:background">?android:attr/colorBackground</item>

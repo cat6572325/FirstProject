@@ -90,7 +90,7 @@ ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/Andro
 		ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/AndroidManifest.xml:25:19-65
 application
 ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/AndroidManifest.xml:28:2-90:18
-MERGED from [com.android.support:cardview-v7:25.0.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/25.0.0/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:cardview-v7:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/25.0.1/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-core-ui:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.1/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:25:5-20
@@ -116,7 +116,7 @@ MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstPr
 MERGED from [com.android.support:animated-vector-drawable:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.0.1/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:support-vector-drawable:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.0.1/AndroidManifest.xml:23:5-20
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:25:5-20
-MERGED from [com.android.support:design:25.0.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/design/25.0.0/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:design:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/design/25.0.1/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-v4:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.0.1/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-media-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.1/AndroidManifest.xml:25:5-20
@@ -158,7 +158,7 @@ MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstPr
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-core-ui:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.1/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:25:5-20
-MERGED from [com.android.support:transition:25.0.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/transition/25.0.0/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:transition:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/transition/25.0.1/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:support-v4:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.0.1/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-media-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.1/AndroidManifest.xml:25:5-20
@@ -350,11 +350,11 @@ MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstPr
 MERGED from [com.android.support:animated-vector-drawable:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.0.1/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:support-vector-drawable:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.0.1/AndroidManifest.xml:23:5-20
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:25:5-20
-MERGED from [com.android.support:cardview-v7:25.0.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/25.0.0/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:cardview-v7:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/25.0.1/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-core-ui:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.1/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:25:5-20
-MERGED from [com.android.support:design:25.0.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/design/25.0.0/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:design:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/design/25.0.1/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-v4:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.0.1/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-media-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.1/AndroidManifest.xml:25:5-20
@@ -396,7 +396,7 @@ MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstPr
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-core-ui:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.1/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:25:5-20
-MERGED from [com.android.support:transition:25.0.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/transition/25.0.0/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:transition:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/transition/25.0.1/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:support-v4:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.0.1/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-media-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.1/AndroidManifest.xml:25:5-20
@@ -611,8 +611,8 @@ ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/Andro
 		ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/AndroidManifest.xml:86:13-43
 uses-sdk
 INJECTED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
-MERGED from [com.android.support:cardview-v7:25.0.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/25.0.0/AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:recyclerview-v7:25.0.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.0.0/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:cardview-v7:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/25.0.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.0.1/AndroidManifest.xml:20:5-43
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:21:5-23:58
 MERGED from [com.android.support:support-core-ui:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.1/AndroidManifest.xml:21:5-23:58
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:21:5-23:58
@@ -638,7 +638,7 @@ MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstPr
 MERGED from [com.android.support:animated-vector-drawable:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.0.1/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-vector-drawable:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.0.1/AndroidManifest.xml:21:5-43
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:21:5-23:58
-MERGED from [com.android.support:design:25.0.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/design/25.0.0/AndroidManifest.xml:21:5-23:62
+MERGED from [com.android.support:design:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/design/25.0.1/AndroidManifest.xml:21:5-23:62
 MERGED from [com.android.support:support-v4:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.0.1/AndroidManifest.xml:21:5-23:54
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:21:5-23:58
 MERGED from [com.android.support:support-media-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.1/AndroidManifest.xml:21:5-23:63
@@ -677,11 +677,11 @@ MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstPr
 MERGED from [com.android.support:animated-vector-drawable:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.0.1/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-vector-drawable:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.0.1/AndroidManifest.xml:21:5-43
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:21:5-23:58
-MERGED from [com.android.support:recyclerview-v7:25.0.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.0.0/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.0.1/AndroidManifest.xml:20:5-43
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:21:5-23:58
 MERGED from [com.android.support:support-core-ui:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.1/AndroidManifest.xml:21:5-23:58
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:21:5-23:58
-MERGED from [com.android.support:transition:25.0.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/transition/25.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/transition/25.0.1/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-v4:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.0.1/AndroidManifest.xml:21:5-23:54
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:21:5-23:58
 MERGED from [com.android.support:support-media-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.1/AndroidManifest.xml:21:5-23:63
@@ -880,12 +880,12 @@ MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstPr
 MERGED from [com.android.support:animated-vector-drawable:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.0.1/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-vector-drawable:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.0.1/AndroidManifest.xml:21:5-43
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:21:5-23:58
-MERGED from [com.android.support:cardview-v7:25.0.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/25.0.0/AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:recyclerview-v7:25.0.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.0.0/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:cardview-v7:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/25.0.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.0.1/AndroidManifest.xml:20:5-43
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:21:5-23:58
 MERGED from [com.android.support:support-core-ui:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.1/AndroidManifest.xml:21:5-23:58
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:21:5-23:58
-MERGED from [com.android.support:design:25.0.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/design/25.0.0/AndroidManifest.xml:21:5-23:62
+MERGED from [com.android.support:design:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/design/25.0.1/AndroidManifest.xml:21:5-23:62
 MERGED from [com.android.support:support-v4:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.0.1/AndroidManifest.xml:21:5-23:54
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:21:5-23:58
 MERGED from [com.android.support:support-media-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.1/AndroidManifest.xml:21:5-23:63
@@ -924,11 +924,11 @@ MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstPr
 MERGED from [com.android.support:animated-vector-drawable:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.0.1/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-vector-drawable:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.0.1/AndroidManifest.xml:21:5-43
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:21:5-23:58
-MERGED from [com.android.support:recyclerview-v7:25.0.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.0.0/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.0.1/AndroidManifest.xml:20:5-43
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:21:5-23:58
 MERGED from [com.android.support:support-core-ui:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.1/AndroidManifest.xml:21:5-23:58
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:21:5-23:58
-MERGED from [com.android.support:transition:25.0.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/transition/25.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/transition/25.0.1/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-v4:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.0.1/AndroidManifest.xml:21:5-23:54
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:21:5-23:58
 MERGED from [com.android.support:support-media-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.1/AndroidManifest.xml:21:5-23:63

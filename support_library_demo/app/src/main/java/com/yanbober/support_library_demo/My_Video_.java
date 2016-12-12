@@ -39,7 +39,7 @@ public class My_Video_ extends ActionBarActivity {
 					finish();
 					break;
 				case 3:
-					User_name.setText(user.name);
+				//	User_name.setText(user.name);
 					break;
 			}
 		}
@@ -61,11 +61,6 @@ public class My_Video_ extends ActionBarActivity {
     private TabLayout mTabLayout;
     //v4中的ViewPager控件
     private ViewPager mViewPager;
-	MyChatAdapter ladapter;
-	ListView rl;
-	int[] layout={R.layout.left_list_item,R.layout.line_item};
-
-
 	public ArrayList<HashMap<String,Object>> lists=new ArrayList<HashMap<String,Object>>();
 
 	LinearLayout ll;
@@ -101,40 +96,15 @@ public class My_Video_ extends ActionBarActivity {
 			//   mNavigationView = (NavigationView) this.findViewById(R.id.navigation_view);
 			mTabLayout = (TabLayout) this.findViewById(R.id.myvideotab);
 			mViewPager = (ViewPager) this.findViewById(R.id.view_pager);
-			rl = (ListView) this.findViewById(R.id.tRecyclerView1);
 			Message_point = (TextView) findViewById(R.id.tTextView);
 			message = (ImageView) this.findViewById(R.id.activitymainTextView1);
-			User_name = (TextView) this.findViewById(R.id.User_name);
-			head = (ImageView) this.findViewById(R.id.drawer_headerImageView);
 
 			User u = new User();
-			if (u.headBitmap != null) {
-				head.setImageBitmap(u.headBitmap);
-
-			}
-			if (u.mydata.get("nickname")!="")
-			{
-				User_name.setText(u.mydata.get("nickname").toString());
-			}
-			head.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View view) {
-					User u = new User();
-					if (u._id != "null") {
-						Intent intent = new Intent(My_Video_.this, Personal_.class);
-						startActivity(intent);
-					} else {
-						Intent intent = new Intent(My_Video_.this, Login_.class);
-						startActivity(intent);
-					}
-				}
-			});
-
 
 			//初始化ToolBar
 			setSupportActionBar(mToolbar);
 			ActionBar actionBar = getSupportActionBar();
-			actionBar.setHomeAsUpIndicator(R.drawable.menu);//android.R.drawable.ic_dialog_alert);
+			actionBar.setHomeAsUpIndicator(R.drawable.back_purple);//android.R.drawable.ic_dialog_alert);
 			actionBar.setDisplayHomeAsUpEnabled(true);
 			message.setOnClickListener(new View.OnClickListener() {
 
@@ -187,48 +157,7 @@ public class My_Video_ extends ActionBarActivity {
 			addTextToList("反馈", 0, R.drawable.feedback);
 
 
-			ladapter = new MyChatAdapter(My_Video_.this, lists, layout);
-			rl.setAdapter(ladapter);
-			rl.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					TextView tv = (TextView) view.findViewById(R.id.leftlistitemTextView1);
 
-					if (tv != null) {
-
-						String str = tv.getText().toString();
-
-						if (str.equals("首页")) {
-							Intent intent = new Intent(My_Video_.this, MainActivity.class);
-							startActivity(intent);
-
-						}
-						if (str.equals("已付")) {
-							Intent intent = new Intent(My_Video_.this, Paid_Video.class);
-							startActivity(intent);
-						}
-
-						if (str.equals("收藏")) {
-							Intent intent = new Intent(My_Video_.this, Collect_.class);
-							startActivity(intent);
-						}
-						if (str.equals("我的")) {
-							Intent intent = new Intent(My_Video_.this, My_Video_.class);
-							startActivity(intent);
-						}
-
-						if (str.equals("余额")) {
-							Intent intent = new Intent(My_Video_.this, Balance_.class);
-							startActivity(intent);
-						}
-
-						if (str.equals("设置")) {
-							Intent intent = new Intent(My_Video_.this, Setting_.class);
-							startActivity(intent);
-						}
-					}
-
-				}
-			});
 			try {
 				JSONObject jsonObject = null;
 				JSONArray jss = new JSONArray(user.mydata.get("notices").toString());
@@ -284,7 +213,8 @@ public class My_Video_ extends ActionBarActivity {
                 break;
             case android.R.id.home:
                 //主界面左上角的icon点击反应
-                mDrawerLayout.openDrawer(GravityCompat.START);
+				onBackPressed();
+                //mDrawerLayout.openDrawer(GravityCompat.START);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -297,104 +227,7 @@ public class My_Video_ extends ActionBarActivity {
 			Toast.makeText(My_Video_.this,"iii",Toast.LENGTH_LONG).show();
 		}
 	}
-	private class MyChatAdapter extends BaseAdapter
-	{
 
-        Context context=null;
-        ArrayList<HashMap<String,Object>> chatList=null;
-        int[] layout;
-        String[] from;
-        int[] to;
-
-
-
-        public MyChatAdapter(Context context,
-                             ArrayList<HashMap<String, Object>> chatList, int[] layout
-                             )
-		{
-			super();
-			this.context = context;
-			this.chatList = chatList;
-			this.layout = layout;
-
-        }
-
-
-        public int getCount()
-		{
-			// TODO Auto-generated method stub
-			return chatList.size();
-        }
-
-
-        public Object getItem(int arg0)
-		{
-			// TODO Auto-generated method stub
-			return null;
-        }
-
-
-        public long getItemId(int position)
-		{
-			// TODO Auto-generated method stub
-			return position;
-        }
-
-
-        ////////////
-        class ViewHolder
-		{
-            public ImageView imageView=null;
-            public TextView textView=null;
-			public String title;
-			private ImageView i_icon,i_icon2;
-			public TextView T_title,T_red;
-        }
-        ////////////
-
-        public View getView(int position, View convertView, ViewGroup parent)
-		{
-			// TODO Auto-generated method stub
-			ViewHolder holder=null;
-			final TextView tt;
-			LinearLayout re;
-			int who=(Integer)chatList.get(position).get("person");
-
-
-			switch(who)
-			{
-				case 0:
-					convertView = LayoutInflater.from(context).inflate(
-						layout[who], null);
-					ImageView img=(ImageView)convertView.findViewById(R.id.left_list_itemImageView);
-					TextView tv=(TextView)convertView.findViewById(R.id.leftlistitemTextView1);
-					img.setImageResource((Integer)chatList.get(position).get("image"));
-					tv.setText((String)chatList.get(position).get("text"));
-
-
-					break;
-				case 1:
-					isEnabled(position);
-					convertView = LayoutInflater.from(context).inflate(
-						layout[who], null);
-					View v=(View)convertView.findViewById(R.id.lineitemView1);
-					v.setOnClickListener(new OnClickListener()
-						{
-							public void onClick(View view)
-							{
-
-							}
-						});
-
-					break;
-
-
-			}
-			return convertView;
-
-		}
-	}
-	
 	
 }
 

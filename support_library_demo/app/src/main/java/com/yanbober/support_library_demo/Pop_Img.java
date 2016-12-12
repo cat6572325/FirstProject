@@ -564,9 +564,7 @@ public class Pop_Img extends Dialog {
                                 maphttp.put("Context",round_video_);
                                 ArrayList<HashMap<String,Object>> datamaps=new ArrayList<HashMap<String, Object>>();
                                 datamaps.add(maphttp);
-                                if (u.notLoadforVideo_list.size()>1)
-                                    u.notLoadforVideo_list.clear();
-                                 u.notLoadforVideo_list=datamaps;
+                                     u.notLoadforVideo_list=datamaps;
 
                                 Toast.makeText(round_video_,"已保存此信息",Toast.LENGTH_LONG).show();
                                 dialog.dismiss();

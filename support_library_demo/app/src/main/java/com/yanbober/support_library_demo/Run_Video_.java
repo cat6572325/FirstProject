@@ -52,12 +52,13 @@ public class Run_Video_ extends ActionBarActivity {
 							collect_Progress.setVisibility(View.INVISIBLE);
 							collect_star.setBackgroundResource(R.drawable.start_yellow);
 						tcollect.setTextColor(Color.rgb(244,139,8));
-						
+						collect_star.setClickable(true);
 						}else
 						{
 							collect_Progress.setVisibility(View.INVISIBLE);
 							collect_star.setBackgroundResource(R.drawable.start_gray);
 							tcollect.setTextColor(0xff887777);
+							collect_star.setClickable(true);
 						}
 						break;
 
@@ -137,7 +138,7 @@ public class Run_Video_ extends ActionBarActivity {
 
 			}else
 			{
-				run_video_introduction.setText("\r\n\r\n/r简介错误/r/n/r/n/r/n");
+				run_video_introduction.setText("\r\n\r\n\r简介错误\r\n\r\n\r\n");
 				run_video_introduction.setTextColor(Color.RED);
 			}
 
@@ -236,6 +237,7 @@ public class Run_Video_ extends ActionBarActivity {
 					if(vid!=null)
 					{
 						collect_Progress.setVisibility(View.VISIBLE);
+						collect_star.setClickable(false);
 						HashMap<String,Object> map=new HashMap<String,Object>();
 						map.put("context",Run_Video_.this);
 						map.put("handler",mHandler);

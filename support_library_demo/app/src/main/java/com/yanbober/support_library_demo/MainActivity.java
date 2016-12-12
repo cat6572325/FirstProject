@@ -1,6 +1,8 @@
 package com.yanbober.support_library_demo;
 
+import android.app.Dialog;
 import android.app.Instrumentation;
+import android.app.ProgressDialog;
 import android.content.*;
 import android.database.*;
 import android.database.sqlite.*;
@@ -454,14 +456,17 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 
     }
 
-    public void setgroup(String[] group, String[] phones) {
-        //将线程返回的值发送到fragment去
-        idf.setgroup(MainActivity.this, group, phones);
 
-    }
+
 
 
     private void initView() {
+        ProgressDialog dialog;
+        dialog = new ProgressDialog(MainActivity.this);
+        dialog.setTitle("如果你刚登录了，就先等３秒钟，等所有数据都加载完..\r\nPS:未登录就更得等等,按下back键退出对话框");
+        dialog.show();
+
+
         Log.e("返回如果由输出则由是bug","--------------------------------");
         animation = new RotateAnimation(0f, 90f, Animation.RELATIVE_TO_SELF,
                 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
@@ -1215,7 +1220,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("Context", MainActivity.this);
         map.put("handler", mHandler);
-        String url = "http://trying-video.herokuapp.com/user/allcollect?token=" + user.token;
+        String url = "http://trying-video.herokuapp.com/user/collect/all?token=" + user.token;
         Http_UploadFile_ http = new Http_UploadFile_(url, map, "13");
         Thread xx = new Thread(http);
         xx.start();

@@ -1420,7 +1420,7 @@ Log.e("在登录的时候",e.toString());
             Request request = new Request.Builder().url(url).build();
 
 
-            Response response = client.newCall(request).execute();
+          Response response = client.newCall(request).execute();
             if (!response.isSuccessful()) throw new IOException();
             str = response.body().string();
             Bundle bundle;

@@ -167,6 +167,7 @@ DrawerLayout mDrawerLayout;
 		actionBar.setHomeAsUpIndicator(R.drawable.back_purple);//android.R.drawable.ic_dialog_alert);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 				User u =new User();
