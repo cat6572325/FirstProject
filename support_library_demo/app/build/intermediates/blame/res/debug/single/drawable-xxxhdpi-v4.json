@@ -56,12 +56,12 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable-xxxhdpi/login.png"
     },
     {
-        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4/times.png",
-        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable-xxxhdpi/times.png"
-    },
-    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4/official.png",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable-xxxhdpi/official.png"
+    },
+    {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4/times.png",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable-xxxhdpi/times.png"
     },
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4/play_white.png",

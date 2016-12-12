@@ -550,24 +550,31 @@ public class Pop_Img extends Dialog {
                                     >>  返回 status: '信息已以相同id保存'
                                     */
                                 User u=new User();
-                                HashMap<String, Object> maphttp = new HashMap<String, Object>();
-                                maphttp.put("uploader", u.mydata.get("_id").toString());
-                                maphttp.put("title", round_title.getText().toString());
-                                maphttp.put("introduction", round_ps.getText().toString());
-                                maphttp.put("price", round_money.getText().toString());
-                                maphttp.put("paidPerson","");
-                                maphttp.put("cocerPerson",u.mydata.get("_id").toString());//
-                                maphttp.put("paidppnumber", "0");//购买人数
-                                maphttp.put("concernednumber", "0");//收藏人数
-                                maphttp.put("handler",round_video_.mHandler);
-                                maphttp.put("count",0);
-                                maphttp.put("Context",round_video_);
-                                ArrayList<HashMap<String,Object>> datamaps=new ArrayList<HashMap<String, Object>>();
-                                datamaps.add(maphttp);
-                                     u.notLoadforVideo_list=datamaps;
+                                if (u.phone.equals("null"))
+                                {
+                                    Toast.makeText(round_video_,"请先登录",Toast.LENGTH_LONG).show();
+                                    dialog.dismiss();
 
-                                Toast.makeText(round_video_,"已保存此信息",Toast.LENGTH_LONG).show();
-                                dialog.dismiss();
+                                }else {
+                                    HashMap<String, Object> maphttp = new HashMap<String, Object>();
+                                    maphttp.put("uploader", u.mydata.get("_id").toString());
+                                    maphttp.put("title", round_title.getText().toString());
+                                    maphttp.put("introduction", round_ps.getText().toString());
+                                    maphttp.put("price", round_money.getText().toString());
+                                    maphttp.put("paidPerson", "");
+                                    maphttp.put("cocerPerson", u.mydata.get("_id").toString());//
+                                    maphttp.put("paidppnumber", "0");//购买人数
+                                    maphttp.put("concernednumber", "0");//收藏人数
+                                    maphttp.put("handler", round_video_.mHandler);
+                                    maphttp.put("count", 0);
+                                    maphttp.put("Context", round_video_);
+                                    ArrayList<HashMap<String, Object>> datamaps = new ArrayList<HashMap<String, Object>>();
+                                    datamaps.add(maphttp);
+                                    u.notLoadforVideo_list = datamaps;
+
+                                    Toast.makeText(round_video_, "已保存此信息", Toast.LENGTH_LONG).show();
+                                    dialog.dismiss();
+                                }
                                // indelayout.setVisibility(View.VISIBLE);
                                 //解除隐藏布局的隐藏
                                 //mViewUpdateHandler.sendEmptyMessage(0);

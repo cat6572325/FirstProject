@@ -61,13 +61,13 @@ public class Login_ extends AppCompatActivity {
                             JSONArray jsonArray=jsonObject2.getJSONArray("paidVideos");
                             for (int i = 0; i < jsonArray.length(); i++) {
 
-                                user.paid_Videos.add(Integer.parseInt(jsonArray.getString(i)));
-                                if (dataserver.ispaidVideosID(String.valueOf(jsonArray.getInt(i))))
+                                user.paid_Videos.add(jsonArray.getString(i));
+                                if (dataserver.ispaidVideosID(jsonArray.getString(i)))
                                 {//如果这个id在数据库的paidVideos表中有，则不做任何
                                 }else
                                 {//否则添加进数据库，供paid_video_类调用
                                     HashMap<String ,Object> map=new HashMap<>();
-                                    map.put("_id",String.valueOf(jsonArray.getInt(i)));
+                                    map.put("_id",jsonArray.getString(i));
                                     dataserver.addpaid_Videos_SQL(map);
                                 }
                             }

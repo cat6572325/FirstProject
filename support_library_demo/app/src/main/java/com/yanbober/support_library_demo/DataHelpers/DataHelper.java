@@ -56,7 +56,7 @@ public class DataHelper extends SQLiteOpenHelper
                 " integer primary key" +
                 ",id text)"
               );
-        db.execSQL("create table paiVideos(_id" +
+        db.execSQL("create table paidVideos(_id" +
                 " integer primary key" +
                 ",id text)");
 

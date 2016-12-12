@@ -409,17 +409,9 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="1219" column="0" selection-start-line="1219" selection-start-column="0" selection-end-line="1219" selection-end-column="0" />
+              <caret line="817" column="14" selection-start-line="817" selection-start-column="14" selection-end-line="817" selection-end-column="14" />
               <folding>
-                <element signature="e#7155#7171#0" expanded="true" />
-                <element signature="e#13243#13268#0" expanded="true" />
-                <element signature="e#20934#21380#0" expanded="true" />
-                <element signature="e#21379#21380#0" expanded="true" />
-                <element signature="e#26661#27422#0" expanded="true" />
-                <element signature="e#27421#27422#0" expanded="true" />
-                <element signature="e#28060#28085#0" expanded="true" />
                 <element signature="method#POpFloag#0;class#MainActivity#0" expanded="false" />
-                <element signature="e#44785#44801#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -429,32 +421,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Message_c.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="179" column="39" selection-start-line="179" selection-start-column="39" selection-end-line="179" selection-end-column="39" />
-              <folding>
-                <element signature="e#2048#2063#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="collect_layout.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/collect_layout.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.0357144">
-              <caret line="92" column="8" selection-start-line="92" selection-start-column="8" selection-end-line="92" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DataHelper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/DataHelpers/DataHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="222" column="24" selection-start-line="222" selection-start-column="24" selection-end-line="222" selection-end-column="24" />
+              <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -465,9 +432,37 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="146" column="0" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
-              <folding>
-                <element signature="e#4526#4541#0" expanded="true" />
-              </folding>
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DataHelper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/DataHelpers/DataHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="58" column="37" selection-start-line="58" selection-start-column="37" selection-end-line="58" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Setting_.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Setting_.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.6666667">
+              <caret line="179" column="97" selection-start-line="179" selection-start-column="21" selection-end-line="179" selection-end-column="97" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GetBitmapurl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/GetBitmapurl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -476,7 +471,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Login_.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="63" column="94" selection-start-line="63" selection-start-column="94" selection-end-line="63" selection-end-column="94" />
+              <caret line="63" column="75" selection-start-line="63" selection-start-column="75" selection-end-line="63" selection-end-column="75" />
               <folding />
             </state>
           </provider>
@@ -486,28 +481,68 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Pop_Img.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="566" column="30" selection-start-line="566" selection-start-column="30" selection-end-line="566" selection-end-column="30" />
-              <folding />
+              <caret line="557" column="39" selection-start-line="557" selection-start-column="39" selection-end-line="557" selection-end-column="39" />
+              <folding>
+                <element signature="e#21446#25543#0" expanded="true" />
+                <element signature="e#25542#25543#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Round_Video_.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Round_Video_.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Round_Video_.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.0215054">
-              <caret line="600" column="0" selection-start-line="600" selection-start-column="0" selection-end-line="600" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Http_UploadFile_.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Http_Util/Http_UploadFile_.java">
-          <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="1423" column="33" selection-start-line="1423" selection-start-column="33" selection-end-line="1423" selection-end-column="33" />
-              <folding />
+              <caret line="585" column="31" selection-start-line="585" selection-start-column="31" selection-end-line="585" selection-end-column="31" />
+              <folding>
+                <element signature="method#onCreate#0;class#Round_Video_#0" expanded="false" />
+                <element signature="e#5666#5680#0" expanded="false" />
+                <element signature="method#initView#0;class#Round_Video_#0" expanded="false" />
+                <element signature="method#randomProdoction#0;class#Round_Video_#0" expanded="false" />
+                <element signature="method#setprog#0;class#Round_Video_#0" expanded="false" />
+                <element signature="class#task#0;class#Round_Video_#0" expanded="false" />
+                <element signature="method#task#0;class#task#0;class#Round_Video_#0" expanded="false" />
+                <element signature="method#run#0;class#task#0;class#Round_Video_#0" expanded="false" />
+                <element signature="method#maxtimemessage#0;class#Round_Video_#0" expanded="false" />
+                <element signature="method#start#0;class#Round_Video_#0" expanded="false" />
+                <element signature="e#11151#11227#0" expanded="false" />
+                <element signature="e#11397#11474#0" expanded="false" />
+                <element signature="e#12169#12177#0" expanded="false" />
+                <element signature="e#13717#13749#0" expanded="false" />
+                <element signature="method#stop#0;class#Round_Video_#0" expanded="false" />
+                <element signature="e#14210#14241#0" expanded="false" />
+                <element signature="method#onDestroy#0;class#Round_Video_#0" expanded="false" />
+                <element signature="method#ResetCamera#0;class#Round_Video_#0" expanded="false" />
+                <element signature="e#15411#15488#0" expanded="false" />
+                <element signature="method#Turncamera#0;class#Round_Video_#0" expanded="false" />
+                <element signature="e#16025#16042#0" expanded="false" />
+                <element signature="method#record#0;class#Round_Video_#0" expanded="false" />
+                <element signature="method#delete#0;class#Round_Video_#0" expanded="false" />
+                <element signature="method#upload#0;class#Round_Video_#0" expanded="false" />
+                <element signature="method#onBackPressed#0;class#Round_Video_#0" expanded="false" />
+                <element signature="e#20657#20730#0" expanded="false" />
+                <element signature="method#edit#0;class#Round_Video_#0" expanded="false" />
+                <element signature="e#21982#22001#0" expanded="false" />
+                <element signature="e#22241#22260#0" expanded="false" />
+                <element signature="e#22506#22578#0" expanded="false" />
+                <element signature="e#22723#22756#0" expanded="false" />
+                <element signature="class#task1#0;class#Round_Video_#0" expanded="false" />
+                <element signature="method#task1#0;class#task1#0;class#Round_Video_#0" expanded="false" />
+                <element signature="method#run#0;class#task1#0;class#Round_Video_#0" expanded="false" />
+                <element signature="class#Mytest#0;class#Round_Video_#0" expanded="false" />
+                <element signature="method#getScreenWH#0;class#Round_Video_#0" expanded="false" />
+                <element signature="method#exactorMedia#0;class#Round_Video_#0" expanded="false" />
+                <element signature="e#26501#26547#0" expanded="false" />
+                <element signature="method#muxerAudio#0;class#Round_Video_#0" expanded="false" />
+                <element signature="e#29242#29288#0" expanded="false" />
+                <element signature="method#muxerMedia#0;class#Round_Video_#0" expanded="false" />
+                <element signature="docComment;method#getVideoThumb#0;class#Round_Video_#0" expanded="false" />
+                <element signature="method#getVideoThumb#0;class#Round_Video_#0" expanded="false" />
+                <element signature="docComment;method#getVideoThumb2#0;class#Round_Video_#0" expanded="false" />
+                <element signature="method#getVideoThumb2#0;class#Round_Video_#0" expanded="false" />
+                <element signature="method#getVideoThumb2#1;class#Round_Video_#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -2394,7 +2429,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/values/attrs.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Home.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Balance_.java" />
@@ -2425,26 +2459,27 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/FirstAdapter2.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/ShareFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/User.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/AgendaFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/GetBitmapurl.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/InfoDetailsFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Run_Video_.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Message_c.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Setting_.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/my_video.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/My_Video_.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Collect_.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/paid_video.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/collect_layout.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Http_Util/Http_UploadFile_.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Paid_Video.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/DataHelpers/DataHelper.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/User.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Login_.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Setting_.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Pop_Img.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Round_Video_.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/DataHelpers/DataHelper.java" />
+        <option value="$USER_HOME$/modify_Sdk/android-sdk-linux/platforms/android-25/android.jar!/android/app/Activity.class" />
       </list>
     </option>
   </component>
@@ -2478,106 +2513,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="support_library_demo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="support_library_demo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="support_library_demo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scratches" />
-      <pane id="AndroidView">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="support_library_demo" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Gradle Scripts" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidBuildScriptsGroupNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="support_library_demo" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="support_library_demo" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="support_library_demo" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="support_library_demo" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="support_library_demo" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="support_library_demo" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DataHelpers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="Scope">
         <subPane subId="Project Files">
           <PATH>
@@ -2724,6 +2659,106 @@
             <PATH_ELEMENT USER_OBJECT="src">
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="support_library_demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="support_library_demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="support_library_demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="AndroidView">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="support_library_demo" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Gradle Scripts" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidBuildScriptsGroupNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="support_library_demo" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="support_library_demo" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="support_library_demo" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="support_library_demo" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="support_library_demo" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="support_library_demo" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DataHelpers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -3067,7 +3102,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1280" height="713" extended-state="6" />
+    <frame x="0" y="24" width="1280" height="713" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32993197" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -3076,7 +3111,7 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.61734694" sideWeight="0.52922076" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.61734694" sideWeight="0.46753246" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.48979592" sideWeight="0.46753246" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30032468" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32993197" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -3140,7 +3175,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Pop_Img.java</url>
-          <line>642</line>
+          <line>649</line>
           <properties />
           <option name="timeStamp" value="85" />
         </line-breakpoint>
@@ -3176,7 +3211,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Setting_.java</url>
-          <line>303</line>
+          <line>306</line>
           <properties />
           <option name="timeStamp" value="275" />
         </line-breakpoint>
@@ -3217,24 +3252,17 @@
           <option name="timeStamp" value="302" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Login_.java</url>
-          <line>63</line>
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Setting_.java</url>
+          <line>179</line>
           <properties />
-          <option name="timeStamp" value="312" />
+          <option name="timeStamp" value="313" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="313" />
+      <option name="time" value="314" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$USER_HOME$/modify_Sdk/android-sdk-linux/platforms/android-23/android.jar!/android/app/Activity.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.068">
-          <caret line="339" column="16" selection-start-line="339" selection-start-column="16" selection-end-line="339" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/SimpleActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -3250,13 +3278,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/balance_layout.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/modify_Sdk/android-sdk-linux/platforms/android-23/android.jar!/android/view/View.class">
@@ -3278,17 +3306,6 @@
         <state vertical-scroll-proportion="1.9711539">
           <caret line="87" column="0" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/round_video_layout.xml">
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="31" column="46" selection-start-line="31" selection-start-column="46" selection-end-line="31" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Custom/appLication_.java">
@@ -3333,14 +3350,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/personal_layout.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5063291">
           <caret line="16" column="42" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Personal_.java">
@@ -3354,14 +3371,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.47713718">
           <caret line="94" column="4" selection-start-line="94" selection-start-column="4" selection-end-line="94" selection-end-column="4" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/anim/scale___.xml">
@@ -3380,36 +3397,36 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/error_dialog.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/set_new_pay_pwd_layout.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/run_video_layout.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/run_video_layout.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="176" column="20" selection-start-line="176" selection-start-column="20" selection-end-line="176" selection-end-column="20" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
@@ -3433,7 +3450,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="184" column="155" selection-start-line="184" selection-start-column="155" selection-end-line="184" selection-end-column="155" />
           <folding>
-            <element signature="e#5737#5753#0" expanded="true" />
+            <element signature="e#5737#5753#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3446,34 +3463,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/GetBitmapurl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="192" column="5" selection-start-line="192" selection-start-column="5" selection-end-line="192" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/message_layout.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.08946322">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/message_item.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/message_item.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.1818182">
           <caret line="23" column="49" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="49" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/InfoDetailsFragment.java">
@@ -3496,10 +3505,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.0817307">
           <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
-          <folding>
-            <element signature="e#593#594#0" expanded="true" />
-            <element signature="e#644#645#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3507,10 +3512,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.1875">
           <caret line="32" column="16" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="16" />
-          <folding>
-            <element signature="e#753#754#0" expanded="true" />
-            <element signature="e#804#805#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3518,7 +3519,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.42307693">
           <caret line="100" column="19" selection-start-line="100" selection-start-column="19" selection-end-line="100" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3526,19 +3526,18 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.42307693">
           <caret line="53" column="19" selection-start-line="53" selection-start-column="19" selection-end-line="53" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/my_video.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="2.8190856">
           <caret line="95" column="35" selection-start-line="95" selection-start-column="35" selection-end-line="95" selection-end-column="35" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/My_Video_.java">
@@ -3546,16 +3545,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="102" column="0" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="34" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
-          <folding>
-            <element signature="e#671#686#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3568,14 +3557,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/paid_video.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.4181818">
           <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/FirstAdapter.java">
@@ -3587,31 +3576,23 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/collect_item.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-13.909091">
           <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
           <folding />
         </state>
       </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/collect_layout.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.0357144">
-          <caret line="92" column="8" selection-start-line="92" selection-start-column="8" selection-end-line="92" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
       <provider editor-type-id="android-designer">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Setting_.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.10752688">
-          <caret line="52" column="18" selection-start-line="52" selection-start-column="4" selection-end-line="52" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="92" column="8" selection-start-line="92" selection-start-column="8" selection-end-line="92" selection-end-column="8" />
           <folding />
         </state>
       </provider>
@@ -3620,7 +3601,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="1423" column="33" selection-start-line="1423" selection-start-column="33" selection-end-line="1423" selection-end-column="33" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -3629,46 +3612,34 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="57" column="20" selection-start-line="57" selection-start-column="20" selection-end-line="57" selection-end-column="20" />
           <folding>
-            <element signature="e#4234#4460#0" expanded="true" />
-            <element signature="e#4459#4460#0" expanded="true" />
-            <element signature="e#4591#4704#0" expanded="true" />
-            <element signature="e#4703#4704#0" expanded="true" />
+            <element signature="e#4234#4460#0" expanded="false" />
+            <element signature="e#4459#4460#0" expanded="false" />
+            <element signature="e#4591#4704#0" expanded="false" />
+            <element signature="e#4703#4704#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="44" selection-start-line="25" selection-start-column="44" selection-end-line="25" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Login_.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="63" column="75" selection-start-line="63" selection-start-column="75" selection-end-line="63" selection-end-column="75" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Message_c.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="179" column="39" selection-start-line="179" selection-start-column="39" selection-end-line="179" selection-end-column="39" />
-          <folding>
-            <element signature="e#2048#2063#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1219" column="0" selection-start-line="1219" selection-start-column="0" selection-end-line="1219" selection-end-column="0" />
-          <folding>
-            <element signature="e#7155#7171#0" expanded="true" />
-            <element signature="e#13243#13268#0" expanded="true" />
-            <element signature="e#20934#21380#0" expanded="true" />
-            <element signature="e#21379#21380#0" expanded="true" />
-            <element signature="e#26661#27422#0" expanded="true" />
-            <element signature="e#27421#27422#0" expanded="true" />
-            <element signature="e#28060#28085#0" expanded="true" />
-            <element signature="method#POpFloag#0;class#MainActivity#0" expanded="false" />
-            <element signature="e#44785#44801#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/DataHelpers/DataHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="222" column="24" selection-start-line="222" selection-start-column="24" selection-end-line="222" selection-end-column="24" />
+          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -3677,16 +3648,24 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="146" column="0" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="817" column="14" selection-start-line="817" selection-start-column="14" selection-end-line="817" selection-end-column="14" />
           <folding>
-            <element signature="e#4526#4541#0" expanded="true" />
+            <element signature="method#POpFloag#0;class#MainActivity#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Login_.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/GetBitmapurl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="63" column="94" selection-start-line="63" selection-start-column="94" selection-end-line="63" selection-end-column="94" />
+          <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -3694,15 +3673,100 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Pop_Img.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="566" column="30" selection-start-line="566" selection-start-column="30" selection-end-line="566" selection-end-column="30" />
+          <caret line="557" column="39" selection-start-line="557" selection-start-column="39" selection-end-line="557" selection-end-column="39" />
+          <folding>
+            <element signature="e#21446#25543#0" expanded="true" />
+            <element signature="e#25542#25543#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/round_video_layout.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.34791252">
+          <caret line="67" column="24" selection-start-line="67" selection-start-column="24" selection-end-line="67" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Round_Video_.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.0215054">
-          <caret line="600" column="0" selection-start-line="600" selection-start-column="0" selection-end-line="600" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="585" column="31" selection-start-line="585" selection-start-column="31" selection-end-line="585" selection-end-column="31" />
+          <folding>
+            <element signature="method#onCreate#0;class#Round_Video_#0" expanded="false" />
+            <element signature="e#5666#5680#0" expanded="false" />
+            <element signature="method#initView#0;class#Round_Video_#0" expanded="false" />
+            <element signature="method#randomProdoction#0;class#Round_Video_#0" expanded="false" />
+            <element signature="method#setprog#0;class#Round_Video_#0" expanded="false" />
+            <element signature="class#task#0;class#Round_Video_#0" expanded="false" />
+            <element signature="method#task#0;class#task#0;class#Round_Video_#0" expanded="false" />
+            <element signature="method#run#0;class#task#0;class#Round_Video_#0" expanded="false" />
+            <element signature="method#maxtimemessage#0;class#Round_Video_#0" expanded="false" />
+            <element signature="method#start#0;class#Round_Video_#0" expanded="false" />
+            <element signature="e#11151#11227#0" expanded="false" />
+            <element signature="e#11397#11474#0" expanded="false" />
+            <element signature="e#12169#12177#0" expanded="false" />
+            <element signature="e#13717#13749#0" expanded="false" />
+            <element signature="method#stop#0;class#Round_Video_#0" expanded="false" />
+            <element signature="e#14210#14241#0" expanded="false" />
+            <element signature="method#onDestroy#0;class#Round_Video_#0" expanded="false" />
+            <element signature="method#ResetCamera#0;class#Round_Video_#0" expanded="false" />
+            <element signature="e#15411#15488#0" expanded="false" />
+            <element signature="method#Turncamera#0;class#Round_Video_#0" expanded="false" />
+            <element signature="e#16025#16042#0" expanded="false" />
+            <element signature="method#record#0;class#Round_Video_#0" expanded="false" />
+            <element signature="method#delete#0;class#Round_Video_#0" expanded="false" />
+            <element signature="method#upload#0;class#Round_Video_#0" expanded="false" />
+            <element signature="method#onBackPressed#0;class#Round_Video_#0" expanded="false" />
+            <element signature="e#20657#20730#0" expanded="false" />
+            <element signature="method#edit#0;class#Round_Video_#0" expanded="false" />
+            <element signature="e#21982#22001#0" expanded="false" />
+            <element signature="e#22241#22260#0" expanded="false" />
+            <element signature="e#22506#22578#0" expanded="false" />
+            <element signature="e#22723#22756#0" expanded="false" />
+            <element signature="class#task1#0;class#Round_Video_#0" expanded="false" />
+            <element signature="method#task1#0;class#task1#0;class#Round_Video_#0" expanded="false" />
+            <element signature="method#run#0;class#task1#0;class#Round_Video_#0" expanded="false" />
+            <element signature="class#Mytest#0;class#Round_Video_#0" expanded="false" />
+            <element signature="method#getScreenWH#0;class#Round_Video_#0" expanded="false" />
+            <element signature="method#exactorMedia#0;class#Round_Video_#0" expanded="false" />
+            <element signature="e#26501#26547#0" expanded="false" />
+            <element signature="method#muxerAudio#0;class#Round_Video_#0" expanded="false" />
+            <element signature="e#29242#29288#0" expanded="false" />
+            <element signature="method#muxerMedia#0;class#Round_Video_#0" expanded="false" />
+            <element signature="docComment;method#getVideoThumb#0;class#Round_Video_#0" expanded="false" />
+            <element signature="method#getVideoThumb#0;class#Round_Video_#0" expanded="false" />
+            <element signature="docComment;method#getVideoThumb2#0;class#Round_Video_#0" expanded="false" />
+            <element signature="method#getVideoThumb2#0;class#Round_Video_#0" expanded="false" />
+            <element signature="method#getVideoThumb2#1;class#Round_Video_#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/DataHelpers/DataHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="58" column="37" selection-start-line="58" selection-start-column="37" selection-end-line="58" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/modify_Sdk/android-sdk-linux/platforms/android-25/android.jar!/android/app/Activity.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1080" column="0" selection-start-line="1080" selection-start-column="0" selection-end-line="1080" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Setting_.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6666667">
+          <caret line="179" column="97" selection-start-line="179" selection-start-column="21" selection-end-line="179" selection-end-column="97" />
           <folding />
         </state>
       </provider>

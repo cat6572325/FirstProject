@@ -96,8 +96,8 @@ public class Setting_ extends AppCompatActivity {
             }
         });
         User u = new User();
-        if (u.getBitmapurl != null && u.mydata.size() > 2)
-            u.getBitmapurl.loadImageViewurl(u.mydata.get("headprturl").toString(), headImg, u.mydata);
+        if (u.getBitmapurl != null)
+            u.getBitmapurl.loadImageViewurl(u.mydata.get("headPortrait").toString(), headImg, u.mydata);
 
         Bundle bun = this.getIntent().getExtras();
         if (bun != null && bun.containsKey("images")) {
@@ -204,6 +204,7 @@ public class Setting_ extends AppCompatActivity {
 
                         bos.flush();
                         bos.close();
+
                         //Bitmap b= toRoundBitmap(bitmap);
                         headImg.setImageBitmap(bitmap);
                         user.headBitmap = bitmap;
@@ -248,8 +249,10 @@ public class Setting_ extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+      //  super.onBackPressed();
         Intent intent = getIntent();
+        Bundle bundle=new Bundle();
+
         setResult(1, intent);//返回页面1
         finish();
 

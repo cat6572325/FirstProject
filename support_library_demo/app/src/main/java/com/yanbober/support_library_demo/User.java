@@ -24,5 +24,5 @@ public class User
 	public static My_Video_ my_video_;
 	public static Collect_ collect_;
 	public static ArrayList<HashMap<String, Object>> maps,Datas,paid_Videos_List=new ArrayList<>();
-	public static ArrayList<Integer> paid_Videos=new ArrayList<>();
+	public static ArrayList<String> paid_Videos=new ArrayList<>();
 }

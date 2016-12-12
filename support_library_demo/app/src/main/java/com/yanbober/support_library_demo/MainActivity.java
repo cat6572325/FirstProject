@@ -814,7 +814,9 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
             case 1://设置头像
                 //把setting_返回的图片设置给头像，但是并不联网，联网环图只在setting_中
                 User u = new User();
-                left_head.setImageBitmap((Bitmap) u.headBitmap);
+               Bitmap bitmap=u.headBitmap; //data.getExtras().get("head");
+                if (bitmap!=null)
+                left_head.setImageBitmap(bitmap);
                 Log.e("User中的phone",u.phone);
                 Log.e("User中的headPicture",u.picture);
                 Log.e("User中的notices列表",String.valueOf(u.notices_list.size()));

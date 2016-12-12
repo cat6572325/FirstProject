@@ -4,12 +4,12 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/ic_action_chat.png"
     },
     {
-        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/button_action_blue_selector.xml",
-        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/button_action_blue_selector.xml"
-    },
-    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_track_material.xml",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/res/drawable/abc_seekbar_track_material.xml"
+    },
+    {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/button_action_blue_selector.xml",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/button_action_blue_selector.xml"
     },
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/jc_click_error_selector.xml",
@@ -40,12 +40,12 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/ic_action_new.png"
     },
     {
-        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/navigation_empty_icon.xml",
-        "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/design/25.0.1/res/drawable/navigation_empty_icon.xml"
-    },
-    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/ic_action_headphones.png",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/ic_action_headphones.png"
+    },
+    {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/navigation_empty_icon.xml",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/design/25.0.1/res/drawable/navigation_empty_icon.xml"
     },
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/abc_switch_thumb_material.xml",

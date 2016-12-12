@@ -578,7 +578,9 @@ private String randomProdoction()
         //向对话框传递上下文和文件路径(用于删除）
         editNameDialog.show(getFragmentManager(), "EditNameDialog");
         bottom_hide_layout.setVisibility(View.INVISIBLE);
-        start();
+        turncamera=0;
+        ResetCamera();
+
     }
 
     public void upload(View v) {
