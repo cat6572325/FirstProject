@@ -2,6 +2,7 @@ package com.yanbober.support_library_demo.Http_Util;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.*;
@@ -10,6 +11,10 @@ import android.widget.Toast;
 import cn.edu.zafu.coreprogress.listener.*;
 import cn.edu.zafu.coreprogress.listener.impl.*;
 import com.yanbober.support_library_demo.*;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.concurrent.*;
@@ -73,19 +78,14 @@ public class NewOkhttp extends Thread
 			{
 				try
 				{
-
+					//上传头像，目前只在首页面对第一次登录的用户，上传预置头像用的
 					final String str=r2.body().string();
-					if (context!=null)
-					{
-						new Thread(new Runnable() {
-							@Override
-							public void run() {
-								Looper.prepare();
-								Toast.makeText(context,str,Toast.LENGTH_LONG).show();
-								Looper.loop();
-							}
-						});
-					}
+					JSONObject jsonObject=new JSONObject(str);
+					Handler handler=(Handler)map.get("handler");
+					Bundle bundle=new Bundle();
+					bundle.putString("?","上传");
+					bundle.putString("url",jsonObject.getString("headprturl"));
+					handler.sendEmptyMessage(9);
 					Log.e("成功", str);
 				}
 				catch (IOException e)
@@ -94,19 +94,15 @@ public class NewOkhttp extends Thread
 					if (context!=null)
 					{
 						final String exception=e.toString();
-						new Thread(new Runnable() {
-							@Override
-							public void run() {
-								Looper.prepare();
-								Toast.makeText(context,exception,Toast.LENGTH_LONG).show();
-								Looper.loop();
-							}
-						});
+
+
 					}
-					Log.e("错误1", e.toString());
+					Log.e("在上传预置头像的时候", e.toString());
+				} catch (JSONException e) {
+					Log.e("在上传预置头像的时候", e.toString());
 				}
 
-				
+
 			}
 			@Override
 			public void onFailure(okhttp3.Call c,IOException e)

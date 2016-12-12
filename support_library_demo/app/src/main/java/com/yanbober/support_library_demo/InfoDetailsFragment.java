@@ -50,6 +50,7 @@ public class InfoDetailsFragment extends Fragment {
     public ArrayList<HashMap<String, Object>> lists = new ArrayList<HashMap<String, Object>>(), lists2 = new ArrayList<HashMap<String, Object>>(),lists3;
     FirstAdapter2 adapter, adapter2;
     MainActivity activity;
+    public static String[] urls;
     Bitmap bitmap;
     User user = new User();
     private List<Integer> counttype = new ArrayList<>();
@@ -229,6 +230,39 @@ initView();
                     ,"getvideos");
         Thread t=new Thread(http_uploadFile_);
      //   t.start();
+        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState==0)//0停止　1开始滑动 2放手依旧滑动中
+                {
+                    lm = (LinearLayoutManager) mRecyclerView.getLayoutManager();
+                    User u=new User();
+                    HashMap<String,Object> map=new HashMap<String, Object>();
+                    map.put("?","InfoDetailsFragment");
+                    if (u.getBitmapurl!=null) {
+                        u.getBitmapurl.loadListViewImage(lm.findFirstVisibleItemPosition(), lm.findLastVisibleItemPosition(),mRecyclerView,getContext(),map);
+                    }
+                }else
+                {
+                    User u=new User();
+                    if (u.getBitmapurl!=null)
+                        u.getBitmapurl.cancelAllTask();
+                }
+
+
+
+            }
+
+
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView,dx, dy);
+
+            }
+        });
 
         }
     ArrayList<HashMap<String, Object>> map;
@@ -243,13 +277,13 @@ public interface OnActivityebent
     }
 public void Onebent(ArrayList<HashMap<String, Object>> maps)  {//MainActivity接口
     User u=new User();
+
     if (u.phone.equals("null")&&u.phone==null)
     {
-
-    }else {
         map = maps;
-
+        urls=new String[user.maps.size()];
         for (int i = 0; i < map.size(); i++) {
+            urls[i]=user.maps.get(i).get("vdoPhotourl").toString();
             urlbitmap = map.get(i).get("vdoPhotourl").toString();
             str1 = map.get(i).get("paidppnumber").toString();
             str2 = map.get(i).get("vdourl").toString();
@@ -265,7 +299,30 @@ public void Onebent(ArrayList<HashMap<String, Object>> maps)  {//MainActivity接
                     , urlbitmap
             );
 
-            mHandler.sendEmptyMessage(2);
+
+        }
+
+        }else {
+        map = maps;
+        urls=new String[user.maps.size()];
+        for (int i = 0; i < map.size(); i++) {
+            urls[i]=user.maps.get(i).get("vdoPhotourl").toString();
+            urlbitmap = map.get(i).get("vdoPhotourl").toString();
+            str1 = map.get(i).get("paidppnumber").toString();
+            str2 = map.get(i).get("vdourl").toString();
+            str3 = map.get(i).get("title").toString();
+            if (i == 10) {
+                return;
+            }
+            addTextToList(str1
+                    , 1
+                    , str2
+                    , 0
+                    , str3
+                    , urlbitmap
+            );
+
+
 
 
         }

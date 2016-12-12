@@ -1,5 +1,6 @@
 package com.yanbober.support_library_demo;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 
 import com.yanbober.support_library_demo.Http_Util.Get_LastData_Util;
 import com.yanbober.support_library_demo.Http_Util.Http_UploadFile_;
+import com.yanbober.support_library_demo.Http_Util.NewOkhttp;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,6 +47,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * 注册
@@ -64,6 +67,7 @@ public class Register_ extends AppCompatActivity {
                         JSONObject JS=(JSONObject)msg.obj;
                             User.phone=JS.getString("phone");
                         User._id=JS.getString("_id");
+                        dialog.cancel();
                         Intent intent = new Intent(Register_.this, Register_sucess_Message_.class);
                        startActivity(intent);
                       finish();
@@ -71,7 +75,8 @@ public class Register_ extends AppCompatActivity {
                     }else
                     {
                         //注册失败
-                        Toast.makeText(Register_.this,"注册失败："+bun.get("!").toString(),Toast.LENGTH_SHORT).show();
+                        dialog.cancel();
+
                     }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -79,11 +84,11 @@ public class Register_ extends AppCompatActivity {
 
                     break;
 
-
             }
         }
     };
     User user=new User();
+    ProgressDialog dialog=null;
     ImageView Register_Enter,regis_enter;
     Button backbtn;
     EditText phon, pas;
@@ -92,7 +97,7 @@ public class Register_ extends AppCompatActivity {
     URL url;
     int phones=0,pass=0;
     BufferedOutputStream bos;
-    File dirFile = new File("/sdcard/180s/headpicture/" + randomProdoction() + ".png");
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,76 +129,8 @@ public class Register_ extends AppCompatActivity {
         //注册的同时发送预置头像
         Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.ic_launcher);
         backbtn.setOnClickListener(new MyClickListener());
-        try {
-
-            //创建一个头像本地路径
-            File file1 = new File("/sdcard/180s");
-            if (!file1.exists()) {
-                file1.mkdirs();
-            }
-            File file2 = new File("/sdcard/180s/headpicture");
-            if (!file2.exists()) {
-                file2.mkdirs();
-            }
-            if (!dirFile.exists()) {
-                dirFile.createNewFile();
-            } else {
-                dirFile.delete();
-                dirFile.createNewFile();
-            }
-            bos = new BufferedOutputStream(new FileOutputStream(dirFile));
-            bitmap.compress(Bitmap.CompressFormat.PNG, 80, bos);
-            //将一个预置图片作为头像
-        }catch (IOException e)
-        {
-            Log.e("在创建预置头像时",e.toString());
-        }finally {
-            bos.flush();
-            bos.close();
-        }
 
 
-    }
-    private String randomProdoction()
-    {
-        int random=(int)Math.random()*10;
-        String str=null;
-        for (int i=0;i<10;i++) {
-            switch (random) {
-                case 0:
-                    str += "a";
-                    break;
-
-                case 1:
-                    str += "b";
-                    break;
-
-                case 2:
-                    str += "c";
-                    break;
-
-                case 3:
-                    str += "e";
-                    break;
-
-                case 4:
-                    str += "f";
-                    break;
-
-                case 5:
-                    str += "g";
-                    break;
-
-                case 6:
-                    str += "h";
-                    break;
-
-                case 7:
-                    str += "i";
-                    break;
-            }
-        }
-        return str+String.valueOf(random);
     }
     class MyClickListener implements View.OnClickListener {
 
@@ -205,12 +142,15 @@ public class Register_ extends AppCompatActivity {
                     HashMap<String,Object> map=new HashMap<>();
                     map.put("handler",mHandler);
                     map.put("Context",Register_.this);
-                    map.put("headfile",dirFile);
+
                     map.put("count",0);
                     map.put("phone",phon.getText().toString());
                     map.put("password",pas.getText().toString());
+                    dialog=new ProgressDialog(Register_.this);
+                    dialog.setTitle("注册中..");
+                    dialog.show();
 
-                        Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(
+                    Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(
                                 "http://trying-video.herokuapp.com/reg/user"
                                 ,map
                                 , "0");

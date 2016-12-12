@@ -477,10 +477,10 @@ MERGED from [cn.edu.zafu:coreprogress:0.0.3] /home/cat6572325/FirstProject/suppo
 	android:name
 		ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/AndroidManifest.xml:33:3-71
 		REJECTED from [com.zcy:selectpicture:1.0.0] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.zcy/selectpicture/1.0.0/AndroidManifest.xml:21:9-49
-activity#com.yanbober.support_library_demo.Login_
+activity#com.yanbober.support_library_demo.MainActivity
 ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/AndroidManifest.xml:39:3-47:14
 	android:name
-		ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/AndroidManifest.xml:40:4-59
+		ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/AndroidManifest.xml:40:4-65
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
 ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/AndroidManifest.xml:42:4-46:20
 action#android.intent.action.MAIN
@@ -569,12 +569,12 @@ ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/Andro
 		ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/AndroidManifest.xml:73:4-39
 	android:name
 		ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/AndroidManifest.xml:72:13-41
-activity#com.yanbober.support_library_demo.MainActivity
+activity#com.yanbober.support_library_demo.Login_
 ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/AndroidManifest.xml:74:3-75:49
 	android:label
 		ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/AndroidManifest.xml:75:4-37
 	android:name
-		ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/AndroidManifest.xml:74:13-41
+		ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/AndroidManifest.xml:74:13-35
 activity#com.yanbober.support_library_demo.Send_random_
 ADDED from /home/cat6572325/FirstProject/support_library_demo/app/src/main/AndroidManifest.xml:76:3-78:77
 	android:label

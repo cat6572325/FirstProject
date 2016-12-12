@@ -78,7 +78,41 @@ public class ShareFragment extends Fragment {
 		adapter = new FirstAdapter2(getActivity(), lists);
 
 		mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
+		addTextToList("广东",1,"data",0,"bug太多，修复不了，好痛苦","ss");
+		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
+		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
+		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
+		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
+		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
+		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
+		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
+		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
+		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
+		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
+		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
+		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
+		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
+		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
 
+
+
+		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
+		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
+		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
+		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
+		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
+		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
+		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
+		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
+		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
+		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
+		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
+		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
+		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
+		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
+		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
+		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
+		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
 		mRecyclerView.setAdapter(adapter);
 
 		adapter.setOnClickListener(new FirstAdapter2.OnItemClickListener() {
@@ -208,7 +242,7 @@ public class ShareFragment extends Fragment {
 		if (isVisibleToUser)
 		{
 			if (itemCount==0) {
-				initView();
+				//initView();
 				itemCount++;
 			}else
 			{

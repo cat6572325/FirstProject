@@ -64,27 +64,10 @@ public class FirstAdapter extends RecyclerView.Adapter<MyViewHolder2> {
 		this.lists=lists;
 		//this.counttype=countType;
 
-		alllist=new ArrayList<>();
-		alllist.clear();
-		/*for(int i=0;i<strs.size();i++)
-		 {
-		 alllist.add(strs.get(i));
-		 alllist.add(countType.get(i));
-		 }*/
+	}
 
 
-        getRandomHeight(this.lists);
-    }
-    private void getRandomHeight(ArrayList<HashMap<String,Object>> lists){//得到随机item的高度
 
-    }
-//    public interface OnItemClickListener{
-//        void ItemClickListener(View view,int postion);
-//        void ItemLongClickListener(View view,int postion);
-//    }
-//    public void setOnClickListener(OnItemClickListener listener){
-//        this.mListener = listener;
-//    }
     @Override
     public MyViewHolder2 onCreateViewHolder(ViewGroup parent, int viewType) {
 		View view;
@@ -249,7 +232,7 @@ case 2:
 					holder.paid_name.setText((String)lists.get(position).get("text"));
 					holder.paid_ps.setText((String)lists.get(position).get("ps"));
 					holder.rll.setBackgroundResource((Integer)lists.get(position).get("image"));
-
+						holder.rll.setTag(lists.get(position).get("vdoPhotourl").toString());
 				if(mListener!=null){//如果设置了监听那么它就不为空，然后回调相应的方法
 										holder.itemView.setOnClickListener(new View.OnClickListener() {
 												@Override

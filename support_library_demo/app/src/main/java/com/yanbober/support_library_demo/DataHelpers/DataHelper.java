@@ -9,6 +9,10 @@ import android.database.sqlite.*;
 import android.database.sqlite.SQLiteDatabase.*;
 import android.util.*;
 import android.widget.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class DataHelper extends SQLiteOpenHelper
 {
     private static final int VERSION = 1;
@@ -48,12 +52,56 @@ public class DataHelper extends SQLiteOpenHelper
                 ",id)";
         //执行创建数据库操作
         db.execSQL(sql);
+        db.execSQL( "create table isRead(_id" +
+                " integer primary key" +
+                ",id text"
+              );
     }
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //创建成功，日志输出提示
         Log.i(SWORD,"update a Database");
+    }
+    public void addisReadSQL(HashMap<String, Object> map)
+    {
+
+        SQLiteDatabase db=null;
+        try{
+
+
+                db = this.getWritableDatabase();//获取可写数据库实例
+                ContentValues values = new ContentValues();
+                values.put("id", map.get("_id").toString());
+                db.insert("isRead",null,values);
+
+        }catch (Exception e)
+        {
+            Log.e("在数据库中加入已读",e.toString());
+        }finally {
+            db.close();
+        }
+    }
+    public boolean isHavethisID(String id)
+    {//判断有无这个id
+        SQLiteDatabase db=null;
+        Cursor cursor=null;//数据库遍历类
+
+        try
+        {
+            db=getReadableDatabase();
+            cursor=db.query("isRead",null,null,null,null,null,null);
+            while (cursor.moveToNext())//遍历下一个为标准遍历
+            {
+                if (id.equals(cursor.getString(cursor.getColumnIndex("id"))))
+                return true;
+            }
+           }catch (Exception e)
+        {
+            Log.e("在判断是否加入isRead表中",e.toString());
+        }
+
+
+        return false;
     }
     public long inst(SQLiteDatabase db,String name,Context cot)
     {

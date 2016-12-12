@@ -7,7 +7,9 @@ import android.support.v7.widget.*;
 import android.view.*;
 import android.view.View.*;
 import android.widget.*;
+
 import java.util.*;
+
 import org.json.*;
 
 import android.support.v7.widget.Toolbar;
@@ -15,132 +17,177 @@ import android.support.v7.widget.Toolbar;
 public class Paid_Video extends AppCompatActivity
 
 {
-RecyclerView rv=null;
-Toolbar tb;
-	public ArrayList<HashMap<String,Object>> lists=new ArrayList<HashMap<String,Object>>();
-	public FirstAdapter adapter;
-	//右上角新消息提示红点
-	TextView Message_point;
-	User user=new User();
-	ImageView message,head;
+    RecyclerView rv = null;
+    Toolbar tb;
+    public ArrayList<HashMap<String, Object>> lists = new ArrayList<HashMap<String, Object>>();
+    public FirstAdapter adapter;
+    //右上角新消息提示红点
+    TextView Message_point;
+    User user = new User();
+    ImageView message, head;
+    LinearLayoutManager lm;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		// TODO: Implement this method
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.paid_video);
-		init();
-	}
-	public void init()
-	{
-		rv=(RecyclerView)findViewById(R.id.paidvideorv);
-		tb=(Toolbar)findViewById(R.id.paidToolbar);
-		Message_point=(TextView)findViewById(R.id.tTextView);
-		message=(ImageView)this.findViewById(R.id.activitymainTextView1);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        // TODO: Implement this method
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.paid_video);
+        init();
+    }
 
-		//初始化ToolBar
+    public void init() {
+        rv = (RecyclerView) findViewById(R.id.paidvideorv);
+        tb = (Toolbar) findViewById(R.id.paidToolbar);
+        Message_point = (TextView) findViewById(R.id.tTextView);
+        message = (ImageView) this.findViewById(R.id.activitymainTextView1);
+        head = (ImageView) this.findViewById(R.id.drawer_headerImageView);
+
+        //初始化ToolBar
         setSupportActionBar(tb);
-		tb.setNavigationIcon(R.drawable.back_purple);
-		tb.setNavigationOnClickListener(new OnClickListener()
-		{//返回监听，按钮返回，不过不知道会回哪里
-			public void onClick(View v)
-			{
-				onBackPressed();
+        tb.setNavigationIcon(R.drawable.back_purple);
+        tb.setNavigationOnClickListener(new OnClickListener() {//返回监听，按钮返回，不过不知道会回哪里
+            public void onClick(View v) {
+                onBackPressed();
 
-			}
+            }
 
-		});
-		rv.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
-		//设置RecyclerView布局管理器为1列垂直排布
-		head = (ImageView) this.findViewById(R.id.drawer_headerImageView);
-		User u = new User();
-		if (u.headBitmap != null) {
-			head.setImageBitmap(u.headBitmap);
+        });
+        rv.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
+        //设置RecyclerView布局管理器为1列垂直排布
 
-		}
-		head.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				User u = new User();
-				if (u._id != "null") {
-					Intent intent = new Intent(Paid_Video.this, Personal_.class);
-					startActivity(intent);
-				} else {
-					Intent intent = new Intent(Paid_Video.this, Login_.class);
-					startActivity(intent);
-				}
-			}
-		});
-		addTextToList("本 拉登教你打仗",2,R.drawable.qq,"901人付款");
-		message.setOnClickListener(new View.OnClickListener()
-		{
-
-			public void onClick(View v)
-			{
-				Message_point.setVisibility(View.INVISIBLE);
-				Intent intent=new Intent(Paid_Video.this,Message_c.class);
-				startActivity(intent);
+        User u = new User();
+        if (u.getBitmapurl != null && u.mydata.size() > 2)
+            u.getBitmapurl.loadImageViewurl(u.mydata.get("headprturl").toString(), head, u.mydata);
 
 
-			}
-		});
+        head.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                User u = new User();
+                if (u._id != "null") {
+                    Intent intent = new Intent(Paid_Video.this, Personal_.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(Paid_Video.this, Login_.class);
+                    startActivity(intent);
+                }
+            }
+        });
+        //addTextToList("本 拉登教你打仗",2,R.drawable.qq,"901人付款");
+        message.setOnClickListener(new View.OnClickListener() {
 
-		adapter = new FirstAdapter(Paid_Video.this,lists);
+            public void onClick(View v) {
+                Message_point.setVisibility(View.INVISIBLE);
+                Intent intent = new Intent(Paid_Video.this, Message_c.class);
+                startActivity(intent);
+
+
+            }
+        });
+
+        adapter = new FirstAdapter(Paid_Video.this, lists);
 
         rv.setAdapter(adapter);
-		adapter.setOnClickListener(new FirstAdapter.OnItemClickListener()
-		{
-				public void onItemClickListener(View v,int position)
-				{
-					Intent intent=new Intent(Paid_Video.this,Run_Video_.class);
-					startActivity(intent);
+        adapter.setOnClickListener(new FirstAdapter.OnItemClickListener() {
+            public void onItemClickListener(View v, int position) {
+                Intent intent = new Intent(Paid_Video.this, Run_Video_.class);
+                startActivity(intent);
+              }
 
-					ImageView img=(ImageView)v.findViewById(R.id.paiditemImageView1);
-					img.setOnClickListener(new OnClickListener()
-					{
-						public void onClick(View v)
-						{
-								}
-					});
-				}
-				public void onItemLongClickListener(View v,int position)
-				{
+            public void onItemLongClickListener(View v, int position) {
 
 
-				}
-			});
+            }
+        });
 
-		try {
-			//JSONObject jsonObject=(JSONObject)
-			JSONArray jss = new JSONArray(user.mydata.get("notices").toString());
+        try {
+            //JSONObject jsonObject=(JSONObject)
+            JSONArray jss = new JSONArray(user.mydata.get("notices").toString());
 
-			if (jss.length() < 2) {
-				Message_point.setVisibility(View.INVISIBLE);
-			} else {
-
-
-				Message_point.setText(String.valueOf(jss.length()));
+            if (jss.length() < 2) {
+                Message_point.setVisibility(View.INVISIBLE);
+            } else {
 
 
-			}
-		}catch (JSONException e)
-		{
-
-		}
+                Message_point.setText(String.valueOf(jss.length()));
 
 
-	}
-	public void addTextToList(String text, int who, int id,String data)
-	{
-		HashMap<String,Object> map=new HashMap<String,Object>();
-		
-		map.put("image", id);
-		map.put("text", text);
-		
-		map.put("data",data);
-		map.put("layout",who);
-	
-		lists.add(map);
+            }
+        } catch (JSONException e) {
+
+        }
+SetAllVideo();
+        rv.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState==0)//0停止　1开始滑动 2放手依旧滑动中
+                {
+                    lm = (LinearLayoutManager) rv.getLayoutManager();
+                    User u=new User();
+                    HashMap<String,Object> map=new HashMap<String, Object>();
+                    map.put("?","Paid_Video");
+
+                    if (u.getBitmapurl!=null) {
+                        u.getBitmapurl.loadListViewImage(lm.findFirstVisibleItemPosition(), lm.findLastVisibleItemPosition(),rv,Paid_Video.this,map);
+                    }
+                }else
+                {
+                    User u=new User();
+                    if (u.getBitmapurl!=null)
+                        u.getBitmapurl.cancelAllTask();
+                }
+
+
+            }
+        });
+
+    }
+private void SetAllVideo()
+{
+    User u=new User();
+    if (u.maps.size()>2&&u.paid_Videos.size()>2)
+    {
+        for (int i = 0; i <u.maps.size() ; i++) {
+            //拿出第i个maps中的_id
+            String videoID=u.maps.get(i).get("_id").toString();
+
+            for(int y=0;y<u.paid_Videos.size();y++) {
+                //与y个paid_Videos中的_id进行比较
+                //并且便利整个paid_Videos
+                if (videoID.equals(u.paid_Videos.get(y))) {
+                    //如果匹配正确，则获取这个视频的所有信息
+                    HashMap<String,Object> map=new HashMap<>();
+                    map=u.maps.get(i);
+                    u.paid_Videos_List.add(map);
+                    //最终一个个保存到这个list中
+                }
+            }
+        }
+        //所有视频遍历完毕后开始加载
+        if (u.paid_Videos_List.size()>2)
+        {
+            for (int i = 0; i <u.paid_Videos_List.size() ; i++) {
+                addTextToList(
+                        u.paid_Videos_List.get(i).get("title").toString()
+                        ,2
+                        ,R.drawable.qq
+                        ,u.paid_Videos_List.get(i).get("paidppnumber").toString()
+                ,u.paid_Videos_List.get(i).get("vdoPhotourl").toString());
+            }
+            adapter.notifyDataSetChanged();
+        }
+    }
+}
+    public void addTextToList(String text, int who, int id, String data,String vdoPhotourl) {
+        HashMap<String, Object> map = new HashMap<String, Object>();
+
+        map.put("image", id);
+        map.put("text", text);
+        map.put("vdoPhotourl",vdoPhotourl);
+        map.put("data", data);
+        map.put("layout", who);
+
+        lists.add(map);
     }
 }

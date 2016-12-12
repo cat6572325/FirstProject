@@ -27,10 +27,12 @@ import java.net.URL;
 import java.util.*;
 
 
-public class AgendaFragment extends Fragment {
+public class AgendaFragment extends Fragment{
 
     private RecyclerView mRecyclerView, rv;
+
     View v;
+    public static String[] urls;
     public ArrayList<HashMap<String, Object>> lists = new ArrayList<HashMap<String, Object>>(), lists2 = new ArrayList<HashMap<String, Object>>(), lists3;
     FirstAdapter2 adapter, adapter2;
     Bitmap bitmap;
@@ -40,7 +42,7 @@ public class AgendaFragment extends Fragment {
     private List<Integer> counttype = new ArrayList<>();
     private List<String> data = new ArrayList<>();
     LinearLayoutManager lm;
-    int lastVisibleItem;
+    int start,end;
     Http_UploadFile_ http_uploadFile_ = null;
     OnActivityebent2 ebent;
     long itemCount = 0;
@@ -64,11 +66,75 @@ public class AgendaFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         Toast.makeText(activity, "ss", Toast.LENGTH_LONG).show();
+/*
+        addTextToList("sss"
+                , 1
+                ,"dddddddddd"
+                , 0
+                , "nonooooo"
+                , "dddddddddddd"
+        );
+
+        addTextToList("sss"
+                , 1
+                ,"dddddddddd"
+                , 0
+                , "nonooooo"
+                , "dddddddddddd"
+        );
+
+        addTextToList("sss"
+                , 1
+                ,"dddddddddd"
+                , 0
+                , "nonooooo"
+                , "dddddddddddd"
+        );
+
+        addTextToList("sss"
+                , 1
+                ,"dddddddddd"
+                , 0
+                , "nonooooo"
+                , "dddddddddddd"
+        );
+
+        addTextToList("sss"
+                , 1
+                ,"dddddddddd"
+                , 0
+                , "nonooooo"
+                , "dddddddddddd"
+        );
+
+        addTextToList("sss"
+                , 1
+                ,"dddddddddd"
+                , 0
+                , "nonooooo"
+                , "dddddddddddd"
+        );
+
+        addTextToList("sss"
+                , 1
+                ,"dddddddddd"
+                , 0
+                , "nonooooo"
+                , "dddddddddddd"
+        );
+
+
+        addTextToList("sss"
+                , 1
+                ,"dddddddddd"
+                , 0
+                , "nonooooo"
+                , "dddddddddddd"
+        );*/
         adapter = new FirstAdapter2(getActivity(), lists);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
-
-        mRecyclerView.setAdapter(adapter);
+                mRecyclerView.setAdapter(adapter);
         // ebent.Onebent("aaaaaaaaaaaaaaaa");
         adapter.setOnClickListener(new FirstAdapter2.OnItemClickListener() {
             @Override
@@ -95,46 +161,48 @@ public class AgendaFragment extends Fragment {
             }
         });
         //TODO 上拉加载更多
-
-	/*	mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+        /*mRecyclerView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
+            public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+                Log.e("i",""+i);
+                Log.e("i1",""+i1);
+                Log.e("i2",""+i2);
+                Log.e("i3",""+i3);
+            }
+        });*/
+        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+
+		    @Override
 			public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-				super.onScrollStateChanged(recyclerView, newState);
-				lm = (LinearLayoutManager) mRecyclerView.getLayoutManager();
-				if (lm.findViewByPosition(lm.findFirstVisibleItemPosition()).getTop() == 0
-						&&
-						lm.findFirstVisibleItemPosition() == 0)
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState==0)//0停止　1开始滑动 2放手依旧滑动中
+                {
+                    lm = (LinearLayoutManager) mRecyclerView.getLayoutManager();
+                    User u=new User();
+                    HashMap<String,Object> map=new HashMap<String, Object>();
+                    map.put("?","AgendaFragment");
+                    if (u.getBitmapurl!=null) {
+                        u.getBitmapurl.loadListViewImage(lm.findFirstVisibleItemPosition(), lm.findLastVisibleItemPosition(),mRecyclerView,getContext(),map);
+                    }
+                }else
+                {
+                    User u=new User();
+                    if (u.getBitmapurl!=null)
+                        u.getBitmapurl.cancelAllTask();
+                }
 
 
-					Toast.makeText(getContext(), "last", Toast.LENGTH_LONG).show();
-				/*	new Handler().postDelayed(new Runnable() {
-						@Override
-						public void run() {
-							List<String> newDatas = new ArrayList<String>();
-							for (int i = 0; i < 5; i++) {
-								int index = i + 1;
-								newDatas.add("more item" + index);
-							}
-						//	addTextToList("uuu", 1, "android.R.drawable.ic_lock_lock", 0, "name");
-							//mHandler.sendEmptyMessage(0);
-						//	mRecyclerView.notifyAll();
 
-							//// TODO: 16-11-13
-							//	adapter.addMoreItem(newDatas);
-							//adapter.changeMoreStatus(0);
-						}
-					}, 2500);
-			}
+            }
 
 
 
 				@Override
 				public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
 					super.onScrolled(recyclerView,dx, dy);
-					lastVisibleItem = lm.findLastVisibleItemPosition();
 
 				}
-			});*/
+			});
 
 
     }
@@ -149,6 +217,7 @@ public class AgendaFragment extends Fragment {
         map.put("name", name);
         map.put("vdoPhotourl", url);
         lists.add(map);
+
 
     }
 
@@ -170,11 +239,14 @@ public class AgendaFragment extends Fragment {
 
     private void initView() {
 
-
+        urls=new String[user.maps.size()];
         for (int i = 0; i < user.maps.size(); i++) {
             if (i == 10) {
                 return;
             }
+            urls[i]=user.maps.get(i).get("vdoPhotourl").toString();
+            //将加载的所有图片url都保存到数组,供GetBitmapurl调用
+
             //addTextToList("广东",1,android.R.drawable.ic_lock_lock,"ps","data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊");
             addTextToList(user.maps.get(i).get("paidppnumber").toString()
                     , 1
@@ -207,7 +279,7 @@ public class AgendaFragment extends Fragment {
         {
             if (itemCount==0)
             {
-             initView();
+            initView();
                 itemCount++;
             }else {
 

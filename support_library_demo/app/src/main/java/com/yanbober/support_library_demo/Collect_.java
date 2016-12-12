@@ -66,9 +66,7 @@ public class Collect_ extends AppCompatActivity {
 					 break;
 					
 				case 3:
-					//更新ui
-					User_name.setText(user.name);
-					break;
+						break;
 					case 4:
 						//验证支付密码成功
 					Bundle bun=msg.getData();
@@ -155,39 +153,16 @@ public class Collect_ extends AppCompatActivity {
 		user.collect_ = Collect_.this;
 		try {
 			rv = (RecyclerView)findViewById(R.id.collectrv);
-			rl = (ListView)this.findViewById(R.id.tRecyclerView1);
 			Message_point = (TextView)findViewById(R.id.tTextView);
 			message = (ImageView)this.findViewById(R.id.activitymainTextView1);
 			mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
-			User_name = (TextView)this.findViewById(R.id.User_name);
 			menu_img = (ImageView)this.findViewById(R.id.Collect_menu);
-			xDheadImage=(ImageView)this.findViewById(R.id.drawer_headerImageView);
 			User u=new User();
-			if (u.headBitmap!=null)
-			{
-				xDheadImage.setImageBitmap(u.headBitmap);
-
-			}
-			xDheadImage.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View view) {
-					User u=new User();
-					if (u._id!="null")
-					{
-						Intent intent = new Intent(Collect_.this, Personal_.class);
-						startActivity(intent);
-					}else
-					{
-						Intent intent = new Intent(Collect_.this, Login_.class);
-						startActivity(intent);
-					}
-				}
-			});
 			menu_img.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View view) {
 						//TODO 点击左上角打开侧边栏
-						mDrawerLayout.openDrawer(GravityCompat.START);
+
 					}
 				});
 
@@ -218,59 +193,7 @@ public class Collect_ extends AppCompatActivity {
 
 					}
 				});
-			//left_list
-			addTextToList("首页", 0, R.drawable.home);
-			addTextToList("已付", 0, R.drawable.paid);
 
-			addTextToList("我的", 0, R.drawable.my_video);
-			addTextToList("收藏", 0, R.drawable.collect);
-			addTextToList("余额", 0, R.drawable.balance);
-			addTextToList("分割贱", 1, R.drawable.fab_bg_normal);
-
-			addTextToList("设置", 0, R.drawable.fab_bg_normal);
-			addTextToList("反馈", 0, R.drawable.feedback);
-			setData();
-			
-			ladapter = new MyChatAdapter(Collect_.this, lists1, layout);
-			rl.setAdapter(ladapter);
-			ladapter.isEnabled(3);
-			rl.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-						TextView tv = (TextView) view.findViewById(R.id.leftlistitemTextView1);
-						if(tv!=null)
-						{
-							
-						String str = tv.getText().toString();
-						if (str.equals("首页")) {
-
-						}
-						if (str.equals("已付")) {
-							Intent intent = new Intent(Collect_.this, Paid_Video.class);
-							startActivity(intent);
-						}
-
-						if (str.equals("收藏")) {
-							Intent intent = new Intent(Collect_.this, Collect_.class);
-							startActivity(intent);
-						}
-						if (str.equals("我的")) {
-							Intent intent = new Intent(Collect_.this, My_Video_.class);
-							startActivity(intent);
-						}
-
-						if (str.equals("余额")) {
-							Intent intent = new Intent(Collect_.this, Balance_.class);
-							startActivity(intent);
-						}
-
-						if (str.equals("设置")) {
-							Intent intent = new Intent(Collect_.this, Setting_.class);
-							startActivity(intent);
-						}
-						}
-
-					}
-				});
 		}
 		catch (IOError error) {
 		}

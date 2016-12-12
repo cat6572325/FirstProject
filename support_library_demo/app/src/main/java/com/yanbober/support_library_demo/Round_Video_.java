@@ -138,7 +138,7 @@ public class Round_Video_ extends Activity
     int minute, min;
     Size size;
     task Prog_task;
-    ImageView sound,turnC,round_back_img,rounding_time_img;
+    ImageView sound,turnC,round_back_img,rounding_time_img,round_delete,round_upload,round_edit;
 
 
     public Pop_Img.Builder p;
@@ -207,6 +207,9 @@ public class Round_Video_ extends Activity
         turnC=(ImageView)this.findViewById(R.id.Round_turn);
         round_back_img=(ImageView)this.findViewById(R.id.round_back);
         rounding_time_img=(ImageView)this.findViewById(R.id.rounding_time_img);
+        round_delete=(ImageView)this.findViewById(R.id.round_delete);
+        round_upload=(ImageView)this.findViewById(R.id.round_upload);
+        round_edit=(ImageView)this.findViewById(R.id.round_edit);
         round_back_img.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -588,6 +591,9 @@ private String randomProdoction()
                 paidppnumber: Number,　 　//付费人数
         concernednumber: Number,   //收藏人数
                 time: {                   // 创建时间*/
+        round_delete.setClickable(false);
+        round_upload.setClickable(false);
+        round_edit.setClickable(false);
         User u=new User();
         if (u.notLoadforVideo_list!=null) {
             for (int i=0;i<u.notLoadforVideo_list.size();i++)

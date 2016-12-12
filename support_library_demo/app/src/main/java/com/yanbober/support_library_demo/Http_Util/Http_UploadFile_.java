@@ -229,7 +229,7 @@ public class Http_UploadFile_ implements Runnable {
 
                 break;
             case 9:
-
+                //获取头像
                 GetHeadImage(url);
 
                 break;
@@ -1222,6 +1222,10 @@ Log.e("在登录的时候",e.toString());
         JSONArray jsonArray = null;
         String str = null;
         Response response = null;
+        handler=(Handler)maphttp.get("handler");
+        Context context=(Context)maphttp.get("Context");
+        Bundle bundle = new Bundle();
+        Message msg = new Message();
 
         RequestBody formBody = new FormBody.Builder()
 
@@ -1233,13 +1237,9 @@ Log.e("在登录的时候",e.toString());
                 .url(url)
                 .post(formBody)
                 .build();
-        try {
+        try{
             response = client.newCall(request).execute();
-        } catch (IOException e) {
 
-            //View_One view_one = new View_One(regis, e.toString());
-        }
-        try {
             if (!response.isSuccessful()) throw new IOException();
             str = response.body().string();
 
@@ -1254,26 +1254,21 @@ Log.e("在登录的时候",e.toString());
             //                                                   MainActivity,       handler,  url,connectType,token,data) {
             try {
                 if (jsonObject.getString("error").equals("该手机号已被使用过")) {
-
+                    msg.obj = jsonObject;
+                    msg.what = 0;
+                    bundle.putString("?", "手机号已被注册过");
+                    msg.setData(bundle);
+                    handler.sendMessage(msg);
+                    view_one=null;
+                    view_one = new View_One(context,jsonObject.getString("error") );
+                    view_one.viewcreate();
 
                 }
             } catch (JSONException e) {
 
-                HashMap<String, Object> map = new HashMap<String, Object>();
-                map.put("handler", maphttp.get("handler"));
-                map.put("Context", maphttp.get("Context"));
-                map.put("key", "photofile");
-                map.put("count", 0);
-                Context context=(Context)maphttp.get("Context");
-                        NewOkhttp n=new NewOkhttp("http://trying-video.herokuapp.com/user/image/replace?token=" + user.token
-                        ,(File)maphttp.get("headfile")
-                        ,map
-                );
-
-                Thread x=new Thread(n);
-                x.start();
-                Bundle bundle = new Bundle();
-                Message msg = new Message();
+                handler=(Handler)maphttp.get("handler");
+                bundle = new Bundle();
+                msg = new Message();
                 msg.obj = jsonObject;
                 msg.what = 0;
                 bundle.putString("?", "注册成功");
@@ -1333,7 +1328,7 @@ Log.e("在登录的时候",e.toString());
                 Log.e("添加个人信息", str);
 
             } catch (JSONException e) {
-                str = "请求成功";
+                str = "请求失败";
                 Log.e("添加个人信息", e.toString());
 
 
@@ -1550,21 +1545,41 @@ Log.e("在登录的时候",e.toString());
             }
 
             str = response.body().string();
-            Bundle bundle;
-            Message msg = null;
-            try {
-                jsonObject = new JSONObject(str);
-                bundle = new Bundle();
-                msg = new Message();
-                bundle.putString("?", "获取成功");
-                msg.obj = jsonObject;
-                msg.what = 6;
-                msg.setData(bundle);
-                handler.sendMessage(msg);
-                Log.e("获取头像的线程中，获取成功",str);
-            } catch (JSONException e) {
-                //  jsonArray = new JSONArray(response.body().string());
-                Log.e("头像获取失败:", e.toString());
+            if (str.equals("null"))
+            {//无设置头像，直接上传预置头像
+                //发起请求
+                HashMap<String, Object> map = new HashMap<String, Object>();
+                map.put("handler", maphttp.get("handler"));
+                map.put("Context", maphttp.get("Context"));
+                map.put("key", "photofile");
+                map.put("count", 0);
+                Context context=(Context)maphttp.get("Context");
+                        NewOkhttp n=new NewOkhttp("http://trying-video.herokuapp.com/user/image?token=" + user.token
+                        ,(File)maphttp.get("headfile")
+                        ,map
+                );
+
+                Thread x=new Thread(n);
+               x.start();
+
+            }else {
+                Bundle bundle;
+                Message msg = null;
+                try {
+                    handler=(Handler)maphttp.get("handler");
+                    jsonObject = new JSONObject(str);
+                    bundle = new Bundle();
+                    msg = new Message();
+                    bundle.putString("?", "获取成功");
+                    msg.obj = jsonObject;
+                    msg.what = 6;
+                    msg.setData(bundle);
+                    handler.sendMessage(msg);
+                    Log.e("获取头像的线程中，获取成功", str);
+                } catch (JSONException e) {
+                    //  jsonArray = new JSONArray(response.body().string());
+                    Log.e("头像获取失败:", e.toString());
+                }
             }
         } catch (IOException er) {
             Log.e("头像获取失败:", er.toString());

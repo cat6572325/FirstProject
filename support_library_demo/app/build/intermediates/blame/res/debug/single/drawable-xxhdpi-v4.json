@@ -36,8 +36,16 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/res/drawable-xxhdpi-v4/abc_btn_radio_to_on_mtrl_000.png"
     },
     {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/start_gray.png",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable-xxhdpi/start_gray.png"
+    },
+    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/abc_ic_commit_search_api_mtrl_alpha.png",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/res/drawable-xxhdpi-v4/abc_ic_commit_search_api_mtrl_alpha.png"
+    },
+    {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/collect.png",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable-xxhdpi/collect.png"
     },
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/abc_ic_menu_copy_mtrl_am_alpha.png",
@@ -164,10 +172,6 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/res/drawable-xxhdpi-v4/abc_textfield_search_activated_mtrl_alpha.9.png"
     },
     {
-        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/star_gray.png",
-        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable-xxhdpi/star_gray.png"
-    },
-    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/remove_voice_black.png",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable-xxhdpi/remove_voice_black.png"
     },
@@ -280,12 +284,12 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/res/drawable-xxhdpi-v4/abc_list_pressed_holo_light.9.png"
     },
     {
-        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/modify_success.png",
-        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable-xxhdpi/modify_success.png"
-    },
-    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/right_line.png",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable-xxhdpi/right_line.png"
+    },
+    {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/modify_success.png",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable-xxhdpi/modify_success.png"
     },
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/abc_ab_share_pack_mtrl_alpha.9.png",

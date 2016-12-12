@@ -56,7 +56,7 @@ public class Run_Video_ extends ActionBarActivity {
 						}else
 						{
 							collect_Progress.setVisibility(View.INVISIBLE);
-							collect_star.setBackgroundResource(R.drawable.star_gray);
+							collect_star.setBackgroundResource(R.drawable.start_gray);
 							tcollect.setTextColor(0xff887777);
 						}
 						break;
@@ -151,7 +151,7 @@ public class Run_Video_ extends ActionBarActivity {
 					tcollect.setTextColor(Color.rgb(244,139,8));
 
 				} else {
-					collect_star.setBackgroundResource(R.drawable.star_gray);
+					collect_star.setBackgroundResource(R.drawable.start_gray);
 					tcollect.setTextColor(0xff887777);
 				}
 			}

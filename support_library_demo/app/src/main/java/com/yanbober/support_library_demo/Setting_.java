@@ -96,8 +96,9 @@ Bitmap bitmap;
             }
         });
         User u = new User();
-        if (u.headBitmap != null)
-            headImg.setImageBitmap(u.headBitmap);
+            if (u.getBitmapurl != null && u.mydata.size() > 2)
+                u.getBitmapurl.loadImageViewurl(u.mydata.get("headprturl").toString(), headImg, u.mydata);
+
         Bundle bun = this.getIntent().getExtras();
         if (bun != null && bun.containsKey("images")) {
 

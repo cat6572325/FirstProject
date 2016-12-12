@@ -6,17 +6,14 @@
         android:fromXScale="0"
         android:fromYScale="0"
         android:interpolator="@android:anim/accelerate_decelerate_interpolator"
-        android:pivotX="100"
-        android:pivotY="0"
+        android:pivotX="50%"
+        android:pivotY="50%"
         android:toXScale="1.4"
         android:toYScale="1.4"
         />
-    <translate
+    <alpha
         android:duration="1000"
-        android:fromXDelta="30"
-        android:fromYDelta="30"
-        android:toXDelta="80"
-        android:toYDelta="80"
+        android:fromAlpha="1.0"
+        android:toAlpha="0.0"
         />
-
 </set>

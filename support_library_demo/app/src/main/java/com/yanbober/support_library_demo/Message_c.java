@@ -3,6 +3,9 @@ package com.yanbober.support_library_demo;
 		这个类显示一个信息列表，点击可以进入另一activity查看全文或者跳到主题
 		恐怕是这个项目第二简单的了
 
+		当点击某一项时将通知id加入数据库，表示已读
+		当初始时调用数据库信息，判断每一项有没有这个通知的id，有则表示已读
+		加入已读后除了id在服务器改变　数据库信息被清空　甚至换手机之外一直保存不变
 
 
 
@@ -13,6 +16,7 @@ package com.yanbober.support_library_demo;
 
 
 import android.content.*;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.os.*;
 import android.support.v4.widget.*;
@@ -22,6 +26,8 @@ import android.util.*;
 import android.view.*;
 import android.view.View.*;
 import android.widget.*;
+
+import com.yanbober.support_library_demo.DataHelpers.DataHelper;
 import com.yanbober.support_library_demo.Http_Util.*;
 import java.text.*;
 import java.util.*;
@@ -116,6 +122,8 @@ User user=new User();
 	public ArrayList<HashMap<String,Object>> lists1=new ArrayList<HashMap<String,Object>>();
 	ListView rl;
 	ImageView left_button;
+	SQLiteDatabase db = null;
+	DataHelper dataserver;
 
 	int[] layout={R.layout.message_item,R.layout.line_item};
 DrawerLayout mDrawerLayout;
@@ -150,8 +158,6 @@ DrawerLayout mDrawerLayout;
 		left_button=(ImageView)this.findViewById(R.id.messagelayoutImageView1);
 		
 		mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
-		addTextToList("King arthur payment $3 to your of video", "september13", 0, R.drawable.image);
-		addTextToList("King arthur payment $3 to your of video", "september13", 0, R.drawable.image);
 		ladapter = new MyChatAdapter(Message_c.this, lists, layout);
 		lv.setAdapter(ladapter);
 		LoadthisMessage();
@@ -160,6 +166,20 @@ DrawerLayout mDrawerLayout;
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setHomeAsUpIndicator(R.drawable.back_purple);//android.R.drawable.ic_dialog_alert);
 		actionBar.setDisplayHomeAsUpEnabled(true);
+		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+				User u =new User();
+				if (dataserver.isHavethisID(u.notices_list.get(i).get("_id").toString()))
+				{//如果是已读的
+
+				}else {//如果是未读的
+					HashMap<String,Object> map=new HashMap<String, Object>();
+					map.put("_id",u.notices_list.get(i).get("_id").toString());
+					dataserver.addisReadSQL(map);
+				}
+			}
+		});
 		left_button.setOnClickListener(new OnClickListener()
 		{
 			public void onClick(View v)
@@ -180,7 +200,7 @@ DrawerLayout mDrawerLayout;
 
 		
 	}
-	public void addTextToList(String text, String time,int who,int id)
+	public void addTextToList(String text, String time,int who,int id,int isPort)
 	{
 		HashMap<String,Object> map=new HashMap<String,Object>();
 		map.put("person", who);
@@ -188,7 +208,7 @@ DrawerLayout mDrawerLayout;
 		map.put("text", text);
 		map.put("time",time);
 		map.put("layout",who);
-
+		map.put("isPort",isPort);
 		lists.add(map);
     }
 	private void LoadthisMessage()
@@ -214,11 +234,16 @@ DrawerLayout mDrawerLayout;
 		ArrayList<HashMap<String,Object>> map=u.notices_list;
 		Http_UploadFile_ http_uploadFile_;
 
-
+		dataserver=new DataHelper(Message_c.this);
 		if (map.size()>0)
 		{
 			for (int i=0;i<map.size();i++)
 			{
+				int isPort=0;
+				if (!dataserver.isHavethisID(map.get(i).get("_id").toString()))
+				{//如果返回的是false则表示未读，则显示红点
+					isPort=1;
+				}
 				switch (Integer.parseInt(map.get(i).get("kinds").toString()))
 				{
 					case 1:
@@ -231,6 +256,7 @@ DrawerLayout mDrawerLayout;
 								,map.get(i).get("noticetime").toString()
 								,0
 								,R.drawable.image
+								,isPort
 
 						);
 
@@ -246,7 +272,7 @@ DrawerLayout mDrawerLayout;
 								,map.get(i).get("noticetime").toString()
 								,0
 								,R.drawable.image
-
+								,isPort
 						);
 
 					case 3:
@@ -259,7 +285,7 @@ DrawerLayout mDrawerLayout;
 								,map.get(i).get("noticetime").toString()
 								,0
 								,R.drawable.image
-
+								,isPort
 						);
 						break;
 
@@ -270,7 +296,7 @@ DrawerLayout mDrawerLayout;
 										,map.get(i).get("noticetime").toString()
 								,0
 								,R.drawable.image
-
+								,isPort
 						);
 
 					case 5:
@@ -280,7 +306,7 @@ DrawerLayout mDrawerLayout;
 								,map.get(i).get("noticetime").toString()
 								,0
 								,R.drawable.image
-
+								,isPort
 						);
 
 
@@ -385,6 +411,7 @@ DrawerLayout mDrawerLayout;
 			// TODO Auto-generated method stub
 			ViewHolder holder=null;
 			final TextView tt,titme;
+
 			LinearLayout re;
 		
 			int who=(Integer)chatList.get(position).get("person");
@@ -395,11 +422,15 @@ DrawerLayout mDrawerLayout;
 				case 0:
 					convertView = LayoutInflater.from(context).inflate(
 						layout[who], null);
+				TextView	isport=(TextView)convertView.findViewById(R.id.messageitemTextView1);//红点
 					ImageView img=(ImageView)convertView.findViewById(R.id.messageitemImageView1);
 					TextView tv=(TextView)convertView.findViewById(R.id.messageitemTextView2);
 					TextView titmeary=(TextView)convertView.findViewById(R.id.messageitemTextView3);
 					titmeary.setText(chatList.get(position).get("time").toString());
 					//设置时间
+					if ((Integer)chatList.get(position).get("isPort")==0)
+					isport.setVisibility(View.INVISIBLE);//隐藏这个红点，表示已读信息
+
 					img.setImageResource((Integer)chatList.get(position).get("image"));
 					tv.setText((String)chatList.get(position).get("text"));
 					break;
@@ -642,22 +673,8 @@ POST   http://localhost:1103/user/notice?token=${token}
 			{...},*/
 	}
 	
-	public void datas()
-	{//通过判断user.notices_list是否为空来加载数据
-		User u=new User();
-		if(u.notices_list!=null)
-			for(int i=0;i<u.notices_list.size();i++)
-			{//添加所有通知并清楚旧添加的
-				addTextToList(
-				u.notices_list.get(i).get("other").toString()
-				,u.notices_list.get(i).get("time").toString()
-				, 0
-				, R.drawable.image);
-				
-				
-				
-			}
-	}
+
+
 	
 }
 

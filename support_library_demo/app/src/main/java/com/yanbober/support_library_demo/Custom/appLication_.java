@@ -17,6 +17,7 @@ public class appLication_ extends Application
 {
 	private static App INSTANCE;
     private static HashMap<String ,Object> map;
+    public static GetBitmapurl getBitmapurl;
     private static SharedPreferences sharedPreferences;
     public static App getInstance() {
         return INSTANCE;
@@ -67,6 +68,11 @@ public class appLication_ extends Application
     public void setshreprenceString(String key,String value){
         SharedPreferences.Editor edit=sharedPreferences.edit();
         edit.putString(key,value);
+    }
+
+    public void SetMyLoadImages(GetBitmapurl getBitmapurl)
+    {
+        this.getBitmapurl=getBitmapurl;
     }
     }
 

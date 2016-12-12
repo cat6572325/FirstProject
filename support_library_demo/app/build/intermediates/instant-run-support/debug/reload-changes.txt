@@ -1,2 +1,10 @@
-CHANGED,/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/com/yanbober/support_library_demo/Paid_Video$override.class
+CHANGED,/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/com/yanbober/support_library_demo/Collect_$1$override.class
+CHANGED,/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/com/yanbober/support_library_demo/Collect_$MyChatAdapter$ViewHolder$override.class
+CHANGED,/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/com/yanbober/support_library_demo/Collect_$MyChatAdapter$override.class
 CHANGED,/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/com/android/tools/fd/runtime/AppPatchesLoaderImpl.class
+CHANGED,/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/com/yanbober/support_library_demo/Collect_$MyChatAdapter$1$override.class
+CHANGED,/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/com/yanbober/support_library_demo/Collect_$3$override.class
+CHANGED,/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/com/yanbober/support_library_demo/Collect_$4$override.class
+CHANGED,/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/com/yanbober/support_library_demo/Collect_$2$override.class
+CHANGED,/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/com/yanbober/support_library_demo/Message_c$override.class
+CHANGED,/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/com/yanbober/support_library_demo/Collect_$override.class

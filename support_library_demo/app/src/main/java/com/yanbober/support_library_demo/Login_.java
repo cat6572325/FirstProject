@@ -58,6 +58,12 @@ public class Login_ extends AppCompatActivity {
                     "collects":Array[4]*/
 
                             user.name=jsonObject2.getString("nickname");
+                            JSONArray jsonArray=jsonObject2.getJSONArray("paidVideos");
+                            for (int i = 0; i < jsonArray.length(); i++) {
+
+
+                                user.paid_Videos.add(jsonArray.getInt(i));
+                            }
 
 
 
@@ -84,15 +90,23 @@ public class Login_ extends AppCompatActivity {
                         {
                             //登录失败
                             //Snackbar.make(Login_.this.pas,bun.getString("!").toString(),Snackbar.LENGTH_SHORT).show();
-                            HashMap<String,Object> map=new HashMap<String,Object>();
-                            map.put("Message","error");
-                            Pop_Img.Builder pr = new Pop_Img.Builder(Login_.this,"ERRor",map);
-                            pr.create().show();
 
 
                         }
                     } catch (JSONException e) {
-                        e.printStackTrace();
+                        Intent intent = new Intent(Login_.this, MainActivity.class);
+                        user.name="新用户";
+                        dataserver.inst(db,user.phone
+                                +"|"+user.pas
+                                +"|"+user.phone
+                                +"|null|"
+                                + user.token
+                                +"|1|"
+                                +user._id,Login_.this);
+
+                        startActivity(intent);
+                        finish();
+
                     }
 
                     break;

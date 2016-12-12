@@ -37,7 +37,7 @@
 		<!--由于可能出现重复的设置项，所以申明这行代码，否则会合并失败-->
 
 		<activity
-			android:name="com.yanbober.support_library_demo.Login_"
+			android:name="com.yanbober.support_library_demo.MainActivity"
 		>
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
@@ -71,7 +71,7 @@
 			android:label="knight of Lamorak"></activity>
 		<activity android:name=".Round_Video_"
 			android:label="knight of Percivale"></activity>
-		<activity android:name=".MainActivity"
+		<activity android:name=".Login_"
 			android:label="knight of Tristan"></activity>
 		<activity android:name=".Send_random_"
 			android:label="knight of Dagonet"

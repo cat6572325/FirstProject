@@ -510,7 +510,7 @@ public final class R {
 		public static final int listMode = 0x7f0e0013;
 		public static final int list_item = 0x7f0e0052;
 		public static final int media_actions = 0x7f0e0171;
-		public static final int menu_item_add_image = 0x7f0e01d8;
+		public static final int menu_item_add_image = 0x7f0e01d9;
 		public static final int middle = 0x7f0e0040;
 		public static final int multiply = 0x7f0e0023;
 		public static final int never = 0x7f0e003d;

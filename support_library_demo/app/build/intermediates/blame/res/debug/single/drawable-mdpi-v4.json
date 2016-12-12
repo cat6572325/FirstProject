@@ -104,10 +104,6 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/res/drawable-mdpi-v4/abc_list_longpressed_holo.9.png"
     },
     {
-        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-mdpi-v4/star_gray.png",
-        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable-mdpi/star_gray.png"
-    },
-    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-mdpi-v4/back_white.png",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable-mdpi/back_white.png"
     },
@@ -424,6 +420,10 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable-mdpi/ic_action_picture.png"
     },
     {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-mdpi-v4/start_gray.png",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable-mdpi/start_gray.png"
+    },
+    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-mdpi-v4/exo_controls_fastforward.png",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer/r2.0.4/res/drawable-mdpi-v4/exo_controls_fastforward.png"
     },
@@ -458,6 +458,10 @@
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-mdpi-v4/my_video.png",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable-mdpi/my_video.png"
+    },
+    {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-mdpi-v4/collect.png",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable-mdpi/collect.png"
     },
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-mdpi-v4/abc_btn_check_to_on_mtrl_015.png",

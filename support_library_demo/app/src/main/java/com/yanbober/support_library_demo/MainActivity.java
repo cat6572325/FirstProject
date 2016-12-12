@@ -5,6 +5,9 @@ import android.content.*;
 import android.database.*;
 import android.database.sqlite.*;
 import android.graphics.*;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.*;
 import android.support.design.widget.*;
 import android.support.v4.app.*;
@@ -274,13 +277,14 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
                 case 6:
 
                     try {
-                        if (bundle.getString("?").equals("获取失败")) {
+                        if (bundle.getString("?").equals("上传")) {
+                            SetHead(bundle.getString("url"));
                         } else {
                             Bitmap bitmap2 = null;
                             JSONObject js = (JSONObject) msg.obj;
                             user.picture = js.get("headprturl").toString();
-
-                            SetHead(js);
+                            user.mydata.put("headprturl",js.get("headprturl").toString());
+                            SetHead(js.getString("headprturl").toString());
                         }
 
                     } catch (JSONException e) {
@@ -461,7 +465,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
         Log.e("返回如果由输出则由是bug","--------------------------------");
         animation = new RotateAnimation(0f, 90f, Animation.RELATIVE_TO_SELF,
                 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-
+        user.getBitmapurl=new GetBitmapurl();
         user.mainActivity = null;
         user.mainActivity = MainActivity.this;
         //mHandler.sendEmptyMessage(3);
@@ -509,8 +513,14 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 
         left_head.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Personal_.class);
-                startActivity(intent);
+                if (user.phone.equals("null"))
+                {
+                    Intent intent = new Intent(MainActivity.this,Login_.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(MainActivity.this, Personal_.class);
+                    startActivity(intent);
+                }
             }
         });
         rl.setOnItemClickListener(new OnItemClickListener() {
@@ -632,11 +642,14 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabsFromPagerAdapter(adapter);
         POpFloag();
+
         loginout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Onebent("sssssssssssssssssssssssssssss");
+
                 try {
+
                     dataserver = new DataHelper(MainActivity.this);
                     dataserver.inst(db, user.phone
                             + "|" + user.pas
@@ -652,27 +665,62 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
                 }
             }
         });
-        if (user.phone.equals("null"))
-        {
-            getAllvideos();
+        ConnectivityManager cm=(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo ni=cm.getActiveNetworkInfo();
+        if(ni==null)
+        {//判断是否有网络
+            Toast.makeText(this,"当前无网络连接",Toast.LENGTH_SHORT).show();
         }else {
-            if (user.phone.equals("15913044423")) {
-                getAllvideos();
+            //数据库操作
+            dataserver = new DataHelper(MainActivity.this);
+            str1 = dataserver.readData("flag|").split("\\|");
+            if (str1[0].equals("flag")) {
+
             } else {
+                if (str1[5].equals("1")) {
+                    //判断是否已保持登录状态
 
-                Bundle bun = this.getIntent().getExtras();
-                //if (bun != null && bun.containsKey("isfirst"))
+                    ArrayList<HashMap<String, Object>> maps = new ArrayList<HashMap<String, Object>>();
 
+                    byte[] bytebitmap;
+                    bytebitmap = Base64.decode(str1[3], Base64.DEFAULT);
+                    user.phone = str1[0];//phone
+                    user.pas = str1[1];
+                    user.name = str1[2];
+                    user.headBitmap = BitmapFactory.decodeByteArray(bytebitmap, 0, bytebitmap.length);
+                    //头像反序列化
+                    user.token = str1[4];
+                    //str1[5]  flag＝０
+                    User._id = str1[6];
 
-                //String str=bun.getString("isfirst");
-                //if(str.equals("0"))
-
-                setMyFirstData();
-                CheckHead();
-                CheckData();
+                }
+            }
+            if (user.phone.equals("null")) {
                 getAllvideos();
-                getcollect();
-                getAllMessage();
+                User_name.setText("未登录");
+                loginout.setText("");
+                loginout.setClickable(false);
+            } else {
+                if (user.phone.equals("15913044423")) {
+                    getAllvideos();
+                    User_name.setText("未登录");
+                    loginout.setText("");
+                    loginout.setClickable(false);
+                } else {
+
+                    Bundle bun = this.getIntent().getExtras();
+                    //if (bun != null && bun.containsKey("isfirst"))
+
+
+                    //String str=bun.getString("isfirst");
+                    //if(str.equals("0"))
+
+                    setMyFirstData();
+                    CheckHead();
+                    CheckData();
+                    getAllvideos();
+                    getcollect();
+                    getAllMessage();
 
          /*   HashMap<String, Object> log_map = new HashMap<String, Object>();
             log_map.put("isprogress", 0);
@@ -691,6 +739,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
             });
 
             p.create().show();*/
+                }
             }
         }
         //
@@ -779,19 +828,15 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
     设置头像
      */ Bitmap bitmap2;
 
-    private void SetHead(JSONObject jsonObject) {
-        try {
-            left_head.setTag(jsonObject.get("headprturl"));
+    private void SetHead(String url) {
+
+            left_head.setTag(url);
             HashMap<String, Object> map = new HashMap<>();
             map.put("Context", MainActivity.this);
             map.put("dataserver", dataserver);
             map.put("sql", db);
-            GetBitmapurl getBitmapurl = new GetBitmapurl();//加载网络图片工具类+子线程
-            getBitmapurl.loadImageViewurl(jsonObject.getString("headprturl"), left_head, map);
-        }catch (JSONException e)
-        {
-            Toast.makeText(MainActivity.this, "头像设置都想失败" + e.toString(), Toast.LENGTH_LONG).show();
-        }
+           User u=new User();
+            u.getBitmapurl.loadImageViewurl(url, left_head, map);
 
 
     }
@@ -984,18 +1029,101 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
         x.start();
 
     }
+    private String randomProdoction()
+    {
+        int random=0;
+        String str=null;
+        Random ran=new Random(System.currentTimeMillis());
+        for (int i=0;i<20;i++)
+        {
+
+            random=ran.nextInt(10);
+            str+=String.valueOf(random);
+            //数字加一个字母
+            switch (random)
+            {
+                case 0:
+                    str+="a";
+                    break;
+
+                case 1:
+                    str+="b";
+                    break;
+
+                case 2:
+                    str+="c";
+                    break;
+
+                case 3:
+                    str+="e";
+                    break;
+
+                case 4:
+                    str+="f";
+                    break;
+
+                case 5:
+                    str+="g";
+                    break;
+
+                case 6:
+                    str+="h";
+                    break;
+
+                case 7:
+                    str+="i";
+                    break;
+            }
+        }
+        return str+String.valueOf(random);
+    }
 
     public void CheckHead() {
         //数据库操作
         dataserver = new DataHelper(MainActivity.this);
         str1 = dataserver.readData("flag|").split("\\|");
-        //    MainActivity,       handler,  url,connectType,token,data) {
-        Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(MainActivity.this
-                , mHandler
-                , "http://trying-video.herokuapp.com/user/image?token=" + user.token
-                , "9"
-                , str1[4]
-                , str1[1] + "||0|0|0");
+        File dirFile = new File("/sdcard/180s/headpicture/" + randomProdoction() + ".png");
+        try {
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_launcher);
+
+            File file1 = new File("/sdcard/180s");
+            if (!file1.exists()) {
+                file1.mkdirs();
+            }
+            File file2 = new File("/sdcard/180s/headpicture");
+            if (!file2.exists()) {
+                file2.mkdirs();
+            }
+            if (!dirFile.exists()) {
+
+
+                dirFile.createNewFile();
+
+
+            } else {
+                dirFile.delete();
+                dirFile.createNewFile();
+            }
+            //	File myCaptureFile = new File(path + fileName);
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(dirFile));
+            bitmap.compress(Bitmap.CompressFormat.PNG, 80, bos);
+
+
+            bos.flush();
+            bos.close();
+         }catch (IOException e)
+        {
+
+        }
+            //    MainActivity,       handler,  url,connectType,token,data) {
+        HashMap<String ,Object> map=new HashMap<>();
+        map.put("handler",mHandler);
+        map.put("Context",MainActivity.this);
+        map.put("headfile",dirFile);
+        Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(
+                 "http://trying-video.herokuapp.com/user/image?token=" + user.token
+                ,map
+                , "9");
         Thread x = new Thread(http_uploadFile_);
         x.start();
 

@@ -14,8 +14,11 @@ import android.graphics.*;
 import android.graphics.drawable.*;
 import android.os.*;
 import android.support.v7.widget.*;
+import android.support.v7.widget.RecyclerView.OnScrollListener;
 import android.util.Log;
 import android.view.*;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.*;
 
 import org.json.JSONArray;
@@ -25,7 +28,9 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class FirstAdapter2 extends RecyclerView.Adapter<MyViewHolder3> {
+import static android.support.v7.widget.RecyclerView.*;
+
+public class FirstAdapter2 extends RecyclerView.Adapter<MyViewHolder3>{
     private ArrayList<HashMap<String,Object>> lists,addrs;
     private Context context;
     private List<Object> alllist;
@@ -118,8 +123,8 @@ public class FirstAdapter2 extends RecyclerView.Adapter<MyViewHolder3> {
 
 
                  holder.infoDetails_relativelayout.setTag(lists.get(position).get("vdoPhotourl").toString());
-                GetBitmapurl getBitmapurl=new GetBitmapurl();
-                getBitmapurl.loadurl(lists.get(position).get("vdoPhotourl").toString(),holder.infoDetails_relativelayout);
+                Animation animation= AnimationUtils.loadAnimation(context,R.anim.scale___);
+                holder.infoDetails_relativelayout.startAnimation(animation);
                // Drawable drawable=new BitmapDrawable(bitmap2);
                 //以url解析图片　
 
@@ -160,7 +165,7 @@ public class FirstAdapter2 extends RecyclerView.Adapter<MyViewHolder3> {
 
 
 }//myrecleradapter
-class MyViewHolder3 extends RecyclerView.ViewHolder {
+class MyViewHolder3 extends ViewHolder{
 
     ////viewtype0
     TextView mTv, name, data, ps, is, paid_name, paid_ps, collect_spot, collect_name, collect_ps, infoDetails_paidcount_tv, infoDetails_title_tv;
@@ -216,6 +221,7 @@ class MyViewHolder3 extends RecyclerView.ViewHolder {
         infoDetails_relativelayout = (RelativeLayout) itemView.findViewById(R.id.Video_item_Relativelayout);
         ////InfoDetailsFragment
     }
+
 
 
 }
