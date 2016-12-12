@@ -409,7 +409,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="667" column="0" selection-start-line="667" selection-start-column="0" selection-end-line="667" selection-end-column="0" />
+              <caret line="675" column="0" selection-start-line="675" selection-start-column="0" selection-end-line="675" selection-end-column="0" />
               <folding>
                 <element signature="e#7093#7109#0" expanded="true" />
                 <element signature="method#setgroup#0;class#MainActivity#0" expanded="false" />
@@ -420,6 +420,16 @@
                 <element signature="e#27954#27979#0" expanded="true" />
                 <element signature="method#POpFloag#0;class#MainActivity#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InfoDetailsFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/InfoDetailsFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="328" column="25" selection-start-line="328" selection-start-column="25" selection-end-line="328" selection-end-column="25" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -438,7 +448,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Message_c.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="242" column="39" selection-start-line="242" selection-start-column="39" selection-end-line="242" selection-end-column="39" />
+              <caret line="236" column="8" selection-start-line="236" selection-start-column="8" selection-end-line="236" selection-end-column="8" />
               <folding>
                 <element signature="e#2048#2063#0" expanded="true" />
                 <element signature="e#4704#5154#0" expanded="true" />
@@ -454,8 +464,8 @@
       <file leaf-file-name="DataHelper.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/DataHelpers/DataHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.45698926">
-              <caret line="91" column="31" selection-start-line="91" selection-start-column="31" selection-end-line="91" selection-end-column="31" />
+            <state vertical-scroll-proportion="3.5384614">
+              <caret line="56" column="26" selection-start-line="56" selection-start-column="26" selection-end-line="56" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -2408,15 +2418,15 @@
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Run_Video_.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/User.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/InfoDetailsFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/AgendaFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/GetBitmapurl.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Paid_Video.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/DataHelpers/DataHelper.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Message_c.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/collect_layout.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Collect_.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/InfoDetailsFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/DataHelpers/DataHelper.java" />
       </list>
     </option>
   </component>
@@ -3048,7 +3058,7 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.61734694" sideWeight="0.52922076" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.61734694" sideWeight="0.46753246" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.61734694" sideWeight="0.46753246" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30032468" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32993197" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -3142,7 +3152,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/InfoDetailsFragment.java</url>
-          <line>349</line>
+          <line>350</line>
           <properties />
           <option name="timeStamp" value="249" />
         </line-breakpoint>
@@ -3533,16 +3543,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/InfoDetailsFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="243" column="13" selection-start-line="241" selection-start-column="13" selection-end-line="243" selection-end-column="13" />
-          <folding>
-            <element signature="e#9092#9108#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Run_Video_.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -3591,21 +3591,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Message_c.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="242" column="39" selection-start-line="242" selection-start-column="39" selection-end-line="242" selection-end-column="39" />
-          <folding>
-            <element signature="e#2048#2063#0" expanded="true" />
-            <element signature="e#4704#5154#0" expanded="true" />
-            <element signature="e#5020#5036#0" expanded="true" />
-            <element signature="e#5153#5154#0" expanded="true" />
-            <element signature="e#5190#5278#0" expanded="true" />
-            <element signature="e#5277#5278#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/collect_layout.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.8727274">
@@ -3633,10 +3618,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/Message_c.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="236" column="8" selection-start-line="236" selection-start-column="8" selection-end-line="236" selection-end-column="8" />
+          <folding>
+            <element signature="e#2048#2063#0" expanded="true" />
+            <element signature="e#4704#5154#0" expanded="true" />
+            <element signature="e#5020#5036#0" expanded="true" />
+            <element signature="e#5153#5154#0" expanded="true" />
+            <element signature="e#5190#5278#0" expanded="true" />
+            <element signature="e#5277#5278#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/InfoDetailsFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="328" column="25" selection-start-line="328" selection-start-column="25" selection-end-line="328" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="667" column="0" selection-start-line="667" selection-start-column="0" selection-end-line="667" selection-end-column="0" />
+          <caret line="675" column="0" selection-start-line="675" selection-start-column="0" selection-end-line="675" selection-end-column="0" />
           <folding>
             <element signature="e#7093#7109#0" expanded="true" />
             <element signature="method#setgroup#0;class#MainActivity#0" expanded="false" />
@@ -3652,8 +3660,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/yanbober/support_library_demo/DataHelpers/DataHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45698926">
-          <caret line="91" column="31" selection-start-line="91" selection-start-column="31" selection-end-line="91" selection-end-column="31" />
+        <state vertical-scroll-proportion="3.5384614">
+          <caret line="56" column="26" selection-start-line="56" selection-start-column="26" selection-end-line="56" selection-end-column="26" />
           <folding />
         </state>
       </provider>

@@ -326,6 +326,7 @@ public void Onebent(ArrayList<HashMap<String, Object>> maps)  {//MainActivity接
 
 
         }
+        if (adapter!=null)
         adapter.notifyDataSetChanged();
         //  addTextToList("uuu", 1, "android.R.drawable.ic_lock_lock", 0, "name");
         // Toast.makeText(getContext(),str1,Toast.LENGTH_LONG).show();

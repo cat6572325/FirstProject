@@ -52,15 +52,18 @@ public class DataHelper extends SQLiteOpenHelper
                 ",id)";
         //执行创建数据库操作
         db.execSQL(sql);
-        db.execSQL( "create table isRead(_id" +
+        db.execSQL("create table isRead(_id" +
                 " integer primary key" +
-                ",id text"
+                ",id text)"
               );
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //创建成功，日志输出提示
         Log.i(SWORD,"update a Database");
+        db.execSQL("drop if table exists Flag");
+        db.execSQL("drop if table exists isRead");
+        onCreate(db);
     }
     public void addisReadSQL(HashMap<String, Object> map)
     {
