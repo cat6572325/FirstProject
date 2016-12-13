@@ -211,7 +211,7 @@ public class http_thread_ extends Thread {
 		JSONObject jsonObject = null;
         JSONArray jsonArray = null;
         String str = null;
-
+		con=(Context)mapvideo.get("Context");
 		Response response = null;
 		
         try {
@@ -282,7 +282,7 @@ Log.e("url",url);
 			catch (IOException e)
 			{}
 			//if (!response.isSuccessful())
-          final String  str1 = response.body().string();
+          str = response.body().string();
 			Log.e("发送视频信息时返回了",str);
 			jsonObject=new JSONObject(str);
 		Bundle bundle=new Bundle();
@@ -295,7 +295,8 @@ Log.e("url",url);
 			handler.sendMessage(msg);
 
 
-
+			View_One view_one=new View_One(con,"视频已上传");
+			view_one.viewcreate();
 
 
 

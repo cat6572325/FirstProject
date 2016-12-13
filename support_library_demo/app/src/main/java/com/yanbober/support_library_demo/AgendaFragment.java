@@ -240,9 +240,10 @@ public class AgendaFragment extends Fragment{
     private void initView() {
 
         urls=new String[user.maps.size()];
+
         for (int i = 0; i < user.maps.size(); i++) {
             if (i == 10) {
-                return;
+              //  break;
             }
             urls[i]=user.maps.get(i).get("vdoPhotourl").toString();
             //将加载的所有图片url都保存到数组,供GetBitmapurl调用

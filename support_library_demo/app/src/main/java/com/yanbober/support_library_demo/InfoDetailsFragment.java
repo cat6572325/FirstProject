@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.os.*;
 import android.support.annotation.*;
 import android.support.v4.app.*;
+import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.*;
 import android.util.Base64;
 import android.util.Log;
@@ -34,12 +35,12 @@ import java.util.*;
 public class InfoDetailsFragment extends Fragment {
     private Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
-            Bundle bundle=new Bundle();
-            bundle=msg.getData();
+            Bundle bundle = new Bundle();
+            bundle = msg.getData();
             switch (msg.what) {
                 case 0:
                     //更新
-                adapter.notifyDataSetChanged();
+                    adapter.notifyDataSetChanged();
 
                     break;
             }
@@ -47,7 +48,7 @@ public class InfoDetailsFragment extends Fragment {
     };
     private RecyclerView mRecyclerView, rv;
     View v;
-    public ArrayList<HashMap<String, Object>> lists = new ArrayList<HashMap<String, Object>>(), lists2 = new ArrayList<HashMap<String, Object>>(),lists3;
+    public ArrayList<HashMap<String, Object>> lists = new ArrayList<HashMap<String, Object>>(), lists2 = new ArrayList<HashMap<String, Object>>(), lists3;
     FirstAdapter2 adapter, adapter2;
     MainActivity activity;
     public static String[] urls;
@@ -57,19 +58,19 @@ public class InfoDetailsFragment extends Fragment {
     private List<String> data = new ArrayList<>();
     LinearLayoutManager lm;
     int lastVisibleItem;
-    Http_UploadFile_ http_uploadFile_=null;
+    Http_UploadFile_ http_uploadFile_ = null;
     OnActivityebent ebent;
     LinearLayout linearLayouthide1;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.info_details_fragment, container, false);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
         //rv=(RecyclerView)v.findViewById(R.id.groupRecyclerView2);
-        linearLayouthide1=(LinearLayout)v.findViewById(R.id.HideLayout1);
+        linearLayouthide1 = (LinearLayout) v.findViewById(R.id.HideLayout1);
         return v;
     }
-
 
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -82,8 +83,8 @@ public class InfoDetailsFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
 
         mRecyclerView.setAdapter(adapter);
-       // ebent.Onebent("aaaaaaaaaaaaaaaa");
-initView();
+        // ebent.Onebent("aaaaaaaaaaaaaaaa");
+        initView();
         adapter.setOnClickListener(new FirstAdapter2.OnItemClickListener() {
             @Override
             public void onItemClickListener(View view, int position) {
@@ -93,19 +94,17 @@ initView();
                     JSONObject jsonObject;
                     Bundle bundle = new Bundle();
 
-                    JSONArray jsonArraycollect = (JSONArray)user.maps.get(position).get("cocerPerson");
-                    String iscollect="1";
-                    bundle.putString("iscollect","1");//显示未收藏的星星
-                    for (int i=0;i<jsonArraycollect.length();i++)
-                    {
-                        String str=jsonArraycollect.getString(i);
-                        if (str.equals(user.mydata.get("_id").toString()))
-                        {//如果是本人收藏
-                            iscollect="0";
-                            bundle.putString("iscollect","0");//显示已收藏的星星
+                    JSONArray jsonArraycollect = (JSONArray) user.maps.get(position).get("cocerPerson");
+                    String iscollect = "1";
+                    bundle.putString("iscollect", "1");//显示未收藏的星星
+                    for (int i = 0; i < jsonArraycollect.length(); i++) {
+                        String str = jsonArraycollect.getString(i);
+                        if (str.equals(user.mydata.get("_id").toString())) {//如果是本人收藏
+                            iscollect = "0";
+                            bundle.putString("iscollect", "0");//显示已收藏的星星
 
                         }
-                        Log.e("付款人id",str);
+                        Log.e("付款人id", str);
                     }
                        /*
 
@@ -126,18 +125,17 @@ initView();
                     Intent intent = new Intent(getContext(), Run_Video_.class);
                     bundle.putString("count", String.valueOf(position));
                     bundle.putString("vid", user.maps.get(position).get("_id").toString());
-                    bundle.putString("title",user.maps.get(position).get("title").toString());
-                    bundle.putString("paidppnumber",user.maps.get(position).get("paidppnumber").toString());
+                    bundle.putString("title", user.maps.get(position).get("title").toString());
+                    bundle.putString("paidppnumber", user.maps.get(position).get("paidppnumber").toString());
                     //由于目前有一项内容是没有视频id所以会出错
-                    bundle.putString("introduction",user.maps.get(position).get("introduction").toString());
-                    bundle.putString("uploader",user.maps.get(position).get("uploader").toString());
+                    bundle.putString("introduction", user.maps.get(position).get("introduction").toString());
+                    bundle.putString("uploader", user.maps.get(position).get("uploader").toString());
                     bundle.putString("url", user.maps.get(position).get("vdourl").toString());
-                    bundle.putString("vdoPhotourl",user.maps.get(position).get("vdoPhotourl").toString());
+                    bundle.putString("vdoPhotourl", user.maps.get(position).get("vdoPhotourl").toString());
                     //count是为了定位到一开始时保存的视频列表中某一个视频的数据
                     intent.putExtras(bundle);
                     startActivity(intent);
-                }catch (JSONException e)
-                {
+                } catch (JSONException e) {
 
                 }
             }
@@ -193,7 +191,7 @@ initView();
 
     }
 
-    public void addTextToList(String text, int who, String id, int count, String name,String url) {
+    public void addTextToList(String text, int who, String id, int count, String name, String url) {
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("person", who);
         map.put("image", id);
@@ -201,12 +199,13 @@ initView();
         map.put("count", count);
         map.put("layout", who);
         map.put("name", name);
-		map.put("vdoPhotourl",url);
-        lists.add(map);
+        map.put("vdoPhotourl", url);
 
+
+        lists.add(map);
     }
 
-    public void addTextToList2(String text, int who, String id, int count, String name,String url) {
+    public void addTextToList2(String text, int who, String id, int count, String name, String url) {
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("person", who);
         map.put("image", id);
@@ -214,193 +213,283 @@ initView();
         map.put("count", count);
         map.put("layout", who);
         map.put("name", name);
-		map.put("vdoPhoto",url);
+        map.put("vdoPhoto", url);
         lists2.add(map);
     }
-    private void initView()
-    {
 
-            MainActivity mainActivity;
-            mainActivity= (MainActivity)getActivity();
-            Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(mainActivity
-                    ,mainActivity.mHandler
-                    ,"http://trying-video.herokuapp.com/user/video/all/detail"
-                    ,"4"
-                    ,"POST"
-                    ,"getvideos");
-        Thread t=new Thread(http_uploadFile_);
-     //   t.start();
+    private void initView() {
+
+        MainActivity mainActivity;
+        mainActivity = (MainActivity) getActivity();
+        Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(mainActivity
+                , mainActivity.mHandler
+                , "http://trying-video.herokuapp.com/user/video/all/detail"
+                , "4"
+                , "POST"
+                , "getvideos");
+        Thread t = new Thread(http_uploadFile_);
+        //   t.start();
         mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (newState==0)//0停止　1开始滑动 2放手依旧滑动中
+                if (newState == 0)//0停止　1开始滑动 2放手依旧滑动中
                 {
                     lm = (LinearLayoutManager) mRecyclerView.getLayoutManager();
-                    User u=new User();
-                    HashMap<String,Object> map=new HashMap<String, Object>();
-                    map.put("?","InfoDetailsFragment");
-                    if (u.getBitmapurl!=null) {
-                        u.getBitmapurl.loadListViewImage(lm.findFirstVisibleItemPosition(), lm.findLastVisibleItemPosition(),mRecyclerView,getContext(),map);
+                    User u = new User();
+                    HashMap<String, Object> map = new HashMap<String, Object>();
+                    map.put("?", "InfoDetailsFragment");
+                    if (u.getBitmapurl != null) {
+                        u.getBitmapurl.loadListViewImage(lm.findFirstVisibleItemPosition(), lm.findLastVisibleItemPosition(), mRecyclerView, getContext(), map);
                     }
-                }else
-                {
-                    User u=new User();
-                    if (u.getBitmapurl!=null)
+                } else {
+                    User u = new User();
+                    if (u.getBitmapurl != null)
                         u.getBitmapurl.cancelAllTask();
                 }
 
 
-
             }
-
 
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView,dx, dy);
+                super.onScrolled(recyclerView, dx, dy);
 
             }
         });
 
-        }
-    ArrayList<HashMap<String, Object>> map;
-    Bitmap bitmap2=null;
-    public String urlbitmap=null;
-    String str1,str2,str3;
+    }
 
-public interface OnActivityebent
-    {
+    ArrayList<HashMap<String, Object>> map;
+    Bitmap bitmap2 = null;
+    public String urlbitmap = null;
+    String str1, str2, str3;
+
+    public interface OnActivityebent {
         public void Onebent(String str);
 
     }
-public void Onebent(ArrayList<HashMap<String, Object>> maps)  {//MainActivity接口
-    User u=new User();
 
-    if (u.phone.equals("null")&&u.phone==null)
-    {
-        map = maps;
-        urls=new String[user.maps.size()];
-        for (int i = 0; i < map.size(); i++) {
-            urls[i]=user.maps.get(i).get("vdoPhotourl").toString();
-            urlbitmap = map.get(i).get("vdoPhotourl").toString();
-            str1 = map.get(i).get("paidppnumber").toString();
-            str2 = map.get(i).get("vdourl").toString();
-            str3 = map.get(i).get("title").toString();
-            if (i == 10) {
-                return;
+    public void Onebent(ArrayList<HashMap<String, Object>> maps) {//MainActivity接口
+        User u = new User();
+
+        //通过获取maps中所有项中的paidppnumber的数字来进行繁琐的比较，并以从小到大的顺序加入到ui
+        if (u.phone.equals("null") && u.phone == null) {
+
+            lists2 = maps;
+            lists3 = new ArrayList<>();
+            urls = new String[user.maps.size()];
+
+            int mind;
+            boolean flag = false;
+            for (int y = 0; y < lists2.size(); y++) {//每次获取其中一项
+                if (!lists2.get(y).get("paidppnumber").toString().equals("null")) {
+                    mind = Integer.parseInt(lists2.get(y).get("paidppnumber").toString());
+
+                    for (int x = 0; x < lists2.size(); x++) {
+                        //然后遍历全部，进行比较，如果没有比当前项更大的数值的项，则加入lists3并从lists2中删除
+                        if (mind > Integer.parseInt(lists2.get(x).get("paidppnumber").toString())) {//如果不是最小的
+                            flag = true;
+                        }//遍历完一次后判断
+                        if (flag == false) {//把mind索引的项加入并删除
+                            lists3.add(lists2.get(y));
+                            lists2.remove(y);
+                        }
+                    }
+                } else {//如果是null则直接加入,无需比较
+                    lists3.add(lists2.get(y));
+                    lists2.remove(y);
+
+                }
+
             }
-            addTextToList(str1
-                    , 1
-                    , str2
-                    , 0
-                    , str3
-                    , urlbitmap
-            );
+            for (int i = 0; i < lists3.size(); i++) {
+                //所有数据以付款人数排列完毕，然后在这里开始加载
+                if (i == 10) {
+                    //break;
+                }
+
+                urls[i] = user.maps.get(i).get("vdoPhotourl").toString();
+
+
+                urlbitmap = lists3.get(i).get("vdoPhotourl").toString();
+                str1 = lists3.get(i).get("paidppnumber").toString();
+                if (str1.equals("null")) {
+                    str1 = null;
+                    str1 = "0";
+                }
+                str2 = lists3.get(i).get("vdourl").toString();
+                str3 = lists3.get(i).get("title").toString();
+
+                addTextToList(str1
+                        , 1
+                        , str2
+                        , 0
+                        , str3
+                        , urlbitmap
+                );
+
+
+            }
+
+        } else {
+            lists2 = maps;
+            lists3 = new ArrayList<>();
+            urls = new String[user.maps.size()];
+            ArrayList<HashMap<String, Object>> maps_list = new ArrayList<>();
+            int mind;
+            boolean flag = false;
+            int size = u.maps.size();
+
+            //首先把为null的都随机放入lists3
+            //然后将不为null的放入maps_list然后再转交给lists2
+            //循环如果lists2大小
+            //比较其中一个是否是里面最小的，如果是就放入lists3并删除lists2中这个项然后结束
+            //再继续循环比较第二个，是否是里面最小的．直到lists2为0
+
+                for (int c = 0; c < size; c++)//13/
+                {//首先把未null的所有项加入lists3然后从lists2中删除
+                    if (lists2.get(c).get("paidppnumber").toString().equals("null")) {
+                        lists3.add(lists2.get(c));//为null
+                    } else {
+                        maps_list.add(lists2.get(c));//不null
+                    }
+                }
+
+                lists2.clear();
+                lists2.addAll(maps_list);
+                while (lists2.size()!=0)
+                {
+                    for (int i = 0; i <lists2.size(); i++) {
+                        mind=Integer.parseInt(lists2.get(i).get("paidppnumber").toString());
+                        for(int y=0;y<lists2.size();y++) {
+                            if (mind > Integer.parseInt(lists2.get(i).get("paidppnumber").toString())) {
+                                break;
+                            } else {//<=
+                                flag = false;
+                            }
+                            if (mind == Integer.parseInt(lists2.get(i).get("paidppnumber").toString())) {//不管是不是等于都直接放入lists3
+                                lists3.add(lists2.get(i));
+                                lists2.remove(i);
+                                break;
+                            } else {
+                                lists3.add(lists2.get(i));
+                                lists2.remove(i);
+                                break;
+                            }
+
+                        }
+                        break;
+                    }
+                }
+
+
+
+                ///比较的结果将所有的paidppnumber数值以从小到大排序
+                //由于里面有null,,,
+                for (int i = 0; i < lists3.size(); i++) {
+                    //所有数据以付款人数排列完毕，然后在这里开始加载
+                    if (i == 10) {
+                        //break;
+                    }
+
+                    urls[i] = lists3.get(i).get("vdoPhotourl").toString();
+
+
+                    urlbitmap = lists3.get(i).get("vdoPhotourl").toString();
+                    str1 = lists3.get(i).get("paidppnumber").toString();
+                    if (str1.equals("null")) {
+                        str1 = null;
+                        str1 = "0";
+                    }
+                    str2 = lists3.get(i).get("vdourl").toString();
+                    str3 = lists3.get(i).get("title").toString();
+
+                    addTextToList(str1
+                            , 1
+                            , str2
+                            , 0
+                            , str3
+                            , urlbitmap
+                    );
+
+
+                }
 
 
         }
-
-        }else {
-        map = maps;
-        urls=new String[user.maps.size()];
-        for (int i = 0; i < map.size(); i++) {
-            urls[i]=user.maps.get(i).get("vdoPhotourl").toString();
-            urlbitmap = map.get(i).get("vdoPhotourl").toString();
-            str1 = map.get(i).get("paidppnumber").toString();
-            str2 = map.get(i).get("vdourl").toString();
-            str3 = map.get(i).get("title").toString();
-            if (i == 10) {
-                return;
-            }
-            addTextToList(str1
-                    , 1
-                    , str2
-                    , 0
-                    , str3
-                    , urlbitmap
-            );
-
-
-
-
-        }
-        if (adapter!=null)
-        adapter.notifyDataSetChanged();
+        if (adapter != null)
+            adapter.notifyDataSetChanged();
         //  addTextToList("uuu", 1, "android.R.drawable.ic_lock_lock", 0, "name");
         // Toast.makeText(getContext(),str1,Toast.LENGTH_LONG).show();
         linearLayouthide1.setVisibility(View.INVISIBLE);
     }
-}
-    public class thread implements Runnable
-    {/////chat socket
+
+    public class thread implements Runnable {/////chat socket
 
         String str;
-        public thread(String str)
-        {
 
-            this.str=str;
+        public thread(String str) {
+
+            this.str = str;
 
         }
 
-        public void run()
-        {
+        public void run() {
             try {
 
-                    URL url = new URL(str);
+                URL url = new URL(str);
 
-                    HttpURLConnection conn = (HttpURLConnection) url
-                            .openConnection();
-                    conn.setDoInput(true);
-                    conn.connect();
-                    InputStream is = new BufferedInputStream(conn.getInputStream());
-                    bitmap2=BitmapFactory.decodeStream(is);// BitmapFactory.decodeStream(is);
-                    is.close();
-                    conn.disconnect();
-                }catch(IOException e)
-                {
-                    bitmap2 = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.down);
+                HttpURLConnection conn = (HttpURLConnection) url
+                        .openConnection();
+                conn.setDoInput(true);
+                conn.connect();
+                InputStream is = new BufferedInputStream(conn.getInputStream());
+                bitmap2 = BitmapFactory.decodeStream(is);// BitmapFactory.decodeStream(is);
+                is.close();
+                conn.disconnect();
+            } catch (IOException e) {
+                bitmap2 = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.down);
 
 
-                }
-                //addTextToList("广东",1,android.R.drawable.ic_lock_lock,"ps","data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊");
+            }
+            //addTextToList("广东",1,android.R.drawable.ic_lock_lock,"ps","data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊");
 
 
             mHandler.sendEmptyMessage(2);
 
-            }
-
-
+        }
 
 
         //暂定内容，参数....购买人数,布局,头像,是否显示红点,标题
         //头像和内容壁纸需要在适配器以二进制转为图片
 
     }
-    private Bitmap decodeSampleBitmapFromStream(InputStream in,int with,int height)
-    {
-        final BitmapFactory.Options options=new BitmapFactory.Options();
-        options.inJustDecodeBounds=true;
-        BitmapFactory.decodeStream(in,null,options);
-        options.inSampleSize=caluSize(options,with,height);
-        options.inJustDecodeBounds=false;
-        return BitmapFactory.decodeStream(in,null,options);
+
+    private Bitmap decodeSampleBitmapFromStream(InputStream in, int with, int height) {
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeStream(in, null, options);
+        options.inSampleSize = caluSize(options, with, height);
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeStream(in, null, options);
     }
-    private static int caluSize(BitmapFactory.Options options,int width,int height)
-    {
-        final int with=options.outWidth;
-        final int heih=options.outHeight;
-        int size=1;
-        if(heih>height || with>width)
-        {
-            final int hetgRatio=Math.round((float)heih/(float)height);
-            final int widthRatio=Math.round((float)with/(float)width);
-            size=hetgRatio < widthRatio ? hetgRatio : widthRatio;
+
+    private static int caluSize(BitmapFactory.Options options, int width, int height) {
+        final int with = options.outWidth;
+        final int heih = options.outHeight;
+        int size = 1;
+        if (heih > height || with > width) {
+            final int hetgRatio = Math.round((float) heih / (float) height);
+            final int widthRatio = Math.round((float) with / (float) width);
+            size = hetgRatio < widthRatio ? hetgRatio : widthRatio;
         }
         return size;
 
     }
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -408,8 +497,7 @@ public void Onebent(ArrayList<HashMap<String, Object>> maps)  {//MainActivity接
             ebent = (OnActivityebent) activity;
 
 
-        }catch (ClassCastException e)
-        {
+        } catch (ClassCastException e) {
 
         }
     }
@@ -424,7 +512,7 @@ public void Onebent(ArrayList<HashMap<String, Object>> maps)  {//MainActivity接
                 items = null;
                 items = group[i].split("\\#");
                 //group[i] =  "name # ps # imageString
-              //  addTextToList(items[0], 0, "android.R.drawable.ic_lock_lock", 0, "name");
+                //  addTextToList(items[0], 0, "android.R.drawable.ic_lock_lock", 0, "name");
             }
 
         if (phones != null)
@@ -432,7 +520,7 @@ public void Onebent(ArrayList<HashMap<String, Object>> maps)  {//MainActivity接
                 items = null;
                 items = group[i].split("\\#");
 
-               // addTextToList(items[0], 0, "android.R.drawable.ic_lock_lock", 0, "name");
+                // addTextToList(items[0], 0, "android.R.drawable.ic_lock_lock", 0, "name");
             }
 
     }

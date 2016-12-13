@@ -85,7 +85,7 @@ public class Round_Video_ extends Activity
             switch (msg.what) {
                 case 0:
 
-
+                    p.OnProgressChanged(101);
                         if (bundle.getString("?").equals("success")) {
 
                         }

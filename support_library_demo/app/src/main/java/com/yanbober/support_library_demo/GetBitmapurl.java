@@ -35,6 +35,9 @@ import java.util.Set;
 
 /**
  * Created by cat6572325 on 16-12-9.
+ * 我给加载成功的图片加上了动画，但是只在联网加载成功后才有这个动画，为了进一步优化，未来可能要试着只加载一次图片
+ * 不过listview的adapter会自动刷新，所以可能会将图片复原．
+ * 目前只做了一级缓存．
  */
 public class GetBitmapurl {
 public Handler mHandler=new Handler()
@@ -187,8 +190,8 @@ for (int i=start;i<end;i++)
             RelativeLayout relativeLayout = (RelativeLayout) rv.findViewWithTag(url);//获得(url) 这个绑定这个tag的Relativelayout
             Drawable drawable = new BitmapDrawable(bitmap);
             relativeLayout.setBackground(drawable);//设置成功
-            Animation animation = AnimationUtils.loadAnimation(context, R.anim.scale___);
-            relativeLayout.startAnimation(animation);
+           // Animation animation = AnimationUtils.loadAnimation(context, R.anim.scale___);
+            //relativeLayout.startAnimation(animation);
         }
     }
 }
