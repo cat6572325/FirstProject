@@ -24,12 +24,12 @@ public final class R {
 		public static final int crop__bar_height = 0x7f090005;
 	}
 	public static final class drawable {
-		public static final int crop__divider = 0x7f02007a;
-		public static final int crop__ic_cancel = 0x7f02007b;
-		public static final int crop__ic_done = 0x7f02007c;
-		public static final int crop__selectable_background = 0x7f02007d;
-		public static final int crop__texture = 0x7f02007e;
-		public static final int crop__tile = 0x7f02007f;
+		public static final int crop__divider = 0x7f02007e;
+		public static final int crop__ic_cancel = 0x7f02007f;
+		public static final int crop__ic_done = 0x7f020080;
+		public static final int crop__selectable_background = 0x7f020081;
+		public static final int crop__texture = 0x7f020082;
+		public static final int crop__tile = 0x7f020083;
 	}
 	public static final class id {
 		public static final int always = 0x7f0e003b;

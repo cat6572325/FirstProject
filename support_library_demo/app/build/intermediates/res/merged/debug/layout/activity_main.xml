@@ -17,12 +17,14 @@
 		<android.support.design.widget.AppBarLayout
 			android:id="@+id/app_bar_layout"
 			android:layout_width="match_parent"
+			android:backgroundTint="#fafafb"
 			android:layout_height="wrap_content">
 
 			<android.support.v7.widget.Toolbar
 				android:id="@+id/tool_bar"
 				android:layout_width="match_parent"
 				android:layout_height="47dp"
+
 				app:layout_scrollFlags="scroll|enterAlways">
 
 				<RelativeLayout
@@ -165,7 +167,7 @@
 				android:src="#ff0000"
 				android:layout_centerHorizontal="true"
 				android:layout_centerInParent="true"
-				android:background="@drawable/roundbuttoning"/>
+				android:background="@drawable/avatar"/>
 
 			<LinearLayout
 				android:layout_height="wrap_content"

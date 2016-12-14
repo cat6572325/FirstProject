@@ -365,17 +365,17 @@ public final class R {
 		public static final int abc_textfield_search_activated_mtrl_alpha = 0x7f02004f;
 		public static final int abc_textfield_search_default_mtrl_alpha = 0x7f020050;
 		public static final int abc_textfield_search_material = 0x7f020051;
-		public static final int blue_button_background = 0x7f02005e;
-		public static final int dialog_background = 0x7f020086;
-		public static final int error_center_x = 0x7f02008b;
-		public static final int error_circle = 0x7f02008c;
-		public static final int gray_button_background = 0x7f02009b;
-		public static final int ic_launcher = 0x7f0200b6;
-		public static final int red_button_background = 0x7f020120;
-		public static final int success_bow = 0x7f02012e;
-		public static final int success_circle = 0x7f02012f;
-		public static final int warning_circle = 0x7f02013f;
-		public static final int warning_sigh = 0x7f020140;
+		public static final int blue_button_background = 0x7f02005f;
+		public static final int dialog_background = 0x7f02008a;
+		public static final int error_center_x = 0x7f02008f;
+		public static final int error_circle = 0x7f020090;
+		public static final int gray_button_background = 0x7f02009f;
+		public static final int ic_launcher = 0x7f0200ba;
+		public static final int red_button_background = 0x7f020127;
+		public static final int success_bow = 0x7f020135;
+		public static final int success_circle = 0x7f020136;
+		public static final int warning_circle = 0x7f020146;
+		public static final int warning_sigh = 0x7f020147;
 	}
 	public static final class id {
 		public static final int action_bar = 0x7f0e006c;

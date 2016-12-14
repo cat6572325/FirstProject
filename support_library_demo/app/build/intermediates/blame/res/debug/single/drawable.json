@@ -4,12 +4,12 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/ic_action_chat.png"
     },
     {
-        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_track_material.xml",
-        "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/res/drawable/abc_seekbar_track_material.xml"
-    },
-    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/button_action_blue_selector.xml",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/button_action_blue_selector.xml"
+    },
+    {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_track_material.xml",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/res/drawable/abc_seekbar_track_material.xml"
     },
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/jc_click_error_selector.xml",
@@ -40,12 +40,20 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/ic_action_new.png"
     },
     {
-        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/ic_action_headphones.png",
-        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/ic_action_headphones.png"
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/button_selector_press.xml",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/button_selector_press.xml"
+    },
+    {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/pay_btn_up.xml",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/pay_btn_up.xml"
     },
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/navigation_empty_icon.xml",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/design/25.0.1/res/drawable/navigation_empty_icon.xml"
+    },
+    {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/ic_action_headphones.png",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/ic_action_headphones.png"
     },
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/abc_switch_thumb_material.xml",
@@ -112,12 +120,24 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/cn.pedant.sweetalert/library/1.3/res/drawable/success_circle.xml"
     },
     {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/avatar.png",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/avatar.png"
+    },
+    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/jc_dialog_progress_bg.xml",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/fm.jiecao/jiecaovideoplayer/5.0_preview/res/drawable/jc_dialog_progress_bg.xml"
     },
     {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/pay_btn_press.xml",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/pay_btn_press.xml"
+    },
+    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/button_action_blue.png",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/button_action_blue.png"
+    },
+    {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/button_selector_up.xml",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/button_selector_up.xml"
     },
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_thumb_material.xml",
@@ -488,6 +508,10 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/fab_bg_mini.png"
     },
     {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/pay_btn_selector.xml",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/pay_btn_selector.xml"
+    },
+    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/abc_vector_test.xml",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/res/drawable/abc_vector_test.xml"
     },
@@ -498,6 +522,10 @@
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/with_shadow.xml",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/with_shadow.xml"
+    },
+    {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/button_selector.xml",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/drawable/button_selector.xml"
     },
     {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable/blue_button_background.xml",

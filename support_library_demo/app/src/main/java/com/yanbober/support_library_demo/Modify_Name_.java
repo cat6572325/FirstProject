@@ -36,6 +36,7 @@ public class Modify_Name_ extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     EditText modify_e;
     ImageView Ok_img;
+    TextView name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO: Implement this method
@@ -46,8 +47,10 @@ public class Modify_Name_ extends AppCompatActivity {
     public void inintView() {
         mToolbar = (Toolbar) this.findViewById(R.id.Modify_Toolbar);
         mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
-
+        name=(TextView)this.findViewById(R.id.modifynameTextView1);
         modify_e=(EditText)this.findViewById(R.id.Modify_e);
+        User u=new User();
+
         //初始化ToolBar
         setSupportActionBar(mToolbar);
         //初始化ToolBar

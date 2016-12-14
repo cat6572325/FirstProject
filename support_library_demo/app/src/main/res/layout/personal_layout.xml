@@ -15,7 +15,7 @@
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:id="@+id/personal_back"
-			android:background="@drawable/back_purple"
+			android:background="@drawable/back_press"
 			android:layout_margin="20dp"/>
 
 		<ImageView

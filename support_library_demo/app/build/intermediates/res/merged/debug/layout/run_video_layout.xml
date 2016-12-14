@@ -10,6 +10,7 @@
 		android:id="@+id/app_bar"
 		android:layout_width="match_parent"
 		android:layout_height="290dp"
+		android:backgroundTint="#fafafb"
 		android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
 		<android.support.design.widget.CollapsingToolbarLayout
@@ -126,10 +127,10 @@
 						android:id="@+id/Run_Video_upder_Img"
 						android:layout_height="35dp"
 						android:layout_marginLeft="8dp"
-						android:src="#ff0000"
+
 						android:layout_centerHorizontal="true"
 						android:layout_centerInParent="true"
-						android:background="@drawable/roundbuttoning"/>
+						android:background="@drawable/avatar"/>
 
 
 					<TextView
@@ -206,28 +207,56 @@
 
 			<LinearLayout
 				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
+				android:layout_width="match_parent"
 				android:orientation="horizontal"
 				android:layout_margin="15dp"
-				android:gravity="center_vertical">
 
+				android:gravity="center_vertical">
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_weight="1">
 				<View
 					android:layout_height="25dp"
 					android:layout_width="4dp"
+					android:id="@+id/view1"
 					android:background="#8810B1"/>
 
 				<TextView
 					android:layout_height="wrap_content"
 					android:text="简介 ："
+					android:layout_toRightOf="@id/view1"
 					android:textAppearance="?android:attr/textAppearanceLarge"
 					android:layout_width="wrap_content"/>
+				</RelativeLayout>
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_weight="1">
+				<View
+					android:layout_height="25dp"
+					android:layout_width="4dp"
+					android:id="@+id/view2"
+					android:background="#8810B1"/>
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:text="评论 ："
+					android:layout_toRightOf="@id/view2"
+					android:textAppearance="?android:attr/textAppearanceLarge"
+					android:layout_width="wrap_content"/>
+					</RelativeLayout>
 
 			</LinearLayout>
-
+<LinearLayout
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="horizontal">
 			<RelativeLayout
-				android:layout_height="wrap_content"
+				android:layout_height="match_parent"
 				android:layout_width="wrap_content"
 				android:layout_marginLeft="15dp"
+				android:layout_weight="1"
 				android:layout_marginRight="15dp">
 
 				<TextView
@@ -235,10 +264,40 @@
 					android:id="@+id/introduction_text"
 					android:text="提示：长按视频区域全屏。在线播放，实时下载，网络优化，你看，只要点一下收藏就可以随时看，当然这要视频是免费的，希望观看愉快！/n应用作者记"
 					android:textAppearance="?android:attr/textAppearanceMedium"
-					android:layout_width="wrap_content"/>
+					android:layout_width="wrap_content"
+					android:ellipsize="end"
+
+					android:singleLine="false" />
 
 			</RelativeLayout>
+	<RelativeLayout
+		android:layout_weight="1"
+		android:layout_toRightOf="@id/introduction_text"
+		android:layout_width="wrap_content"
+		android:layout_height="300dp">
 
+		<android.support.v7.widget.RecyclerView
+			android:layout_width="300dp"
+			android:layout_height="match_parent"
+			android:id="@+id/run_video_rec"
+			/>
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="发送"
+			android:layout_alignParentBottom="true"
+			android:layout_alignParentRight="true"
+			android:id="@+id/run_video_side_send"/>
+		<EditText
+			android:layout_width="200dp"
+			android:layout_height="wrap_content"
+			android:layout_toLeftOf="@id/run_video_side_send"
+			android:layout_alignParentBottom="true"
+			android:id="@+id/run_video_side_Edit"/>
+
+	</RelativeLayout>
+
+</LinearLayout>
 		</LinearLayout>
 
 	</android.support.v4.widget.NestedScrollView>

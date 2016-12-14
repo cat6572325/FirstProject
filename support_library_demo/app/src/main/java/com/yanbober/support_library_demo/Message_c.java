@@ -154,18 +154,14 @@ DrawerLayout mDrawerLayout;
 	public void initView() {
 //postmessage();
 		lv = (ListView) this.findViewById(R.id.message_listview);
-		tb = (Toolbar) this.findViewById(R.id.tool_bar);
+	//	tb = (Toolbar) this.findViewById(R.id.tool_bar);
 		left_button=(ImageView)this.findViewById(R.id.messagelayoutImageView1);
 		
-		mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
+		//mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
 		ladapter = new MyChatAdapter(Message_c.this, lists, layout);
 		lv.setAdapter(ladapter);
 		LoadthisMessage();
-//初始化ToolBar
-		setSupportActionBar(tb);
-		ActionBar actionBar = getSupportActionBar();
-		actionBar.setHomeAsUpIndicator(R.drawable.back_purple);//android.R.drawable.ic_dialog_alert);
-		actionBar.setDisplayHomeAsUpEnabled(true);
+
 		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
@@ -173,8 +169,11 @@ DrawerLayout mDrawerLayout;
 				User u =new User();
 				if (dataserver.isHavethisID(u.notices_list.get(i).get("_id").toString()))
 				{//如果是已读的
-
+					Toast.makeText(Message_c.this,"你点击了已读信息",Toast.LENGTH_LONG).show();
+					TextView textView=(TextView)view.findViewById(R.id.tTextView);
+					textView.setVisibility(View.INVISIBLE);
 				}else {//如果是未读的
+					Toast.makeText(Message_c.this,"这条信息已加入已读表，将不再显示提醒",Toast.LENGTH_LONG).show();
 					HashMap<String,Object> map=new HashMap<String, Object>();
 					map.put("_id",u.notices_list.get(i).get("_id").toString());
 					dataserver.addisReadSQL(map);
@@ -275,7 +274,7 @@ DrawerLayout mDrawerLayout;
 								,R.drawable.image
 								,isPort
 						);
-
+						break;
 					case 3:
 						//上传
 						addTextToList(
@@ -299,7 +298,7 @@ DrawerLayout mDrawerLayout;
 								,R.drawable.image
 								,isPort
 						);
-
+						break;
 					case 5:
 						//系统
 						addTextToList(
@@ -309,7 +308,7 @@ DrawerLayout mDrawerLayout;
 								,R.drawable.image
 								,isPort
 						);
-
+						break;
 
 				}
 			}

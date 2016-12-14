@@ -16,12 +16,12 @@ public final class R {
 		public static final int use_texture_view = 0x7f01012d;
 	}
 	public static final class drawable {
-		public static final int exo_controls_fastforward = 0x7f02008d;
-		public static final int exo_controls_next = 0x7f02008e;
-		public static final int exo_controls_pause = 0x7f02008f;
-		public static final int exo_controls_play = 0x7f020090;
-		public static final int exo_controls_previous = 0x7f020091;
-		public static final int exo_controls_rewind = 0x7f020092;
+		public static final int exo_controls_fastforward = 0x7f020091;
+		public static final int exo_controls_next = 0x7f020092;
+		public static final int exo_controls_pause = 0x7f020093;
+		public static final int exo_controls_play = 0x7f020094;
+		public static final int exo_controls_previous = 0x7f020095;
+		public static final int exo_controls_rewind = 0x7f020096;
 	}
 	public static final class id {
 		public static final int control = 0x7f0e011b;

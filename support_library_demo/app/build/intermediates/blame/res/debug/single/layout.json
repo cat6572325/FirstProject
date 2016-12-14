@@ -484,6 +484,10 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/layout/activity_main.xml"
     },
     {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/t.xml",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/layout/t.xml"
+    },
+    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/setting_list_item.xml",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/layout/setting_list_item.xml"
     },

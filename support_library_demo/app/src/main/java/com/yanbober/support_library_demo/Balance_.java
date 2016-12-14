@@ -115,7 +115,6 @@ public class Balance_ extends AppCompatActivity
 	//v4中的ViewPager控件
 	private ViewPager mViewPager;
 	ListView rl;
-	MyChatAdapter ladapter;
 	TextView balances=null;
 	int[] layout={R.layout.left_list_item,R.layout.line_item};
 	User user=new User();
@@ -162,75 +161,8 @@ public class Balance_ extends AppCompatActivity
 		mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
 		mViewPager = (ViewPager) this.findViewById(R.id.view_pager);
 		rl=(ListView)this.findViewById(R.id.tRecyclerView1);
-		left_head=(ImageView)this.findViewById(R.id.drawer_headerImageView);
 		message=(ImageView)this.findViewById(R.id.activitymainTextView1);
 		Message_point=(TextView)findViewById(R.id.tTextView);
-		addTextToList("首页",0,R.drawable.home);
-		addTextToList("已付",0,R.drawable.paid);
-
-		addTextToList("我的",0,R.drawable.my_video);
-		addTextToList("收藏",0,R.drawable.collect);
-	//	addTextToList("余额",0,R.drawable.balance);
-		addTextToList("分割贱",1,R.drawable.fab_bg_normal);
-
-		addTextToList("设置",0,R.drawable.fab_bg_normal);
-		addTextToList("反馈",0,R.drawable.feedback);
-
-
-		ladapter=new MyChatAdapter(Balance_.this,lists,layout);
-		rl.setAdapter(ladapter);
-		left_head.setOnClickListener(new OnClickListener()
-		{
-			public void onClick(View v)
-			{
-				Intent intent=new Intent(Balance_.this,Personal_.class);
-				startActivity(intent);
-			}
-		});
-		rl.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-			public void onItemClick(AdapterView<?> parent,View view,int position,long id)
-			{
-				TextView tv=(TextView)view.findViewById(R.id.leftlistitemTextView1);
-				
-				if(tv!=null)
-				{
-					
-				String str=tv.getText().toString();
-				if(str.equals("首页"))
-				{
-
-				}
-				if(str.equals("已付"))
-				{
-					Intent intent=new Intent(Balance_.this,Paid_Video.class);
-					startActivity(intent);
-				}
-
-				if(str.equals("收藏"))
-				{
-					Intent intent=new Intent(Balance_.this,Collect_.class);
-					startActivity(intent);
-				}
-				if(str.equals("我的"))
-				{
-					Intent intent=new Intent(Balance_.this,My_Video_.class);
-					startActivity(intent);
-				}
-
-				if(str.equals("余额"))
-				{
-					Intent intent=new Intent(Balance_.this,Balance_.class);
-					startActivity(intent);
-				}
-
-				if(str.equals("设置"))
-				{
-					Intent intent=new Intent(Balance_.this,Setting_.class);
-					startActivity(intent);
-				}
-				}
-			}
-		});
 
 		//TODO 右上角按钮
 		message.setOnClickListener(new View.OnClickListener()
@@ -250,7 +182,7 @@ public class Balance_ extends AppCompatActivity
 		//初始化ToolBar
 		setSupportActionBar(toolbar);
 		android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-		actionBar.setHomeAsUpIndicator(R.drawable.menu);//android.R.drawable.ic_dialog_alert);
+		actionBar.setHomeAsUpIndicator(R.drawable.back_purple);//android.R.drawable.ic_dialog_alert);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 
@@ -464,103 +396,6 @@ public class Balance_ extends AppCompatActivity
 		lists.add(map);
 	}
 
-	private class MyChatAdapter extends BaseAdapter
-	{//TODO 侧滑栏　列表适配类
-
-		Context context=null;
-		ArrayList<HashMap<String,Object>> chatList=null;
-		int[] layout;
-		String[] from;
-		int[] to;
-
-
-
-		public MyChatAdapter(Context context,
-							 ArrayList<HashMap<String, Object>> chatList, int[] layout
-		)
-		{
-			super();
-			this.context = context;
-			this.chatList = chatList;
-			this.layout = layout;
-
-		}
-
-
-		public int getCount()
-		{
-			// TODO Auto-generated method stub
-			return chatList.size();
-		}
-
-
-		public Object getItem(int arg0)
-		{
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-
-		public long getItemId(int position)
-		{
-			// TODO Auto-generated method stub
-			return position;
-		}
-
-
-		////////////
-		class ViewHolder
-		{
-			public ImageView imageView=null;
-			public TextView textView=null;
-			public String title;
-			private ImageView i_icon,i_icon2;
-			public TextView T_title,T_red;
-		}
-		////////////
-
-		public View getView(int position, View convertView, ViewGroup parent)
-		{
-			// TODO Auto-generated method stub
-			ViewHolder holder=null;
-			final TextView tt;
-			LinearLayout re;
-			int who=(Integer)chatList.get(position).get("person");
-
-
-			switch(who)
-			{
-				case 0:
-					convertView = LayoutInflater.from(context).inflate(
-							layout[who], null);
-					ImageView img=(ImageView)convertView.findViewById(R.id.left_list_itemImageView);
-					TextView tv=(TextView)convertView.findViewById(R.id.leftlistitemTextView1);
-					img.setImageResource((Integer)chatList.get(position).get("image"));
-					tv.setText((String)chatList.get(position).get("text"));
-
-
-					break;
-				case 1:
-					isEnabled(position);
-					convertView = LayoutInflater.from(context).inflate(
-							layout[who], null);
-					View v=(View)convertView.findViewById(R.id.lineitemView1);
-					v.setOnClickListener(new OnClickListener()
-					{
-						public void onClick(View view)
-						{
-
-						}
-					});
-
-					break;
-
-
-			}
-			return convertView;
-
-		}
-	}
 
 
 }

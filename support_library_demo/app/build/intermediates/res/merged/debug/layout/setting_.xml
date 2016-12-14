@@ -23,10 +23,10 @@
 				android:id="@+id/drawer_headerImageView"
 				android:layout_height="100dp"
 				android:layout_marginLeft="10dp"
-				android:src="#ff0000"
+
 				android:layout_centerHorizontal="true"
 				android:layout_centerInParent="true"
-				android:background="@drawable/roundbuttoning"/>
+				android:background="@drawable/avatar"/>
 
 		</RelativeLayout>
 

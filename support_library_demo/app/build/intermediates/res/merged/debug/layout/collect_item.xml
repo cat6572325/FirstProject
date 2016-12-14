@@ -51,30 +51,37 @@
 			android:id="@+id/collectitemRelativeLayout1">
 
 			<Button
-				android:layout_height="wrap_content"
+				android:layout_height="30dp"
 				android:text="支付1亿"
+
 				android:layout_width="wrap_content"
 				android:layout_centerInParent="true"
 				android:id="@+id/collect_paid_button"
 				android:paddingLeft="25dp"
 				android:paddingRight="25dp"
+				android:background="@drawable/pay_btn_selector"
 				android:onClick="paythisVideoButton" />
 
 		</RelativeLayout>
 
 	</RelativeLayout>
 
+
 	<TextView
-		android:layout_height="13dp"
 		android:id="@+id/tTextView"
 		android:background="@drawable/button_normal"
-		android:layout_width="13dp"
+		android:layout_width="wrap_content"
 		android:layout_alignParentRight="true"
-		android:minWidth="15dp"
+		android:minWidth="10dp"
+		android:text="9"
+		android:textSize="10dp"
+		android:textColor="@android:color/white"
 		android:gravity="center_vertical|center_horizontal"
-		android:minHeight="15dp"
-		android:layout_marginRight="5dp"
-		android:layout_marginTop="4dp"/>
+		android:minHeight="10dp"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="8dp"
+		android:layout_marginRight="15dp"/>
+
 
 </RelativeLayout>
 

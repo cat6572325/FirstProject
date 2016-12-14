@@ -48,12 +48,12 @@ public class InfoDetailsFragment extends Fragment {
     };
     private RecyclerView mRecyclerView, rv;
     View v;
-    public ArrayList<HashMap<String, Object>> lists = new ArrayList<HashMap<String, Object>>(), lists2 = new ArrayList<HashMap<String, Object>>(), lists3;
+    public ArrayList<HashMap<String, Object>> lists = new ArrayList<HashMap<String, Object>>(), lists2 = new ArrayList<HashMap<String, Object>>(), lists3,lists4 = new ArrayList<HashMap<String, Object>>();
     FirstAdapter2 adapter, adapter2;
     MainActivity activity;
     public static String[] urls;
     Bitmap bitmap;
-    User user = new User();
+
     private List<Integer> counttype = new ArrayList<>();
     private List<String> data = new ArrayList<>();
     LinearLayoutManager lm;
@@ -89,23 +89,27 @@ public class InfoDetailsFragment extends Fragment {
             @Override
             public void onItemClickListener(View view, int position) {
                 try {
-                    Toast.makeText(getActivity(), position + "========Click:", Toast.LENGTH_SHORT).show();
+
                     //跳往Run_Video_播放视频
                     JSONObject jsonObject;
                     Bundle bundle = new Bundle();
+                    User user = new User();
+                    if (user.maps.size() < 1) {
+                        Toast.makeText(getActivity(), position + "数据加载未完成", Toast.LENGTH_SHORT).show();
+                    } else {
+                        JSONArray jsonArraycollect = (JSONArray) user.maps.get(position).get("cocerPerson");
+                        String iscollect = "1";
+                        bundle.putString("iscollect", "1");//显示未收藏的星星
+                        if (!user.phone.equals("null"))
+                        for (int i = 0; i < jsonArraycollect.length(); i++) {
+                            String str = jsonArraycollect.getString(i);
+                            if (str.equals(user.mydata.get("_id").toString())) {//如果是本人收藏
+                                iscollect = "0";
+                                bundle.putString("iscollect", "0");//显示已收藏的星星
 
-                    JSONArray jsonArraycollect = (JSONArray) user.maps.get(position).get("cocerPerson");
-                    String iscollect = "1";
-                    bundle.putString("iscollect", "1");//显示未收藏的星星
-                    for (int i = 0; i < jsonArraycollect.length(); i++) {
-                        String str = jsonArraycollect.getString(i);
-                        if (str.equals(user.mydata.get("_id").toString())) {//如果是本人收藏
-                            iscollect = "0";
-                            bundle.putString("iscollect", "0");//显示已收藏的星星
-
+                            }
+                            Log.e("付款人id", str);
                         }
-                        Log.e("付款人id", str);
-                    }
                        /*
 
 					>>  返回全部视频信息
@@ -122,19 +126,20 @@ public class InfoDetailsFragment extends Fragment {
                             "concernednumber" : ***    //收藏人数
                         },
                         {...},,*/
-                    Intent intent = new Intent(getContext(), Run_Video_.class);
-                    bundle.putString("count", String.valueOf(position));
-                    bundle.putString("vid", user.maps.get(position).get("_id").toString());
-                    bundle.putString("title", user.maps.get(position).get("title").toString());
-                    bundle.putString("paidppnumber", user.maps.get(position).get("paidppnumber").toString());
-                    //由于目前有一项内容是没有视频id所以会出错
-                    bundle.putString("introduction", user.maps.get(position).get("introduction").toString());
-                    bundle.putString("uploader", user.maps.get(position).get("uploader").toString());
-                    bundle.putString("url", user.maps.get(position).get("vdourl").toString());
-                    bundle.putString("vdoPhotourl", user.maps.get(position).get("vdoPhotourl").toString());
-                    //count是为了定位到一开始时保存的视频列表中某一个视频的数据
-                    intent.putExtras(bundle);
-                    startActivity(intent);
+                        Intent intent = new Intent(getContext(), Run_Video_.class);
+                        bundle.putString("count", String.valueOf(position));
+                        bundle.putString("vid", user.maps.get(position).get("_id").toString());
+                        bundle.putString("title", user.maps.get(position).get("title").toString());
+                        bundle.putString("paidppnumber", user.maps.get(position).get("paidppnumber").toString());
+                        //由于目前有一项内容是没有视频id所以会出错
+                        bundle.putString("introduction", user.maps.get(position).get("introduction").toString());
+                        bundle.putString("uploader", user.maps.get(position).get("uploader").toString());
+                        bundle.putString("url", user.maps.get(position).get("vdourl").toString());
+                        bundle.putString("vdoPhotourl", user.maps.get(position).get("vdoPhotourl").toString());
+                        //count是为了定位到一开始时保存的视频列表中某一个视频的数据
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
                 } catch (JSONException e) {
 
                 }
@@ -274,80 +279,85 @@ public class InfoDetailsFragment extends Fragment {
 
     public void Onebent(ArrayList<HashMap<String, Object>> maps) {//MainActivity接口
         User u = new User();
-
+        User user = new User();
         //通过获取maps中所有项中的paidppnumber的数字来进行繁琐的比较，并以从小到大的顺序加入到ui
-        if (u.phone.equals("null") && u.phone == null) {
+        if (u.phone.equals("null")) {
+            if (u.maps.size() < 1) {
+                Toast.makeText(getActivity(), "数据加载失败，请重新登录，如还是卡退，请清楚缓存再使用", Toast.LENGTH_SHORT).show();
+            } else {
+                lists2 = maps;
+                lists3 = new ArrayList<>();
+                urls = new String[user.maps.size()];
 
-            lists2 = maps;
-            lists3 = new ArrayList<>();
-            urls = new String[user.maps.size()];
+                int mind;
+                boolean flag = false;
+                for (int y = 0; y < lists2.size(); y++) {//每次获取其中一项
+                    if (!lists2.get(y).get("paidppnumber").toString().equals("null")) {
+                        mind = Integer.parseInt(lists2.get(y).get("paidppnumber").toString());
 
-            int mind;
-            boolean flag = false;
-            for (int y = 0; y < lists2.size(); y++) {//每次获取其中一项
-                if (!lists2.get(y).get("paidppnumber").toString().equals("null")) {
-                    mind = Integer.parseInt(lists2.get(y).get("paidppnumber").toString());
-
-                    for (int x = 0; x < lists2.size(); x++) {
-                        //然后遍历全部，进行比较，如果没有比当前项更大的数值的项，则加入lists3并从lists2中删除
-                        if (mind > Integer.parseInt(lists2.get(x).get("paidppnumber").toString())) {//如果不是最小的
-                            flag = true;
-                        }//遍历完一次后判断
-                        if (flag == false) {//把mind索引的项加入并删除
-                            lists3.add(lists2.get(y));
-                            lists2.remove(y);
+                        for (int x = 0; x < lists2.size(); x++) {
+                            //然后遍历全部，进行比较，如果没有比当前项更大的数值的项，则加入lists3并从lists2中删除
+                            if (mind > Integer.parseInt(lists2.get(x).get("paidppnumber").toString())) {//如果不是最小的
+                                flag = true;
+                            }//遍历完一次后判断
+                            if (flag == false) {//把mind索引的项加入并删除
+                                lists3.add(lists2.get(y));
+                                lists2.remove(y);
+                            }
                         }
+                    } else {//如果是null则直接加入,无需比较
+                        lists3.add(lists2.get(y));
+                        lists2.remove(y);
+
                     }
-                } else {//如果是null则直接加入,无需比较
-                    lists3.add(lists2.get(y));
-                    lists2.remove(y);
 
                 }
+                for (int i = 0; i < lists3.size(); i++) {
+                    //所有数据以付款人数排列完毕，然后在这里开始加载
+                    if (i == 10) {
+                        //break;
+                    }
 
+                    urls[i] = user.maps.get(i).get("vdoPhotourl").toString();
+
+
+                    urlbitmap = lists3.get(i).get("vdoPhotourl").toString();
+                    str1 = lists3.get(i).get("paidppnumber").toString();
+                    if (str1.equals("null")) {
+                        str1 = null;
+                        str1 = "0";
+                    }
+                    str2 = lists3.get(i).get("vdourl").toString();
+                    str3 = lists3.get(i).get("title").toString();
+
+                    addTextToList(str1
+                            , 1
+                            , str2
+                            , 0
+                            , str3
+                            , urlbitmap
+                    );
+
+
+                }
             }
-            for (int i = 0; i < lists3.size(); i++) {
-                //所有数据以付款人数排列完毕，然后在这里开始加载
-                if (i == 10) {
-                    //break;
-                }
-
-                urls[i] = user.maps.get(i).get("vdoPhotourl").toString();
-
-
-                urlbitmap = lists3.get(i).get("vdoPhotourl").toString();
-                str1 = lists3.get(i).get("paidppnumber").toString();
-                if (str1.equals("null")) {
-                    str1 = null;
-                    str1 = "0";
-                }
-                str2 = lists3.get(i).get("vdourl").toString();
-                str3 = lists3.get(i).get("title").toString();
-
-                addTextToList(str1
-                        , 1
-                        , str2
-                        , 0
-                        , str3
-                        , urlbitmap
-                );
-
-
-            }
-
         } else {
-            lists2 = maps;
-            lists3 = new ArrayList<>();
-            urls = new String[user.maps.size()];
-            ArrayList<HashMap<String, Object>> maps_list = new ArrayList<>();
-            int mind;
-            boolean flag = false;
-            int size = u.maps.size();
+            if (u.maps.size() < 1) {
+                Toast.makeText(getActivity(), "数据加载失败，请重新登录，如还是卡退，请清楚缓存再使用", Toast.LENGTH_SHORT).show();
+            } else {
+                lists2 = maps;
+                lists3 = new ArrayList<>();
+                urls = new String[user.maps.size()];
+                ArrayList<HashMap<String, Object>> maps_list = new ArrayList<>();
+                int mind;
+                boolean flag = false;
+                int size = u.maps.size();
 
-            //首先把为null的都随机放入lists3
-            //然后将不为null的放入maps_list然后再转交给lists2
-            //循环如果lists2大小
-            //比较其中一个是否是里面最小的，如果是就放入lists3并删除lists2中这个项然后结束
-            //再继续循环比较第二个，是否是里面最小的．直到lists2为0
+                //首先把为null的都随机放入lists3
+                //然后将不为null的放入maps_list然后再转交给lists2
+                //循环如果lists2大小
+                //比较其中一个是否是里面最小的，如果是就放入lists3并删除lists2中这个项然后结束
+                //再继续循环比较第二个，是否是里面最小的．直到lists2为0
 
                 for (int c = 0; c < size; c++)//13/
                 {//首先把未null的所有项加入lists3然后从lists2中删除
@@ -358,25 +368,25 @@ public class InfoDetailsFragment extends Fragment {
                     }
                 }
 
-                lists2.clear();
-                lists2.addAll(maps_list);
-                while (lists2.size()!=0)
-                {
-                    for (int i = 0; i <lists2.size(); i++) {
-                        mind=Integer.parseInt(lists2.get(i).get("paidppnumber").toString());
-                        for(int y=0;y<lists2.size();y++) {
-                            if (mind > Integer.parseInt(lists2.get(i).get("paidppnumber").toString())) {
+               // lists2.clear();
+                lists4.addAll(maps_list);
+              //  u.maps.add(lists2.get(0));
+                while (lists4.size() != 0) {
+                    for (int i = 0; i < lists4.size(); i++) {
+                        mind = Integer.parseInt(lists4.get(i).get("paidppnumber").toString());
+                        for (int y = 0; y < lists4.size(); y++) {
+                            if (mind > Integer.parseInt(lists4.get(i).get("paidppnumber").toString())) {
                                 break;
                             } else {//<=
                                 flag = false;
                             }
-                            if (mind == Integer.parseInt(lists2.get(i).get("paidppnumber").toString())) {//不管是不是等于都直接放入lists3
-                                lists3.add(lists2.get(i));
-                                lists2.remove(i);
+                            if (mind == Integer.parseInt(lists4.get(i).get("paidppnumber").toString())) {//不管是不是等于都直接放入lists3
+                                lists3.add(lists4.get(i));
+                                lists4.remove(i);
                                 break;
                             } else {
-                                lists3.add(lists2.get(i));
-                                lists2.remove(i);
+                                lists3.add(lists4.get(i));
+                                lists4.remove(i);
                                 break;
                             }
 
@@ -385,8 +395,8 @@ public class InfoDetailsFragment extends Fragment {
                     }
                 }
 
-
-
+              //  u.maps.add(lists3.get(0));
+              //  u.maps.addAll(lists3);
                 ///比较的结果将所有的paidppnumber数值以从小到大排序
                 //由于里面有null,,,
                 for (int i = 0; i < lists3.size(); i++) {
@@ -419,12 +429,13 @@ public class InfoDetailsFragment extends Fragment {
                 }
 
 
+            }
+            if (adapter != null)
+                adapter.notifyDataSetChanged();
+            //  addTextToList("uuu", 1, "android.R.drawable.ic_lock_lock", 0, "name");
+            // Toast.makeText(getContext(),str1,Toast.LENGTH_LONG).show();
+            linearLayouthide1.setVisibility(View.INVISIBLE);
         }
-        if (adapter != null)
-            adapter.notifyDataSetChanged();
-        //  addTextToList("uuu", 1, "android.R.drawable.ic_lock_lock", 0, "name");
-        // Toast.makeText(getContext(),str1,Toast.LENGTH_LONG).show();
-        linearLayouthide1.setVisibility(View.INVISIBLE);
     }
 
     public class thread implements Runnable {/////chat socket

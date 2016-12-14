@@ -262,7 +262,7 @@ public class http_thread_ extends Thread {
 			RequestBody formBody = new FormBody.Builder()
 				.add("uploader","")// mapvideo.get("uploader").toString())
 				.add("title", mapvideo.get("title").toString())
-				.add("introduction", new JSONObject().put("introduction",mapvideo.get("introduction").toString()).toString())
+				.add("introduction", mapvideo.get("introduction").toString())
 				.add("price", mapvideo.get("price").toString())
 				.add("paidppnumber","")// mapvideo.get("paidppnumber").toString())
 				.add("concernednumber", "")//mapvideo.get("concernednumber").toString())

@@ -1,5 +1,6 @@
 package com.yanbober.support_library_demo;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -222,6 +223,19 @@ public class Run_Video_ extends ActionBarActivity {
 			uploader_img=(ImageView)this.findViewById(R.id.Run_Video_upder_Img);
 			upload_name=(TextView)this.findViewById(R.id.Run_Video_upder_name);
 			run_video_introduction=(TextView)this.findViewById(R.id.introduction_text);
+			uploader_img.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					if (user.phone.equals("null"))
+					{
+						Intent intent = new Intent(Run_Video_.this,Login_.class);
+						startActivity(intent);
+					}else {
+						Intent intent = new Intent(Run_Video_.this, Personal_.class);
+						startActivity(intent);
+					}
+				}
+			});
 			collect_Progress.setVisibility(View.INVISIBLE);
 			//点击收藏后显示的进度圈
 			setSupportActionBar(toolbar);
@@ -245,7 +259,6 @@ public class Run_Video_ extends ActionBarActivity {
 						Http_UploadFile_ htt=new Http_UploadFile_("http://trying-video.herokuapp.com/user/collect/"+vid+"?token="+user.token, map,"12");
 						Thread x=new Thread(htt);
 						x.start();
-						
 						//_vid为视频id/
 						/*{
 							"cost" : ${cost}    //支付费用(Number)

@@ -193,6 +193,19 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
                                         //赋给user
                                     }
                                 }
+                            if (user.notices_list.size() > 0) {
+                                int countMax=0;
+                                for (int i = 0; i < user.notices_list.size(); i++) {
+                                    if (!dataserver.isHavethisID(user.notices_list.get(i).get("_id").toString()))
+                                    {//如果是未读的
+                                        countMax++;
+                                    }
+                                }
+
+                                Message_point.setText(String.valueOf(countMax));
+                            } else {
+                                Message_point.setVisibility(View.INVISIBLE);
+                            }
 
 
                         } else {
@@ -261,13 +274,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
                             //  thread h=new thread(jsonObject.getString("headPortrait"));
                             //    Thread b=new Thread(h);
                             //    b.start();
-                            if (jsonObject.getJSONArray("notices").length() > 0) {
 
-
-                                Message_point.setText(String.valueOf(jsonObject.getJSONArray("notices").length()));
-                            } else {
-                                Message_point.setVisibility(View.INVISIBLE);
-                            }
 
 
                         }
@@ -512,6 +519,8 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 
         addTextToList("设置", 0, R.drawable.fab_bg_normal);
         addTextToList("反馈", 0, R.drawable.feedback);
+
+        addTextToList("退出登录", 0, R.drawable.login_up);
 
         ladapter = new MyChatAdapter(MainActivity.this, lists, layout);
         rl.setAdapter(ladapter);
