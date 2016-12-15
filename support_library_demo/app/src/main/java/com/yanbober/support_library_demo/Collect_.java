@@ -88,6 +88,9 @@ public class Collect_ extends AppCompatActivity {
 												cost=videos.get(i).get("price").toString();
 										}
 									}
+							if (cost.equals("null"))
+							cost="0";
+							Toast.makeText(Collect_.this,"该视频价格为　"+cost+" 元",Toast.LENGTH_SHORT).show();
 									maphttp.put("cost",Integer.parseInt( cost));
 									maphttp.put("handler", mHandler);
 									maphttp.put("price",cost);

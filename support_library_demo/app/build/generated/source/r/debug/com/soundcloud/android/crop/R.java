@@ -33,11 +33,11 @@ public final class R {
 	}
 	public static final class id {
 		public static final int always = 0x7f0e003b;
-		public static final int btn_cancel = 0x7f0e00c2;
-		public static final int btn_done = 0x7f0e00c3;
+		public static final int btn_cancel = 0x7f0e00bf;
+		public static final int btn_done = 0x7f0e00c0;
 		public static final int changing = 0x7f0e003c;
-		public static final int crop_image = 0x7f0e00c0;
-		public static final int done_cancel_bar = 0x7f0e00c1;
+		public static final int crop_image = 0x7f0e00bd;
+		public static final int done_cancel_bar = 0x7f0e00be;
 		public static final int never = 0x7f0e003d;
 	}
 	public static final class layout {

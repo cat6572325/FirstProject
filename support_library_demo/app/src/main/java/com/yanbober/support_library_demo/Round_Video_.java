@@ -86,29 +86,28 @@ public class Round_Video_ extends Activity
                 case 0:
 
                     p.OnProgressChanged(101);
-                        if (bundle.getString("?").equals("success")) {
+                    if (bundle.getString("?").equals("success")) {
 
-                        }
-                        if (bundle.getString("?").equals("ing")) {
-                               }
-                        if (bundle.getString("?").equals("error")) {
-                        }
+                    }
+                    if (bundle.getString("?").equals("ing")) {
+                    }
+                    if (bundle.getString("?").equals("error")) {
+                    }
 
 
-                  break;
+                    break;
 
 
                 case 1:
 
-                   ResetCamera();
+                    ResetCamera();
                     break;
 
 
-                  case 3:
+                case 3:
 
-                    if (bundle!=null)
-                        if (bundle.getString("?").equals("已保存"))
-                        {
+                    if (bundle != null)
+                        if (bundle.getString("?").equals("已保存")) {
                             finish();
                         }
                     break;
@@ -117,7 +116,7 @@ public class Round_Video_ extends Activity
         }
     };
 
-    User user=new User();
+    User user = new User();
     RoundProgressBar bar;
     static int message = 0;
     private Button startButton, stopButton, playButton;
@@ -131,14 +130,14 @@ public class Round_Video_ extends Activity
     int count = 0;
     Timer mTimer = new Timer();
     TimeUnit t;
-    File file = new File("/sdcard/RoundVideo/RoudVideos"+randomProdoction()+".3gp");
+    File file = new File("/sdcard/RoundVideo/RoudVideos" + randomProdoction() + ".3gp");
     File_with_ file_with;
     String COMMA_PATTERN = ",";
     TextView top_time;
     int minute, min;
     Size size;
     task Prog_task;
-    ImageView sound,turnC,round_back_img,rounding_time_img,round_delete,round_upload,round_edit;
+    ImageView sound, turnC, round_back_img, rounding_time_img, round_delete, round_upload, round_edit;
 
 
     public Pop_Img.Builder p;
@@ -161,17 +160,16 @@ public class Round_Video_ extends Activity
             public void onClick(View v)
 
             {////点击开始录像
-                if (flag == 0)
-                {
+                if (flag == 0) {
 
-                    if (camera!=null)
+                    if (camera != null)
                         sound.setVisibility(View.INVISIBLE);
                     turnC.setVisibility(View.INVISIBLE);
-                    if(camera!=null)
-                    {
+
+                    if (camera != null) {
                         camera.stopPreview();
                         camera.release();
-                        camera=null;
+                        camera = null;
                     }
                     bar.setBackgroundResource(R.drawable.roundbuttoning);
                     start();
@@ -203,13 +201,13 @@ public class Round_Video_ extends Activity
         HideLayout = (RelativeLayout) this.findViewById(R.id.HideLayout);
         top_time = (TextView) this.findViewById(R.id.RoundTop_time);
         bottom_hide_layout = (RelativeLayout) this.findViewById(R.id.bottom_hide_layout);
-        sound=(ImageView)this.findViewById(R.id.Round_sound);
-        turnC=(ImageView)this.findViewById(R.id.Round_turn);
-        round_back_img=(ImageView)this.findViewById(R.id.round_back);
-        rounding_time_img=(ImageView)this.findViewById(R.id.rounding_time_img);
-        round_delete=(ImageView)this.findViewById(R.id.round_delete);
-        round_upload=(ImageView)this.findViewById(R.id.round_upload);
-        round_edit=(ImageView)this.findViewById(R.id.round_edit);
+        sound = (ImageView) this.findViewById(R.id.Round_sound);
+        turnC = (ImageView) this.findViewById(R.id.Round_turn);
+        round_back_img = (ImageView) this.findViewById(R.id.round_back);
+        rounding_time_img = (ImageView) this.findViewById(R.id.rounding_time_img);
+        round_delete = (ImageView) this.findViewById(R.id.round_delete);
+        round_upload = (ImageView) this.findViewById(R.id.round_upload);
+        round_edit = (ImageView) this.findViewById(R.id.round_edit);
         round_back_img.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -223,55 +221,54 @@ public class Round_Video_ extends Activity
 
 
     }//initView
-private String randomProdoction()
-{
-    int random=(int)Math.random()*10;
-    String str=null;
-    Random ran=new Random(System.currentTimeMillis());
-    for (int i=0;i<20;i++)
-    {
 
-        random=ran.nextInt(10);
-        str+=String.valueOf(random);
-        //数字加一个字母
-        switch (random)
-        {
-            case 0:
-                str+="a";
-                break;
+    private String randomProdoction() {
+        int random = (int) Math.random() * 10;
+        String str = null;
+        Random ran = new Random(System.currentTimeMillis());
+        for (int i = 0; i < 20; i++) {
 
-            case 1:
-                str+="b";
-                break;
+            random = ran.nextInt(10);
+            str += String.valueOf(random);
+            //数字加一个字母
+            switch (random) {
+                case 0:
+                    str += "a";
+                    break;
 
-            case 2:
-                str+="c";
-                break;
+                case 1:
+                    str += "b";
+                    break;
 
-            case 3:
-                str+="e";
-                break;
+                case 2:
+                    str += "c";
+                    break;
 
-            case 4:
-                str+="f";
-                break;
+                case 3:
+                    str += "e";
+                    break;
 
-            case 5:
-                str+="g";
-                break;
+                case 4:
+                    str += "f";
+                    break;
 
-            case 6:
-                str+="h";
-                break;
+                case 5:
+                    str += "g";
+                    break;
 
-            case 7:
-                str+="i";
-                break;
+                case 6:
+                    str += "h";
+                    break;
+
+                case 7:
+                    str += "i";
+                    break;
+            }
+
         }
-
+        return str;
     }
-    return str;
-}
+
     public void setprog() {
         Prog_task = new task(count, bar);
         //新建一个方法
@@ -323,6 +320,7 @@ private String randomProdoction()
 
     ;
 
+
     public void maxtimemessage(RoundProgressBar bar) {
         if (message == 0)
             Snackbar.make(bar, "请注意录制时长", Snackbar.LENGTH_SHORT).setAction("不再提示",
@@ -337,10 +335,10 @@ private String randomProdoction()
         rounding_time_img.setBackgroundResource(R.drawable.times);
         try {
 
-            if (file_with!=null) {//如果先前已经申请过一个文件
+            if (file_with != null) {//如果先前已经申请过一个文件
                 file_with.DeleteFile();
             }
-            file_with=new File_with_();
+            file_with = new File_with_();
             //新建对象
 
             DisplayMetrics dm = new DisplayMetrics();
@@ -355,12 +353,10 @@ private String randomProdoction()
             int height = wm.getDefaultDisplay().getHeight();
             Camera.Size bestSize = null;
 
-            if (turncamera==0)
-            {
+            if (turncamera == 0) {
                 camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
-            }else
-            {
-                camera=Camera.open(CameraInfo.CAMERA_FACING_FRONT);
+            } else {
+                camera = Camera.open(CameraInfo.CAMERA_FACING_FRONT);
             }
             Camera.Parameters mParams = camera.getParameters();
             List<Camera.Size> sizeList = camera.getParameters().getSupportedPreviewSizes();
@@ -464,24 +460,21 @@ private String randomProdoction()
         }
         super.onDestroy();
     }
-    public void ResetCamera()
-    {
+
+    public void ResetCamera() {
 
 
-      //  mSurfaceView.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        //  mSurfaceView.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         try {
-            if (camera!=null)
-            {
+            if (camera != null) {
                 camera.stopPreview();
                 camera.release();
-                camera=null;
+                camera = null;
             }
-            if (turncamera==0)
-            {
+            if (turncamera == 0) {
                 camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
-            }else
-            {
-                camera=Camera.open(CameraInfo.CAMERA_FACING_FRONT);
+            } else {
+                camera = Camera.open(CameraInfo.CAMERA_FACING_FRONT);
             }
             camera.setDisplayOrientation(90);
             camera.setPreviewDisplay(mSurfaceView.getHolder());
@@ -490,26 +483,23 @@ private String randomProdoction()
 
             //	Size pictureS = MyCampara.getInstance().getPictureSize(pictureSizes, 800);
             //	mParams.setPictureSize(pictureS.width, pictureS.height);
-          } catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     //////////////////sucess Onclick
     public void Turncamera(View v) {
-        if(camera!=null)
-        {
+        if (camera != null) {
             camera.stopPreview();
             camera.release();
-            camera=null;
+            camera = null;
         }
         //先停下当前摄像
-        if (turncamera==0)
-        {
-            turncamera=1;
-        }else
-        {
-            turncamera=0;
+        if (turncamera == 0) {
+            turncamera = 1;
+        } else {
+            turncamera = 0;
         }
         ResetCamera();
         // ResetCamera();
@@ -567,9 +557,8 @@ private String randomProdoction()
         }
     }
 
-    public void onInvalitorProgress(int counttime)
-    {
-        int y=counttime;
+    public void onInvalitorProgress(int counttime) {
+        int y = counttime;
     }
 
     public void delete(View v) {
@@ -578,7 +567,7 @@ private String randomProdoction()
         //向对话框传递上下文和文件路径(用于删除）
         editNameDialog.show(getFragmentManager(), "EditNameDialog");
         bottom_hide_layout.setVisibility(View.INVISIBLE);
-        turncamera=0;
+        turncamera = 0;
         ResetCamera();
 
     }
@@ -594,8 +583,8 @@ private String randomProdoction()
         concernednumber: Number,   //收藏人数
                 time: {                   // 创建时间*/
 
-          User u=new User();
-        if (u.notLoadforVideo_list!=null) {
+        User u = new User();
+        if (u.notLoadforVideo_list != null) {
 
             round_delete.setClickable(false);
             round_upload.setClickable(false);
@@ -608,9 +597,9 @@ private String randomProdoction()
             map1.put("textsize", 25);
             map1.put("upload", 0);//０表示显示一个进度
             map1.put("color", Color.rgb(555, 333, 333));
-            map1.put("count",0);
-            map1.put("key","photofile");
-            p = new Pop_Img.Builder(Round_Video_.this, map1,file_with);
+            map1.put("count", 0);
+            map1.put("key", "photofile");
+            p = new Pop_Img.Builder(Round_Video_.this, map1, file_with);
 
             p.create().show();
 
@@ -620,9 +609,8 @@ private String randomProdoction()
                     , user.notLoadforVideo_list.get(0));
             Thread c = new Thread(htt);
             c.start();
-        }else
-        {
-            Toast.makeText(Round_Video_.this,"未填写视频信息，请先编辑",Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(Round_Video_.this, "未填写视频信息，请先编辑", Toast.LENGTH_LONG).show();
         }
           /* WebView wv=new WebView(this);
             wv.getSettings().setJavaScriptEnabled(true);
@@ -636,21 +624,27 @@ private String randomProdoction()
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        //首先按钮保存数据，未上传时按下返回键就会开始联网发送未上传视频的信息，发送保存成功后收到一个handler的message然后直接finish
+        //
+        // 按钮保存数据，未上传时按下返回键就会开始联网发送未上传视频的信息，发送保存成功后收到一个handler的message然后直接finish
         //大多需要的参数都在User的对象里了，一旦上传则清空
-        User u=new User();
-        if (u.notLoadforVideo_list!=null)
-        {
-            HashMap<String, Object> map =u.notLoadforVideo_list.get(0);
-            map.put("handler",mHandler);
-            map.put("Context",Round_Video_.this);
-            map.put("count",20);
-            map.put("vdoPath",file_with.GetFile().getPath());
+        //为保证点了开始录制的按钮后没有停止就想退出界面，在这里判断如果camera不为空，则释放
+        if (camera != null) {
+            camera.stopPreview();
+            camera.release();
+        }
 
-            Http_UploadFile_ http_uploadFile_=new Http_UploadFile_("http://trying-video.herokuapp.com/user/video/unput?token="+u.token
-            ,map
-            ,"20");
-            Thread c=new Thread(http_uploadFile_);
+        User u = new User();
+        if (u.notLoadforVideo_list != null) {
+            HashMap<String, Object> map = u.notLoadforVideo_list.get(0);
+            map.put("handler", mHandler);
+            map.put("Context", Round_Video_.this);
+            map.put("count", 20);
+            map.put("vdoPath", file_with.GetFile().getPath());
+
+            Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_("http://trying-video.herokuapp.com/user/video/unput?token=" + u.token
+                    , map
+                    , "20");
+            Thread c = new Thread(http_uploadFile_);
             c.start();
         }
     }
@@ -666,7 +660,7 @@ private String randomProdoction()
             map1.put("upload", 1);
             map1.put("color", Color.rgb(555, 333, 333));
 
-            p = new Pop_Img.Builder(Round_Video_.this, map1,file_with);
+            p = new Pop_Img.Builder(Round_Video_.this, map1, file_with);
             p.setaddMiusic(new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     //dialog.dismiss();
@@ -693,10 +687,10 @@ private String randomProdoction()
             //新建一个方法
             //   mTimer.schedule(t, 0, 1000);
             //设每一秒调用一次
-        }catch (Error e2)
-        {
+        } catch (Error e2) {
         }
     }
+
     //////////////////sucess Onclick
     class task1 extends TimerTask {
         public View v;
@@ -721,12 +715,14 @@ private String randomProdoction()
             });
         }
     }
+
     public class Mytest {
         public int test() {
             return 1000;
         }
 
     }
+
     protected DisplayMetrics getScreenWH() {
         DisplayMetrics dMetrics = new DisplayMetrics();
         dMetrics = this.getResources().getDisplayMetrics();
@@ -734,13 +730,11 @@ private String randomProdoction()
     }
 
 
-
-
     //TODO 视频处理　　vvvvvvvvvv
     private void exactorMedia(String... data) {
         FileOutputStream videoOutputStream = null;
         FileOutputStream audioOutputStream = null;
-        MediaExtractor mediaExtractor=null;
+        MediaExtractor mediaExtractor = null;
         try {
             //分离的视频文件
             File videoFile = new File(data[1]);
@@ -799,18 +793,12 @@ private String randomProdoction()
 
         } catch (IOException e) {
             e.printStackTrace();
-        }catch (IOError e1) {
+        } catch (IOError e1) {
 
 
-        }
-        catch (UnknownError e4)
-        {
+        } catch (UnknownError e4) {
 
-        }
-
-
-        finally
-        {
+        } finally {
             mediaExtractor.release();
             try {
                 videoOutputStream.close();
@@ -822,7 +810,7 @@ private String randomProdoction()
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     @SuppressWarnings("WrongConstant")
-    private void muxerAudio(String fromPath,String toPath) {
+    private void muxerAudio(String fromPath, String toPath) {
         MediaExtractor mediaExtractor = new MediaExtractor();
         int audioIndex = -1;
         try {
@@ -882,9 +870,10 @@ private String randomProdoction()
             e.printStackTrace();
         }
     }
+
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     @SuppressWarnings("WrongConstant")
-    private void muxerMedia(String fromPath,String toPath) {
+    private void muxerMedia(String fromPath, String toPath) {
         MediaExtractor mediaExtractor1 = new MediaExtractor();
         int videoIndex = -1;
         try {
@@ -961,6 +950,7 @@ private String randomProdoction()
         media.setDataSource(path);
         return media.getFrameAtTime();
     }
+
     /**
      * 获取视频文件缩略图 API>=8(2.2)
      *
@@ -971,6 +961,7 @@ private String randomProdoction()
     public static Bitmap getVideoThumb2(String path, int kind) {
         return ThumbnailUtils.createVideoThumbnail(path, kind);
     }
+
     public static Bitmap getVideoThumb2(String path) {
         return getVideoThumb2(path, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
     }

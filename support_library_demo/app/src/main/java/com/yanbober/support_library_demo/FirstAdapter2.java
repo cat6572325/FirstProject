@@ -31,7 +31,7 @@ import java.util.*;
 import static android.support.v7.widget.RecyclerView.*;
 
 public class FirstAdapter2 extends RecyclerView.Adapter<MyViewHolder3>{
-    private ArrayList<HashMap<String,Object>> lists,addrs;
+    private ArrayList<HashMap<String,Object>> lists;
     private Context context;
     private List<Object> alllist;
 
@@ -39,7 +39,7 @@ public class FirstAdapter2 extends RecyclerView.Adapter<MyViewHolder3>{
 
     private List<Integer> counttype=new ArrayList<>();
 
-    int[] layout={R.layout.recy_card_item,R.layout.share_item,R.layout.paid_item};
+    int[] layout={R.layout.recy_card_item,R.layout.infodetail_of_item_title_three_buttons,R.layout.paid_item};
     private OnItemClickListener mListener;
     /**
      * 点击事件的接口
@@ -75,9 +75,7 @@ public class FirstAdapter2 extends RecyclerView.Adapter<MyViewHolder3>{
         View view;
         MyViewHolder3 holder=null;
         //从getitemviewtype中获得了布局
-
-              view=LayoutInflater.from(context).inflate(R.layout.recy_card_item,parent,false);
-
+              view=LayoutInflater.from(context).inflate(layout[viewType],parent,false);
                 holder=new MyViewHolder3(view);
 
 
@@ -89,8 +87,11 @@ public class FirstAdapter2 extends RecyclerView.Adapter<MyViewHolder3>{
     }
 
 
-
-
+@Override
+public int getItemViewType(int positon)
+{
+    return (int)lists.get(positon).get("layout");
+}
     @Override
     public void onBindViewHolder(final MyViewHolder3 holder, int position) {
         ViewGroup.LayoutParams params =  holder.itemView.getLayoutParams();//得到item的LayoutParams布局参数
@@ -101,16 +102,7 @@ public class FirstAdapter2 extends RecyclerView.Adapter<MyViewHolder3>{
         switch((int)lists.get(position).get("layout"))
         {
 
-            case 0:
-                //holder.img.setImageResource(lists.get(position).get("image"));
-                if((Integer)lists.get(position).get("is")!=0)
-                {
-                    holder.is.setVisibility(View.INVISIBLE);//控件不可见
-                    // View.VISIBLE控件可见，View.GONE控件隐藏
-
-                }
-                break;
-            case 1:
+           case 0:
                 holder.infoDetails_paidcount_tv.setText(lists.get(position).get("data").toString());
                 holder.infoDetails_title_tv.setText(lists.get(position).get("name").toString());
                 byte[] bitmapArray1;
@@ -123,9 +115,7 @@ public class FirstAdapter2 extends RecyclerView.Adapter<MyViewHolder3>{
 
 
                  holder.infoDetails_relativelayout.setTag(lists.get(position).get("vdoPhotourl").toString());
-                Animation animation= AnimationUtils.loadAnimation(context,R.anim.scale___);
-                holder.infoDetails_relativelayout.startAnimation(animation);
-               // Drawable drawable=new BitmapDrawable(bitmap2);
+                 // Drawable drawable=new BitmapDrawable(bitmap2);
                 //以url解析图片　
 
                 //holder.infoDetails_relativelayout.setBackground(drawable);

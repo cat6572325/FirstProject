@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
+<LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="match_parent"
@@ -7,35 +7,36 @@
 	android:id="@+id/drawer_layout"
 	android:orientation="vertical">
 
-		<android.support.design.widget.AppBarLayout
-			android:id="@+id/app_bar_layout"
-			android:backgroundTint="#fafafb"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent">
 
 
-	<android.support.v7.widget.Toolbar
-				android:id="@+id/tool_bar"
-				android:layout_width="match_parent"
-				android:layout_height="47dp"
-				app:layout_scrollFlags="scroll|enterAlways">
 
 				<RelativeLayout
-					android:layout_height="match_parent"
+					android:id="@+id/title"
+					android:background="#fafafb"
+					android:layout_height="50dp"
 					android:layout_width="match_parent">
-
+					<ImageView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_centerVertical="true"
+						android:layout_marginLeft="20dp"
+						android:id="@+id/messagelayoutImageView1"
+						android:background="@drawable/back_press"/>
 					<ImageView
 						android:layout_width="63dp"
 						android:background="@drawable/logo2"
 						android:layout_height="31dp"
-						android:layout_marginTop="10dp"
-						android:id="@+id/messagelayoutImageView1"/>
+						android:layout_marginLeft="20dp"
+						android:layout_centerVertical="true"
+						android:layout_toRightOf="@id/messagelayoutImageView1"
+						/>
 
 				</RelativeLayout>
 
-			</android.support.v7.widget.Toolbar>
+
 
 			<RelativeLayout
+
 				android:layout_height="wrap_content"
 				android:layout_width="match_parent">
 
@@ -59,11 +60,11 @@
 				android:dividerHeight="0dp"
 				android:id="@+id/message_listview"/>
 			</RelativeLayout>
-		</android.support.design.widget.AppBarLayout>
 
 
 
 
 
-</android.support.v4.widget.DrawerLayout>
+
+</LinearLayout>
 

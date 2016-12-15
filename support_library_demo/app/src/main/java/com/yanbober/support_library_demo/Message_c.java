@@ -169,14 +169,18 @@ DrawerLayout mDrawerLayout;
 				User u =new User();
 				if (dataserver.isHavethisID(u.notices_list.get(i).get("_id").toString()))
 				{//如果是已读的
-					Toast.makeText(Message_c.this,"你点击了已读信息",Toast.LENGTH_LONG).show();
-					TextView textView=(TextView)view.findViewById(R.id.tTextView);
-					textView.setVisibility(View.INVISIBLE);
+					Toast.makeText(Message_c.this,"你点击了已读信息,并自动上传了两个通知",Toast.LENGTH_LONG).show();
+					system(null);
+					load(null);
 				}else {//如果是未读的
 					Toast.makeText(Message_c.this,"这条信息已加入已读表，将不再显示提醒",Toast.LENGTH_LONG).show();
 					HashMap<String,Object> map=new HashMap<String, Object>();
 					map.put("_id",u.notices_list.get(i).get("_id").toString());
+					TextView textView=(TextView)view.findViewById(R.id.messageitemTextView1);
+					textView.setVisibility(View.INVISIBLE);
+
 					dataserver.addisReadSQL(map);
+					//mHandler.sendEmptyMessage(1);
 				}
 			}
 		});
@@ -235,8 +239,9 @@ DrawerLayout mDrawerLayout;
 		Http_UploadFile_ http_uploadFile_;
 
 		dataserver=new DataHelper(Message_c.this);
-		if (map.size()>0)
+		if (map!=null)
 		{
+			if (map.size()>1)
 			for (int i=0;i<map.size();i++)
 			{
 				int isPort=0;

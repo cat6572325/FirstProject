@@ -33,7 +33,9 @@ public class AgendaFragment extends Fragment{
 
     View v;
     public static String[] urls;
-    public ArrayList<HashMap<String, Object>> lists = new ArrayList<HashMap<String, Object>>(), lists2 = new ArrayList<HashMap<String, Object>>(), lists3;
+    public ArrayList<HashMap<String, Object>> lists = new ArrayList<HashMap<String, Object>>()
+            , lists2 = new ArrayList<HashMap<String, Object>>(), lists3
+            ,lists4=new ArrayList<>();
     FirstAdapter2 adapter, adapter2;
     Bitmap bitmap;
     MainActivity activity;
@@ -131,9 +133,31 @@ public class AgendaFragment extends Fragment{
                 , "nonooooo"
                 , "dddddddddddd"
         );*/
+
+        final GridLayoutManager gridLayoutManager=new GridLayoutManager(getContext(),1);
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                //设置混排
+
+                int type= adapter.getItemViewType(position);
+                int Back=1;
+                if (position>11) {
+                    Back = gridLayoutManager.getSpanCount();;
+                }else {
+                    switch (type) {
+                        case 1:
+                            //一条的
+                            Back = gridLayoutManager.getSpanCount();
+                            break;
+                    }
+                }
+                return Back;
+            }
+        });
         adapter = new FirstAdapter2(getActivity(), lists);
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
+        mRecyclerView.setLayoutManager(gridLayoutManager);
                 mRecyclerView.setAdapter(adapter);
         // ebent.Onebent("aaaaaaaaaaaaaaaa");
         adapter.setOnClickListener(new FirstAdapter2.OnItemClickListener() {
@@ -175,7 +199,7 @@ public class AgendaFragment extends Fragment{
 		    @Override
 			public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (newState==0)//0停止　1开始滑动 2放手依旧滑动中
+              /*  if (newState==0)//0停止　1开始滑动 2放手依旧滑动中
                 {
                     lm = (LinearLayoutManager) mRecyclerView.getLayoutManager();
                     User u=new User();
@@ -189,7 +213,7 @@ public class AgendaFragment extends Fragment{
                     User u=new User();
                     if (u.getBitmapurl!=null)
                         u.getBitmapurl.cancelAllTask();
-                }
+                }*/
 
 
 
@@ -238,29 +262,116 @@ public class AgendaFragment extends Fragment{
     User user = new User();
 
     private void initView() {
+        User u = new User();
+        String urlbitmap;
+        ArrayList<HashMap<String,Object>> maps=new ArrayList<>();
+        maps.addAll(u.maps);
+        if (u.maps.size()>1) {
+            lists2 = maps;
+            lists3 = new ArrayList<>();
+            urls = new String[u.maps.size()];
+            ArrayList<HashMap<String, Object>> maps_list = new ArrayList<>();
+            int mind;
+            boolean flag = false;
+            int size = u.maps.size();
 
-        urls=new String[user.maps.size()];
+            //首先把为null的都随机放入lists3
+            //然后将不为null的放入maps_list然后再转交给lists2
+            //循环如果lists2大小
+            //比较其中一个是否是里面最小的，如果是就放入lists3并删除lists2中这个项然后结束
+            //再继续循环比较第二个，是否是里面最小的．直到lists2为0
 
-        for (int i = 0; i < user.maps.size(); i++) {
-            if (i == 10) {
-              //  break;
+            for (int c = 0; c < size; c++)//13/
+            {//首先把未null的所有项加入lists3然后从lists2中删除
+                if (lists2.get(c).get("paidppnumber").toString().equals("null")) {
+                    lists3.add(lists2.get(c));//为null
+                } else {
+                    maps_list.add(lists2.get(c));//不null
+                }
             }
-            urls[i]=user.maps.get(i).get("vdoPhotourl").toString();
-            //将加载的所有图片url都保存到数组,供GetBitmapurl调用
 
-            //addTextToList("广东",1,android.R.drawable.ic_lock_lock,"ps","data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊");
-            addTextToList(user.maps.get(i).get("paidppnumber").toString()
-                    , 1
-                    , user.maps.get(i).get("vdourl").toString()
-                    , 0
-                    , user.maps.get(i).get("title").toString()
-                    , user.maps.get(i).get("vdoPhotourl").toString()
-            );
+            // lists2.clear();
+            lists4.addAll(maps_list);
+            //  u.maps.add(lists2.get(0));
+            while (lists4.size() != 0) {
+                for (int i = 0; i < lists4.size(); i++) {
+                    mind = Integer.parseInt(lists4.get(i).get("paidppnumber").toString());
+                    for (int y = 0; y < lists4.size(); y++) {
+                        if (mind > Integer.parseInt(lists4.get(i).get("paidppnumber").toString())) {
+                            break;
+                        } else {//<=
+                            flag = false;
+                        }
+                        if (mind == Integer.parseInt(lists4.get(i).get("paidppnumber").toString())) {//不管是不是等于都直接放入lists3
+                            lists3.add(lists4.get(i));
+                            lists4.remove(i);
+                            break;
+                        } else {
+                            lists3.add(lists4.get(i));
+                            lists4.remove(i);
+                            break;
+                        }
+
+                    }
+                    break;
+                }
+            }
+
+            //  u.maps.add(lists3.get(0));
+            //  u.maps.addAll(lists3);
+            ///比较的结果将所有的paidppnumber数值以从小到大排序
+            //由于里面有null,,,
+            for (int i = 0; i < lists3.size(); i++) {
+                //所有数据以付款人数排列完毕，然后在这里开始加载
+                if (i == 10) {
+                    addTextToList(str1
+                            , 1
+                            , "0"
+                            , 0
+                            , "9"
+                            , "kk"
+                    );
+                    urls[i] = lists3.get(i).get("vdoPhotourl").toString();
+
+                } else {
+                    if (i > 10) {
+                        addTextToList(str1
+                                , 0
+                                , "示例"
+                                , 0
+                                , "9"
+                                , "示例"
+                        );
+                        urls[i] = lists3.get(i).get("vdoPhotourl").toString();
+
+                    }
+
+                    urls[i] = lists3.get(i).get("vdoPhotourl").toString();
+
+
+                    urlbitmap = lists3.get(i).get("vdoPhotourl").toString();
+                    str1 = lists3.get(i).get("paidppnumber").toString();
+                    if (str1.equals("null")) {
+                        str1 = null;
+                        str1 = "0";
+                    }
+                    str2 = lists3.get(i).get("vdourl").toString();
+                    str3 = lists3.get(i).get("title").toString();
+
+                    addTextToList(str1
+                            , 0
+                            , str2
+                            , 0
+                            , str3
+                            , urlbitmap
+                    );
+                }
+
+            }
+
+
 
         }
-
-
-
 
             //暂定内容，参数....购买人数,布局,头像,是否显示红点,标题
             //头像和内容壁纸需要在适配器以二进制转为图片

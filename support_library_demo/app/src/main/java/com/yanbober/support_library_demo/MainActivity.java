@@ -7,6 +7,7 @@ import android.content.*;
 import android.database.*;
 import android.database.sqlite.*;
 import android.graphics.*;
+import android.graphics.drawable.GradientDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -193,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
                                         //赋给user
                                     }
                                 }
-                            if (user.notices_list.size() > 0) {
+                            if (user.notices_list!=null) {
                                 int countMax=0;
                                 for (int i = 0; i < user.notices_list.size(); i++) {
                                     if (!dataserver.isHavethisID(user.notices_list.get(i).get("_id").toString()))
@@ -205,6 +206,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
                                 Message_point.setText(String.valueOf(countMax));
                             } else {
                                 Message_point.setVisibility(View.INVISIBLE);
+
                             }
 
 
@@ -406,7 +408,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
     Button button2 = null, button3 = null;
 
     FloatingActionButton button1 = null;
-
+    AlertDialog.Builder waitdialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -418,9 +420,21 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
         //初始化控件及布局
         initView();
         //上面请求主线程可以使用http
-
+        setWaitdialog();
     }
+private void setWaitdialog()
+{
+    waitdialog=new AlertDialog.Builder(MainActivity.this,R.style.Dialog);
+    LayoutInflater inflater=getLayoutInflater();
+    final View layout=inflater.inflate(R.layout.login_wait_dialog,null);
+   TextView textView=(TextView)layout.findViewById(R.id.text_dialog);
 
+    textView.setText("加载中..");
+    waitdialog.setView(layout);
+    AlertDialog dialog=waitdialog.create();
+    dialog.show();
+
+}
     private void exitBy2Click() {
         Timer tExit = null;
         if (isExit == false) {
@@ -468,10 +482,6 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 
 
     private void initView() {
-        ProgressDialog dialog;
-        dialog = new ProgressDialog(MainActivity.this);
-        dialog.setTitle("如果你刚登录了，就先等３秒钟，等所有数据都加载完..\r\nPS:未登录就更得等等,按下back键退出对话框");
-        dialog.show();
 
 
         Log.e("返回如果由输出则由是bug","--------------------------------");
@@ -598,6 +608,29 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 
                         }
                     }
+                    if (str.equals("退出登录")) {
+                        if (!user.phone.equals("null")&&!user.phone.equals("15913044423")) {
+                            Intent intent = new Intent(MainActivity.this, Setting_.class);
+                            startActivityForResult(intent, 0);
+                        } else {
+                            try {
+
+                                dataserver = new DataHelper(MainActivity.this);
+                                dataserver.inst(db, user.phone
+                                        + "|" + user.pas
+                                        + "|" + user.phone
+                                        + "|null|"
+                                        + user.token
+                                        + "|0", MainActivity.this);
+                                Intent intent = new Intent(MainActivity.this, Login_.class);
+                                startActivity(intent);
+                                finish();
+                            } catch (SQLException e) {
+
+                            }
+
+                        }
+                    }
                 }
 
             }
@@ -657,28 +690,6 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
         mTabLayout.setTabsFromPagerAdapter(adapter);
         POpFloag();
 
-        loginout.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Onebent("sssssssssssssssssssssssssssss");
-
-                try {
-
-                    dataserver = new DataHelper(MainActivity.this);
-                    dataserver.inst(db, user.phone
-                            + "|" + user.pas
-                            + "|" + user.phone
-                            + "|null|"
-                            + user.token
-                            + "|0", MainActivity.this);
-                    Intent intent = new Intent(MainActivity.this, Login_.class);
-                    startActivity(intent);
-                    finish();
-                } catch (SQLException e) {
-
-                }
-            }
-        });
         ConnectivityManager cm=(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni=cm.getActiveNetworkInfo();
         if(ni==null)

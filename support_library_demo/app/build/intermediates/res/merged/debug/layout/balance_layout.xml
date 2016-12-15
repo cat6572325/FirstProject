@@ -17,7 +17,7 @@
 		<android.support.design.widget.AppBarLayout
 			android:id="@+id/app_bar_layout"
 			android:layout_width="match_parent"
-			android:backgroundTint="#fafafb"
+			android:background="#fafafb"
 			android:layout_height="150dp">
 
 			<android.support.v7.widget.Toolbar

@@ -39,11 +39,13 @@ public class ShareFragment extends Fragment {
 	};
 	private RecyclerView mRecyclerView, rv;
 	View v;
-	public ArrayList<HashMap<String, Object>> lists = new ArrayList<HashMap<String, Object>>(), lists2 = new ArrayList<HashMap<String, Object>>(),lists3;
+	public ArrayList<HashMap<String, Object>> lists = new ArrayList<HashMap<String, Object>>()
+			, lists2 = new ArrayList<HashMap<String, Object>>(),lists3
+			,lists4=new ArrayList<>();
 	FirstAdapter2 adapter, adapter2;
 	Bitmap bitmap;
 	MainActivity activity;
-
+	public static String[] urls;
 	long itemCount=0;
 	private List<Integer> counttype = new ArrayList<>();
 	private List<String> data = new ArrayList<>();
@@ -76,43 +78,29 @@ public class ShareFragment extends Fragment {
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		adapter = new FirstAdapter2(getActivity(), lists);
+		final GridLayoutManager gridLayoutManager=new GridLayoutManager(getContext(),1);
+		gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+			@Override
+			public int getSpanSize(int position) {
+				//设置混排
 
-		mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
-		addTextToList("广东",1,"data",0,"bug太多，修复不了，好痛苦","ss");
-		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
-		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
-		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
-		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
-		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
-		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
-		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
-		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
-		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
-		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
-		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
-		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
-		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
-		addTextToList("广东",1,"data",0,"再努力再努力再努力再努力再努力再努力再努力再努力","ss");
+				int type= adapter.getItemViewType(position);
+				int Back=1;
+				if (position>11) {
+					Back = gridLayoutManager.getSpanCount();;
+				}else {
+					switch (type) {
+						case 1:
+							//一条的
+							Back = gridLayoutManager.getSpanCount();
+							break;
+					}
+				}
+				return Back;
+			}
+		});
+		mRecyclerView.setLayoutManager(gridLayoutManager);
 
-
-
-		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
-		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
-		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
-		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
-		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
-		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
-		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
-		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
-		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
-		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
-		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
-		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
-		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
-		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
-		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
-		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
-		addTextToList("广东",1,"data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊","ss");
 		mRecyclerView.setAdapter(adapter);
 
 		adapter.setOnClickListener(new FirstAdapter2.OnItemClickListener() {
@@ -214,21 +202,117 @@ public class ShareFragment extends Fragment {
 	private void initView()
 	{
 
+		User u = new User();
+		String urlbitmap;
+		ArrayList<HashMap<String,Object>> maps=new ArrayList<>();
+		maps.addAll(user.maps);
+		if (user.maps.size()>1) {
+			lists2 = maps;
+			lists3 = new ArrayList<>();
+			urls = new String[user.maps.size()];
+			ArrayList<HashMap<String, Object>> maps_list = new ArrayList<>();
+			int mind;
+			boolean flag = false;
+			int size = u.maps.size();
 
-				for (int i = 0; i < user.maps.size(); i++) {
-					if (i == 10) {
-						return;
-					}
-					//addTextToList("广东",1,android.R.drawable.ic_lock_lock,"ps","data",0,"功能方面实在太少，布局也是太戳了。再多用点心设计啊");
-					addTextToList(user.maps.get(i).get("paidppnumber").toString()
-							, 1
-							, user.maps.get(i).get("vdourl").toString()
-							, 0
-							, user.maps.get(i).get("title").toString()
-							, user.maps.get(i).get("vdoPhotourl").toString()
-					);
+			//首先把为null的都随机放入lists3
+			//然后将不为null的放入maps_list然后再转交给lists2
+			//循环如果lists2大小
+			//比较其中一个是否是里面最小的，如果是就放入lists3并删除lists2中这个项然后结束
+			//再继续循环比较第二个，是否是里面最小的．直到lists2为0
 
+			for (int c = 0; c < size; c++)//13/
+			{//首先把未null的所有项加入lists3然后从lists2中删除
+				if (lists2.get(c).get("paidppnumber").toString().equals("null")) {
+					lists3.add(lists2.get(c));//为null
+				} else {
+					maps_list.add(lists2.get(c));//不null
 				}
+			}
+
+			// lists2.clear();
+			lists4.addAll(maps_list);
+			//  u.maps.add(lists2.get(0));
+			while (lists4.size() != 0) {
+				for (int i = 0; i < lists4.size(); i++) {
+					mind = Integer.parseInt(lists4.get(i).get("paidppnumber").toString());
+					for (int y = 0; y < lists4.size(); y++) {
+						if (mind > Integer.parseInt(lists4.get(i).get("paidppnumber").toString())) {
+							break;
+						} else {//<=
+							flag = false;
+						}
+						if (mind == Integer.parseInt(lists4.get(i).get("paidppnumber").toString())) {//不管是不是等于都直接放入lists3
+							lists3.add(lists4.get(i));
+							lists4.remove(i);
+							break;
+						} else {
+							lists3.add(lists4.get(i));
+							lists4.remove(i);
+							break;
+						}
+
+					}
+					break;
+				}
+			}
+
+			//  u.maps.add(lists3.get(0));
+			//  u.maps.addAll(lists3);
+			///比较的结果将所有的paidppnumber数值以从小到大排序
+			//由于里面有null,,,
+			for (int i = 0; i < lists3.size(); i++) {
+				//所有数据以付款人数排列完毕，然后在这里开始加载
+				if (i == 10) {
+					addTextToList(str1
+							, 1
+							, "0"
+							, 0
+							, "9"
+							, "kk"
+					);
+					urls[i] = lists3.get(i).get("vdoPhotourl").toString();
+
+				} else {
+					if (i > 10) {
+						addTextToList(str1
+								, 0
+								, "示例"
+								, 0
+								, "9"
+								, "示例"
+						);
+						urls[i] = lists3.get(i).get("vdoPhotourl").toString();
+
+					}
+
+					urls[i] = lists3.get(i).get("vdoPhotourl").toString();
+
+
+					urlbitmap = lists3.get(i).get("vdoPhotourl").toString();
+					str1 = lists3.get(i).get("paidppnumber").toString();
+					if (str1.equals("null")) {
+						str1 = null;
+						str1 = "0";
+					}
+					str2 = lists3.get(i).get("vdourl").toString();
+					str3 = lists3.get(i).get("title").toString();
+
+					addTextToList(str1
+							, 0
+							, str2
+							, 0
+							, str3
+							, urlbitmap
+					);
+				}
+
+			}
+
+
+
+		}
+
 				adapter.notifyDataSetChanged();
 		//  addTextToList("uuu", 1, "android.R.drawable.ic_lock_lock", 0, "name");
 		// Toast.makeText(getContext(),str1,Toast.LENGTH_LONG).show();

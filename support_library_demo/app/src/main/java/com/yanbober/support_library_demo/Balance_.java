@@ -245,7 +245,8 @@ public class Balance_ extends AppCompatActivity
 		switch (item.getItemId()) {
 			case android.R.id.home:
 				//主界面左上角的icon点击反应
-				mDrawerLayout.openDrawer(GravityCompat.START);
+			//	mDrawerLayout.openDrawer(GravityCompat.START);
+				finish();
 				break;
 		}
 		return super.onOptionsItemSelected(item);

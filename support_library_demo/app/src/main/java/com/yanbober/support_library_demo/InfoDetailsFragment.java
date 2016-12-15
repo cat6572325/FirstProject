@@ -79,8 +79,28 @@ public class InfoDetailsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         adapter = new FirstAdapter2(getActivity(), lists);
+        final GridLayoutManager gridLayoutManager=new GridLayoutManager(getContext(),1);
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                //设置混排
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
+                int type= adapter.getItemViewType(position);
+                int Back=1;
+                if (position>11) {
+                    Back = gridLayoutManager.getSpanCount();;
+                }else {
+                    switch (type) {
+                        case 1:
+                            //一条的
+                            Back = gridLayoutManager.getSpanCount();
+                            break;
+                    }
+                }
+               return Back;
+            }
+        });
+        mRecyclerView.setLayoutManager(gridLayoutManager);
 
         mRecyclerView.setAdapter(adapter);
         // ebent.Onebent("aaaaaaaaaaaaaaaa");
@@ -106,7 +126,6 @@ public class InfoDetailsFragment extends Fragment {
                             if (str.equals(user.mydata.get("_id").toString())) {//如果是本人收藏
                                 iscollect = "0";
                                 bundle.putString("iscollect", "0");//显示已收藏的星星
-
                             }
                             Log.e("付款人id", str);
                         }
@@ -239,7 +258,7 @@ public class InfoDetailsFragment extends Fragment {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (newState == 0)//0停止　1开始滑动 2放手依旧滑动中
+              /*  if (newState == 0)//0停止　1开始滑动 2放手依旧滑动中
                 {
                     lm = (LinearLayoutManager) mRecyclerView.getLayoutManager();
                     User u = new User();
@@ -252,7 +271,7 @@ public class InfoDetailsFragment extends Fragment {
                     User u = new User();
                     if (u.getBitmapurl != null)
                         u.getBitmapurl.cancelAllTask();
-                }
+                }*/
 
 
             }
@@ -282,67 +301,10 @@ public class InfoDetailsFragment extends Fragment {
         User user = new User();
         //通过获取maps中所有项中的paidppnumber的数字来进行繁琐的比较，并以从小到大的顺序加入到ui
         if (u.phone.equals("null")) {
-            if (u.maps.size() < 1) {
-                Toast.makeText(getActivity(), "数据加载失败，请重新登录，如还是卡退，请清楚缓存再使用", Toast.LENGTH_SHORT).show();
-            } else {
-                lists2 = maps;
-                lists3 = new ArrayList<>();
-                urls = new String[user.maps.size()];
-
-                int mind;
-                boolean flag = false;
-                for (int y = 0; y < lists2.size(); y++) {//每次获取其中一项
-                    if (!lists2.get(y).get("paidppnumber").toString().equals("null")) {
-                        mind = Integer.parseInt(lists2.get(y).get("paidppnumber").toString());
-
-                        for (int x = 0; x < lists2.size(); x++) {
-                            //然后遍历全部，进行比较，如果没有比当前项更大的数值的项，则加入lists3并从lists2中删除
-                            if (mind > Integer.parseInt(lists2.get(x).get("paidppnumber").toString())) {//如果不是最小的
-                                flag = true;
-                            }//遍历完一次后判断
-                            if (flag == false) {//把mind索引的项加入并删除
-                                lists3.add(lists2.get(y));
-                                lists2.remove(y);
-                            }
-                        }
-                    } else {//如果是null则直接加入,无需比较
-                        lists3.add(lists2.get(y));
-                        lists2.remove(y);
-
-                    }
-
-                }
-                for (int i = 0; i < lists3.size(); i++) {
-                    //所有数据以付款人数排列完毕，然后在这里开始加载
-                    if (i == 10) {
-                        //break;
-                    }
-
-                    urls[i] = user.maps.get(i).get("vdoPhotourl").toString();
-
-
-                    urlbitmap = lists3.get(i).get("vdoPhotourl").toString();
-                    str1 = lists3.get(i).get("paidppnumber").toString();
-                    if (str1.equals("null")) {
-                        str1 = null;
-                        str1 = "0";
-                    }
-                    str2 = lists3.get(i).get("vdourl").toString();
-                    str3 = lists3.get(i).get("title").toString();
-
-                    addTextToList(str1
-                            , 1
-                            , str2
-                            , 0
-                            , str3
-                            , urlbitmap
-                    );
-
-
-                }
-            }
-        } else {
-            if (u.maps.size() < 1) {
+            //如果未登录，则提醒一下
+            Toast.makeText(getContext(), "当前未登录", Toast.LENGTH_SHORT).show();
+        }
+        if (u.maps.size() < 1) {
                 Toast.makeText(getActivity(), "数据加载失败，请重新登录，如还是卡退，请清楚缓存再使用", Toast.LENGTH_SHORT).show();
             } else {
                 lists2 = maps;
@@ -368,9 +330,9 @@ public class InfoDetailsFragment extends Fragment {
                     }
                 }
 
-               // lists2.clear();
+                // lists2.clear();
                 lists4.addAll(maps_list);
-              //  u.maps.add(lists2.get(0));
+                //  u.maps.add(lists2.get(0));
                 while (lists4.size() != 0) {
                     for (int i = 0; i < lists4.size(); i++) {
                         mind = Integer.parseInt(lists4.get(i).get("paidppnumber").toString());
@@ -395,47 +357,67 @@ public class InfoDetailsFragment extends Fragment {
                     }
                 }
 
-              //  u.maps.add(lists3.get(0));
-              //  u.maps.addAll(lists3);
+                //  u.maps.add(lists3.get(0));
+                //  u.maps.addAll(lists3);
                 ///比较的结果将所有的paidppnumber数值以从小到大排序
                 //由于里面有null,,,
                 for (int i = 0; i < lists3.size(); i++) {
                     //所有数据以付款人数排列完毕，然后在这里开始加载
                     if (i == 10) {
-                        //break;
+                        addTextToList(str1
+                                , 1
+                                , "0"
+                                , 0
+                                , "9"
+                                , "kk"
+                        );
+                        urls[i] = lists3.get(i).get("vdoPhotourl").toString();
+
+                    } else {
+                        if (i > 10) {
+                            addTextToList(str1
+                                    , 0
+                                    , "示例"
+                                    , 0
+                                    , "9"
+                                    , "示例"
+                            );
+                            urls[i] = lists3.get(i).get("vdoPhotourl").toString();
+
+                        }
+
+                        urls[i] = lists3.get(i).get("vdoPhotourl").toString();
+
+
+                        urlbitmap = lists3.get(i).get("vdoPhotourl").toString();
+                        str1 = lists3.get(i).get("paidppnumber").toString();
+                        if (str1.equals("null")) {
+                            str1 = null;
+                            str1 = "0";
+                        }
+                        str2 = lists3.get(i).get("vdourl").toString();
+                        str3 = lists3.get(i).get("title").toString();
+
+                        addTextToList(str1
+                                , 0
+                                , str2
+                                , 0
+                                , str3
+                                , urlbitmap
+                        );
                     }
-
-                    urls[i] = lists3.get(i).get("vdoPhotourl").toString();
-
-
-                    urlbitmap = lists3.get(i).get("vdoPhotourl").toString();
-                    str1 = lists3.get(i).get("paidppnumber").toString();
-                    if (str1.equals("null")) {
-                        str1 = null;
-                        str1 = "0";
-                    }
-                    str2 = lists3.get(i).get("vdourl").toString();
-                    str3 = lists3.get(i).get("title").toString();
-
-                    addTextToList(str1
-                            , 1
-                            , str2
-                            , 0
-                            , str3
-                            , urlbitmap
-                    );
-
 
                 }
 
 
             }
-            if (adapter != null)
+            if (adapter != null) {
                 adapter.notifyDataSetChanged();
-            //  addTextToList("uuu", 1, "android.R.drawable.ic_lock_lock", 0, "name");
-            // Toast.makeText(getContext(),str1,Toast.LENGTH_LONG).show();
-            linearLayouthide1.setVisibility(View.INVISIBLE);
-        }
+                //  addTextToList("uuu", 1, "android.R.drawable.ic_lock_lock", 0, "name");
+                // Toast.makeText(getContext(),str1,Toast.LENGTH_LONG).show();
+                linearLayouthide1.setVisibility(View.INVISIBLE);
+            }
+
     }
 
     public class thread implements Runnable {/////chat socket
