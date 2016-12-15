@@ -159,8 +159,350 @@
                     "startLine": 10,
                     "startColumn": 4,
                     "startOffset": 580,
+                    "endColumn": 46,
+                    "endOffset": 622
+                },
+                "from": {
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.afollestad/easyvideoplayer/0.3.0/res/values-large-v4/values-large-v4.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 46,
+                        "endOffset": 97
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 627,
+                    "endColumn": 48,
+                    "endOffset": 671
+                },
+                "from": {
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.afollestad/easyvideoplayer/0.3.0/res/values-large-v4/values-large-v4.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 102,
+                        "endColumn": 48,
+                        "endOffset": 146
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 676,
+                    "endColumn": 53,
+                    "endOffset": 725
+                },
+                "from": {
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.afollestad/easyvideoplayer/0.3.0/res/values-large-v4/values-large-v4.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 151,
+                        "endColumn": 53,
+                        "endOffset": 200
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 730,
+                    "endColumn": 59,
+                    "endOffset": 785
+                },
+                "from": {
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.afollestad/easyvideoplayer/0.3.0/res/values-large-v4/values-large-v4.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 205,
+                        "endColumn": 59,
+                        "endOffset": 260
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 790,
+                    "endColumn": 53,
+                    "endOffset": 839
+                },
+                "from": {
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.afollestad/easyvideoplayer/0.3.0/res/values-large-v4/values-large-v4.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 265,
+                        "endColumn": 53,
+                        "endOffset": 314
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 844,
+                    "endColumn": 55,
+                    "endOffset": 895
+                },
+                "from": {
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.afollestad/easyvideoplayer/0.3.0/res/values-large-v4/values-large-v4.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 319,
+                        "endColumn": 55,
+                        "endOffset": 370
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 900,
+                    "endColumn": 55,
+                    "endOffset": 951
+                },
+                "from": {
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.afollestad/easyvideoplayer/0.3.0/res/values-large-v4/values-large-v4.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 375,
+                        "endColumn": 55,
+                        "endOffset": 426
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 956,
+                    "endColumn": 51,
+                    "endOffset": 1003
+                },
+                "from": {
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.afollestad/easyvideoplayer/0.3.0/res/values-large-v4/values-large-v4.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 431,
+                        "endColumn": 51,
+                        "endOffset": 478
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 1008,
+                    "endColumn": 50,
+                    "endOffset": 1054
+                },
+                "from": {
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.afollestad/easyvideoplayer/0.3.0/res/values-large-v4/values-large-v4.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 483,
+                        "endColumn": 50,
+                        "endOffset": 529
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 19,
+                    "startColumn": 4,
+                    "startOffset": 1059,
+                    "endColumn": 52,
+                    "endOffset": 1107
+                },
+                "from": {
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.afollestad/material-camera/0.4.4/res/values-large-v4/values-large-v4.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 52,
+                        "endOffset": 103
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 20,
+                    "startColumn": 4,
+                    "startOffset": 1112,
+                    "endColumn": 60,
+                    "endOffset": 1168
+                },
+                "from": {
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.afollestad/material-camera/0.4.4/res/values-large-v4/values-large-v4.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 108,
+                        "endColumn": 60,
+                        "endOffset": 164
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 21,
+                    "startColumn": 4,
+                    "startOffset": 1173,
+                    "endColumn": 49,
+                    "endOffset": 1218
+                },
+                "from": {
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.afollestad/material-camera/0.4.4/res/values-large-v4/values-large-v4.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 169,
+                        "endColumn": 49,
+                        "endOffset": 214
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 22,
+                    "startColumn": 4,
+                    "startOffset": 1223,
+                    "endColumn": 56,
+                    "endOffset": 1275
+                },
+                "from": {
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.afollestad/material-camera/0.4.4/res/values-large-v4/values-large-v4.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 219,
+                        "endColumn": 56,
+                        "endOffset": 271
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 23,
+                    "startColumn": 4,
+                    "startOffset": 1280,
+                    "endColumn": 54,
+                    "endOffset": 1330
+                },
+                "from": {
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.afollestad/material-camera/0.4.4/res/values-large-v4/values-large-v4.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 276,
+                        "endColumn": 54,
+                        "endOffset": 326
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 24,
+                    "startColumn": 4,
+                    "startOffset": 1335,
+                    "endColumn": 60,
+                    "endOffset": 1391
+                },
+                "from": {
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.afollestad/material-camera/0.4.4/res/values-large-v4/values-large-v4.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 331,
+                        "endColumn": 60,
+                        "endOffset": 387
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 25,
+                    "startColumn": 4,
+                    "startOffset": 1396,
+                    "endColumn": 59,
+                    "endOffset": 1451
+                },
+                "from": {
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.afollestad/material-camera/0.4.4/res/values-large-v4/values-large-v4.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 392,
+                        "endColumn": 59,
+                        "endOffset": 447
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 26,
+                    "startColumn": 4,
+                    "startOffset": 1456,
+                    "endColumn": 58,
+                    "endOffset": 1510
+                },
+                "from": {
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.afollestad/material-camera/0.4.4/res/values-large-v4/values-large-v4.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 452,
+                        "endColumn": 58,
+                        "endOffset": 506
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 27,
+                    "startColumn": 4,
+                    "startOffset": 1515,
+                    "endColumn": 52,
+                    "endOffset": 1563
+                },
+                "from": {
+                    "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.afollestad/material-camera/0.4.4/res/values-large-v4/values-large-v4.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 511,
+                        "endColumn": 52,
+                        "endOffset": 559
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 28,
+                    "startColumn": 4,
+                    "startOffset": 1568,
                     "endColumn": 103,
-                    "endOffset": 679
+                    "endOffset": 1667
                 },
                 "from": {
                     "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/res/values-large-v4/values-large-v4.xml",
@@ -175,11 +517,11 @@
             },
             {
                 "to": {
-                    "startLine": 11,
+                    "startLine": 29,
                     "startColumn": 4,
-                    "startOffset": 684,
+                    "startOffset": 1672,
                     "endColumn": 115,
-                    "endOffset": 795
+                    "endOffset": 1783
                 },
                 "from": {
                     "file": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/res/values-large-v4/values-large-v4.xml",

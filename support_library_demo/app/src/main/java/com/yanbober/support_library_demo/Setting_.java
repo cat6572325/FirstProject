@@ -45,6 +45,11 @@ public class Setting_ extends AppCompatActivity {
 
                     //finish();
                     dialog.cancel();
+                    Intent intent = getIntent();
+                    Bundle bundle=new Bundle();
+
+                    setResult(1, intent);//返回页面1
+
                     break;
             }
         }
@@ -96,6 +101,8 @@ public class Setting_ extends AppCompatActivity {
             }
         });
         User u = new User();
+        Log.e("mydata",u.mydata.get("phone").toString());
+        Log.e("headPortrait",u.mydata.get("headPortrait").toString());
         if (u.getBitmapurl != null)
             u.getBitmapurl.loadImageViewurl(u.mydata.get("headPortrait").toString(), headImg, u.mydata);
 
@@ -124,9 +131,27 @@ public class Setting_ extends AppCompatActivity {
                     finish();
                 }
                 if (str.equals("登陆密码")) {
-                    Intent intent = new Intent(Setting_.this, Modify_Password_.class);
-                    startActivity(intent);
-                    finish();
+                    HashMap<String, Object> map = new HashMap<String, Object>();
+                    map.put("isprogress", 0);
+                    map.put("?","密码");
+
+                    Pop_Img.Builder p = new Pop_Img.Builder(Setting_.this, map);
+                    p.setPositiveButton("[潮汕揭]初版\n问题反馈:(qq) 1213965634\n\n", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            //	dialog.dismiss();
+                            //login
+                            Intent intent = new Intent(Setting_.this, Modify_Password_.class);
+                             startActivity(intent);
+                              finish();
+
+                        }
+                        //设置你的操作事项
+
+
+                    });
+
+                    p.create().show();
+                  //
                 }
                 if (str.equals("支付密码")) {
                     HashMap<String, Object> map = new HashMap<String, Object>();
@@ -174,10 +199,12 @@ public class Setting_ extends AppCompatActivity {
                 Log.e("File", String.valueOf(f.length()));
                 File dirFile;
                 if (f.length() > 50000) {
-                    Toast.makeText(Setting_.this, "文件过大", Toast.LENGTH_LONG).show();
-                } else {
+                    Toast.makeText(Setting_.this, "文件过大,将被缩小", Toast.LENGTH_LONG).show();
+
+                }
+
                     try {
-                        bitmap = BitmapFactory.decodeStream(cr.openInputStream(Uri.fromFile(f)));
+                        bitmap = BitmapFactory.decodeStream(cr.openInputStream(Uri.fromFile(f)));//,null,getBitmapOption(2));
                         dirFile = new File("/sdcard/180s/headpicture/" + randomProdoction() + ".png");
                         File file1 = new File("/sdcard/180s");
                         if (!file1.exists()) {
@@ -200,7 +227,6 @@ public class Setting_ extends AppCompatActivity {
                         //	File myCaptureFile = new File(path + fileName);
                         BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(dirFile));
                         bitmap.compress(Bitmap.CompressFormat.PNG, 80, bos);
-
 
                         bos.flush();
                         bos.close();
@@ -239,21 +265,23 @@ public class Setting_ extends AppCompatActivity {
                         Toast.makeText(Setting_.this, e.toString(), Toast.LENGTH_LONG).show();
 
                     }
-                }
+
             }
 
 
         }
 
     }
-
+private BitmapFactory.Options getBitmapOption(int insamplesize,BitmapFactory.Options options)
+{
+    System.gc();
+    options.inPurgeable=true;
+    options.inSampleSize=insamplesize;
+    return options;
+}
     @Override
     public void onBackPressed() {
-      //  super.onBackPressed();
-        Intent intent = getIntent();
-        Bundle bundle=new Bundle();
-
-        setResult(1, intent);//返回页面1
+       // super.onBackPressed();
         finish();
 
     }

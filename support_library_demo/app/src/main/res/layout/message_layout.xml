@@ -24,7 +24,7 @@
 						android:background="@drawable/back_press"/>
 					<ImageView
 						android:layout_width="63dp"
-						android:background="@drawable/logo2"
+						android:background="@drawable/logo"
 						android:layout_height="31dp"
 						android:layout_marginLeft="20dp"
 						android:layout_centerVertical="true"

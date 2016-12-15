@@ -33,7 +33,7 @@
 
 					<ImageView
 						android:layout_width="63dp"
-						android:background="@drawable/logo2"
+						android:background="@drawable/logo"
 						android:layout_height="31dp"
 						android:layout_marginTop="10dp"/>
 
@@ -159,14 +159,21 @@
 			android:layout_height="200dp"
 			android:layout_width="match_parent">
 
-			<com.yanbober.support_library_demo.XCRoundImageView
-				android:layout_width="80dp"
-				android:id="@+id/drawer_headerImageView"
-				android:layout_height="80dp"
+			<LinearLayout
+				android:layout_width="100dp"
+				android:layout_height="100dp"
+				android:id="@+id/image_layout"
+				android:gravity="center"
 				android:layout_marginLeft="10dp"
-				android:src="#ff0000"
 				android:layout_centerVertical="true"
-				android:background="@drawable/avatar"/>
+				android:background="@drawable/avatar"
+				>
+				<com.yanbober.support_library_demo.XCRoundImageView
+					android:layout_width="65dp"
+					android:id="@+id/drawer_headerImageView"
+					android:layout_height="65dp"
+					/>
+			</LinearLayout>
 
 			<LinearLayout
 				android:layout_height="wrap_content"
@@ -174,7 +181,7 @@
 				android:orientation="vertical"
 				android:layout_marginLeft="10dp"
 				android:layout_centerVertical="true"
-				android:layout_toRightOf="@id/drawer_headerImageView"
+				android:layout_toRightOf="@id/image_layout"
 				android:layout_centerHorizontal="true">
 
 				<TextView

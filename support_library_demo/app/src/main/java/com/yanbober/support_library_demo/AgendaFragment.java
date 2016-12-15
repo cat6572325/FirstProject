@@ -199,7 +199,7 @@ public class AgendaFragment extends Fragment{
 		    @Override
 			public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-              /*  if (newState==0)//0停止　1开始滑动 2放手依旧滑动中
+                if (newState==0)//0停止　1开始滑动 2放手依旧滑动中
                 {
                     lm = (LinearLayoutManager) mRecyclerView.getLayoutManager();
                     User u=new User();
@@ -213,10 +213,7 @@ public class AgendaFragment extends Fragment{
                     User u=new User();
                     if (u.getBitmapurl!=null)
                         u.getBitmapurl.cancelAllTask();
-                }*/
-
-
-
+                }
             }
 
 
@@ -323,7 +320,7 @@ public class AgendaFragment extends Fragment{
             //由于里面有null,,,
             for (int i = 0; i < lists3.size(); i++) {
                 //所有数据以付款人数排列完毕，然后在这里开始加载
-                if (i == 10) {
+              /*   //if (i == 10) {
                     addTextToList(str1
                             , 1
                             , "0"
@@ -333,7 +330,7 @@ public class AgendaFragment extends Fragment{
                     );
                     urls[i] = lists3.get(i).get("vdoPhotourl").toString();
 
-                } else {
+               } else {
                     if (i > 10) {
                         addTextToList(str1
                                 , 0
@@ -345,7 +342,7 @@ public class AgendaFragment extends Fragment{
                         urls[i] = lists3.get(i).get("vdoPhotourl").toString();
 
                     }
-
+*/
                     urls[i] = lists3.get(i).get("vdoPhotourl").toString();
 
 
@@ -371,7 +368,7 @@ public class AgendaFragment extends Fragment{
 
 
 
-        }
+
 
             //暂定内容，参数....购买人数,布局,头像,是否显示红点,标题
             //头像和内容壁纸需要在适配器以二进制转为图片

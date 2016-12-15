@@ -5,7 +5,7 @@
 	android:layout_height="match_parent"
 	android:orientation="vertical"
 	android:minHeight="25dp"
-	android:background="#FFFFFF">
+	android:background="#e5f5f5">
 
 	<View
 		android:layout_height="1dp"

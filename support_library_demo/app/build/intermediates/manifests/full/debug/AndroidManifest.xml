@@ -110,6 +110,15 @@
         <activity
             android:name="com.yanbober.support_library_demo.SimpleActivity"
             android:label="knight of Ector" />
+        <activity
+            android:name="com.yanbober.support_library_demo.Camera_s"
+            android:label="knight of Ector" />
+        <activity
+            android:name="com.afollestad.materialcamera.CaptureActivity"
+            android:theme="@style/MaterialCamera.CaptureActivity" />
+        <activity
+            android:name="com.afollestad.materialcamera.CaptureActivity2"
+            android:theme="@style/MaterialCamera.CaptureActivity" />
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
 
         <provider

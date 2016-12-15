@@ -1,5 +1,9 @@
 [
     {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout-land/mcam_fragment_videocapture.xml",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.afollestad/material-camera/0.4.4/res/layout-land/mcam_fragment_videocapture.xml"
+    },
+    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout-land/info_details_fragment.xml",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/layout-land/info_details_fragment.xml"
     }

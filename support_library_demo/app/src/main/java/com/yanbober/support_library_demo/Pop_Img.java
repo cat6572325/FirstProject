@@ -308,53 +308,72 @@ public class Pop_Img extends Dialog {
                     Set_Pay_Pwd_cancel = (Button) layout.findViewById(R.id.enterpaypwddlgButton2);
                     Pay_pwd = (EditText) layout.findViewById(R.id.Pay_Pwd_Edit);
                     Paid_pwd_text = (TextView) layout.findViewById(R.id.paid_pwd_text);
-                    if (user.mydata.get("paypassword").toString().equals("")) {
-                        Paid_pwd_text.setText("未设置支付密码");
-                        Set_Pay_Pwd_sure.setText("马上填写");
-                        Pay_pwd.setEnabled(false);
-                    }
-                    Set_Pay_Pwd_sure.setOnClickListener(new View.OnClickListener() {
+                    if (map.get("?").equals("密码"))
+                    {
+                        Paid_pwd_text.setText("输入密码");
+                        Set_Pay_Pwd_sure.setText("确定");
+                        Set_Pay_Pwd_sure.setOnClickListener(new View.OnClickListener() {
 
-                        @Override
-                        public void onClick(View view) {
+                            @Override
+                            public void onClick(View view) {
 
-                            positiveButtonClickListener.onClick(dialog,
-                                    DialogInterface.BUTTON_POSITIVE);
-                            //将点击事件传出去
+                                positiveButtonClickListener.onClick(dialog,
+                                        DialogInterface.BUTTON_POSITIVE);
+                                //将点击事件传出去
 
-                            Log.e("PaidWord", user.mydata.get("paypassword").toString());//.equals("0"))
-                            if (user.mydata.get("paypassword").toString() != null) {
-                                if (Pay_pwd.getText().toString().equals(user.mydata.get("paypassword").toString())) {//如果支付密码有且配对成功
-                                    Intent intent = new Intent(setting_, Set_Pay_pwd_.class);
-                                    setting_.startActivity(intent);
-                                    setting_.
-                                            finish();
-                                    dialog.dismiss();
+                            }
+                        });
 
-                                } else {
 
-                                    Snackbar.make(view, "you press key for sure  ,But it's error" + Pay_pwd.getText().toString(), Snackbar.LENGTH_SHORT).show();
+                            }else {
+                        if (user.mydata.get("paypassword").toString().equals("")) {
+                            Paid_pwd_text.setText("未设置支付密码");
+                            Set_Pay_Pwd_sure.setText("马上填写");
+                            Pay_pwd.setEnabled(false);
+
+                        }
+                        Set_Pay_Pwd_sure.setOnClickListener(new View.OnClickListener() {
+
+                            @Override
+                            public void onClick(View view) {
+
+                                positiveButtonClickListener.onClick(dialog,
+                                        DialogInterface.BUTTON_POSITIVE);
+                                //将点击事件传出去
+
+                                Log.e("PaidWord", user.mydata.get("paypassword").toString());//.equals("0"))
+                                if (user.mydata.get("paypassword").toString() != null) {
+                                    if (Pay_pwd.getText().toString().equals(user.mydata.get("paypassword").toString())) {//如果支付密码有且配对成功
+                                        Intent intent = new Intent(setting_, Set_Pay_pwd_.class);
+                                        setting_.startActivity(intent);
+                                        setting_.
+                                                finish();
+                                        dialog.dismiss();
+
+                                    } else {
+
+                                        Snackbar.make(view, "you press key for sure  ,But it's error" + Pay_pwd.getText().toString(), Snackbar.LENGTH_SHORT).show();
+
+                                    }
+
+                                } else {//设置支付密码
 
                                 }
 
-                            } else {//设置支付密码
 
                             }
 
 
-                        }
+                        });
 
-
-                    });
-
-                    Set_Pay_Pwd_cancel.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Snackbar.make(view, "you press key for cancel  " + Pay_pwd.getText().toString(), Snackbar.LENGTH_SHORT).show();
-                            dialog.dismiss();
-                        }
-                    });
-
+                        Set_Pay_Pwd_cancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Snackbar.make(view, "you press key for cancel  " + Pay_pwd.getText().toString(), Snackbar.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            }
+                        });
+                    }
 
                     //loe=(EditText)layout.findViewById(R.id.regE);
                     //	pae=(EditText)layout.findViewById(R.id.pasE);

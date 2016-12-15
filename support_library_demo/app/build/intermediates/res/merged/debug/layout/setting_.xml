@@ -18,15 +18,21 @@
 			android:layout_height="170dp"
 			android:layout_width="match_parent">
 
-			<com.yanbober.support_library_demo.XCRoundImageView
+			<LinearLayout
 				android:layout_width="100dp"
-				android:id="@+id/drawer_headerImageView"
 				android:layout_height="100dp"
+				android:id="@+id/image_layout"
+				android:gravity="center"
 				android:layout_marginLeft="10dp"
 
-				android:layout_centerHorizontal="true"
 				android:layout_centerInParent="true"
-				android:background="@drawable/avatar"/>
+				android:background="@drawable/avatar"
+				>
+				<com.yanbober.support_library_demo.XCRoundImageView
+					android:layout_width="65dp"
+					android:id="@+id/drawer_headerImageView"
+					android:layout_height="65dp" />
+			</LinearLayout>
 
 		</RelativeLayout>
 

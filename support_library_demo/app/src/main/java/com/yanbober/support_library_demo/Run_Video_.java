@@ -317,7 +317,31 @@ public class Run_Video_ extends ActionBarActivity {
 			
 		}
 
+public void setCollectStar(View view)
+{
+	if(vid!=null)
+	{
+		collect_Progress.setVisibility(View.VISIBLE);
+		collect_star.setClickable(false);
+		HashMap<String,Object> map=new HashMap<String,Object>();
+		map.put("context",Run_Video_.this);
+		map.put("handler",mHandler);
+		map.put("vid",vid);
+		Http_UploadFile_ htt=new Http_UploadFile_("http://trying-video.herokuapp.com/user/collect/"+vid+"?token="+user.token, map,"12");
+		Thread x=new Thread(htt);
+		x.start();
+		//_vid为视频id/
+						/*{
+							"cost" : ${cost}    //支付费用(Number)
+						}
+						//如果没有 cost 一般默认为0
+						>>  返回 message: '已添加进收藏'*/
+	}else
+	{
+		Toast.makeText(Run_Video_.this,"该视频因无登陆id无法收藏",Toast.LENGTH_SHORT).show();
+	}
 
+}
 	public void getandsetUploaderData()
 	{
 		if (upLoader_id!=null)

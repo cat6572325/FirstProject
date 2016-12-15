@@ -205,11 +205,11 @@ public class ShareFragment extends Fragment {
 		User u = new User();
 		String urlbitmap;
 		ArrayList<HashMap<String,Object>> maps=new ArrayList<>();
-		maps.addAll(user.maps);
-		if (user.maps.size()>1) {
+		maps.addAll(u.maps);
+		if (u.maps.size()>1) {
 			lists2 = maps;
 			lists3 = new ArrayList<>();
-			urls = new String[user.maps.size()];
+			urls = new String[u.maps.size()];
 			ArrayList<HashMap<String, Object>> maps_list = new ArrayList<>();
 			int mind;
 			boolean flag = false;
@@ -263,49 +263,49 @@ public class ShareFragment extends Fragment {
 			//由于里面有null,,,
 			for (int i = 0; i < lists3.size(); i++) {
 				//所有数据以付款人数排列完毕，然后在这里开始加载
-				if (i == 10) {
-					addTextToList(str1
-							, 1
-							, "0"
-							, 0
-							, "9"
-							, "kk"
-					);
-					urls[i] = lists3.get(i).get("vdoPhotourl").toString();
+				//if (i == 10) {
+			/*	addTextToList(str1
+						, 1
+						, "0"
+						, 0
+						, "9"
+						, "kk"
+				);
+				urls[i] = lists3.get(i).get("vdoPhotourl").toString();
 
-				} else {
-					if (i > 10) {
-						addTextToList(str1
-								, 0
-								, "示例"
-								, 0
-								, "9"
-								, "示例"
-						);
-						urls[i] = lists3.get(i).get("vdoPhotourl").toString();
+                } else {
+                    if (i > 10) {
+                        addTextToList(str1
+                                , 0
+                                , "示例"
+                                , 0
+                                , "9"
+                                , "示例"
+                        );
+                        urls[i] = lists3.get(i).get("vdoPhotourl").toString();
 
-					}
+                    }
+}*/
+                    urls[i] = lists3.get(i).get("vdoPhotourl").toString();
 
-					urls[i] = lists3.get(i).get("vdoPhotourl").toString();
 
+                    urlbitmap = lists3.get(i).get("vdoPhotourl").toString();
+                    str1 = lists3.get(i).get("paidppnumber").toString();
+                    if (str1.equals("null")) {
+                        str1 = null;
+                        str1 = "0";
+                    }
+                    str2 = lists3.get(i).get("vdourl").toString();
+                    str3 = lists3.get(i).get("title").toString();
 
-					urlbitmap = lists3.get(i).get("vdoPhotourl").toString();
-					str1 = lists3.get(i).get("paidppnumber").toString();
-					if (str1.equals("null")) {
-						str1 = null;
-						str1 = "0";
-					}
-					str2 = lists3.get(i).get("vdourl").toString();
-					str3 = lists3.get(i).get("title").toString();
+                    addTextToList(str1
+                            , 0
+                            , str2
+                            , 0
+                            , str3
+                            , urlbitmap
+                    );
 
-					addTextToList(str1
-							, 0
-							, str2
-							, 0
-							, str3
-							, urlbitmap
-					);
-				}
 
 			}
 
@@ -313,7 +313,10 @@ public class ShareFragment extends Fragment {
 
 		}
 
-				adapter.notifyDataSetChanged();
+		//暂定内容，参数....购买人数,布局,头像,是否显示红点,标题
+		//头像和内容壁纸需要在适配器以二进制转为图片
+
+		adapter.notifyDataSetChanged();
 		//  addTextToList("uuu", 1, "android.R.drawable.ic_lock_lock", 0, "name");
 		// Toast.makeText(getContext(),str1,Toast.LENGTH_LONG).show();
 		linearLayouthide1.setVisibility(View.INVISIBLE);

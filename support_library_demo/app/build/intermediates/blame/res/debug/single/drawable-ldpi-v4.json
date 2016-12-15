@@ -4,6 +4,10 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer/r2.0.4/res/drawable-ldpi-v4/exo_controls_play.png"
     },
     {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/md_nav_back.png",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.afollestad.material-dialogs/core/0.9.1.0/res/drawable-ldpi-v4/md_nav_back.png"
+    },
+    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/exo_controls_pause.png",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer/r2.0.4/res/drawable-ldpi-v4/exo_controls_pause.png"
     },

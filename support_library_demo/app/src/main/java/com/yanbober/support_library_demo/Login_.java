@@ -154,6 +154,7 @@ public class Login_ extends AppCompatActivity {
         phon=til.getEditText();
         pas=til1.getEditText();
         phon.requestFocus();
+        phon.setSelected(true);
 
         phon.addTextChangedListener(new Mytextwatcher());
         pas.addTextChangedListener(new Mytextwatcher());

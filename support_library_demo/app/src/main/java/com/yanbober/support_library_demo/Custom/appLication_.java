@@ -29,6 +29,7 @@ public class appLication_ extends Application
       //  INSTANCE = this;
         ViewTarget.setTagId(R.id.glide_tag);
         sharedPreferences=getSharedPreferences("login", Context.MODE_PRIVATE);
+
     }
     public void setsharePreference(HashMap<String ,Object> map)
     {

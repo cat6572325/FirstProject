@@ -340,7 +340,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
                             }
                         user.Collect_List = listmap;
                         //addTextToList("无任何收藏",3,R.drawable.qq,"901人付款",1,1);
-
+                        dialog.cancel();
                     } catch (JSONException e) {
                         Log.e("获取收藏的时候", e.toString());
                     }
@@ -390,7 +390,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
     //v4中的ViewPager控件
     private ViewPager mViewPager;
 
-
+    AlertDialog dialog;
     //右上角新消息提示红点
     TextView Message_point, User_name;
 
@@ -431,7 +431,7 @@ private void setWaitdialog()
 
     textView.setText("加载中..");
     waitdialog.setView(layout);
-    AlertDialog dialog=waitdialog.create();
+    dialog=waitdialog.create();
     dialog.show();
 
 }
@@ -527,7 +527,7 @@ private void setWaitdialog()
         addTextToList("余额", 0, R.drawable.balance);
         addTextToList("分割贱", 1, R.drawable.fab_bg_normal);
 
-        addTextToList("设置", 0, R.drawable.fab_bg_normal);
+        addTextToList("设置", 0, R.drawable.setting);
         addTextToList("反馈", 0, R.drawable.feedback);
 
         addTextToList("退出登录", 0, R.drawable.login_up);
@@ -609,9 +609,19 @@ private void setWaitdialog()
                         }
                     }
                     if (str.equals("退出登录")) {
-                        if (!user.phone.equals("null")&&!user.phone.equals("15913044423")) {
-                            Intent intent = new Intent(MainActivity.this, Setting_.class);
-                            startActivityForResult(intent, 0);
+                        if (!user.phone.equals("null")&!user.phone.equals("15913044423")) {
+                            Intent intent = new Intent(MainActivity.this, Login_.class);
+
+                            dataserver = new DataHelper(MainActivity.this);
+                            dataserver.inst(db, user.phone
+                                    + "|" + user.pas
+                                    + "|" + user.phone
+                                    + "|null|"
+                                    + user.token
+                                    + "|0"
+                                    +"|"+user._id, MainActivity.this);
+                             startActivity(intent);
+                            finish();
                         } else {
                             try {
 
@@ -621,7 +631,8 @@ private void setWaitdialog()
                                         + "|" + user.phone
                                         + "|null|"
                                         + user.token
-                                        + "|0", MainActivity.this);
+                                        + "|0"
+                                        +"|null", MainActivity.this);
                                 Intent intent = new Intent(MainActivity.this, Login_.class);
                                 startActivity(intent);
                                 finish();
@@ -723,15 +734,11 @@ private void setWaitdialog()
             if (user.phone.equals("null")) {
                 getAllvideos();
                 User_name.setText("未登录");
-                loginout.setText("");
-                loginout.setClickable(false);
-            } else {
+                } else {
                 if (user.phone.equals("15913044423")) {
                     getAllvideos();
                     User_name.setText("未登录");
-                    loginout.setText("");
-                    loginout.setClickable(false);
-                } else {
+                 } else {
 
                     Bundle bun = this.getIntent().getExtras();
                     //if (bun != null && bun.containsKey("isfirst"))

@@ -85,7 +85,15 @@
 			android:label="knight of Ector"></activity>
 		<activity android:name=".SimpleActivity"
 			android:label="knight of Ector"></activity>
+		<activity android:name=".Camera_s"
+			android:label="knight of Ector"></activity>
 
+		<activity
+			android:name="com.afollestad.materialcamera.CaptureActivity"
+			android:theme="@style/MaterialCamera.CaptureActivity" />
+		<activity
+			android:name="com.afollestad.materialcamera.CaptureActivity2"
+			android:theme="@style/MaterialCamera.CaptureActivity" />
 
 			</application>
 
