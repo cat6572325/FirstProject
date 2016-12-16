@@ -3,6 +3,7 @@ package com.yanbober.support_library_demo;
 
 /**
 
+ 图片选择后返回的是缓冲区的特有图片文件，所以将图片转换为bitmap再重新写入生成新的图片文件，并且质量压缩成宽140高145的小图
 
 
 
@@ -12,6 +13,8 @@ package com.yanbober.support_library_demo;
 import android.app.ProgressDialog;
 import android.content.*;
 import android.graphics.*;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.*;
 import android.os.*;
 import android.support.v7.app.*;
@@ -205,6 +208,13 @@ public class Setting_ extends AppCompatActivity {
 
                     try {
                         bitmap = BitmapFactory.decodeStream(cr.openInputStream(Uri.fromFile(f)));//,null,getBitmapOption(2));
+                        //TODO 缩小bitmap
+                     /*   Bitmap resizeBitmap=resizeImage(bitmap,340,145);
+                        Log.e("bitmap",String.valueOf(bitmap.getHeight()));
+                        Log.e("resizebitmap",String.valueOf(resizeBitmap.getHeight()));
+                        bitmap=null;
+                        bitmap=resizeBitmap;
+
                         dirFile = new File("/sdcard/180s/headpicture/" + randomProdoction() + ".png");
                         File file1 = new File("/sdcard/180s");
                         if (!file1.exists()) {
@@ -227,16 +237,14 @@ public class Setting_ extends AppCompatActivity {
                         //	File myCaptureFile = new File(path + fileName);
                         BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(dirFile));
                         bitmap.compress(Bitmap.CompressFormat.PNG, 80, bos);
-
-                        bos.flush();
+                         bos.flush();
                         bos.close();
-
                         //Bitmap b= toRoundBitmap(bitmap);
                         headImg.setImageBitmap(bitmap);
                         user.headBitmap = bitmap;
                 /*上传文件
 				 PATCH方法
-				 */
+
                         HashMap<String, Object> map = new HashMap<String, Object>();
                         map.put("handler", mHandler);
                         map.put("Context", Setting_.this);
@@ -248,22 +256,21 @@ public class Setting_ extends AppCompatActivity {
                             , map);
                     Thread c = new Thread(htt);
                     c.start();
-                    */
+
                         dialog = new ProgressDialog(Setting_.this);
                         dialog.setTitle("上传中..");
                         dialog.show();
 
                         NewOkhttp n = new NewOkhttp("http://trying-video.herokuapp.com/user/image/replace?token=" + user.token
-                                , dirFile
+                                , f//dirFile
                                 , map
                         );
 
                         Thread x = new Thread(n);
                         x.start();
-
+*/
                     } catch (IOException e) {
                         Toast.makeText(Setting_.this, e.toString(), Toast.LENGTH_LONG).show();
-
                     }
 
             }
@@ -272,13 +279,29 @@ public class Setting_ extends AppCompatActivity {
         }
 
     }
-private BitmapFactory.Options getBitmapOption(int insamplesize,BitmapFactory.Options options)
-{
-    System.gc();
-    options.inPurgeable=true;
-    options.inSampleSize=insamplesize;
-    return options;
-}
+    //使用Bitmap加Matrix来缩放
+    public static Bitmap resizeImage(Bitmap bitmap, int w, int h)
+    {
+        Bitmap BitmapOrg = bitmap;
+        int width = BitmapOrg.getWidth();
+        int height = BitmapOrg.getHeight();
+        int newWidth = w;
+        int newHeight = h;
+
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+        // if you want to rotate the Bitmap
+        // matrix.postRotate(45);
+        Bitmap resizedBitmap = Bitmap.createBitmap(BitmapOrg, 0, 0, width,
+                height, matrix, true);
+        return resizedBitmap;
+    }
+
+
+
     @Override
     public void onBackPressed() {
        // super.onBackPressed();

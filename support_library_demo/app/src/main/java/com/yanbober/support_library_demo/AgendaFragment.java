@@ -7,7 +7,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.*;
 import android.support.annotation.*;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.*;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.*;
 import android.util.Base64;
 import android.util.Log;
@@ -28,7 +30,23 @@ import java.util.*;
 
 
 public class AgendaFragment extends Fragment{
+    private Handler mHandler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            Bundle bundle = new Bundle();
+            bundle = msg.getData();
+            switch (msg.what) {
+                case 0:
+                    //更新
+                    adapter.notifyDataSetChanged();
 
+                    break;
+                case 1:
+                    //停止刷新
+                    swipeRefreshLayout.setRefreshing(false);
+                    break;
+            }
+        }
+    };
     private RecyclerView mRecyclerView, rv;
 
     View v;
@@ -49,6 +67,8 @@ public class AgendaFragment extends Fragment{
     OnActivityebent2 ebent;
     long itemCount = 0;
     Context context;
+    SwipeRefreshLayout swipeRefreshLayout;
+
 
     @Nullable
     @Override
@@ -56,7 +76,7 @@ public class AgendaFragment extends Fragment{
         v = inflater.inflate(R.layout.info_details_fragment, container, false);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
         linearLayouthide1 = (LinearLayout) v.findViewById(R.id.HideLayout1);
-
+        swipeRefreshLayout=(SwipeRefreshLayout)v.findViewById(R.id.onReferesh);
 
         return v;
     }
@@ -207,6 +227,17 @@ public class AgendaFragment extends Fragment{
                     map.put("?","AgendaFragment");
                     if (u.getBitmapurl!=null) {
                         u.getBitmapurl.loadListViewImage(lm.findFirstVisibleItemPosition(), lm.findLastVisibleItemPosition(),mRecyclerView,getContext(),map);
+                    }
+                    int lastviewitem=lm.findLastCompletelyVisibleItemPosition();
+                    int totallcount=lm.getItemCount();
+                    if (lastviewitem==(totallcount-1))
+                    {
+                        Snackbar.make(recyclerView, "已加载全部内容", Snackbar.LENGTH_SHORT).show();
+                    }
+                    if (swipeRefreshLayout.isRefreshing())
+                    {
+                        mHandler.sendEmptyMessage(1);
+                        //关闭刷新
                     }
                 }else
                 {

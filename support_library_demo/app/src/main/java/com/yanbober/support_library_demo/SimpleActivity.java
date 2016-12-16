@@ -16,7 +16,9 @@ public class SimpleActivity extends TakePhotoActivity {
         super.onCreate(savedInstanceState);
         View contentView=LayoutInflater.from(this).inflate(R.layout.custom_photo,null);
         setContentView(contentView);
-        customHelper=CustomHelper.of(contentView);
+        customHelper=CustomHelper.of(contentView,getTakePhoto());
+
+
     }
 
     public void onClick(View view) {

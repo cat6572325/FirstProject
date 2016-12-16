@@ -435,6 +435,66 @@ private void setWaitdialog()
     dialog.show();
 
 }
+    private void uplogindialog()
+    {
+        waitdialog=new AlertDialog.Builder(MainActivity.this,R.style.Dialog);
+
+        LayoutInflater inflater=getLayoutInflater();
+        final View layout=inflater.inflate(R.layout.uplogin_sure_dialog,null);
+       Button btn_sure=(Button)layout.findViewById(R.id.uplogin_sure_dialog_sure);
+        Button btn_cancel=(Button)layout.findViewById(R.id.uplogin_sure_dialog_cancel);
+        btn_cancel.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+            }
+        });
+        btn_sure.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!user.phone.equals("null")&!user.phone.equals("15913044423")) {
+                    Intent intent = new Intent(MainActivity.this, Login_.class);
+
+                    dataserver = new DataHelper(MainActivity.this);
+                    dataserver.inst(db, user.phone
+                            + "|" + user.pas
+                            + "|" + user.phone
+                            + "|null|"
+                            + user.token
+                            + "|0"
+                            +"|"+user._id, MainActivity.this);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    try {
+
+                        dataserver = new DataHelper(MainActivity.this);
+                        dataserver.inst(db, user.phone
+                                + "|" + user.pas
+                                + "|" + user.phone
+                                + "|null|"
+                                + user.token
+                                + "|0"
+                                +"|null", MainActivity.this);
+                        Intent intent = new Intent(MainActivity.this, Login_.class);
+                        startActivity(intent);
+                        finish();
+                    } catch (SQLException e) {
+
+                    }
+
+                }
+
+            }
+        });
+
+        waitdialog.setView(layout);
+        dialog=waitdialog.create();
+        Window window=dialog.getWindow();
+        window.setWindowAnimations(R.style.dialog_popupStyle);
+        dialog.show();
+
+    }
     private void exitBy2Click() {
         Timer tExit = null;
         if (isExit == false) {
@@ -609,38 +669,8 @@ private void setWaitdialog()
                         }
                     }
                     if (str.equals("退出登录")) {
-                        if (!user.phone.equals("null")&!user.phone.equals("15913044423")) {
-                            Intent intent = new Intent(MainActivity.this, Login_.class);
+                  uplogindialog();
 
-                            dataserver = new DataHelper(MainActivity.this);
-                            dataserver.inst(db, user.phone
-                                    + "|" + user.pas
-                                    + "|" + user.phone
-                                    + "|null|"
-                                    + user.token
-                                    + "|0"
-                                    +"|"+user._id, MainActivity.this);
-                             startActivity(intent);
-                            finish();
-                        } else {
-                            try {
-
-                                dataserver = new DataHelper(MainActivity.this);
-                                dataserver.inst(db, user.phone
-                                        + "|" + user.pas
-                                        + "|" + user.phone
-                                        + "|null|"
-                                        + user.token
-                                        + "|0"
-                                        +"|null", MainActivity.this);
-                                Intent intent = new Intent(MainActivity.this, Login_.class);
-                                startActivity(intent);
-                                finish();
-                            } catch (SQLException e) {
-
-                            }
-
-                        }
                     }
                 }
 
@@ -782,7 +812,15 @@ private void setWaitdialog()
         // Thread b=new Thread(htt);
         // b.start();
     }//initView
-
+    public void mainButton(View view)
+    {
+        Toast.makeText(MainActivity.this,"ss",Toast.LENGTH_SHORT).show();
+    }
+public void round_videos(View view)
+{
+    Intent intent = new Intent(MainActivity.this, Round_Video_.class);
+    startActivity(intent);
+}
     public void POpFloag() {
         //// TODO: 右下角按钮点击事件
         button1.setOnClickListener(new OnClickListener() {

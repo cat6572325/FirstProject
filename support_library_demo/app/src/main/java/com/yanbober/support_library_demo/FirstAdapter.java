@@ -267,7 +267,7 @@ case 2:
 
 				if((Integer)lists.get(position).get("ispay")==1)
 				{//不显示
-					holder.collect_rv.setVisibility(View.INVISIBLE);
+					//holder.collect_rv.setVisibility(View.INVISIBLE);
 				}else
 				{
 					//显示
@@ -313,7 +313,7 @@ case 2:
 					}
 				});
 					
-				holder.collect_name.setText((String)lists.get(position).get("text"));
+			//	holder.collect_name.setText((String)lists.get(position).get("text"));
 				holder.collect_ps.setText((String)lists.get(position).get("ps"));
 				holder.collect_back.setBackgroundResource((Integer)lists.get(position).get("image"));
 				
@@ -563,13 +563,13 @@ is=(TextView)itemView.findViewById(R.id.tTextView);
 		
 		//////Paid_Video
 		/////Collect_
-		collect_rv=(RelativeLayout)itemView.findViewById(R.id.collectitemRelativeLayout1);
+	//	collect_rv=(RelativeLayout)itemView.findViewById(R.id.collectitemRelativeLayout1);
 		//支付按钮(rela)
 		collect_paid_button=(Button)itemView.findViewById(R.id.collect_paid_button);
 		//支付按钮
 		collect_spot=(TextView)itemView.findViewById(R.id.tTextView);
 		//小圆点
-		collect_name=(TextView)itemView.findViewById(R.id.paiditemTextView1);
+	//	collect_name=(TextView)itemView.findViewById(R.id.paiditemTextView1);
 		//名字
 		collect_ps=(TextView)itemView.findViewById(R.id.recy_card_itemTextView);
 		//说明

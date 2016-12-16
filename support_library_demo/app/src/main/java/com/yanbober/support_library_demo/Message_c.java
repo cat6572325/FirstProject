@@ -176,8 +176,8 @@ DrawerLayout mDrawerLayout;
 					Toast.makeText(Message_c.this,"这条信息已加入已读表，将不再显示提醒",Toast.LENGTH_LONG).show();
 					HashMap<String,Object> map=new HashMap<String, Object>();
 					map.put("_id",u.notices_list.get(i).get("_id").toString());
-					TextView textView=(TextView)view.findViewById(R.id.messageitemTextView1);
-					textView.setVisibility(View.INVISIBLE);
+					//TextView textView=(TextView)view.findViewById(R.id.messageitemTextView1);
+				//	textView.setVisibility(View.INVISIBLE);
 
 					dataserver.addisReadSQL(map);
 					//mHandler.sendEmptyMessage(1);
@@ -247,7 +247,7 @@ DrawerLayout mDrawerLayout;
 				int isPort=0;
 				if (!dataserver.isHavethisID(map.get(i).get("_id").toString()))
 				{//如果返回的是false则表示未读，则显示红点
-					isPort=1;
+					//isPort=1;
 				}
 				switch (Integer.parseInt(map.get(i).get("kinds").toString()))
 				{

@@ -19,11 +19,13 @@ public class CustomHelper
 private View rootView;
     private RadioGroup rgCrop,rgCompress,rgFrom,rgCropSize,rgCropTool,rgShowProgressBar,rgPickTool,rgCompressTool,rgCorrectTool;
     private EditText etCropHeight,etCropWidth,etLimit,etSize,etHeightPx,etWidthPx;
-    public static CustomHelper of(View rootView){
-        return new CustomHelper(rootView);
+    TakePhoto takePhoto;
+    public static CustomHelper of(View rootView,TakePhoto takePhoto){
+        return new CustomHelper(rootView,takePhoto);
     }
-    private CustomHelper(View rootView) {
+    private CustomHelper(View rootView,TakePhoto takePhoto) {
         this.rootView = rootView;
+        this.takePhoto=takePhoto;
         init();
     }
     private void init(){
@@ -43,7 +45,35 @@ private View rootView;
         etHeightPx= (EditText) rootView.findViewById(R.id.etHeightPx);
         etWidthPx= (EditText) rootView.findViewById(R.id.etWidthPx);
 
+        File file=new File(Environment.getExternalStorageDirectory(), "/temp/"+System.currentTimeMillis() + ".jpg");
+        if (!file.getParentFile().exists())file.getParentFile().mkdirs();
+        Uri imageUri = Uri.fromFile(file);
 
+        configCompress(takePhoto);
+        configTakePhotoOption(takePhoto);
+        int limit= Integer.parseInt(etLimit.getText().toString());
+        if(limit>1){
+            if(rgCrop.getCheckedRadioButtonId()==R.id.rbCropYes){
+                takePhoto.onPickMultipleWithCrop(limit,getCropOptions());//不裁剪
+            }else {
+                takePhoto.onPickMultiple(limit);
+            }
+            return;
+        }
+        if(rgFrom.getCheckedRadioButtonId()==R.id.rbFile){
+            if(rgCrop.getCheckedRadioButtonId()==R.id.rbCropYes){
+                takePhoto.onPickFromDocumentsWithCrop(imageUri,getCropOptions());
+            }else {
+                takePhoto.onPickFromDocuments();
+            }
+            return;
+        }else {
+            if(rgCrop.getCheckedRadioButtonId()==R.id.rbCropYes){
+                takePhoto.onPickFromGalleryWithCrop(imageUri,getCropOptions());//从相机
+            }else {
+                takePhoto.onPickFromGallery();
+            }
+        }
 
     }
 
@@ -54,12 +84,36 @@ private View rootView;
 
         configCompress(takePhoto);
         configTakePhotoOption(takePhoto);
+        int limit= Integer.parseInt(etLimit.getText().toString());
+        if(limit>1){
+            if(rgCrop.getCheckedRadioButtonId()==R.id.rbCropYes){
+                takePhoto.onPickMultipleWithCrop(limit,getCropOptions());//不裁剪
+            }else {
+                takePhoto.onPickMultiple(limit);
+            }
+            return;
+        }
+        if(rgFrom.getCheckedRadioButtonId()==R.id.rbFile){
+            if(rgCrop.getCheckedRadioButtonId()==R.id.rbCropYes){
+                takePhoto.onPickFromDocumentsWithCrop(imageUri,getCropOptions());
+            }else {
+                takePhoto.onPickFromDocuments();
+            }
+            return;
+        }else {
+            if(rgCrop.getCheckedRadioButtonId()==R.id.rbCropYes){
+                takePhoto.onPickFromGalleryWithCrop(imageUri,getCropOptions());//从相机
+            }else {
+                takePhoto.onPickFromGallery();
+            }
+        }
+        /*
         switch (view.getId()){
             case R.id.btnPickBySelect:
                 int limit= Integer.parseInt(etLimit.getText().toString());
                 if(limit>1){
                     if(rgCrop.getCheckedRadioButtonId()==R.id.rbCropYes){
-                        takePhoto.onPickMultipleWithCrop(limit,getCropOptions());
+                        takePhoto.onPickMultipleWithCrop(limit,getCropOptions());//不裁剪
                     }else {
                         takePhoto.onPickMultiple(limit);
                     }
@@ -74,7 +128,7 @@ private View rootView;
                     return;
                 }else {
                     if(rgCrop.getCheckedRadioButtonId()==R.id.rbCropYes){
-                        takePhoto.onPickFromGalleryWithCrop(imageUri,getCropOptions());
+                        takePhoto.onPickFromGalleryWithCrop(imageUri,getCropOptions());//从相机
                     }else {
                         takePhoto.onPickFromGallery();
                     }
@@ -82,14 +136,14 @@ private View rootView;
                 break;
             case R.id.btnPickByTake:
                 if(rgCrop.getCheckedRadioButtonId()==R.id.rbCropYes){
-                    takePhoto.onPickFromCaptureWithCrop(imageUri,getCropOptions());
+                    takePhoto.onPickFromCaptureWithCrop(imageUri,getCropOptions());//裁剪
                 }else {
                     takePhoto.onPickFromCapture(imageUri);
                 }
                 break;
             default:
                 break;
-        }
+        }*/
     }
     private void configTakePhotoOption(TakePhoto takePhoto){
         TakePhotoOptions.Builder builder=new TakePhotoOptions.Builder();

@@ -309,6 +309,7 @@ MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstPr
 MERGED from [com.android.support:animated-vector-drawable:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.0.1/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:support-vector-drawable:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.0.1/AndroidManifest.xml:23:5-20
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:25:5-20
+MERGED from [com.github.clans:fab:1.6.4] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.github.clans/fab/1.6.4/AndroidManifest.xml:12:5-20
 MERGED from [com.afollestad:material-camera:0.4.4] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.afollestad/material-camera/0.4.4/AndroidManifest.xml:12:5-20
 MERGED from [com.android.support:appcompat-v7:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-v4:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.0.1/AndroidManifest.xml:25:5-20
@@ -988,6 +989,7 @@ MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstPr
 MERGED from [com.android.support:animated-vector-drawable:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.0.1/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-vector-drawable:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.0.1/AndroidManifest.xml:21:5-43
 MERGED from [com.android.support:support-compat:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.1/AndroidManifest.xml:21:5-23:58
+MERGED from [com.github.clans:fab:1.6.4] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.github.clans/fab/1.6.4/AndroidManifest.xml:8:5-10:41
 MERGED from [com.afollestad:material-camera:0.4.4] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.afollestad/material-camera/0.4.4/AndroidManifest.xml:8:5-10:41
 MERGED from [com.android.support:appcompat-v7:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/AndroidManifest.xml:21:5-23:78
 MERGED from [com.android.support:support-v4:25.0.1] /home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.0.1/AndroidManifest.xml:21:5-23:54

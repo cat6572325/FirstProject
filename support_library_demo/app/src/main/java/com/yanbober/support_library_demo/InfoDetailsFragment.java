@@ -7,8 +7,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.*;
 import android.support.annotation.*;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.*;
 import android.support.v4.util.ArrayMap;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.*;
 import android.util.Base64;
 import android.util.Log;
@@ -43,6 +45,10 @@ public class InfoDetailsFragment extends Fragment {
                     adapter.notifyDataSetChanged();
 
                     break;
+                case 1:
+                    //停止刷新
+                    swipeRefreshLayout.setRefreshing(false);
+                    break;
             }
         }
     };
@@ -61,6 +67,8 @@ public class InfoDetailsFragment extends Fragment {
     Http_UploadFile_ http_uploadFile_ = null;
     OnActivityebent ebent;
     LinearLayout linearLayouthide1;
+    SwipeRefreshLayout swipeRefreshLayout;
+    int itemCount=0;
 
     @Nullable
     @Override
@@ -69,6 +77,8 @@ public class InfoDetailsFragment extends Fragment {
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
         //rv=(RecyclerView)v.findViewById(R.id.groupRecyclerView2);
         linearLayouthide1 = (LinearLayout) v.findViewById(R.id.HideLayout1);
+        swipeRefreshLayout=(SwipeRefreshLayout)v.findViewById(R.id.onReferesh);
+
         return v;
     }
 
@@ -79,6 +89,12 @@ public class InfoDetailsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         adapter = new FirstAdapter2(getActivity(), lists);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+            }
+        });
         final GridLayoutManager gridLayoutManager=new GridLayoutManager(getContext(),1);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
@@ -109,7 +125,6 @@ public class InfoDetailsFragment extends Fragment {
             @Override
             public void onItemClickListener(View view, int position) {
                 try {
-
                     //跳往Run_Video_播放视频
                     JSONObject jsonObject;
                     Bundle bundle = new Bundle();
@@ -264,14 +279,27 @@ public class InfoDetailsFragment extends Fragment {
                     User u = new User();
                     HashMap<String, Object> map = new HashMap<String, Object>();
                     map.put("?", "InfoDetailsFragment");
+
                     if (u.getBitmapurl != null) {
                         u.getBitmapurl.loadListViewImage(lm.findFirstVisibleItemPosition(), lm.findLastVisibleItemPosition(), mRecyclerView, getContext(), map);
+                    }
+                    int lastviewitem=lm.findLastCompletelyVisibleItemPosition();
+                    int totallcount=lm.getItemCount();
+                    if (lastviewitem==(totallcount-1))
+                    {
+                        Snackbar.make(recyclerView, "已加载全部内容", Snackbar.LENGTH_SHORT).show();
+                    }
+                    if (swipeRefreshLayout.isRefreshing())
+                    {
+                        mHandler.sendEmptyMessage(1);
+                        //关闭刷新
                     }
                 } else {
                     User u = new User();
                     if (u.getBitmapurl != null)
                         u.getBitmapurl.cancelAllTask();
                 }
+
 
 
             }
@@ -418,6 +446,15 @@ public class InfoDetailsFragment extends Fragment {
                 linearLayouthide1.setVisibility(View.INVISIBLE);
             }
 
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            if (adapter!=null)
+                linearLayouthide1.setVisibility(View.INVISIBLE);
+        }
     }
 
     public class thread implements Runnable {/////chat socket

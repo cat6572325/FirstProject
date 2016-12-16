@@ -8,10 +8,16 @@
 
 		<item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-		
+
 		
         <!--<item name="colorAccent">#FF4081</item>
         <item name="android:windowBackground">@android:color/white</item>-->
+    </style>
+    <style name="dialog_popupStyle"
+        parent ="android:Animation" >
+        <item name="@android:windowEnterAnimation">@anim/dialog_anim_up</item>
+        <item name="@android:windowExitAnimation" >@anim/dialog_anim_close</item>
+
     </style>
 	<style name="AppThemeDark" parent="Theme.AppCompat">
         <!-- Customize your theme here. -->

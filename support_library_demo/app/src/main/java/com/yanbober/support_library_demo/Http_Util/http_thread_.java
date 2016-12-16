@@ -110,7 +110,10 @@ public class http_thread_ extends Thread {
 		File f=new File(str+((int)(1+Math.random()*(10-1+1)))+".png");
 	//	compressImage(getVideoThumb(file.getPath()),f.getPath());
 		//改后缀名
-		bitmap2File(getVideoThumb(file.getPath()),f);
+		//获得视频截图后缩小
+		Bitmap bitmap=resizeImage(getVideoThumb(file.getPath()),140,145);
+		bitmap2File(bitmap,f);
+
 		//创建截图
 		path=f.getPath();
 		Map<String, String> param = new HashMap<>();
@@ -385,9 +388,30 @@ Log.e("url",url);
 				
 					
 				}
-				
-				
-	
+
+
+	//使用Bitmap加Matrix来缩放
+	public static Bitmap resizeImage(Bitmap bitmap, int w, int h)
+	{
+		Bitmap BitmapOrg = bitmap;
+		int width = BitmapOrg.getWidth();
+		int height = BitmapOrg.getHeight();
+		int newWidth = w;
+		int newHeight = h;
+
+		float scaleWidth = ((float) newWidth) / width;
+		float scaleHeight = ((float) newHeight) / height;
+
+		Matrix matrix = new Matrix();
+		matrix.postScale(scaleWidth, scaleHeight);
+		// if you want to rotate the Bitmap
+		// matrix.postRotate(45);
+		Bitmap resizedBitmap = Bitmap.createBitmap(BitmapOrg, 0, 0, width,
+				height, matrix, true);
+		return resizedBitmap;
+	}
+
+
 	/**
 	 * Bitmap保存成File
 	 *

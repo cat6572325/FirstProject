@@ -183,8 +183,8 @@ class MyViewHolder3 extends ViewHolder{
 
         //////Paid_Video
         /////Collect_
-        collect_rv = (RelativeLayout) itemView.findViewById(R.id.collectitemRelativeLayout1);
-        //支付按钮(rela)
+
+         //支付按钮(rela)
         collect_paid_button = (Button) itemView.findViewById(R.id.collect_paid_button);
         //支付按钮
         collect_spot = (TextView) itemView.findViewById(R.id.tTextView);

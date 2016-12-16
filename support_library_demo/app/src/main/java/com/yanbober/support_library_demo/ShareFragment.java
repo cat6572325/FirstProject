@@ -7,7 +7,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.*;
 import android.support.annotation.*;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.*;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.*;
 import android.util.Base64;
 import android.view.*;
@@ -29,14 +31,23 @@ import java.util.*;
 public class ShareFragment extends Fragment {
 	private Handler mHandler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
-			Bundle bundle=new Bundle();
-			bundle=msg.getData();
+			Bundle bundle = new Bundle();
+			bundle = msg.getData();
 			switch (msg.what) {
 				case 0:
+					//更新
+					adapter.notifyDataSetChanged();
+
+					break;
+				case 1:
+					//停止刷新
+					swipeRefreshLayout.setRefreshing(false);
 					break;
 			}
 		}
 	};
+	SwipeRefreshLayout swipeRefreshLayout;
+
 	private RecyclerView mRecyclerView, rv;
 	View v;
 	public ArrayList<HashMap<String, Object>> lists = new ArrayList<HashMap<String, Object>>()
@@ -66,6 +77,7 @@ public class ShareFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		v = inflater.inflate(R.layout.info_details_fragment, container, false);
 		mRecyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
+		swipeRefreshLayout=(SwipeRefreshLayout)v.findViewById(R.id.onReferesh);
 		//rv=(RecyclerView)v.findViewById(R.id.groupRecyclerView2);
 		//initView();
 		linearLayouthide1=(LinearLayout)v.findViewById(R.id.HideLayout1);
@@ -130,45 +142,46 @@ public class ShareFragment extends Fragment {
 		});
 		//TODO 上拉加载更多
 
-	/*	mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+		mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
 			public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
 				super.onScrollStateChanged(recyclerView, newState);
-				lm = (LinearLayoutManager) mRecyclerView.getLayoutManager();
-				if (lm.findViewByPosition(lm.findFirstVisibleItemPosition()).getTop() == 0
-						&&
-						lm.findFirstVisibleItemPosition() == 0)
-
-
-					Toast.makeText(getContext(), "last", Toast.LENGTH_LONG).show();
-				/*	new Handler().postDelayed(new Runnable() {
-						@Override
-						public void run() {
-							List<String> newDatas = new ArrayList<String>();
-							for (int i = 0; i < 5; i++) {
-								int index = i + 1;
-								newDatas.add("more item" + index);
-							}
-						//	addTextToList("uuu", 1, "android.R.drawable.ic_lock_lock", 0, "name");
-							//mHandler.sendEmptyMessage(0);
-						//	mRecyclerView.notifyAll();
-
-							//// TODO: 16-11-13
-							//	adapter.addMoreItem(newDatas);
-							//adapter.changeMoreStatus(0);
-						}
-					}, 2500);
+				if (newState==0)//0停止　1开始滑动 2放手依旧滑动中
+				{
+					lm = (LinearLayoutManager) mRecyclerView.getLayoutManager();
+					User u=new User();
+					HashMap<String,Object> map=new HashMap<String, Object>();
+					map.put("?","AgendaFragment");
+					if (u.getBitmapurl!=null) {
+						u.getBitmapurl.loadListViewImage(lm.findFirstVisibleItemPosition(), lm.findLastVisibleItemPosition(),mRecyclerView,getContext(),map);
+					}
+					int lastviewitem=lm.findLastCompletelyVisibleItemPosition();
+					int totallcount=lm.getItemCount();
+					if (lastviewitem==(totallcount-1))
+					{
+						Snackbar.make(recyclerView, "已加载全部内容", Snackbar.LENGTH_SHORT).show();
+					}
+					if (swipeRefreshLayout.isRefreshing())
+					{
+						mHandler.sendEmptyMessage(1);
+						//关闭刷新
+					}
+				}else
+				{
+					User u=new User();
+					if (u.getBitmapurl!=null)
+						u.getBitmapurl.cancelAllTask();
+				}
 			}
-
 
 
 				@Override
 				public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
 					super.onScrolled(recyclerView,dx, dy);
-					lastVisibleItem = lm.findLastVisibleItemPosition();
+				//	lastVisibleItem = lm.findLastVisibleItemPosition();
 
 				}
-			});*/
+			});
 
 
 	}
@@ -263,17 +276,17 @@ public class ShareFragment extends Fragment {
 			//由于里面有null,,,
 			for (int i = 0; i < lists3.size(); i++) {
 				//所有数据以付款人数排列完毕，然后在这里开始加载
-				//if (i == 10) {
-			/*	addTextToList(str1
-						, 1
-						, "0"
-						, 0
-						, "9"
-						, "kk"
-				);
-				urls[i] = lists3.get(i).get("vdoPhotourl").toString();
+              /*   //if (i == 10) {
+                    addTextToList(str1
+                            , 1
+                            , "0"
+                            , 0
+                            , "9"
+                            , "kk"
+                    );
+                    urls[i] = lists3.get(i).get("vdoPhotourl").toString();
 
-                } else {
+               } else {
                     if (i > 10) {
                         addTextToList(str1
                                 , 0
@@ -285,33 +298,33 @@ public class ShareFragment extends Fragment {
                         urls[i] = lists3.get(i).get("vdoPhotourl").toString();
 
                     }
-}*/
-                    urls[i] = lists3.get(i).get("vdoPhotourl").toString();
+*/
+				urls[i] = lists3.get(i).get("vdoPhotourl").toString();
 
 
-                    urlbitmap = lists3.get(i).get("vdoPhotourl").toString();
-                    str1 = lists3.get(i).get("paidppnumber").toString();
-                    if (str1.equals("null")) {
-                        str1 = null;
-                        str1 = "0";
-                    }
-                    str2 = lists3.get(i).get("vdourl").toString();
-                    str3 = lists3.get(i).get("title").toString();
+				urlbitmap = lists3.get(i).get("vdoPhotourl").toString();
+				str1 = lists3.get(i).get("paidppnumber").toString();
+				if (str1.equals("null")) {
+					str1 = null;
+					str1 = "0";
+				}
+				str2 = lists3.get(i).get("vdourl").toString();
+				str3 = lists3.get(i).get("title").toString();
 
-                    addTextToList(str1
-                            , 0
-                            , str2
-                            , 0
-                            , str3
-                            , urlbitmap
-                    );
-
-
+				addTextToList(str1
+						, 0
+						, str2
+						, 0
+						, str3
+						, urlbitmap
+				);
 			}
 
-
-
 		}
+
+
+
+
 
 		//暂定内容，参数....购买人数,布局,头像,是否显示红点,标题
 		//头像和内容壁纸需要在适配器以二进制转为图片
@@ -321,6 +334,7 @@ public class ShareFragment extends Fragment {
 		// Toast.makeText(getContext(),str1,Toast.LENGTH_LONG).show();
 		linearLayouthide1.setVisibility(View.INVISIBLE);
 
+
 	}
 	@Override
 	public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -329,7 +343,7 @@ public class ShareFragment extends Fragment {
 		if (isVisibleToUser)
 		{
 			if (itemCount==0) {
-				//initView();
+				initView();
 				itemCount++;
 			}else
 			{

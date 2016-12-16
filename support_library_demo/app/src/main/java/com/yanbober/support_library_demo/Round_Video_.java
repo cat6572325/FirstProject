@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.*;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.*;
 import android.hardware.*;
 import android.hardware.Camera.Size;
@@ -14,6 +15,8 @@ import android.os.*;
 
 import android.provider.MediaStore;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v7.app.*;
+import android.support.v7.app.AlertDialog;
 import android.system.ErrnoException;
 import android.text.Layout;
 import android.util.DisplayMetrics;
@@ -94,7 +97,7 @@ public class Round_Video_ extends Activity
                     if (bundle.getString("?").equals("error")) {
                     }
 
-
+                    finish();
                     break;
 
 
@@ -108,6 +111,7 @@ public class Round_Video_ extends Activity
 
                     if (bundle != null)
                         if (bundle.getString("?").equals("已保存")) {
+                            dialog.cancel();
                             finish();
                         }
                     break;
@@ -138,8 +142,8 @@ public class Round_Video_ extends Activity
     Size size;
     task Prog_task;
     ImageView sound, turnC, round_back_img, rounding_time_img, round_delete, round_upload, round_edit;
-
-
+    AlertDialog.Builder waitdialog;
+    AlertDialog dialog;
     public Pop_Img.Builder p;
 
     @Override
@@ -208,10 +212,11 @@ public class Round_Video_ extends Activity
         round_delete = (ImageView) this.findViewById(R.id.round_delete);
         round_upload = (ImageView) this.findViewById(R.id.round_upload);
         round_edit = (ImageView) this.findViewById(R.id.round_edit);
+        round_delete.setClickable(false);//删除按钮初始不可点击
         round_back_img.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                onBackPressed();
             }
         });
         //初始隐藏这个布局
@@ -221,7 +226,21 @@ public class Round_Video_ extends Activity
 
 
     }//initView
+    //开始录制前设置不把声音录进去
+    public void SetsoundState(View view)
+    {
+        if (recordarl==1) {
+            recordarl = 0;
+            //录音
+            Toast.makeText(Round_Video_.this,"开启录音",Toast.LENGTH_SHORT).show();
+        }else {
+            recordarl=1;
+            //关闭录音
+            Toast.makeText(Round_Video_.this,"关闭录音",Toast.LENGTH_SHORT).show();
+        }
+    }
 
+    //开始录制前设置不把声音录进去
     private String randomProdoction() {
         int random = (int) Math.random() * 10;
         String str = null;
@@ -268,7 +287,19 @@ public class Round_Video_ extends Activity
         }
         return str;
     }
+    private void setWaitdialog()
+    {
+        waitdialog=new android.support.v7.app.AlertDialog.Builder(Round_Video_.this,R.style.Dialog);
+        LayoutInflater inflater=getLayoutInflater();
+        final View layout=inflater.inflate(R.layout.login_wait_dialog,null);
+        TextView textView=(TextView)layout.findViewById(R.id.text_dialog);
 
+        textView.setText("加载中..");
+        waitdialog.setView(layout);
+        dialog=waitdialog.create();
+        dialog.show();
+
+    }
     public void setprog() {
         Prog_task = new task(count, bar);
         //新建一个方法
@@ -332,6 +363,7 @@ public class Round_Video_ extends Activity
     }
 
     protected void start() {
+        round_back_img.setBackgroundResource(R.drawable.close);
         rounding_time_img.setBackgroundResource(R.drawable.times);
         try {
 
@@ -445,7 +477,9 @@ public class Round_Video_ extends Activity
             if (camera != null) {
                 camera.release();
             }
+
         }
+        round_delete.setClickable(true);
     }
 
     @Override
@@ -563,13 +597,18 @@ public class Round_Video_ extends Activity
 
     public void delete(View v) {
         //TODO 删除按钮
-        Message_Dialog editNameDialog = new Message_Dialog(Round_Video_.this, file_with.TestFile(file).getPath());
-        //向对话框传递上下文和文件路径(用于删除）
-        editNameDialog.show(getFragmentManager(), "EditNameDialog");
-        bottom_hide_layout.setVisibility(View.INVISIBLE);
-        turncamera = 0;
-        ResetCamera();
 
+        if(file_with.GetFile().exists()) {
+            Message_Dialog editNameDialog = new Message_Dialog(Round_Video_.this, file_with.TestFile(file).getPath(), v);
+            //向对话框传递上下文和文件路径(用于删除）
+            editNameDialog.show(getFragmentManager(), "EditNameDialog");
+            bottom_hide_layout.setVisibility(View.INVISIBLE);
+            turncamera = 0;
+            ResetCamera();
+        }else
+        {
+            Toast.makeText(Round_Video_.this,"没有视频可删除,需要录制吗？",Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void upload(View v) {
@@ -611,6 +650,7 @@ public class Round_Video_ extends Activity
             c.start();
         } else {
             Toast.makeText(Round_Video_.this, "未填写视频信息，请先编辑", Toast.LENGTH_LONG).show();
+            edit(null);
         }
           /* WebView wv=new WebView(this);
             wv.getSettings().setJavaScriptEnabled(true);
@@ -623,18 +663,18 @@ public class Round_Video_ extends Activity
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        //super.onBackPressed();
         //
         // 按钮保存数据，未上传时按下返回键就会开始联网发送未上传视频的信息，发送保存成功后收到一个handler的message然后直接finish
         //大多需要的参数都在User的对象里了，一旦上传则清空
         //为保证点了开始录制的按钮后没有停止就想退出界面，在这里判断如果camera不为空，则释放
         if (camera != null) {
-            camera.stopPreview();
-            camera.release();
+           camera=null;
         }
 
         User u = new User();
         if (u.notLoadforVideo_list != null) {
+            setWaitdialog();
             HashMap<String, Object> map = u.notLoadforVideo_list.get(0);
             map.put("handler", mHandler);
             map.put("Context", Round_Video_.this);
@@ -646,11 +686,15 @@ public class Round_Video_ extends Activity
                     , "20");
             Thread c = new Thread(http_uploadFile_);
             c.start();
+
+        }else {
+            finish();
         }
     }
 
     public void edit(View v) {
         //TODO 编辑按钮
+
         try {
             HashMap<String, Object> map1 = new HashMap<String, Object>();
             map1.put("isprogress", 1);
@@ -681,7 +725,11 @@ public class Round_Video_ extends Activity
 
                 }
             });
-            p.create().show();
+
+            Dialog dialog=p.create();
+            Window window=dialog.getWindow();
+            window.setWindowAnimations(R.style.dialog_popupStyle);
+                    dialog.show();
             int count = 100;
             //    task1 t = new task1(count);
             //新建一个方法

@@ -62,7 +62,7 @@
 	<TextView
 		android:layout_height="13dp"
 		android:id="@+id/tTextView"
-		android:background="@drawable/button_normal"
+		android:background="@drawable/button_normal_blue"
 		android:layout_width="13dp"
 		android:layout_alignParentRight="true"
 		android:minWidth="15dp"

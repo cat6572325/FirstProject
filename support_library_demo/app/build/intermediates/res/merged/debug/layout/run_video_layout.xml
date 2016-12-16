@@ -189,7 +189,7 @@
 						android:layout_alignParentRight="true"
 						android:id="@+id/run_video_layoutTextView"
 						android:layout_centerVertical="true"
-
+						android:onClick="setCollectStar"
 						android:textAppearance="?android:attr/textAppearanceMedium"
 						android:layout_width="wrap_content"
 						android:textColor="#F48B08"/>

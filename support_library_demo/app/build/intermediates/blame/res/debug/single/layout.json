@@ -616,6 +616,10 @@
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.afollestad.material-dialogs/core/0.9.1.0/res/layout/md_stub_titleframe_lesspadding.xml"
     },
     {
+        "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/uplogin_sure_dialog.xml",
+        "source": "/home/cat6572325/FirstProject/support_library_demo/app/src/main/res/layout/uplogin_sure_dialog.xml"
+    },
+    {
         "merged": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/res/merged/debug/layout/abc_search_dropdown_item_icons_2line.xml",
         "source": "/home/cat6572325/FirstProject/support_library_demo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/res/layout/abc_search_dropdown_item_icons_2line.xml"
     },

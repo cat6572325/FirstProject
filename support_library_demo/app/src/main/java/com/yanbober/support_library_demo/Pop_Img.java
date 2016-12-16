@@ -427,6 +427,8 @@ public class Pop_Img extends Dialog {
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 // instantiate the dialog with the custom Theme
                 dialog = new Pop_Img(collect_, R.style.Dialog1);
+                Window window=dialog.getWindow();
+                window.setWindowAnimations(R.style.dialog_popupStyle);
                 layout = inflater.inflate(R.layout.enter_pay_pwd_dlg, null);
                 dialog.addContentView(layout, new LayoutParams(
                         LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));

@@ -322,7 +322,7 @@ public class Http_UploadFile_ implements Runnable {
                     Bundle bundle = new Bundle();
                     Message msg = new Message();
                     bundle.putString("?", "已保存");
-
+                Thread.sleep(1000);
                     msg.what = 3;
                     msg.setData(bundle);
                     handler.sendMessage(msg);
@@ -337,6 +337,8 @@ public class Http_UploadFile_ implements Runnable {
 
             } catch (IOException e) {
                 Log.e("发送未上传视频信息", e.toString());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
 
     }

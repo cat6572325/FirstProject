@@ -161,7 +161,7 @@ public class Collect_ extends AppCompatActivity {
 
 			Message_point = (TextView)findViewById(R.id.tTextView);
 			message = (ImageView)this.findViewById(R.id.activitymainTextView1);
-			mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
+
 			User u=new User();
 
 			message.setOnClickListener(new View.OnClickListener()
