@@ -536,6 +536,7 @@ public class Http_UploadFile_ implements Runnable {
                 Bundle bundle = new Bundle();
                 Message msg = new Message();
                 bundle.putString("?", "继续下一步");
+                msg.obj=maphttp.get("payButton");
                 bundle.putString("video_id", maphttp.get("video_id").toString());
                 msg.what = 4;
                 msg.setData(bundle);

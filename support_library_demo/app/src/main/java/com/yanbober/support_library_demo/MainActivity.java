@@ -25,6 +25,7 @@ import android.view.animation.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
 
+
 import com.okhttplib.*;
 import com.okhttplib.annotation.*;
 import com.okhttplib.callback.*;
@@ -130,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 
                     break;
                 case 1:
-                    if (count < 100) {
+                    if (count < 60) {
                         count++;
                         button2.setX(button2.getX() - 2);
                         button3.setY(button3.getY() - 2);
@@ -366,7 +367,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
 
         }
     };
-    RotateAnimation animation;
+     RotateAnimation animation;
     String[] str1;
     SQLiteDatabase db = null;
     DataHelper dataserver;
@@ -421,6 +422,7 @@ public class MainActivity extends AppCompatActivity implements InfoDetailsFragme
         initView();
         //上面请求主线程可以使用http
         setWaitdialog();
+
     }
 private void setWaitdialog()
 {
@@ -565,7 +567,7 @@ private void setWaitdialog()
         loginout = (TextView) this.findViewById(R.id.leftlistitemTextView1);
         User_name = (TextView) this.findViewById(R.id.User_name);
         button1 = (FloatingActionButton) this.findViewById(R.id.f1);
-        button2 = (Button) this.findViewById(R.id.f2);
+      button2 = (Button) this.findViewById(R.id.f2);
         button3 = (Button) this.findViewById(R.id.f3);
         button2.setVisibility(View.INVISIBLE);
         button3.setVisibility(View.INVISIBLE);
@@ -681,8 +683,9 @@ private void setWaitdialog()
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.menu);//android.R.drawable.ic_dialog_alert);
+
         actionBar.setDisplayHomeAsUpEnabled(true);
-        message.setOnClickListener(new View.OnClickListener() {
+       /* message.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
                 Message_point.setVisibility(View.INVISIBLE);
@@ -698,7 +701,7 @@ private void setWaitdialog()
                 }
 
             }
-        });
+        });*/
         //对NavigationView添加item的监听事件
         // mNavigationView.setNavigationItemSelectedListener(naviListener);
         //开启应用默认打开DrawerLayout
@@ -812,33 +815,42 @@ private void setWaitdialog()
         // Thread b=new Thread(htt);
         // b.start();
     }//initView
-    public void mainButton(View view)
-    {
-        Toast.makeText(MainActivity.this,"ss",Toast.LENGTH_SHORT).show();
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        super.onTouchEvent(event);
+        Log.e("y",String.valueOf(event.getY()));
+        Log.e("x",String.valueOf(event.getX()));
+        Log.e("btny",String.valueOf(button3.getY()));
+        Log.e("btnx",String.valueOf(button3.getX()));
+        Log.e("totaol",String.valueOf(event.getY()-button3.getY()));
+        return onTouchEvent(event);
     }
-public void round_videos(View view)
+
+    public void round_videos(View view)
 {
     Intent intent = new Intent(MainActivity.this, Round_Video_.class);
     startActivity(intent);
 }
     public void POpFloag() {
         //// TODO: 右下角按钮点击事件
+
         button1.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.clearAnimation();
                 animation.setDuration(500);//设置动画持续时间
-                /** 常用方法 */
+                // 常用方法
                 //  animation.setRepeatCount(500);//设置重复次数
                 animation.setFillAfter(true);//动画执行完后是否停留在执行完的状态
 //animation.setStartOffset(long startOffset);//执行前的等待时间
                 view.startAnimation(animation);
                 //iv_drag.setAnimation(animation);
-                //	/** 开始动画 */
+                //	// 开始动画
                 //	animation.startNow();
                 // 结束动画
                 //animation.cancel();
-                if (count == 100) {
+                if (count == 60) {
                     new Thread(new ThreadShowback()).start();
                 } else {
                     button2.setVisibility(View.VISIBLE);
@@ -871,7 +883,12 @@ public void round_videos(View view)
 返回的activity数据
 
  */
-
+public void round_video_start(View v)
+{
+    //TODO 开始录像
+    Intent intent = new Intent(MainActivity.this, Round_Video_.class);
+    startActivity(intent);
+}
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -981,7 +998,7 @@ public void round_videos(View view)
             // TODO Auto-generated method stub
             while (true) {
                 try {
-                    if (count < 100) {
+                    if (count < 60) {
                         Thread.sleep(1);
                         mHandler.sendEmptyMessage(1);
                     } else {
@@ -1149,7 +1166,20 @@ public void round_videos(View view)
         }
         return str+String.valueOf(random);
     }
+    public void messageOnClicker(View view)
+    {//TODO 右上角通知点击事件
+        Message_point.setVisibility(View.INVISIBLE);
+        //不管怎么样都直接设置隐藏
+        if (!user.phone.equals("null")&&!user.phone.equals("15913044423")) {
 
+            Intent intent = new Intent(MainActivity.this, Message_c.class);
+            startActivity(intent);
+        }else
+        {
+            Intent intent = new Intent(MainActivity.this, Login_.class);
+            startActivity(intent);
+        }
+    }
     public void CheckHead() {
         //数据库操作
         dataserver = new DataHelper(MainActivity.this);

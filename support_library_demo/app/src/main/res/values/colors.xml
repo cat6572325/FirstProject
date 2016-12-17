@@ -12,5 +12,8 @@
     <color name="color_9">#ff99cc</color>
     <color name="color_first">#88666666</color>
     <color name="color_first_">#ffffff</color>
+
     <color name="color_first_collect">#dedcdc</color>
+    <color name="color_first_floating_up">#fafafa</color>
+    <color name="color_first_floating_dwon">#c1c1c1</color>
 </resources>

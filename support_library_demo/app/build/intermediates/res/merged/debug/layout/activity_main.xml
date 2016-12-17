@@ -29,17 +29,20 @@
 
 				<RelativeLayout
 					android:layout_height="match_parent"
-					android:layout_width="match_parent">
+					android:layout_width="match_parent"
+					>
 
 					<ImageView
-						android:layout_width="63dp"
+						android:layout_width="80dp"
 						android:background="@drawable/logo"
-						android:layout_height="31dp"
-						android:layout_marginTop="10dp"/>
+						android:layout_height="27dp"
+						android:layout_centerVertical="true"/>
 
 					<RelativeLayout
 						android:layout_height="60dp"
 						android:layout_width="60dp"
+						android:background="@drawable/floating_button_press"
+						android:onClick="messageOnClicker"
 						android:layout_alignParentRight="true"
 						android:layout_alignParentBottom="true">
 
@@ -49,6 +52,7 @@
 							android:layout_width="21dp"
 							android:id="@+id/activitymainTextView1"
 							android:textSize="30sp"
+							android:focusable="false"
 							android:background="@drawable/message"
 							android:layout_marginLeft="19dp"
 							android:layout_marginTop="11dp"/>
@@ -58,7 +62,8 @@
 							android:background="@drawable/button_normal"
 							android:layout_width="wrap_content"
 							android:layout_alignParentRight="true"
-							android:minWidth="10dp"
+							android:minWidth="13dp"
+							android:focusable="false"
 							android:text="9"
 							android:textSize="10dp"
 							android:textColor="@android:color/white"
@@ -80,6 +85,7 @@
 				app:tabTextColor="#cccccc"
 				app:tabIndicatorColor="#663488"
 				app:tabSelectedTextColor="#aaaaaa"
+
 				app:tabTextAppearance="@style/tabfont"/>
 			<RelativeLayout
 				android:layout_height="wrap_content"
@@ -101,6 +107,7 @@
 			app:layout_behavior="@string/appbar_scrolling_view_behavior"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"/>
+
 
 		<Button
 			android:id="@+id/f2"
@@ -135,73 +142,14 @@
 			app:backgroundTint="#ffffff"
 			android:textColor="#7f2bed"
 			android:layout_gravity="bottom|right"
-			
-			
+
+
 			app:elevation="1dp"
-			
-				app:pressedTranslationZ="10dp"
+
+			app:pressedTranslationZ="10dp"
 			app:rippleColor="#ffffff"/>
-		
-			/>
-		<com.github.clans.fab.FloatingActionMenu
-			android:id="@+id/menu"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_alignParentBottom="true"
-			android:layout_alignParentRight="true"
-			android:layout_marginRight="10dp"
-			android:layout_marginBottom="10dp"
-			android:layout_marginLeft="10dp"
-			fab:menu_fab_size="normal"
-			fab:menu_showShadow="true"
-			fab:menu_shadowColor="#66000000"
-			fab:menu_shadowRadius="4dp"
-			fab:menu_shadowXOffset="1dp"
-			fab:menu_shadowYOffset="3dp"
-			fab:menu_colorNormal="#DA4336"
-			fab:menu_colorPressed="#E75043"
-			fab:menu_colorRipple="#99FFFFFF"
-			fab:menu_animationDelayPerItem="50"
-			fab:menu_icon="@drawable/fab_add"
-			fab:menu_buttonSpacing="0dp"
-			fab:menu_labels_margin="0dp"
-			fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
-			fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
-			fab:menu_labels_paddingTop="4dp"
-			fab:menu_labels_paddingRight="8dp"
-			fab:menu_labels_paddingBottom="4dp"
-			fab:menu_labels_paddingLeft="8dp"
-			fab:menu_labels_padding="8dp"
-			fab:menu_labels_textColor="#FFFFFF"
-			fab:menu_labels_textSize="14sp"
-			fab:menu_labels_cornerRadius="3dp"
-			fab:menu_labels_colorNormal="#333333"
-			fab:menu_labels_colorPressed="#444444"
-			fab:menu_labels_colorRipple="#66FFFFFF"
-			fab:menu_labels_showShadow="true"
-			fab:menu_labels_singleLine="false"
-			fab:menu_labels_ellipsize="none"
-			fab:menu_labels_maxLines="-1"
-			fab:menu_labels_style="@style/YourCustomLabelsStyle"
-			fab:menu_labels_position="left"
-			fab:menu_openDirection="up"
-			fab:menu_backgroundColor="@android:color/transparent"
-			fab:menu_fab_label="your_label_here"
-			fab:menu_fab_show_animation="@anim/my_show_animation"
-			fab:menu_fab_hide_animation="@anim/my_hide_animation"
-			android:onClick="mainButton"
-			>
 
-			<com.github.clans.fab.FloatingActionButton
-				android:id="@+id/menu_item"
-				android:onClick="round_videos"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:src="@drawable/start_yellow"
-				fab:fab_size="mini"
-				fab:fab_label="Menu item 1" />
-
-		</com.github.clans.fab.FloatingActionMenu>
+		/>
 	</android.support.design.widget.CoordinatorLayout>
 
 
@@ -210,7 +158,7 @@
 		android:layout_height="match_parent"
 		android:layout_width="260dp"
 		android:layout_gravity="left"
-		android:background="#e5f5f5"
+		android:background="#fafafb"
 		android:orientation="vertical"
 		android:id="@+id/activitymainLinearLayout1">
 

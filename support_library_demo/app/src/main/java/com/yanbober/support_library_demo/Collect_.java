@@ -72,42 +72,44 @@ public class Collect_ extends AppCompatActivity {
 					Bundle bun=msg.getData();
 
 						if(bun.getString("?").equals("继续下一步")) {
+							Button btn = (Button) msg.obj;
+							//那么接下来就是看余额是否足够扣除,如果足够则发送信息，扣除视频的要求金额，然后加入已支付列表了
+							//一系列动作获取了余额，然后减去cost
 
-								//那么接下来就是看余额是否足够扣除,如果足够则发送信息，扣除视频的要求金额，然后加入已支付列表了
-								//一系列动作获取了余额，然后减去cost
+							//如果足够发送数据
+							HashMap<String, Object> maphttp = new HashMap<String, Object>();
+							ArrayList<HashMap<String, Object>> videos = user.maps;
+							String video_id = bun.getString("video_id");
+							String cost = null;
+							for (int i = 0; i < videos.size(); i++) {
+								if (video_id.equals(videos.get(i).get("_id"))) {
+									cost = videos.get(i).get("price").toString();
+								}
+							}
+							if (cost == null) {
+								btn.setBackgroundColor(0xffff0000);
+								btn.setText("支付失败，视频id不存在");
 
-									//如果足够发送数据
-									HashMap<String, Object> maphttp = new HashMap<String, Object>();
-									ArrayList<HashMap<String, Object>> videos = user.maps;
-									String video_id=bun.getString("video_id");
-									String cost=null;
-									for (int i=0;i<videos.size();i++)
-									{
-										if (video_id.equals(videos.get(i).get("_id")))
-										{
-												cost=videos.get(i).get("price").toString();
-										}
-									}
-							if (cost.equals("null"))
-							cost="0";
-							Toast.makeText(Collect_.this,"该视频价格为　"+cost+" 元",Toast.LENGTH_SHORT).show();
-									maphttp.put("cost",Integer.parseInt( cost));
-									maphttp.put("handler", mHandler);
-									maphttp.put("price",cost);
-									Http_UploadFile_ htt = new Http_UploadFile_
-											(
-													"http://trying-video.herokuapp.com/user/pay/"+video_id+"?token=" + user.token
-													, maphttp
-													, "16");
-									Thread c = new Thread(htt);
-									c.start();
+							} else {
+								if (cost.equals("null"))
+									//支付
+									btn.setBackgroundColor(0xfff59e2d);
+
+								cost = "0";
+								maphttp.put("cost", Integer.parseInt(cost));
+								maphttp.put("handler", mHandler);
+								maphttp.put("price", cost);
+								Http_UploadFile_ htt = new Http_UploadFile_
+										(
+												"http://trying-video.herokuapp.com/user/pay/" + video_id + "?token=" + user.token
+												, maphttp
+												, "16");
+								Thread c = new Thread(htt);
+								c.start();
 
 
-
-
-
+							}
 						}
-						
 						break;
 
 				case 5:

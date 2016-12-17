@@ -34,7 +34,7 @@ dependencies {
 compile 'com.jph.takephoto:takephoto_library:4.0.1'
     compile 'fm.jiecao:jiecaovideoplayer:5.0_preview'//github上的第三方库lipangit/JieCaoVideoPlayer
     compile 'com.zhousf.lib:okhttp3:2.5'
-    compile 'com.github.clans:fab:1.6.4'//浮动按钮
+
     compile 'com.afollestad:material-camera:0.4.4'
 compile 'com.zcy:selectpicture:1.0.0'
 compile 'cn.edu.zafu:coreprogress:0.0.3'

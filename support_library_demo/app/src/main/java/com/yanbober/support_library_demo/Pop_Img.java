@@ -456,19 +456,21 @@ public class Pop_Img extends Dialog {
                     @Override
                     public void onClick(View view) {
                         if (collect_enter.getText().toString().equals("")) {
+                            //如果输入框等于空，那么还需要判断缓存里是否没有密码，如果没有则发送请求验证，验证成功则设置密码
                             if (user.mydata.get("paypassword") == null) {
                                 Toast.makeText(collect_, "未输入任何字符!!", Toast.LENGTH_LONG).show();
                             } else {//已设置支付密码，所以判断
                                 judgepaypassword(collect_enter.getText().toString(),map.get("video_id").toString());
-                            }
-                        }
 
+                            }
+                        }else {
+                            //如果有输入则表示通过验证，在缓存里有保存密码，所以直接发送请求，用于购买
                             //设置点击按钮做什么动作
                             HashMap<String, Object> map2 = new HashMap<String, Object>();
                             map2.put("context", collect_);
-
+                            map2.put("payButton",map.get("payButton"));
                             map2.put("handler", collect_.mHandler);
-                        map2.put("video_id",map.get("cost").toString());
+                            map2.put("video_id", map.get("cost").toString());
                             map2.put("paypassword", collect_enter.getText().toString());
                             String url = "http://trying-video.herokuapp.com/user/oldpayword?token=" + user.token;
                             Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(url
@@ -481,7 +483,7 @@ public class Pop_Img extends Dialog {
                             // Intent intent = new Intent(collect_, Pay_Complete_.class);
                             //	startActivity(intent);
 
-
+                        }
                     }
                 });
 
@@ -703,11 +705,10 @@ public class Pop_Img extends Dialog {
             map.put("handler", collect_.mHandler);
             map.put("video_id",po);
             map.put("paypassword", "");
+            map.put("payButton",this.map.get("payButton"));
             String url = "http://trying-video.herokuapp.com/user/oldpayword?token=" + user.token;
             Http_UploadFile_ http_uploadFile_ = new Http_UploadFile_(url
                     , map, "11");
-
-
             Thread xx = new Thread(http_uploadFile_);
             xx.start();
         }

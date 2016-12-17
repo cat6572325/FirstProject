@@ -292,6 +292,7 @@ case 2:
 							if (user.Collect_List.get(count)!=null) {
 								String cost = user.Collect_List.get(count).get("vdo_id").toString();
 								map.put("cost", cost);
+								map.put("payButton",view);//用于在支付成功后立即改变按钮颜色
 								Pop_Img.Builder p = new Pop_Img.Builder((Collect_) context, map);
 								p.setPositiveButton("[潮汕揭]初版\n问题反馈:(qq) 1213965634\n\n", new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog, int which) {
@@ -300,6 +301,7 @@ case 2:
 										//Intent intent=new Intent((Paid_Video)Context,Set_Pay_pwd_.class);
 										//startActivity(intent);
 										//finish();
+										holder.collect_paid_button.setBackgroundColor(0xfff59e2d);
 
 									}
 									//设置你的操作事项

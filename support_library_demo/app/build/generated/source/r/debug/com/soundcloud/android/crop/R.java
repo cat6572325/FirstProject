@@ -15,9 +15,9 @@ public final class R {
 		public static final int showThirds = 0x7f0100f1;
 	}
 	public static final class color {
-		public static final int crop__button_bar = 0x7f0d002b;
-		public static final int crop__button_text = 0x7f0d002c;
-		public static final int crop__selector_focused = 0x7f0d002d;
+		public static final int crop__button_bar = 0x7f0d002d;
+		public static final int crop__button_text = 0x7f0d002e;
+		public static final int crop__selector_focused = 0x7f0d002f;
 		public static final int crop__selector_pressed = 0x7f0d0000;
 	}
 	public static final class dimen {
@@ -33,11 +33,11 @@ public final class R {
 	}
 	public static final class id {
 		public static final int always = 0x7f0e003b;
-		public static final int btn_cancel = 0x7f0e00c8;
-		public static final int btn_done = 0x7f0e00c9;
+		public static final int btn_cancel = 0x7f0e00c4;
+		public static final int btn_done = 0x7f0e00c5;
 		public static final int changing = 0x7f0e003c;
-		public static final int crop_image = 0x7f0e00c6;
-		public static final int done_cancel_bar = 0x7f0e00c7;
+		public static final int crop_image = 0x7f0e00c2;
+		public static final int done_cancel_bar = 0x7f0e00c3;
 		public static final int never = 0x7f0e003d;
 	}
 	public static final class layout {

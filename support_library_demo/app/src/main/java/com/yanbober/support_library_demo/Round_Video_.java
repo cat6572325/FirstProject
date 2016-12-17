@@ -154,7 +154,7 @@ public class Round_Video_ extends Activity
         setContentView(R.layout.round_video_layout);
         mSurfaceView = (SurfaceView) findViewById(R.id.camera_surfaceview);
         bar = (RoundProgressBar) findViewById(R.id.round_bar);
-        bar.setMax(100);
+        bar.setMax(300);
         // 声明Surface不维护自己的缓冲区，针对Android3.0以下设备支持
         mSurfaceView.getHolder().setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         initView();
@@ -184,11 +184,6 @@ public class Round_Video_ extends Activity
                 } else {//点击结束录像
                     stop();
                     bar.setBackgroundResource(R.drawable.roundbutton);
-                    bottom_hide_layout.setVisibility(View.INVISIBLE);
-                    //隐藏录制按钮的布局
-                    HideLayout.setVisibility(View.VISIBLE);
-                    //显示上层的上传按钮的布局
-                    //解除隐藏
                     flag = 0;
                     Prog_task.cancel();
                     mTimer.cancel();
@@ -326,24 +321,30 @@ public class Round_Video_ extends Activity
             runOnUiThread(new Runnable() {      // UI thread
                 @Override
                 public void run() {
-                    if (bar.getProgress() == 70)
+
+                    if (bar.getProgress() == 150)
                         maxtimemessage(bar);
-                    if (bar.getProgress() == 80)
+                    if (bar.getProgress() == 200)
                         maxtimemessage(bar);
-                    if (bar.getProgress() == 90)
+                    if (bar.getProgress() == 290)
                         maxtimemessage(bar);
-                    if (bar.getProgress() == 100) {
+                    if (bar.getProgress() == 300) {
                         stop();
                         mTimer.cancel();
                         cancel();
+                    }else {
+                        bar.setProgress(bar.getProgress() + 1);
+                        min++;
+                        if (min == 60) {
+                            min = 0;
+                            minute++;
+                        }
+                        if (min > 9) {
+                            top_time.setText(minute + ":" + min);
+                        } else {
+                            top_time.setText(minute + ":0" + min);
+                        }
                     }
-                    bar.setProgress(bar.getProgress() + 1);
-                    min++;
-                    if (min == 60) {
-                        min = 0;
-                        minute++;
-                    }
-                    top_time.setText(" 0" + minute + ":0" + min);
                 }
             });
         }
@@ -364,6 +365,7 @@ public class Round_Video_ extends Activity
 
     protected void start() {
         round_back_img.setBackgroundResource(R.drawable.close);
+        round_back_img.setClickable(false);
         rounding_time_img.setBackgroundResource(R.drawable.times);
         try {
 
@@ -465,6 +467,12 @@ public class Round_Video_ extends Activity
 
     protected void stop() {
         rounding_time_img.setBackgroundResource(R.drawable.timer);
+        bottom_hide_layout.setVisibility(View.INVISIBLE);
+        //隐藏录制按钮的布局
+        HideLayout.setVisibility(View.VISIBLE);
+        //显示上层的上传按钮的布局
+        //解除隐藏
+        top_time.setText("录制完成");
         if (isRecording) {
             // 如果正在录制，停止并释放资源
             mediaRecorder.stop();
@@ -480,6 +488,7 @@ public class Round_Video_ extends Activity
 
         }
         round_delete.setClickable(true);
+        round_back_img.setClickable(true);
     }
 
     @Override
@@ -519,6 +528,7 @@ public class Round_Video_ extends Activity
             //	mParams.setPictureSize(pictureS.width, pictureS.height);
         } catch (Exception e) {
             e.printStackTrace();
+            Log.e("初始化摄像头时",e.toString());
         }
     }
 
